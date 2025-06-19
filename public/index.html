@@ -389,23 +389,23 @@
                     
                     <div class="checkbox-item">
                         <input type="checkbox" id="wantSecondAgent" onchange="toggleSecondAgent()">
-                        <label for="wantSecondAgent">I want to name a second (alternate) agent</label>
+                        <label for="wantSecondAgent">I want to name a first alternate agent</label>
                     </div>
                     
                     <div class="checkbox-group hidden" id="secondAgentSection">
                         <div class="form-group">
-                            <label for="secondAgent">Second Agent (Full Name)</label>
+                            <label for="secondAgent">First Alternate Agent (Full Name)</label>
                             <input type="text" id="secondAgent" name="secondAgent">
                         </div>
                         
                         <div class="checkbox-item">
                             <input type="checkbox" id="wantThirdAgent" onchange="toggleThirdAgent()">
-                            <label for="wantThirdAgent">I want to name a third (alternate) agent</label>
+                            <label for="wantThirdAgent">I want to name a second alternate agent</label>
                         </div>
                         
                         <div class="checkbox-group hidden" id="thirdAgentSection">
                             <div class="form-group">
-                                <label for="thirdAgent">Third Agent (Full Name)</label>
+                                <label for="thirdAgent">Second Alternate Agent (Full Name)</label>
                                 <input type="text" id="thirdAgent" name="thirdAgent">
                             </div>
                         </div>
@@ -437,7 +437,7 @@
                         </div>
                         
                         <div id="blankDateSection" class="hidden" style="margin-top: 15px;">
-                            <p style="color: #666; margin-bottom: 10px;">Enter what you know (leave blank fields empty for completion at signing):</p>
+                            <p style="color: #666; margin-bottom: 10px;">Enter what you know (you can change the month and year, or leave day blank):</p>
                             <div class="date-inputs">
                                 <div>
                                     <label for="executionMonth">Month</label>
@@ -445,7 +445,7 @@
                                 </div>
                                 <div>
                                     <label for="executionDay">Day</label>
-                                    <input type="text" id="executionDay" name="executionDay">
+                                    <input type="text" id="executionDay" name="executionDay" placeholder="Leave blank if unknown">
                                 </div>
                                 <div>
                                     <label for="executionYear">Year</label>
@@ -501,6 +501,11 @@
     </div>
 
     <script>
+        // Get current date info for default values
+        const currentDate = new Date();
+        const currentMonth = currentDate.toLocaleString('default', { month: 'long' });
+        const currentYear = currentDate.getFullYear();
+
         // Enable continue button when document is selected
         document.getElementById('documentSelect').addEventListener('change', function() {
             const continueBtn = document.getElementById('continueBtn');
@@ -555,6 +560,10 @@
                 exactSection.classList.add('hidden');
                 // Clear exact date field
                 document.getElementById('executionDate').value = '';
+                // Prepopulate month and year for blank date option
+                document.getElementById('executionMonth').value = currentMonth;
+                document.getElementById('executionYear').value = currentYear;
+                document.getElementById('executionDay').value = ''; // Leave day blank
             } else {
                 exactSection.classList.add('hidden');
                 blankSection.classList.add('hidden');
