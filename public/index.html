@@ -1,4 +1,6 @@
-<!DOCTYPE html>
+Perfect! Let me add a flexible date option where users can choose either an exact date or provide blanks for month/day when the signing date is unknown.
+Here's the updated HTML with the flexible date section:
+html<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -179,9 +181,41 @@
             margin-bottom: 10px;
         }
 
-        input[type="checkbox"] {
+        input[type="checkbox"],
+        input[type="radio"] {
             margin-right: 10px;
             transform: scale(1.2);
+        }
+
+        .radio-group {
+            margin-top: 10px;
+        }
+
+        .radio-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .radio-item:hover {
+            background: #f0f8ff;
+            border-color: #3498db;
+        }
+
+        .date-inputs {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 15px;
+            margin-top: 10px;
+        }
+
+        .date-inputs input {
+            text-align: center;
         }
 
         .submit-btn {
@@ -202,6 +236,13 @@
             background: linear-gradient(135deg, #2ecc71, #27ae60);
             transform: translateY(-2px);
             box-shadow: 0 10px 20px rgba(39, 174, 96, 0.3);
+        }
+
+        .submit-btn:disabled {
+            background: #bdc3c7;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
         }
 
         .back-btn {
@@ -227,20 +268,33 @@
             display: none;
             background: #d4edda;
             color: #155724;
-            padding: 1rem;
+            padding: 1.5rem;
             border-radius: 8px;
             margin-top: 1rem;
             border: 1px solid #c3e6cb;
+            text-align: center;
         }
 
         .error-message {
             display: none;
             background: #f8d7da;
             color: #721c24;
-            padding: 1rem;
+            padding: 1.5rem;
             border-radius: 8px;
             margin-top: 1rem;
             border: 1px solid #f5c6cb;
+            text-align: center;
+        }
+
+        .loading-message {
+            display: none;
+            background: #fff3cd;
+            color: #856404;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-top: 1rem;
+            border: 1px solid #ffeaa7;
+            text-align: center;
         }
 
         @media (max-width: 768px) {
@@ -255,6 +309,10 @@
             
             .main-content {
                 padding: 2rem 1rem;
+            }
+
+            .date-inputs {
+                grid-template-columns: 1fr;
             }
         }
     </style>
@@ -276,13 +334,6 @@
                     <select id="documentSelect">
                         <option value="">-- Select a Document --</option>
                         <option value="power-of-attorney">Power of Attorney (Statutory)</option>
-                        <option value="will">Last Will and Testament</option>
-                        <option value="living-will">Living Will / Advance Directive</option>
-                        <option value="trust">Revocable Living Trust</option>
-                        <option value="deed">Property Deed</option>
-                        <option value="contract">Contract Agreement</option>
-                        <option value="llc">LLC Operating Agreement</option>
-                        <option value="coming-soon" disabled>More Documents Coming Soon...</option>
                     </select>
                 </div>
                 
@@ -357,10 +408,44 @@
 
                 <div class="form-section">
                     <h3>Execution Details</h3>
+                    
                     <div class="form-group">
-                        <label for="executionDate">Execution Date *</label>
-                        <input type="date" id="executionDate" name="executionDate" required>
+                        <label>Execution Date *</label>
+                        <div class="radio-group">
+                            <div class="radio-item">
+                                <input type="radio" id="exactDate" name="dateChoice" value="exact" onchange="toggleDateInput()">
+                                <label for="exactDate">I know the exact date</label>
+                            </div>
+                            <div class="radio-item">
+                                <input type="radio" id="blankDate" name="dateChoice" value="blank" onchange="toggleDateInput()">
+                                <label for="blankDate">I want to leave blanks for the date (to be filled in later)</label>
+                            </div>
+                        </div>
+                        
+                        <div id="exactDateSection" class="hidden" style="margin-top: 15px;">
+                            <label for="executionDate">Enter Date (Format: June 19, 2025)</label>
+                            <input type="text" id="executionDate" name="executionDate" placeholder="June 19, 2025">
+                        </div>
+                        
+                        <div id="blankDateSection" class="hidden" style="margin-top: 15px;">
+                            <p style="color: #666; margin-bottom: 10px;">Enter what you know (leave blank fields empty for later completion):</p>
+                            <div class="date-inputs">
+                                <div>
+                                    <label for="executionMonth">Month</label>
+                                    <input type="text" id="executionMonth" name="executionMonth" placeholder="June">
+                                </div>
+                                <div>
+                                    <label for="executionDay">Day</label>
+                                    <input type="text" id="executionDay" name="executionDay" placeholder="19">
+                                </div>
+                                <div>
+                                    <label for="executionYear">Year</label>
+                                    <input type="text" id="executionYear" name="executionYear" placeholder="2025">
+                                </div>
+                            </div>
+                        </div>
                     </div>
+                    
                     <div class="form-group">
                         <label for="executionCity">City *</label>
                         <input type="text" id="executionCity" name="executionCity" required>
@@ -387,14 +472,20 @@
                     Submit for Review
                 </button>
 
+                <div class="loading-message" id="loadingMessage">
+                    <h4>Sending...</h4>
+                    <p>Please wait while we process your request.</p>
+                </div>
+
                 <div class="success-message" id="successMessage">
-                    <h4>Success!</h4>
-                    <p>Your Power of Attorney request has been submitted successfully. You can expect a response within 1-2 business days.</p>
+                    <h4>✅ Success!</h4>
+                    <p>Your Power of Attorney request has been sent successfully to don.r.hancock@gmail.com.<br>
+                    You can expect a response within 1-2 business days.</p>
                 </div>
 
                 <div class="error-message" id="errorMessage">
-                    <h4>Error</h4>
-                    <p>There was an error processing your request. Please try again later.</p>
+                    <h4>❌ Error</h4>
+                    <p>There was an error sending your request. Please check your information and try again.</p>
                 </div>
             </form>
         </div>
@@ -415,8 +506,6 @@
             if (selectedDoc === 'power-of-attorney') {
                 homePage.style.display = 'none';
                 document.getElementById('poaForm').style.display = 'block';
-            } else {
-                alert('This document type is coming soon! For now, please select Power of Attorney.');
             }
         }
 
@@ -429,9 +518,38 @@
             // Hide agent sections
             document.getElementById('secondAgentSection').classList.add('hidden');
             document.getElementById('thirdAgentSection').classList.add('hidden');
+            // Hide date sections
+            document.getElementById('exactDateSection').classList.add('hidden');
+            document.getElementById('blankDateSection').classList.add('hidden');
             // Hide messages
             document.getElementById('successMessage').style.display = 'none';
             document.getElementById('errorMessage').style.display = 'none';
+            document.getElementById('loadingMessage').style.display = 'none';
+        }
+
+        // Toggle date input options
+        function toggleDateInput() {
+            const exactDate = document.getElementById('exactDate').checked;
+            const blankDate = document.getElementById('blankDate').checked;
+            const exactSection = document.getElementById('exactDateSection');
+            const blankSection = document.getElementById('blankDateSection');
+            
+            if (exactDate) {
+                exactSection.classList.remove('hidden');
+                blankSection.classList.add('hidden');
+                // Clear blank date fields
+                document.getElementById('executionMonth').value = '';
+                document.getElementById('executionDay').value = '';
+                document.getElementById('executionYear').value = '';
+            } else if (blankDate) {
+                blankSection.classList.remove('hidden');
+                exactSection.classList.add('hidden');
+                // Clear exact date field
+                document.getElementById('executionDate').value = '';
+            } else {
+                exactSection.classList.add('hidden');
+                blankSection.classList.add('hidden');
+            }
         }
 
         // Toggle second agent section
@@ -470,20 +588,33 @@
             e.preventDefault();
             
             const submitBtn = this.querySelector('.submit-btn');
+            const loadingMessage = document.getElementById('loadingMessage');
             const successMessage = document.getElementById('successMessage');
             const errorMessage = document.getElementById('errorMessage');
             
             // Hide previous messages
             successMessage.style.display = 'none';
             errorMessage.style.display = 'none';
+            loadingMessage.style.display = 'block';
             
             // Show loading state
             submitBtn.disabled = true;
-            submitBtn.textContent = 'Processing...';
+            submitBtn.textContent = 'Sending...';
             
             try {
                 const formData = new FormData(this);
                 const data = Object.fromEntries(formData.entries());
+                
+                // Handle date formatting
+                if (data.dateChoice === 'exact' && data.executionDate) {
+                    // Keep the exact date as entered
+                } else if (data.dateChoice === 'blank') {
+                    // Format the partial date
+                    const month = data.executionMonth || '______';
+                    const day = data.executionDay || '___';
+                    const year = data.executionYear || '____';
+                    data.executionDate = `${month} ${day}, ${year}`;
+                }
                 
                 const response = await fetch('/submit', {
                     method: 'POST',
@@ -495,6 +626,8 @@
                 
                 const result = await response.json();
                 
+                loadingMessage.style.display = 'none';
+                
                 if (result.success) {
                     successMessage.style.display = 'block';
                     this.reset();
@@ -503,12 +636,15 @@
                     document.getElementById('wantThirdAgent').checked = false;
                     document.getElementById('secondAgentSection').classList.add('hidden');
                     document.getElementById('thirdAgentSection').classList.add('hidden');
+                    document.getElementById('exactDateSection').classList.add('hidden');
+                    document.getElementById('blankDateSection').classList.add('hidden');
                 } else {
                     throw new Error(result.message || 'Submission failed');
                 }
                 
             } catch (error) {
                 console.error('Error:', error);
+                loadingMessage.style.display = 'none';
                 errorMessage.style.display = 'block';
             } finally {
                 // Reset button state
