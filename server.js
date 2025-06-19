@@ -79,8 +79,8 @@ ${filledDocument}
     `;
 
     const mailOptions = {
-      from: 'drh6502@gmail.com',
-      to: 'drh6502@gmail.com', // Replace with your main email
+      from: 'don.r.hancock@gmail.com',
+      to: 'don.r.hancock@gmail.com', // Replace with your main email
       subject: `New Power of Attorney Request - ${testatorName}`,
       html: emailHtml
     };
