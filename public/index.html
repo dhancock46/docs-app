@@ -1,6 +1,4 @@
-Perfect! Let me add a flexible date option where users can choose either an exact date or provide blanks for month/day when the signing date is unknown.
-Here's the updated HTML with the flexible date section:
-html<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -134,6 +132,16 @@ html<!DOCTYPE html>
             font-size: 1.3rem;
             border-bottom: 2px solid #3498db;
             padding-bottom: 0.5rem;
+        }
+
+        .section-description {
+            background: #e8f4f8;
+            padding: 1rem;
+            border-radius: 6px;
+            margin-bottom: 1.5rem;
+            color: #2c3e50;
+            font-style: italic;
+            border-left: 4px solid #3498db;
         }
 
         .form-group {
@@ -407,28 +415,31 @@ html<!DOCTYPE html>
                 </div>
 
                 <div class="form-section">
-                    <h3>Execution Details</h3>
+                    <h3>Document Execution Details</h3>
+                    <div class="section-description">
+                        📅 <strong>Important:</strong> The date below should be the date when the document will be signed (executed). The location should be where the signing will take place.
+                    </div>
                     
                     <div class="form-group">
-                        <label>Execution Date *</label>
+                        <label>Date the Document Will Be Signed *</label>
                         <div class="radio-group">
                             <div class="radio-item">
                                 <input type="radio" id="exactDate" name="dateChoice" value="exact" onchange="toggleDateInput()">
-                                <label for="exactDate">I know the exact date</label>
+                                <label for="exactDate">I know the exact signing date</label>
                             </div>
                             <div class="radio-item">
                                 <input type="radio" id="blankDate" name="dateChoice" value="blank" onchange="toggleDateInput()">
-                                <label for="blankDate">I want to leave blanks for the date (to be filled in later)</label>
+                                <label for="blankDate">I want to leave blanks for the date (to be filled in when signed)</label>
                             </div>
                         </div>
                         
                         <div id="exactDateSection" class="hidden" style="margin-top: 15px;">
-                            <label for="executionDate">Enter Date (Format: June 19, 2025)</label>
+                            <label for="executionDate">Enter Signing Date (Format: June 19, 2025)</label>
                             <input type="text" id="executionDate" name="executionDate" placeholder="June 19, 2025">
                         </div>
                         
                         <div id="blankDateSection" class="hidden" style="margin-top: 15px;">
-                            <p style="color: #666; margin-bottom: 10px;">Enter what you know (leave blank fields empty for later completion):</p>
+                            <p style="color: #666; margin-bottom: 10px;">Enter what you know (leave blank fields empty for completion at signing):</p>
                             <div class="date-inputs">
                                 <div>
                                     <label for="executionMonth">Month</label>
@@ -447,16 +458,16 @@ html<!DOCTYPE html>
                     </div>
                     
                     <div class="form-group">
-                        <label for="executionCity">City *</label>
-                        <input type="text" id="executionCity" name="executionCity" required>
+                        <label for="executionCity">City Where Document Will Be Signed *</label>
+                        <input type="text" id="executionCity" name="executionCity" placeholder="" required>
                     </div>
                     <div class="form-group">
-                        <label for="executionState">State *</label>
-                        <input type="text" id="executionState" name="executionState" required>
+                        <label for="executionState">State Where Document Will Be Signed *</label>
+                        <input type="text" id="executionState" name="executionState" placeholder="" required>
                     </div>
                     <div class="form-group">
-                        <label for="executionCounty">County *</label>
-                        <input type="text" id="executionCounty" name="executionCounty" required>
+                        <label for="executionCounty">County Where Document Will Be Signed *</label>
+                        <input type="text" id="executionCounty" name="executionCounty" placeholder="" required>
                     </div>
                 </div>
 
@@ -603,7 +614,12 @@ html<!DOCTYPE html>
             
             try {
                 const formData = new FormData(this);
-                const data = Object.fromEntries(formData.entries());
+                const data = {};
+                
+                // Process form data properly
+                for (let [key, value] of formData.entries()) {
+                    data[key] = value;
+                }
                 
                 // Handle date formatting
                 if (data.dateChoice === 'exact' && data.executionDate) {
@@ -616,6 +632,14 @@ html<!DOCTYPE html>
                     data.executionDate = `${month} ${day}, ${year}`;
                 }
                 
+                // Ensure we have empty strings for optional fields if not provided
+                data.secondAgent = data.secondAgent || '';
+                data.thirdAgent = data.thirdAgent || '';
+                data.clientPhone = data.clientPhone || '';
+                data.additionalNotes = data.additionalNotes || '';
+                
+                console.log('Sending data:', data); // Debug logging
+                
                 const response = await fetch('/submit', {
                     method: 'POST',
                     headers: {
@@ -624,7 +648,14 @@ html<!DOCTYPE html>
                     body: JSON.stringify(data)
                 });
                 
+                console.log('Response status:', response.status); // Debug logging
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                
                 const result = await response.json();
+                console.log('Result:', result); // Debug logging
                 
                 loadingMessage.style.display = 'none';
                 
@@ -646,6 +677,14 @@ html<!DOCTYPE html>
                 console.error('Error:', error);
                 loadingMessage.style.display = 'none';
                 errorMessage.style.display = 'block';
+                
+                // Show more specific error message
+                const errorP = errorMessage.querySelector('p');
+                if (error.message.includes('HTTP error')) {
+                    errorP.textContent = 'Server error occurred. Please try again later.';
+                } else {
+                    errorP.textContent = 'There was an error sending your request. Please check your information and try again.';
+                }
             } finally {
                 // Reset button state
                 submitBtn.disabled = false;
