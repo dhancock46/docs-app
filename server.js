@@ -24,7 +24,7 @@ app.use('/submit', limiter);
 const transporter = nodemailer.createTransport({
   service: 'gmail',
   auth: {
-    user: 'drh6502@gmail.com',
+    user: 'don.r.hancock@gmail.com',
     pass: process.env.GMAIL_APP_PASSWORD
   }
 });
