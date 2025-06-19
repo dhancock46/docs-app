@@ -1,0 +1,25 @@
+json{
+  "name": "poa-form-app",
+  "version": "1.0.0",
+  "description": "Power of Attorney Form Application",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "nodemon server.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "nodemailer": "^6.9.7",
+    "express-rate-limit": "^7.1.5"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "keywords": [
+    "power-of-attorney",
+    "legal-forms",
+    "texas"
+  ],
+  "author": "Your Name",
+  "license": "MIT"
+}
