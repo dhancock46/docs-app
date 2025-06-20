@@ -728,12 +728,12 @@
                         </div>
                         
                         <div id="exactDateSection" class="hidden" style="margin-top: 15px;">
-                            <label for="executionDate">Enter Signing Date (Format: June 19, 2025)</label>
+                            <label for="executionDate">Enter Signing Date (Example Format: June 19, 2025)</label>
                             <input type="text" id="executionDate" name="executionDate">
                         </div>
                         
                         <div id="blankDateSection" class="hidden" style="margin-top: 15px;">
-                            <p style="color: #666; margin-bottom: 10px;">Enter what you know (you can change the month and year, or leave day blank):</p>
+                            <p style="color: #666; margin-bottom: 10px;">Enter what you know (or leave fields blank):</p>
                             <div class="date-inputs">
                                 <div>
                                     <label for="executionMonth">Month</label>
@@ -741,7 +741,7 @@
                                 </div>
                                 <div>
                                     <label for="executionDay">Day</label>
-                                    <input type="text" id="executionDay" name="executionDay" placeholder="Leave blank if unknown">
+                                    <input type="text" id="executionDay" name="executionDay">
                                 </div>
                                 <div>
                                     <label for="executionYear">Year</label>
@@ -755,7 +755,8 @@
                         <label for="executionCity">City Where Document Will Be Signed *</label>
                         <input type="text" id="executionCity" name="executionCity" required>
                     </div>
-                    <div class="form-group">RetryDHContinueEdithtml                       <label for="executionState">State Where Document Will Be Signed *</label>
+                    <div class="form-group">
+                        <label forRetryDHContinueEdithtml                       <label for="executionState">State Where Document Will Be Signed *</label>
                        <input type="text" id="executionState" name="executionState" required>
                    </div>
                    <div class="form-group">
@@ -778,12 +779,12 @@
 
                <div class="loading-message" id="loadingMessage">
                    <h4>Sending...</h4>
-                   <p>Please wait while we process your request.</p>
+                   <p>Please wait while we process your request and generate your Word document.</p>
                </div>
 
                <div class="success-message" id="successMessage">
                    <h4>✅ Success!</h4>
-                   <p>Your Power of Attorney request has been sent successfully to don.r.hancock@gmail.com.<br>
+                   <p>Your Power of Attorney request has been sent successfully to don.r.hancock@gmail.com as a formatted Word document.<br>
                    You can expect a response within 1-2 business days.</p>
                </div>
 
@@ -796,11 +797,6 @@
    </div>
 
    <script>
-       // Get current date info for default values
-       const currentDate = new Date();
-       const currentMonth = currentDate.toLocaleString('default', { month: 'long' });
-       const currentYear = currentDate.getFullYear();
-
        // Enable continue button when document is selected
        document.getElementById('documentSelect').addEventListener('change', function() {
            const continueBtn = document.getElementById('continueBtn');
@@ -874,10 +870,6 @@
                exactSection.classList.add('hidden');
                // Clear exact date field
                document.getElementById('executionDate').value = '';
-               // Prepopulate month and year for blank date option
-               document.getElementById('executionMonth').value = currentMonth;
-               document.getElementById('executionYear').value = currentYear;
-               document.getElementById('executionDay').value = ''; // Leave day blank
            } else {
                exactSection.classList.add('hidden');
                blankSection.classList.add('hidden');
@@ -915,7 +907,7 @@
            }
        }
 
-       // Handle form submission
+       // Handle form submission - Updated to generate Word document
        document.getElementById('powerOfAttorneyForm').addEventListener('submit', async function(e) {
            e.preventDefault();
            
@@ -931,7 +923,7 @@
            
            // Show loading state
            submitBtn.disabled = true;
-           submitBtn.textContent = 'Sending...';
+           submitBtn.textContent = 'Generating Document...';
            
            try {
                const formData = new FormData(this);
@@ -1000,7 +992,10 @@
                data.compensation = data.compensation || '';
                data.coAgents = data.coAgents || '';
                
-               console.log('Sending data:', data); // Debug logging
+               // Add document type flag for Word generation
+               data.generateWordDocument = true;
+               
+               console.log('Sending data for Word document generation:', data); // Debug logging
                
                const response = await fetch('/submit', {
                    method: 'POST',
@@ -1032,7 +1027,7 @@
                        checkbox.disabled = false;
                    });
                } else {
-                   throw new Error(result.message || 'Submission failed');
+                   throw new Error(result.message || 'Word document generation failed');
                }
                
            } catch (error) {
@@ -1042,7 +1037,7 @@
                
                // Show more specific error message
                const errorP = errorMessage.querySelector('p');
-               errorP.textContent = error.message || 'There was an error sending your request. Please check your information and try again.';
+               errorP.textContent = error.message || 'There was an error generating your Word document. Please check your information and try again.';
            } finally {
                // Reset button state
                submitBtn.disabled = false;
