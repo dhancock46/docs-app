@@ -574,7 +574,7 @@
                     <h3>Agent Information</h3>
                     <div class="form-group">
                         <label for="primaryAgent">Primary Agent (Full Name) *</label>
-                        <input type="text" id="primaryAgent" name="primaryAgent" required>
+                       <input type="text" id="primaryAgent" name="primaryAgent" required autocomplete="off">
                     </div>
                     
                     <div class="checkbox-item">
@@ -825,15 +825,15 @@
                     
                     <div class="form-group">
                         <label for="executionCity">City Where Document Will Be Signed *</label>
-                        <input type="text" id="executionCity" name="executionCity" required>
+                        <input type="text" id="executionCity" name="executionCity" required autocomplete="off">
                     </div>
                     <div class="form-group">
                         <label for="executionState">State Where Document Will Be Signed *</label>
-                        <input type="text" id="executionState" name="executionState" required>
+                        <input type="text" id="executionState" name="executionState" required autocomplete="off">
                     </div>
                     <div class="form-group">
                         <label for="executionCounty">County Where Document Will Be Signed *</label>
-                        <input type="text" id="executionCounty" name="executionCounty" required>
+                        <input type="text" id="executionCounty" name="executionCounty" required autocomplete="off">
                     </div>
                 </div>
 
@@ -1035,11 +1035,6 @@
                 
                 console.log('Sending data for Word document generation:', data);
                 
-                // Simulate successful submission for now since no backend exists yet
-                // Replace this with actual fetch when backend is ready
-                await new Promise(resolve => setTimeout(resolve, 2000)); // Simulate processing time
-                
-                /*
                 // Uncomment when backend is ready:
                 const response = await fetch('/submit', {
                     method: 'POST',
@@ -1057,7 +1052,6 @@
                 if (!result.success) {
                     throw new Error(result.message || 'Word document generation failed');
                 }
-                */
                 
                 loadingMessage.style.display = 'none';
                 successMessage.style.display = 'block';
