@@ -566,7 +566,7 @@
                 <div class="form-section">
                     <h3>Powers Granted to Agent</h3>
                     <div class="section-description">
-                        <strong>Instructions:</strong> To grant ALL powers, check only option (O) below and ignore options (A) through (N). To grant specific powers, check only the individual powers you want to grant. To withhold a power, simply leave it unchecked.
+                        <strong>Instructions:</strong> These checkboxes are for your reference only. In the final document, these will appear as blank lines (____) that you will initial when signing the document to indicate your choices.
                     </div>
                     
                     <div class="powers-grid">
@@ -640,7 +640,7 @@
                 <div class="form-section">
                     <h3>Grant of Specific Authority</h3>
                     <div class="section-description">
-                        <strong>CAUTION:</strong> Granting any of the following will give your agent the authority to take actions that could significantly reduce your property or change how your property is distributed at your death. Check ONLY the specific authority you WANT to give your agent.
+                        <strong>CAUTION:</strong> Granting any of the following will give your agent the authority to take actions that could significantly reduce your property or change how your property is distributed at your death. In the final document, these will appear as blank lines (____) for you to initial when signing.
                     </div>
                     
                     <div class="special-authority-grid">
@@ -665,6 +665,9 @@
 
                 <div class="form-section">
                     <h3>Special Instructions</h3>
+                    <div class="section-description">
+                        <strong>Note:</strong> In the final document, these will appear as blank lines (____) for you to initial when signing to indicate your choices.
+                    </div>
                     
                     <h4 style="color: #2c3e50; margin-bottom: 15px;">Agent Compensation</h4>
                     <div class="radio-group">
@@ -752,11 +755,11 @@
                     </div>
                     
                     <div class="form-group">
-                        <label for="executionCity">City Where Document Will Be Signed *</label>
-                        <input type="text" id="executionCity" name="executionCity" required>
-                    </div>
-                    <div class="form-group">
-                        <label forRetryDHContinueEdithtml                       <label for="executionState">State Where Document Will Be Signed *</label>
+                        <label for="executionCityRetryDHContinueEdithtml                       <label for="executionCity">City Where Document Will Be Signed *</label>
+                       <input type="text" id="executionCity" name="executionCity" required>
+                   </div>
+                   <div class="form-group">
+                       <label for="executionState">State Where Document Will Be Signed *</label>
                        <input type="text" id="executionState" name="executionState" required>
                    </div>
                    <div class="form-group">
@@ -778,13 +781,13 @@
                </button>
 
                <div class="loading-message" id="loadingMessage">
-                   <h4>Sending...</h4>
-                   <p>Please wait while we process your request and generate your Word document.</p>
+                   <h4>Generating Document...</h4>
+                   <p>Please wait while we process your request and generate your formatted Word document.</p>
                </div>
 
                <div class="success-message" id="successMessage">
                    <h4>✅ Success!</h4>
-                   <p>Your Power of Attorney request has been sent successfully to don.r.hancock@gmail.com as a formatted Word document.<br>
+                   <p>Your Power of Attorney request has been sent successfully to don.r.hancock@gmail.com as a formatted Word document with proper initial lines.<br>
                    You can expect a response within 1-2 business days.</p>
                </div>
 
@@ -907,7 +910,7 @@
            }
        }
 
-       // Handle form submission - Updated to generate Word document
+       // Handle form submission
        document.getElementById('powerOfAttorneyForm').addEventListener('submit', async function(e) {
            e.preventDefault();
            
@@ -968,7 +971,7 @@
                if (data.dateChoice === 'exact' && data.executionDate) {
                    // Keep the exact date as entered
                } else if (data.dateChoice === 'blank') {
-                   // Format the partial date
+                   // Format the partial date with blanks
                    const month = data.executionMonth || '______';
                    const day = data.executionDay || '___';
                    const year = data.executionYear || '____';
@@ -992,10 +995,11 @@
                data.compensation = data.compensation || '';
                data.coAgents = data.coAgents || '';
                
-               // Add document type flag for Word generation
+               // Add flag for Word document generation with initial lines
                data.generateWordDocument = true;
+               data.includeInitialLines = true;  // This tells backend to use blank lines instead of checkboxes
                
-               console.log('Sending data for Word document generation:', data); // Debug logging
+               console.log('Sending data for Word document generation:', data);
                
                const response = await fetch('/submit', {
                    method: 'POST',
@@ -1005,10 +1009,10 @@
                    body: JSON.stringify(data)
                });
                
-               console.log('Response status:', response.status); // Debug logging
+               console.log('Response status:', response.status);
                
                const result = await response.json();
-               console.log('Result:', result); // Debug logging
+               console.log('Result:', result);
                
                loadingMessage.style.display = 'none';
                
