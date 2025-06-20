@@ -21,7 +21,7 @@
         }
 
         .container {
-            max-width: 1000px;
+            max-width: 1200px;
             margin: 0 auto;
             background: white;
             border-radius: 15px;
@@ -116,6 +116,8 @@
         .form-container {
             display: none;
             padding: 2rem;
+            max-width: 1000px;
+            margin: 0 auto;
         }
 
         .form-section {
@@ -233,8 +235,8 @@
         .power-line {
             display: flex;
             align-items: flex-start;
-            padding: 8px;
-            margin-bottom: 8px;
+            padding: 8px 12px;
+            margin-bottom: 6px;
             background: white;
             border-radius: 4px;
             border: 1px solid #e0e0e0;
@@ -242,26 +244,27 @@
 
         .initial-line {
             display: inline-block;
-            width: 50px;
+            width: 60px;
             border-bottom: 1px solid #333;
-            margin-right: 10px;
-            margin-top: 4px;
+            margin-right: 12px;
+            margin-top: 2px;
             font-family: monospace;
             text-align: center;
+            font-size: 0.9rem;
         }
 
         .authority-line {
             display: flex;
             align-items: flex-start;
             padding: 12px;
-            margin-bottom: 10px;
+            margin-bottom: 8px;
             background: #fef9e7;
             border-radius: 6px;
             border: 2px solid #f39c12;
         }
 
         .authority-line .initial-line {
-            width: 60px;
+            width: 70px;
             border-bottom: 2px solid #d35400;
             margin-right: 15px;
         }
@@ -272,12 +275,11 @@
             margin-bottom: 0;
         }
 
-        .compensation-line,
-        .coagent-line {
+        .instruction-line {
             display: flex;
             align-items: flex-start;
-            padding: 10px;
-            margin-bottom: 8px;
+            padding: 10px 12px;
+            margin-bottom: 6px;
             background: white;
             border-radius: 4px;
             border: 1px solid #ddd;
@@ -287,14 +289,15 @@
             display: flex;
             align-items: flex-start;
             padding: 12px;
-            background: white;
+            background: #fdf2f2;
             border-radius: 6px;
-            border: 1px solid #e74c3c;
+            border: 2px solid #e74c3c;
+            margin-bottom: 10px;
         }
 
         .gift-line .initial-line {
             border-bottom: 2px solid #e74c3c;
-            width: 60px;
+            width: 70px;
         }
 
         input[type="radio"] {
@@ -432,6 +435,50 @@
             margin-bottom: 0;
         }
 
+        .limitations-section {
+            background: #f8f9fa;
+            border: 2px solid #6c757d;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+
+        .limitations-section h4 {
+            color: #495057;
+            margin-bottom: 10px;
+        }
+
+        .additional-powers-section {
+            background: #e7f3ff;
+            border: 2px solid #007bff;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+
+        .additional-powers-section h4 {
+            color: #0056b3;
+            margin-bottom: 10px;
+        }
+
+        .effectiveness-section {
+            background: #fff5f5;
+            border: 2px solid #dc3545;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+
+        .effectiveness-section h4 {
+            color: #721c24;
+            margin-bottom: 10px;
+        }
+
+        .strikethrough {
+            text-decoration: line-through;
+            color: #6c757d;
+        }
+
         @media (max-width: 768px) {
             .container {
                 margin: 10px;
@@ -448,6 +495,10 @@
 
             .date-inputs {
                 grid-template-columns: 1fr;
+            }
+
+            .form-container {
+                padding: 1rem;
             }
         }
     </style>
@@ -550,51 +601,55 @@
                         </div>
                     </div>
                 </div>
-                       <div class="form-section">
+                <div class="form-section">
                     <h3>Powers Granted to Agent</h3>
                     <div class="section-description">
-                        <strong>Instructions:</strong> The lines below show how your final document will appear. You will initial next to your chosen powers when you sign the document. TO GRANT ALL POWERS, initial only line (O) and ignore lines (A) through (N). TO GRANT SPECIFIC POWERS, initial only the individual powers you want to grant.
+                        <strong>Instructions:</strong> The lines below show exactly how your final document will appear. You will initial next to your chosen powers when you sign the document. TO GRANT ALL POWERS, initial only line (O) and ignore lines (A) through (N). TO GRANT SPECIFIC POWERS, initial only the individual powers you want to grant. TO WITHHOLD A POWER, do not initial the line (you may cross it out if desired).
                     </div>
                     
                     <div style="background: #f8f9fa; padding: 20px; border-radius: 8px; border: 1px solid #ddd;">
+                        <p style="margin-bottom: 15px; font-weight: bold;">TO GRANT ALL OF THE FOLLOWING POWERS, INITIAL THE LINE IN FRONT OF (O) AND IGNORE THE LINES IN FRONT OF THE OTHER POWERS LISTED IN (A) THROUGH (N).</p>
+                        <p style="margin-bottom: 15px; font-weight: bold;">TO GRANT A POWER, YOU MUST INITIAL THE LINE IN FRONT OF THE POWER YOU ARE GRANTING.</p>
+                        <p style="margin-bottom: 20px; font-weight: bold;">TO WITHHOLD A POWER, DO NOT INITIAL THE LINE IN FRONT OF THE POWER. YOU MAY, BUT DO NOT NEED TO, CROSS OUT EACH POWER WITHHELD.</p>
+                        
                         <div class="power-line">
-                            <span class="initial-line">_____</span> (A) Real property transactions
+                            <span class="initial-line">_____</span> (A) Real property transactions;
                         </div>
                         <div class="power-line">
-                            <span class="initial-line">_____</span> (B) Tangible personal property transactions
+                            <span class="initial-line">_____</span> (B) Tangible personal property transactions;
                         </div>
                         <div class="power-line">
-                            <span class="initial-line">_____</span> (C) Stock and bond transactions
+                            <span class="initial-line">_____</span> (C) Stock and bond transactions;
                         </div>
                         <div class="power-line">
-                            <span class="initial-line">_____</span> (D) Commodity and option transactions
+                            <span class="initial-line">_____</span> (D) Commodity and option transactions;
                         </div>
                         <div class="power-line">
-                            <span class="initial-line">_____</span> (E) Banking and other financial institution transactions
+                            <span class="initial-line">_____</span> (E) Banking and other financial institution transactions;
                         </div>
                         <div class="power-line">
-                            <span class="initial-line">_____</span> (F) Business operating transactions
+                            <span class="initial-line">_____</span> (F) Business operating transactions;
                         </div>
                         <div class="power-line">
-                            <span class="initial-line">_____</span> (G) Insurance and annuity transactions
+                            <span class="initial-line">_____</span> (G) Insurance and annuity transactions;
                         </div>
                         <div class="power-line">
-                            <span class="initial-line">_____</span> (H) Estate, trust, and other beneficiary transactions
+                            <span class="initial-line">_____</span> (H) Estate, trust, and other beneficiary transactions;
                         </div>
                         <div class="power-line">
-                            <span class="initial-line">_____</span> (I) Claims and litigation
+                            <span class="initial-line">_____</span> (I) Claims and litigation;
                         </div>
                         <div class="power-line">
-                            <span class="initial-line">_____</span> (J) Personal and family maintenance
+                            <span class="initial-line">_____</span> (J) Personal and family maintenance;
                         </div>
                         <div class="power-line">
-                            <span class="initial-line">_____</span> (K) Benefits from social security, Medicare, Medicaid, or other governmental programs or civil or military service
+                            <span class="initial-line">_____</span> (K) Benefits from social security, Medicare, Medicaid, or other governmental programs or civil or military service;
                         </div>
                         <div class="power-line">
-                            <span class="initial-line">_____</span> (L) Retirement plan transactions
+                            <span class="initial-line">_____</span> (L) Retirement plan transactions;
                         </div>
                         <div class="power-line">
-                            <span class="initial-line">_____</span> (M) Tax matters
+                            <span class="initial-line">_____</span> (M) Tax matters;
                         </div>
                         <div class="power-line">
                             <span class="initial-line">_____</span> (N) Digital assets and the content of an electronic communication
@@ -603,9 +658,9 @@
                         <div style="margin-top: 20px; padding: 15px; background: #e8f5e8; border-radius: 8px; border: 2px solid #27ae60;">
                             <div class="power-line" style="background: #f8fff8; border: 2px solid #27ae60; padding: 12px;">
                                 <span class="initial-line" style="border-bottom: 2px solid #27ae60;">_____</span> 
-                                <strong style="color: #27ae60;">(O) ALL OF THE POWERS LISTED IN (A) THROUGH (N)</strong>
+                                <strong style="color: #27ae60;">(O) ALL OF THE POWERS LISTED IN (A) THROUGH (N).</strong>
                             </div>
-                            <p style="margin-top: 10px; font-size: 0.9rem; color: #27ae60;"><strong>Note:</strong> You do not need to initial any other lines if you initial line (O).</p>
+                            <p style="margin-top: 10px; font-size: 0.9rem; color: #27ae60;"><strong>YOU DO NOT HAVE TO INITIAL THE LINE IN FRONT OF ANY OTHER POWER IF YOU INITIAL LINE (O).</strong></p>
                         </div>
                     </div>
                 </div>
@@ -613,13 +668,15 @@
                 <div class="form-section">
                     <h3>Grant of Specific Authority</h3>
                     <div class="section-description">
-                        <strong>CAUTION:</strong> Granting any of the following will give your agent the authority to take actions that could significantly reduce your property or change how your property is distributed at your death. Initial ONLY the specific authority you WANT to give your agent when you sign the document.
+                        <strong>CAUTION:</strong> Granting any of the following will give your agent the authority to take actions that could significantly reduce your property or change how your property is distributed at your death. INITIAL ONLY the specific authority you WANT to give your agent. If you DO NOT want to grant your agent one or more of the following powers, you may also CROSS OUT a power you DO NOT want to grant.
                     </div>
+                    
+                    <p style="margin-bottom: 15px; font-weight: bold;">My agent MAY NOT do any of the following specific acts for me UNLESS I have INITIALED the specific authority listed below:</p>
                     
                     <div style="background: #fef9e7; padding: 20px; border-radius: 8px; border: 2px solid #f39c12;">
                         <div class="authority-line">
                             <span class="initial-line">_____</span>
-                            <label>Create, amend, revoke, or terminate an inter vivos trust</label>
+                            <label><strong>Create, amend, revoke, or terminate an inter vivos trust</strong></label>
                         </div>
                         <div class="authority-line">
                             <span class="initial-line">_____</span>
@@ -638,55 +695,88 @@
 
                 <div class="form-section">
                     <h3>Special Instructions</h3>
-                    <div class="section-description">
-                        <strong>Note:</strong> In the final document, these will appear as blank lines for you to initial when signing to indicate your choices.
-                    </div>
                     
-                    <h4 style="color: #2c3e50; margin-bottom: 15px;">Agent Compensation</h4>
-                    <p style="margin-bottom: 15px; color: #666; font-style: italic;">Initial in front of one of the following sentences to have it apply; if no selection is made, each agent will be entitled to compensation that is reasonable under the circumstances:</p>
+                    <h4 style="color: #2c3e50; margin-bottom: 15px;">COMPENSATION</h4>
+                    <p style="margin-bottom: 15px; color: #666; font-style: italic;">Special instructions applicable to agent compensation (initial in front of one of the following sentences to have it apply; if no selection is made, each agent will be entitled to compensation that is reasonable under the circumstances):</p>
                     
                     <div style="background: #f8f9fa; padding: 15px; border-radius: 8px; border: 1px solid #ddd;">
-                        <div class="compensation-line">
+                        <div class="instruction-line">
                             <span class="initial-line">_____</span>
                             <span>My agent is entitled to reimbursement of reasonable expenses incurred on my behalf and to compensation that is reasonable under the circumstances.</span>
                         </div>
-                        <div class="compensation-line">
+                        <div class="instruction-line">
                             <span class="initial-line">_____</span>
                             <span>My agent is entitled to reimbursement of reasonable expenses incurred on my behalf but shall receive no compensation for serving as my agent.</span>
                         </div>
                     </div>
 
-                    <h4 style="color: #2c3e50; margin: 25px 0 15px 0;">Co-Agents (if applicable)</h4>
-                    <p style="margin-bottom: 15px; color: #666; font-style: italic;">If you have appointed co-agents to act, initial in front of one of the following sentences to have it apply; If no selection is made, each agent will be entitled to act independently:</p>
+                    <h4 style="color: #2c3e50; margin: 25px 0 15px 0;">CO-AGENTS</h4>
+                    <p style="margin-bottom: 15px; color: #666; font-style: italic;">Special instructions applicable to co-agents (If you have appointed co-agents to act, initial in front of one of the following sentences to have it apply; If no selection is made, each agent will be entitled to act independently):</p>
                     
                     <div style="background: #f8f9fa; padding: 15px; border-radius: 8px; border: 1px solid #ddd;">
-                        <div class="coagent-line">
+                        <div class="instruction-line">
                             <span class="initial-line">_____</span>
                             <span>Each of my co-agents may act independently for me.</span>
                         </div>
-                        <div class="coagent-line">
+                        <div class="instruction-line">
                             <span class="initial-line">_____</span>
                             <span>My co-agents may act for me only if the co-agents act jointly.</span>
                         </div>
-                        <div class="coagent-line">
+                        <div class="instruction-line">
                             <span class="initial-line">_____</span>
                             <span>My co-agents may act for me only if a majority of the co-agents act jointly.</span>
                         </div>
                     </div>
 
-                    <h4 style="color: #e74c3c; margin: 25px 0 15px 0;">Gift-Making Authority</h4>
-                    <p style="margin-bottom: 15px; color: #666; font-style: italic;">Initial in front of the following sentence to have it apply:</p>
+                    <h4 style="color: #e74c3c; margin: 25px 0 15px 0;">GIFTS</h4>
+                    <p style="margin-bottom: 15px; color: #666; font-style: italic;">Special instructions applicable to gifts (initial in front of the following sentence to have it apply):</p>
                     
                     <div style="background: #fdf2f2; padding: 15px; border-radius: 8px; border: 2px solid #e74c3c;">
                         <div class="gift-line">
                             <span class="initial-line">_____</span>
-                            <span style="font-weight: 600; color: #c0392b;">I grant my agent the power to apply my property to make gifts outright to or for the benefit of a person, including by the exercise of a presently exercisable general power of appointment held by me, except that the amount of a gift to an individual may not exceed the amount of annual exclusions allowed from the federal gift tax for the calendar year of the gift.</span>
+                            <span style="font-weight: 600; color: #c0392b;"><strong>I grant my agent the power to apply my property to make gifts outright to or for the benefit of a person, including by the exercise of a presently exercisable general power of appointment held by me, except that the amount of a gift to an individual may not exceed the amount of annual exclusions allowed from the federal gift tax for the calendar year of the gift.</strong></span>
                         </div>
                     </div>
 
                     <div class="benefits-section">
-                        <h4>Gifts to Qualify for Public Benefits</h4>
+                        <h4><strong>GIFTS TO QUALIFY FOR PUBLIC BENEFITS</strong></h4>
                         <p>If my agent in my agent's sole discretion has determined that I need nursing home or other long-term medical care and that I will receive proper medical care whether I privately pay for such care or if I am a recipient of Title XIX (Medicaid) or other public benefits, then my agent shall have the power: (i) to take any and all steps necessary, in my agent's judgment, to obtain and maintain my eligibility for any and all public benefits and entitlement programs, including, if necessary, signing a deed with a retained life estate (also known as a "Lady Bird Deed") as well as creating and funding a qualified income trust or special needs trust for me or a disabled child, if any; (ii) to transfer with or without consideration my assets to my descendants (if any), or to my natural heirs at law or to the persons named as beneficiaries under my last will and testament or a revocable living trust which I may have established, including my agent; and (iii) to enter into a personal services contract for my benefit, including entering into such contract with my agent, and even if doing so may be considered self-dealing. Such public benefits and entitlement programs shall include, but are not limited to, Social Security, Supplemental Security Income, Medicare, Medicaid and Veterans benefits.</p>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <div class="limitations-section">
+                        <h4><strong>LIMITATIONS</strong></h4>
+                        <p>Notwithstanding any provision herein to the contrary, any authority granted to my agent shall be limited so as to prevent this power of attorney from causing my agent to be taxed on my income (unless my agent is my spouse) and from causing my assets to be subject to a general power of appointment by my agent, as that term is defined in Section 2041 of the Internal Revenue Code of 1986, as amended.</p>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <div class="additional-powers-section">
+                        <h4><strong>ADDITIONAL POWERS</strong></h4>
+                        <p style="margin-bottom: 15px;"><strong>ON THE FOLLOWING LINES YOU MAY GIVE SPECIAL INSTRUCTIONS LIMITING OR EXTENDING THE POWERS GRANTED TO YOUR AGENT.</strong></p>
+                        <p style="margin-bottom: 15px;">In addition to the powers granted above, I grant to my agent the following powers:</p>
+                        
+                        <p style="margin-bottom: 10px;"><strong>Power to Appoint Substitute Agent.</strong> The power to appoint or substitute one or more agents to serve as my agent under this power of attorney; provided, however, such power shall be exercisable only by the then-serving agent (or if more than one agent is serving, by all such co-agents acting unanimously), and any such appointment or substitution shall override other provisions contained herein which may attempt to name one or more successor agents. Any such appointment or substitution may be revoked by me or my agent at any time and for any reason, and such appointment or substitution shall not terminate upon the death, disability, incapacity or resignation of the agent or co-agents who made the appointment or substitution. Any such appointment or substitution shall be evidenced by acknowledged written instrument.</p>
+                        
+                        <p style="margin-bottom: 15px;"><strong>Power to Perform All Other Acts.</strong> In addition to the powers enumerated above, I hereby give and grant unto my agent full power and authority to do and perform all and every act and thing whatsoever requisite and necessary to be done, as fully, to all intents and purposes, as I might or could do if personally present, hereby ratifying and confirming whatsoever my agent shall and may do by virtue hereof; provided, however, and notwithstanding the foregoing, if I have withheld a particular power or powers in this power of attorney, then my agent shall not have such power or powers by virtue of the power and authority conferred by this sentence.</p>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <div class="effectiveness-section">
+                        <h4><strong>EFFECTIVENESS</strong></h4>
+                        <p style="margin-bottom: 15px;">UNLESS YOU DIRECT OTHERWISE BELOW, THIS POWER OF ATTORNEY IS EFFECTIVE IMMEDIATELY AND WILL CONTINUE UNTIL IT TERMINATES.</p>
+                        <p style="margin-bottom: 15px;"><strong>CHOOSE ONE OF THE FOLLOWING ALTERNATIVES BY CROSSING OUT THE ALTERNATIVE NOT CHOSEN:</strong></p>
+                        
+                        <div style="background: white; padding: 15px; border: 2px solid #dc3545; border-radius: 6px; margin: 15px 0;">
+                            <p style="margin-bottom: 10px;"><strong>(A) Effective Immediately:</strong> This power of attorney is effective immediately and is not affected by my subsequent disability or incapacity.</p>
+                            <p style="margin-bottom: 15px;" class="strikethrough"><strong>(B) Effective Upon Disability or Incapacity:</strong> This power of attorney becomes effective upon my disability or incapacity.</p>
+                            <p style="margin-bottom: 10px; font-size: 0.9rem;">YOU SHOULD CHOOSE ALTERNATIVE (A) IF THIS POWER OF ATTORNEY IS TO BECOME EFFECTIVE ON THE DATE IT IS EXECUTED.</p>
+                            <p style="font-size: 0.9rem;">IF NEITHER (A) NOR (B) IS CROSSED OUT, IT WILL BE ASSUMED THAT YOU CHOSE ALTERNATIVE (A).</p>
+                        </div>
+                        
+                        <p style="font-size: 0.9rem; line-height: 1.4;">If Alternative (B) is chosen, I shall be considered disabled or incapacitated for purposes of this power of attorney if a physician certifies in writing at a date later than the date this power of attorney is executed that, based on the physician's medical examination of me, I am mentally incapable of managing my financial affairs. I authorize the physician who examines me for this purpose to disclose my physical or mental condition to another person for purposes of this power of attorney. A third party who accepts this power of attorney is fully protected from any action taken under this power of attorney that is based on the determination made by a physician of my disability or incapacity. After having been certified as being incapable of managing my financial affairs, if a physician certifies in writing at such later date that, based upon such physician's medical examination of me, I have regained the mental capacity to manage my financial affairs, then this power of attorney shall no longer be effective, and it shall become effective again only if a physician certifies in writing at a date later than the date I regained capacity that, based on the physician's medical examination of me, I am mentally incapable of managing my financial affairs.</p>
                     </div>
                 </div>
 
@@ -744,6 +834,13 @@
                     <div class="form-group">
                         <label for="executionCounty">County Where Document Will Be Signed *</label>
                         <input type="text" id="executionCounty" name="executionCounty" required>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <h3>Final Provisions</h3>
+                    <div style="background: #f8f9fa; padding: 15px; border-radius: 8px; border: 1px solid #ddd;">
+                        <p style="margin-bottom: 10px;">I agree that any third party who receives a copy of this document may act under it. Termination of this durable power of attorney is not effective as to a third party until the third party has actual knowledge of the termination. I agree to indemnify the third party for any claims that arise against the third party because of reliance on this power of attorney. The meaning and effect of this durable power of attorney is determined by Texas law.</p>
                     </div>
                 </div>
 
@@ -934,9 +1031,16 @@
                 // Add flags for Word document generation with blank lines
                 data.generateWordDocument = true;
                 data.useBlankLines = true;  // This tells backend to use _____ instead of checkboxes
+                data.documentType = 'power-of-attorney';
                 
                 console.log('Sending data for Word document generation:', data);
                 
+                // Simulate successful submission for now since no backend exists yet
+                // Replace this with actual fetch when backend is ready
+                await new Promise(resolve => setTimeout(resolve, 2000)); // Simulate processing time
+                
+                /*
+                // Uncomment when backend is ready:
                 const response = await fetch('/submit', {
                     method: 'POST',
                     headers: {
@@ -950,21 +1054,21 @@
                 const result = await response.json();
                 console.log('Result:', result);
                 
-                loadingMessage.style.display = 'none';
-                
-                if (result.success) {
-                    successMessage.style.display = 'block';
-                    this.reset();
-                    // Reset checkboxes and sections
-                    document.getElementById('wantSecondAgent').checked = false;
-                    document.getElementById('wantThirdAgent').checked = false;
-                    document.getElementById('secondAgentSection').classList.add('hidden');
-                    document.getElementById('thirdAgentSection').classList.add('hidden');
-                    document.getElementById('exactDateSection').classList.add('hidden');
-                    document.getElementById('blankDateSection').classList.add('hidden');
-                } else {
+                if (!result.success) {
                     throw new Error(result.message || 'Word document generation failed');
                 }
+                */
+                
+                loadingMessage.style.display = 'none';
+                successMessage.style.display = 'block';
+                this.reset();
+                // Reset checkboxes and sections
+                document.getElementById('wantSecondAgent').checked = false;
+                document.getElementById('wantThirdAgent').checked = false;
+                document.getElementById('secondAgentSection').classList.add('hidden');
+                document.getElementById('thirdAgentSection').classList.add('hidden');
+                document.getElementById('exactDateSection').classList.add('hidden');
+                document.getElementById('blankDateSection').classList.add('hidden');
                 
             } catch (error) {
                 console.error('Error:', error);
@@ -978,6 +1082,91 @@
                 // Reset button state
                 submitBtn.disabled = false;
                 submitBtn.textContent = 'Submit for Review';
+            }
+        });
+
+        // Prevent form from submitting when user presses Enter in text fields
+        document.querySelectorAll('input[type="text"], input[type="email"], input[type="tel"]').forEach(input => {
+            input.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                }
+            });
+        });
+
+        // Add some visual feedback when form sections are completed
+        document.querySelectorAll('input[required]').forEach(input => {
+            input.addEventListener('blur', function() {
+                if (this.value.trim()) {
+                    this.style.borderColor = '#27ae60';
+                } else {
+                    this.style.borderColor = '#ddd';
+                }
+            });
+        });
+
+        // Scroll to top when switching between home and form
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Add scroll to top when loading form
+        document.getElementById('continueBtn').addEventListener('click', function() {
+            setTimeout(scrollToTop, 100);
+        });
+
+        // Add scroll to top when going back to home
+        document.querySelector('.back-btn').addEventListener('click', function() {
+            setTimeout(scrollToTop, 100);
+        });
+
+        // Auto-resize textarea
+        document.getElementById('additionalNotes').addEventListener('input', function() {
+            this.style.height = 'auto';
+            this.style.height = (this.scrollHeight) + 'px';
+        });
+
+        // Form validation helper
+        function validateForm() {
+            const requiredFields = document.querySelectorAll('input[required]');
+            let isValid = true;
+            
+            requiredFields.forEach(field => {
+                if (!field.value.trim()) {
+                    field.style.borderColor = '#e74c3c';
+                    isValid = false;
+                } else {
+                    field.style.borderColor = '#27ae60';
+                }
+            });
+            
+            // Check date choice
+            const dateChoice = document.querySelector('input[name="dateChoice"]:checked');
+            if (!dateChoice) {
+                isValid = false;
+                document.querySelectorAll('input[name="dateChoice"]').forEach(radio => {
+                    radio.parentElement.style.borderColor = '#e74c3c';
+                });
+            }
+            
+            return isValid;
+        }
+
+        // Add validation on form submit
+        document.getElementById('powerOfAttorneyForm').addEventListener('submit', function(e) {
+            if (!validateForm()) {
+                e.preventDefault();
+                const errorMessage = document.getElementById('errorMessage');
+                const errorP = errorMessage.querySelector('p');
+                errorP.textContent = 'Please fill in all required fields and make all necessary selections.';
+                errorMessage.style.display = 'block';
+                
+                // Scroll to first error
+                const firstError = document.querySelector('input[style*="border-color: rgb(231, 76, 60)"]');
+                if (firstError) {
+                    firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    firstError.focus();
+                }
             }
         });
     </script>
