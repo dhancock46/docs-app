@@ -229,39 +229,72 @@
             flex: 1;
         }
 
-        .powers-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 10px;
-            margin-top: 15px;
+        /* Styles for blank lines approach */
+        .power-line {
+            display: flex;
+            align-items: flex-start;
+            padding: 8px;
+            margin-bottom: 8px;
+            background: white;
+            border-radius: 4px;
+            border: 1px solid #e0e0e0;
         }
 
-        .power-item {
+        .initial-line {
+            display: inline-block;
+            width: 50px;
+            border-bottom: 1px solid #333;
+            margin-right: 10px;
+            margin-top: 4px;
+            font-family: monospace;
+            text-align: center;
+        }
+
+        .authority-line {
             display: flex;
             align-items: flex-start;
             padding: 12px;
-            border: 1px solid #ddd;
+            margin-bottom: 10px;
+            background: #fef9e7;
             border-radius: 6px;
-            background: white;
-            transition: all 0.3s ease;
+            border: 2px solid #f39c12;
         }
 
-        .power-item:hover {
-            background: #f8f9fa;
-            border-color: #3498db;
+        .authority-line .initial-line {
+            width: 60px;
+            border-bottom: 2px solid #d35400;
+            margin-right: 15px;
         }
 
-        .power-item input[type="checkbox"] {
-            margin-right: 10px;
-            margin-top: 2px;
-            transform: scale(1.2);
-        }
-
-        .power-item label {
+        .authority-line label {
+            font-weight: 600;
+            color: #d35400;
             margin-bottom: 0;
-            cursor: pointer;
-            font-size: 0.95rem;
-            line-height: 1.4;
+        }
+
+        .compensation-line,
+        .coagent-line {
+            display: flex;
+            align-items: flex-start;
+            padding: 10px;
+            margin-bottom: 8px;
+            background: white;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+        }
+
+        .gift-line {
+            display: flex;
+            align-items: flex-start;
+            padding: 12px;
+            background: white;
+            border-radius: 6px;
+            border: 1px solid #e74c3c;
+        }
+
+        .gift-line .initial-line {
+            border-bottom: 2px solid #e74c3c;
+            width: 60px;
         }
 
         input[type="radio"] {
@@ -379,47 +412,6 @@
             text-align: center;
         }
 
-        .special-authority-grid {
-            display: grid;
-            gap: 15px;
-            margin-top: 15px;
-        }
-
-        .special-authority-item {
-            display: flex;
-            align-items: flex-start;
-            padding: 15px;
-            border: 2px solid #f39c12;
-            border-radius: 8px;
-            background: #fef9e7;
-        }
-
-        .special-authority-item input[type="checkbox"] {
-            margin-right: 15px;
-            margin-top: 3px;
-            transform: scale(1.3);
-        }
-
-        .special-authority-item label {
-            margin-bottom: 0;
-            cursor: pointer;
-            font-weight: 600;
-            color: #d35400;
-        }
-
-        .gifts-section {
-            border: 2px solid #e74c3c;
-            background: #fdf2f2;
-            padding: 15px;
-            border-radius: 8px;
-            margin-top: 15px;
-        }
-
-        .gifts-section .checkbox-item {
-            border: 1px solid #e74c3c;
-            background: white;
-        }
-
         .benefits-section {
             background: #f0f8ff;
             border: 2px solid #3498db;
@@ -455,10 +447,6 @@
             }
 
             .date-inputs {
-                grid-template-columns: 1fr;
-            }
-
-            .powers-grid {
                 grid-template-columns: 1fr;
             }
         }
@@ -562,103 +550,88 @@
                         </div>
                     </div>
                 </div>
-
-                <div class="form-section">
+                       <div class="form-section">
                     <h3>Powers Granted to Agent</h3>
                     <div class="section-description">
-                        <strong>Instructions:</strong> These checkboxes are for your reference only. In the final document, these will appear as blank lines (____) that you will initial when signing the document to indicate your choices.
+                        <strong>Instructions:</strong> The lines below show how your final document will appear. You will initial next to your chosen powers when you sign the document. TO GRANT ALL POWERS, initial only line (O) and ignore lines (A) through (N). TO GRANT SPECIFIC POWERS, initial only the individual powers you want to grant.
                     </div>
                     
-                    <div class="powers-grid">
-                        <div class="power-item">
-                            <input type="checkbox" id="powerA" name="powers" value="A">
-                            <label for="powerA">(A) Real property transactions</label>
+                    <div style="background: #f8f9fa; padding: 20px; border-radius: 8px; border: 1px solid #ddd;">
+                        <div class="power-line">
+                            <span class="initial-line">_____</span> (A) Real property transactions
                         </div>
-                        <div class="power-item">
-                            <input type="checkbox" id="powerB" name="powers" value="B">
-                            <label for="powerB">(B) Tangible personal property transactions</label>
+                        <div class="power-line">
+                            <span class="initial-line">_____</span> (B) Tangible personal property transactions
                         </div>
-                        <div class="power-item">
-                            <input type="checkbox" id="powerC" name="powers" value="C">
-                            <label for="powerC">(C) Stock and bond transactions</label>
+                        <div class="power-line">
+                            <span class="initial-line">_____</span> (C) Stock and bond transactions
                         </div>
-                        <div class="power-item">
-                            <input type="checkbox" id="powerD" name="powers" value="D">
-                            <label for="powerD">(D) Commodity and option transactions</label>
+                        <div class="power-line">
+                            <span class="initial-line">_____</span> (D) Commodity and option transactions
                         </div>
-                        <div class="power-item">
-                            <input type="checkbox" id="powerE" name="powers" value="E">
-                            <label for="powerE">(E) Banking and other financial institution transactions</label>
+                        <div class="power-line">
+                            <span class="initial-line">_____</span> (E) Banking and other financial institution transactions
                         </div>
-                        <div class="power-item">
-                            <input type="checkbox" id="powerF" name="powers" value="F">
-                            <label for="powerF">(F) Business operating transactions</label>
+                        <div class="power-line">
+                            <span class="initial-line">_____</span> (F) Business operating transactions
                         </div>
-                        <div class="power-item">
-                            <input type="checkbox" id="powerG" name="powers" value="G">
-                            <label for="powerG">(G) Insurance and annuity transactions</label>
+                        <div class="power-line">
+                            <span class="initial-line">_____</span> (G) Insurance and annuity transactions
                         </div>
-                        <div class="power-item">
-                            <input type="checkbox" id="powerH" name="powers" value="H">
-                            <label for="powerH">(H) Estate, trust, and other beneficiary transactions</label>
+                        <div class="power-line">
+                            <span class="initial-line">_____</span> (H) Estate, trust, and other beneficiary transactions
                         </div>
-                        <div class="power-item">
-                            <input type="checkbox" id="powerI" name="powers" value="I">
-                            <label for="powerI">(I) Claims and litigation</label>
+                        <div class="power-line">
+                            <span class="initial-line">_____</span> (I) Claims and litigation
                         </div>
-                        <div class="power-item">
-                            <input type="checkbox" id="powerJ" name="powers" value="J">
-                            <label for="powerJ">(J) Personal and family maintenance</label>
+                        <div class="power-line">
+                            <span class="initial-line">_____</span> (J) Personal and family maintenance
                         </div>
-                        <div class="power-item">
-                            <input type="checkbox" id="powerK" name="powers" value="K">
-                            <label for="powerK">(K) Benefits from social security, Medicare, Medicaid, or other governmental programs or civil or military service</label>
+                        <div class="power-line">
+                            <span class="initial-line">_____</span> (K) Benefits from social security, Medicare, Medicaid, or other governmental programs or civil or military service
                         </div>
-                        <div class="power-item">
-                            <input type="checkbox" id="powerL" name="powers" value="L">
-                            <label for="powerL">(L) Retirement plan transactions</label>
+                        <div class="power-line">
+                            <span class="initial-line">_____</span> (L) Retirement plan transactions
                         </div>
-                        <div class="power-item">
-                            <input type="checkbox" id="powerM" name="powers" value="M">
-                            <label for="powerM">(M) Tax matters</label>
+                        <div class="power-line">
+                            <span class="initial-line">_____</span> (M) Tax matters
                         </div>
-                        <div class="power-item">
-                            <input type="checkbox" id="powerN" name="powers" value="N">
-                            <label for="powerN">(N) Digital assets and the content of an electronic communication</label>
+                        <div class="power-line">
+                            <span class="initial-line">_____</span> (N) Digital assets and the content of an electronic communication
                         </div>
-                    </div>
-                    
-                    <div style="margin-top: 20px; padding: 15px; background: #e8f5e8; border-radius: 8px; border: 2px solid #27ae60;">
-                        <div class="power-item" style="background: #f8fff8; border: 2px solid #27ae60;">
-                            <input type="checkbox" id="powerO" name="powers" value="O" onchange="handleAllPowersChange()">
-                            <label for="powerO" style="font-weight: bold; color: #27ae60;">(O) ALL OF THE POWERS LISTED IN (A) THROUGH (N)</label>
+                        
+                        <div style="margin-top: 20px; padding: 15px; background: #e8f5e8; border-radius: 8px; border: 2px solid #27ae60;">
+                            <div class="power-line" style="background: #f8fff8; border: 2px solid #27ae60; padding: 12px;">
+                                <span class="initial-line" style="border-bottom: 2px solid #27ae60;">_____</span> 
+                                <strong style="color: #27ae60;">(O) ALL OF THE POWERS LISTED IN (A) THROUGH (N)</strong>
+                            </div>
+                            <p style="margin-top: 10px; font-size: 0.9rem; color: #27ae60;"><strong>Note:</strong> You do not need to initial any other lines if you initial line (O).</p>
                         </div>
-                        <p style="margin-top: 10px; font-size: 0.9rem; color: #27ae60;"><strong>Note:</strong> You do not need to check any other powers if you check option (O).</p>
                     </div>
                 </div>
 
                 <div class="form-section">
                     <h3>Grant of Specific Authority</h3>
                     <div class="section-description">
-                        <strong>CAUTION:</strong> Granting any of the following will give your agent the authority to take actions that could significantly reduce your property or change how your property is distributed at your death. In the final document, these will appear as blank lines (____) for you to initial when signing.
+                        <strong>CAUTION:</strong> Granting any of the following will give your agent the authority to take actions that could significantly reduce your property or change how your property is distributed at your death. Initial ONLY the specific authority you WANT to give your agent when you sign the document.
                     </div>
                     
-                    <div class="special-authority-grid">
-                        <div class="special-authority-item">
-                            <input type="checkbox" id="specificA" name="specificAuthority" value="trust">
-                            <label for="specificA">Create, amend, revoke, or terminate an inter vivos trust</label>
+                    <div style="background: #fef9e7; padding: 20px; border-radius: 8px; border: 2px solid #f39c12;">
+                        <div class="authority-line">
+                            <span class="initial-line">_____</span>
+                            <label>Create, amend, revoke, or terminate an inter vivos trust</label>
                         </div>
-                        <div class="special-authority-item">
-                            <input type="checkbox" id="specificB" name="specificAuthority" value="survivorship">
-                            <label for="specificB">Create or change rights of survivorship</label>
+                        <div class="authority-line">
+                            <span class="initial-line">_____</span>
+                            <label>Create or change rights of survivorship</label>
                         </div>
-                        <div class="special-authority-item">
-                            <input type="checkbox" id="specificC" name="specificAuthority" value="beneficiary">
-                            <label for="specificC">Create or change a beneficiary designation</label>
+                        <div class="authority-line">
+                            <span class="initial-line">_____</span>
+                            <label>Create or change a beneficiary designation</label>
                         </div>
-                        <div class="special-authority-item">
-                            <input type="checkbox" id="specificD" name="specificAuthority" value="authorize">
-                            <label for="specificD">Authorize another person to exercise the authority granted under this power of attorney</label>
+                        <div class="authority-line">
+                            <span class="initial-line">_____</span>
+                            <label>Authorize another person to exercise the authority granted under this power of attorney</label>
                         </div>
                     </div>
                 </div>
@@ -666,42 +639,48 @@
                 <div class="form-section">
                     <h3>Special Instructions</h3>
                     <div class="section-description">
-                        <strong>Note:</strong> In the final document, these will appear as blank lines (____) for you to initial when signing to indicate your choices.
+                        <strong>Note:</strong> In the final document, these will appear as blank lines for you to initial when signing to indicate your choices.
                     </div>
                     
                     <h4 style="color: #2c3e50; margin-bottom: 15px;">Agent Compensation</h4>
-                    <div class="radio-group">
-                        <div class="radio-item">
-                            <input type="radio" id="compReasonable" name="compensation" value="reasonable">
-                            <label for="compReasonable">My agent is entitled to reimbursement of reasonable expenses incurred on my behalf and to compensation that is reasonable under the circumstances.</label>
+                    <p style="margin-bottom: 15px; color: #666; font-style: italic;">Initial in front of one of the following sentences to have it apply; if no selection is made, each agent will be entitled to compensation that is reasonable under the circumstances:</p>
+                    
+                    <div style="background: #f8f9fa; padding: 15px; border-radius: 8px; border: 1px solid #ddd;">
+                        <div class="compensation-line">
+                            <span class="initial-line">_____</span>
+                            <span>My agent is entitled to reimbursement of reasonable expenses incurred on my behalf and to compensation that is reasonable under the circumstances.</span>
                         </div>
-                        <div class="radio-item">
-                            <input type="radio" id="compNone" name="compensation" value="none">
-                            <label for="compNone">My agent is entitled to reimbursement of reasonable expenses incurred on my behalf but shall receive no compensation for serving as my agent.</label>
+                        <div class="compensation-line">
+                            <span class="initial-line">_____</span>
+                            <span>My agent is entitled to reimbursement of reasonable expenses incurred on my behalf but shall receive no compensation for serving as my agent.</span>
                         </div>
                     </div>
 
                     <h4 style="color: #2c3e50; margin: 25px 0 15px 0;">Co-Agents (if applicable)</h4>
-                    <div class="radio-group">
-                        <div class="radio-item">
-                            <input type="radio" id="coAgentIndependent" name="coAgents" value="independent">
-                            <label for="coAgentIndependent">Each of my co-agents may act independently for me.</label>
+                    <p style="margin-bottom: 15px; color: #666; font-style: italic;">If you have appointed co-agents to act, initial in front of one of the following sentences to have it apply; If no selection is made, each agent will be entitled to act independently:</p>
+                    
+                    <div style="background: #f8f9fa; padding: 15px; border-radius: 8px; border: 1px solid #ddd;">
+                        <div class="coagent-line">
+                            <span class="initial-line">_____</span>
+                            <span>Each of my co-agents may act independently for me.</span>
                         </div>
-                        <div class="radio-item">
-                            <input type="radio" id="coAgentJoint" name="coAgents" value="joint">
-                            <label for="coAgentJoint">My co-agents may act for me only if the co-agents act jointly.</label>
+                        <div class="coagent-line">
+                            <span class="initial-line">_____</span>
+                            <span>My co-agents may act for me only if the co-agents act jointly.</span>
                         </div>
-                        <div class="radio-item">
-                            <input type="radio" id="coAgentMajority" name="coAgents" value="majority">
-                            <label for="coAgentMajority">My co-agents may act for me only if a majority of the co-agents act jointly.</label>
+                        <div class="coagent-line">
+                            <span class="initial-line">_____</span>
+                            <span>My co-agents may act for me only if a majority of the co-agents act jointly.</span>
                         </div>
                     </div>
 
-                    <div class="gifts-section">
-                        <h4 style="color: #e74c3c; margin-bottom: 15px;">Gift-Making Authority</h4>
-                        <div class="checkbox-item">
-                            <input type="checkbox" id="giftPower" name="gifts" value="annual">
-                            <label for="giftPower">I grant my agent the power to apply my property to make gifts outright to or for the benefit of a person, including by the exercise of a presently exercisable general power of appointment held by me, except that the amount of a gift to an individual may not exceed the amount of annual exclusions allowed from the federal gift tax for the calendar year of the gift.</label>
+                    <h4 style="color: #e74c3c; margin: 25px 0 15px 0;">Gift-Making Authority</h4>
+                    <p style="margin-bottom: 15px; color: #666; font-style: italic;">Initial in front of the following sentence to have it apply:</p>
+                    
+                    <div style="background: #fdf2f2; padding: 15px; border-radius: 8px; border: 2px solid #e74c3c;">
+                        <div class="gift-line">
+                            <span class="initial-line">_____</span>
+                            <span style="font-weight: 600; color: #c0392b;">I grant my agent the power to apply my property to make gifts outright to or for the benefit of a person, including by the exercise of a presently exercisable general power of appointment held by me, except that the amount of a gift to an individual may not exceed the amount of annual exclusions allowed from the federal gift tax for the calendar year of the gift.</span>
                         </div>
                     </div>
 
@@ -755,312 +734,252 @@
                     </div>
                     
                     <div class="form-group">
-                        <label for="executionCityRetryDHContinueEdithtml                       <label for="executionCity">City Where Document Will Be Signed *</label>
-                       <input type="text" id="executionCity" name="executionCity" required>
-                   </div>
-                   <div class="form-group">
-                       <label for="executionState">State Where Document Will Be Signed *</label>
-                       <input type="text" id="executionState" name="executionState" required>
-                   </div>
-                   <div class="form-group">
-                       <label for="executionCounty">County Where Document Will Be Signed *</label>
-                       <input type="text" id="executionCounty" name="executionCounty" required>
-                   </div>
-               </div>
+                        <label for="executionCity">City Where Document Will Be Signed *</label>
+                        <input type="text" id="executionCity" name="executionCity" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="executionState">State Where Document Will Be Signed *</label>
+                        <input type="text" id="executionState" name="executionState" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="executionCounty">County Where Document Will Be Signed *</label>
+                        <input type="text" id="executionCounty" name="executionCounty" required>
+                    </div>
+                </div>
 
-               <div class="form-section">
-                   <h3>Additional Notes</h3>
-                   <div class="form-group">
-                       <label for="additionalNotes">Special Instructions or Comments</label>
-                       <textarea id="additionalNotes" name="additionalNotes" rows="4"></textarea>
-                   </div>
-               </div>
+                <div class="form-section">
+                    <h3>Additional Notes</h3>
+                    <div class="form-group">
+                        <label for="additionalNotes">Special Instructions or Comments</label>
+                        <textarea id="additionalNotes" name="additionalNotes" rows="4"></textarea>
+                    </div>
+                </div>
 
-               <button type="submit" class="submit-btn">
-                   Submit for Review
-               </button>
+                <button type="submit" class="submit-btn">
+                    Submit for Review
+                </button>
 
-               <div class="loading-message" id="loadingMessage">
-                   <h4>Generating Document...</h4>
-                   <p>Please wait while we process your request and generate your formatted Word document.</p>
-               </div>
+                <div class="loading-message" id="loadingMessage">
+                    <h4>Generating Document...</h4>
+                    <p>Please wait while we process your request and generate your formatted Word document.</p>
+                </div>
 
-               <div class="success-message" id="successMessage">
-                   <h4>✅ Success!</h4>
-                   <p>Your Power of Attorney request has been sent successfully to don.r.hancock@gmail.com as a formatted Word document with proper initial lines.<br>
-                   You can expect a response within 1-2 business days.</p>
-               </div>
+                <div class="success-message" id="successMessage">
+                    <h4>✅ Success!</h4>
+                    <p>Your Power of Attorney request has been sent successfully to don.r.hancock@gmail.com as a formatted Word document with proper initial lines.<br>
+                    You can expect a response within 1-2 business days.</p>
+                </div>
 
-               <div class="error-message" id="errorMessage">
-                   <h4>❌ Error</h4>
-                   <p>There was an error sending your request. Please check your information and try again.</p>
-               </div>
-           </form>
-       </div>
-   </div>
+                <div class="error-message" id="errorMessage">
+                    <h4>❌ Error</h4>
+                    <p>There was an error sending your request. Please check your information and try again.</p>
+                </div>
+            </form>
+        </div>
+    </div>
+     <script>
+        // Enable continue button when document is selected
+        document.getElementById('documentSelect').addEventListener('change', function() {
+            const continueBtn = document.getElementById('continueBtn');
+            continueBtn.disabled = this.value === '';
+        });
 
-   <script>
-       // Enable continue button when document is selected
-       document.getElementById('documentSelect').addEventListener('change', function() {
-           const continueBtn = document.getElementById('continueBtn');
-           continueBtn.disabled = this.value === '';
-       });
+        // Load selected document form
+        function loadSelectedDocument() {
+            const selectedDoc = document.getElementById('documentSelect').value;
+            const homePage = document.getElementById('homePage');
+            
+            if (selectedDoc === 'power-of-attorney') {
+                homePage.style.display = 'none';
+                document.getElementById('poaForm').style.display = 'block';
+            }
+        }
 
-       // Load selected document form
-       function loadSelectedDocument() {
-           const selectedDoc = document.getElementById('documentSelect').value;
-           const homePage = document.getElementById('homePage');
-           
-           if (selectedDoc === 'power-of-attorney') {
-               homePage.style.display = 'none';
-               document.getElementById('poaForm').style.display = 'block';
-           }
-       }
+        // Go back to home page
+        function goHome() {
+            document.getElementById('homePage').style.display = 'block';
+            document.getElementById('poaForm').style.display = 'none';
+            // Reset form completely
+            document.getElementById('powerOfAttorneyForm').reset();
+            // Hide agent sections
+            document.getElementById('secondAgentSection').classList.add('hidden');
+            document.getElementById('thirdAgentSection').classList.add('hidden');
+            // Hide date sections
+            document.getElementById('exactDateSection').classList.add('hidden');
+            document.getElementById('blankDateSection').classList.add('hidden');
+            // Hide messages
+            document.getElementById('successMessage').style.display = 'none';
+            document.getElementById('errorMessage').style.display = 'none';
+            document.getElementById('loadingMessage').style.display = 'none';
+        }
 
-       // Go back to home page
-       function goHome() {
-           document.getElementById('homePage').style.display = 'block';
-           document.getElementById('poaForm').style.display = 'none';
-           // Reset form completely
-           document.getElementById('powerOfAttorneyForm').reset();
-           // Hide agent sections
-           document.getElementById('secondAgentSection').classList.add('hidden');
-           document.getElementById('thirdAgentSection').classList.add('hidden');
-           // Hide date sections
-           document.getElementById('exactDateSection').classList.add('hidden');
-           document.getElementById('blankDateSection').classList.add('hidden');
-           // Hide messages
-           document.getElementById('successMessage').style.display = 'none';
-           document.getElementById('errorMessage').style.display = 'none';
-           document.getElementById('loadingMessage').style.display = 'none';
-       }
+        // Toggle date input options
+        function toggleDateInput() {
+            const exactDate = document.getElementById('exactDate').checked;
+            const blankDate = document.getElementById('blankDate').checked;
+            const exactSection = document.getElementById('exactDateSection');
+            const blankSection = document.getElementById('blankDateSection');
+            
+            if (exactDate) {
+                exactSection.classList.remove('hidden');
+                blankSection.classList.add('hidden');
+                // Clear blank date fields
+                document.getElementById('executionMonth').value = '';
+                document.getElementById('executionDay').value = '';
+                document.getElementById('executionYear').value = '';
+            } else if (blankDate) {
+                blankSection.classList.remove('hidden');
+                exactSection.classList.add('hidden');
+                // Clear exact date field
+                document.getElementById('executionDate').value = '';
+            } else {
+                exactSection.classList.add('hidden');
+                blankSection.classList.add('hidden');
+            }
+        }
 
-       // Handle "All Powers" checkbox logic
-       function handleAllPowersChange() {
-           const allPowersCheckbox = document.getElementById('powerO');
-           const individualPowerCheckboxes = document.querySelectorAll('input[name="powers"][value!="O"]');
-           
-           if (allPowersCheckbox.checked) {
-               // Uncheck all individual powers when "All Powers" is selected
-               individualPowerCheckboxes.forEach(checkbox => {
-                   checkbox.checked = false;
-                   checkbox.disabled = true;
-               });
-           } else {
-               // Re-enable individual powers when "All Powers" is unchecked
-               individualPowerCheckboxes.forEach(checkbox => {
-                   checkbox.disabled = false;
-               });
-           }
-       }
+        // Toggle second agent section
+        function toggleSecondAgent() {
+            const checkbox = document.getElementById('wantSecondAgent');
+            const section = document.getElementById('secondAgentSection');
+            
+            if (checkbox.checked) {
+                section.classList.remove('hidden');
+            } else {
+                section.classList.add('hidden');
+                // Also hide third agent and uncheck
+                document.getElementById('wantThirdAgent').checked = false;
+                document.getElementById('thirdAgentSection').classList.add('hidden');
+                // Clear the inputs
+                document.getElementById('secondAgent').value = '';
+                document.getElementById('thirdAgent').value = '';
+            }
+        }
 
-       // Toggle date input options
-       function toggleDateInput() {
-           const exactDate = document.getElementById('exactDate').checked;
-           const blankDate = document.getElementById('blankDate').checked;
-           const exactSection = document.getElementById('exactDateSection');
-           const blankSection = document.getElementById('blankDateSection');
-           
-           if (exactDate) {
-               exactSection.classList.remove('hidden');
-               blankSection.classList.add('hidden');
-               // Clear blank date fields
-               document.getElementById('executionMonth').value = '';
-               document.getElementById('executionDay').value = '';
-               document.getElementById('executionYear').value = '';
-           } else if (blankDate) {
-               blankSection.classList.remove('hidden');
-               exactSection.classList.add('hidden');
-               // Clear exact date field
-               document.getElementById('executionDate').value = '';
-           } else {
-               exactSection.classList.add('hidden');
-               blankSection.classList.add('hidden');
-           }
-       }
+        // Toggle third agent section
+        function toggleThirdAgent() {
+            const checkbox = document.getElementById('wantThirdAgent');
+            const section = document.getElementById('thirdAgentSection');
+            
+            if (checkbox.checked) {
+                section.classList.remove('hidden');
+            } else {
+                section.classList.add('hidden');
+                document.getElementById('thirdAgent').value = '';
+            }
+        }
 
-       // Toggle second agent section
-       function toggleSecondAgent() {
-           const checkbox = document.getElementById('wantSecondAgent');
-           const section = document.getElementById('secondAgentSection');
-           
-           if (checkbox.checked) {
-               section.classList.remove('hidden');
-           } else {
-               section.classList.add('hidden');
-               // Also hide third agent and uncheck
-               document.getElementById('wantThirdAgent').checked = false;
-               document.getElementById('thirdAgentSection').classList.add('hidden');
-               // Clear the inputs
-               document.getElementById('secondAgent').value = '';
-               document.getElementById('thirdAgent').value = '';
-           }
-       }
-
-       // Toggle third agent section
-       function toggleThirdAgent() {
-           const checkbox = document.getElementById('wantThirdAgent');
-           const section = document.getElementById('thirdAgentSection');
-           
-           if (checkbox.checked) {
-               section.classList.remove('hidden');
-           } else {
-               section.classList.add('hidden');
-               document.getElementById('thirdAgent').value = '';
-           }
-       }
-
-       // Handle form submission
-       document.getElementById('powerOfAttorneyForm').addEventListener('submit', async function(e) {
-           e.preventDefault();
-           
-           const submitBtn = this.querySelector('.submit-btn');
-           const loadingMessage = document.getElementById('loadingMessage');
-           const successMessage = document.getElementById('successMessage');
-           const errorMessage = document.getElementById('errorMessage');
-           
-           // Hide previous messages
-           successMessage.style.display = 'none';
-           errorMessage.style.display = 'none';
-           loadingMessage.style.display = 'block';
-           
-           // Show loading state
-           submitBtn.disabled = true;
-           submitBtn.textContent = 'Generating Document...';
-           
-           try {
-               const formData = new FormData(this);
-               const data = {};
-               
-               // Process form data properly
-               for (let [key, value] of formData.entries()) {
-                   if (data[key]) {
-                       // Handle multiple values (like powers and specificAuthority)
-                       if (Array.isArray(data[key])) {
-                           data[key].push(value);
-                       } else {
-                           data[key] = [data[key], value];
-                       }
-                   } else {
-                       data[key] = value;
-                   }
-               }
-
-               // Get all checked powers
-               const checkedPowers = [];
-               document.querySelectorAll('input[name="powers"]:checked').forEach(checkbox => {
-                   checkedPowers.push(checkbox.value);
-               });
-               data.powers = checkedPowers;
-
-               // Get all checked specific authorities
-               const checkedSpecific = [];
-               document.querySelectorAll('input[name="specificAuthority"]:checked').forEach(checkbox => {
-                   checkedSpecific.push(checkbox.value);
-               });
-               data.specificAuthority = checkedSpecific;
-
-               // Get all checked gifts
-               const checkedGifts = [];
-               document.querySelectorAll('input[name="gifts"]:checked').forEach(checkbox => {
-                   checkedGifts.push(checkbox.value);
-               });
-               data.gifts = checkedGifts;
-               
-               // Handle date formatting
-               if (data.dateChoice === 'exact' && data.executionDate) {
-                   // Keep the exact date as entered
-               } else if (data.dateChoice === 'blank') {
-                   // Format the partial date with blanks
-                   const month = data.executionMonth || '______';
-                   const day = data.executionDay || '___';
-                   const year = data.executionYear || '____';
-                   data.executionDate = `${month} ${day}, ${year}`;
-               } else {
-                   // If no date choice is made, require it
-                   throw new Error('Please select a date option');
-               }
-               
-               // Ensure required fields are present
-               if (!data.testatorName || !data.clientEmail || !data.primaryAgent || 
-                   !data.executionCity || !data.executionState || !data.executionCounty) {
-                   throw new Error('Please fill in all required fields');
-               }
-               
-               // Ensure we have empty strings for optional fields if not provided
-               data.secondAgent = data.secondAgent || '';
-               data.thirdAgent = data.thirdAgent || '';
-               data.clientPhone = data.clientPhone || '';
-               data.additionalNotes = data.additionalNotes || '';
-               data.compensation = data.compensation || '';
-               data.coAgents = data.coAgents || '';
-               
-               // Add flag for Word document generation with initial lines
-               data.generateWordDocument = true;
-               data.includeInitialLines = true;  // This tells backend to use blank lines instead of checkboxes
-               
-               console.log('Sending data for Word document generation:', data);
-               
-               const response = await fetch('/submit', {
-                   method: 'POST',
-                   headers: {
-                       'Content-Type': 'application/json',
-                   },
-                   body: JSON.stringify(data)
-               });
-               
-               console.log('Response status:', response.status);
-               
-               const result = await response.json();
-               console.log('Result:', result);
-               
-               loadingMessage.style.display = 'none';
-               
-               if (result.success) {
-                   successMessage.style.display = 'block';
-                   this.reset();
-                   // Reset checkboxes and sections
-                   document.getElementById('wantSecondAgent').checked = false;
-                   document.getElementById('wantThirdAgent').checked = false;
-                   document.getElementById('secondAgentSection').classList.add('hidden');
-                   document.getElementById('thirdAgentSection').classList.add('hidden');
-                   document.getElementById('exactDateSection').classList.add('hidden');
-                   document.getElementById('blankDateSection').classList.add('hidden');
-                   // Re-enable individual power checkboxes
-                   document.querySelectorAll('input[name="powers"][value!="O"]').forEach(checkbox => {
-                       checkbox.disabled = false;
-                   });
-               } else {
-                   throw new Error(result.message || 'Word document generation failed');
-               }
-               
-           } catch (error) {
-               console.error('Error:', error);
-               loadingMessage.style.display = 'none';
-               errorMessage.style.display = 'block';
-               
-               // Show more specific error message
-               const errorP = errorMessage.querySelector('p');
-               errorP.textContent = error.message || 'There was an error generating your Word document. Please check your information and try again.';
-           } finally {
-               // Reset button state
-               submitBtn.disabled = false;
-               submitBtn.textContent = 'Submit for Review';
-           }
-       });
-
-       // Add event listeners to individual power checkboxes to uncheck "All Powers" if any individual power is selected
-       document.querySelectorAll('input[name="powers"][value!="O"]').forEach(checkbox => {
-           checkbox.addEventListener('change', function() {
-               if (this.checked) {
-                   document.getElementById('powerO').checked = false;
-                   // Re-enable all individual checkboxes
-                   document.querySelectorAll('input[name="powers"][value!="O"]').forEach(cb => {
-                       cb.disabled = false;
-                   });
-               }
-           });
-       });
-   </script>
+        // Handle form submission
+        document.getElementById('powerOfAttorneyForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const submitBtn = this.querySelector('.submit-btn');
+            const loadingMessage = document.getElementById('loadingMessage');
+            const successMessage = document.getElementById('successMessage');
+            const errorMessage = document.getElementById('errorMessage');
+            
+            // Hide previous messages
+            successMessage.style.display = 'none';
+            errorMessage.style.display = 'none';
+            loadingMessage.style.display = 'block';
+            
+            // Show loading state
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Generating Document...';
+            
+            try {
+                const formData = new FormData(this);
+                const data = {};
+                
+                // Process form data properly
+                for (let [key, value] of formData.entries()) {
+                    if (data[key]) {
+                        // Handle multiple values
+                        if (Array.isArray(data[key])) {
+                            data[key].push(value);
+                        } else {
+                            data[key] = [data[key], value];
+                        }
+                    } else {
+                        data[key] = value;
+                    }
+                }
+                
+                // Handle date formatting
+                if (data.dateChoice === 'exact' && data.executionDate) {
+                    // Keep the exact date as entered
+                } else if (data.dateChoice === 'blank') {
+                    // Format the partial date with blanks
+                    const month = data.executionMonth || '______';
+                    const day = data.executionDay || '___';
+                    const year = data.executionYear || '____';
+                    data.executionDate = `${month} ${day}, ${year}`;
+                } else {
+                    // If no date choice is made, require it
+                    throw new Error('Please select a date option');
+                }
+                
+                // Ensure required fields are present
+                if (!data.testatorName || !data.clientEmail || !data.primaryAgent || 
+                    !data.executionCity || !data.executionState || !data.executionCounty) {
+                    throw new Error('Please fill in all required fields');
+                }
+                
+                // Ensure we have empty strings for optional fields if not provided
+                data.secondAgent = data.secondAgent || '';
+                data.thirdAgent = data.thirdAgent || '';
+                data.clientPhone = data.clientPhone || '';
+                data.additionalNotes = data.additionalNotes || '';
+                
+                // Add flags for Word document generation with blank lines
+                data.generateWordDocument = true;
+                data.useBlankLines = true;  // This tells backend to use _____ instead of checkboxes
+                
+                console.log('Sending data for Word document generation:', data);
+                
+                const response = await fetch('/submit', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(data)
+                });
+                
+                console.log('Response status:', response.status);
+                
+                const result = await response.json();
+                console.log('Result:', result);
+                
+                loadingMessage.style.display = 'none';
+                
+                if (result.success) {
+                    successMessage.style.display = 'block';
+                    this.reset();
+                    // Reset checkboxes and sections
+                    document.getElementById('wantSecondAgent').checked = false;
+                    document.getElementById('wantThirdAgent').checked = false;
+                    document.getElementById('secondAgentSection').classList.add('hidden');
+                    document.getElementById('thirdAgentSection').classList.add('hidden');
+                    document.getElementById('exactDateSection').classList.add('hidden');
+                    document.getElementById('blankDateSection').classList.add('hidden');
+                } else {
+                    throw new Error(result.message || 'Word document generation failed');
+                }
+                
+            } catch (error) {
+                console.error('Error:', error);
+                loadingMessage.style.display = 'none';
+                errorMessage.style.display = 'block';
+                
+                // Show more specific error message
+                const errorP = errorMessage.querySelector('p');
+                errorP.textContent = error.message || 'There was an error generating your Word document. Please check your information and try again.';
+            } finally {
+                // Reset button state
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Submit for Review';
+            }
+        });
+    </script>
 </body>
 </html>
