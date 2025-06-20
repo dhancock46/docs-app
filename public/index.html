@@ -544,14 +544,24 @@
             <button class="back-btn" onclick="goHome()">← Back to Document Selection</button>
             
             <!-- Notice Section -->
-            <div class="notice-section">
-                <h4>NOTICE: STATUTORY POWER OF ATTORNEY</h4>
-                <p><strong>THE POWERS GRANTED BY THIS DOCUMENT ARE BROAD AND SWEEPING.</strong> THEY ARE EXPLAINED IN THE DURABLE POWER OF ATTORNEY ACT, SUBTITLE P, TITLE 2, TEXAS ESTATES CODE.</p>
-                <p><strong>IF YOU HAVE ANY QUESTIONS ABOUT THESE POWERS, OBTAIN COMPETENT LEGAL ADVICE.</strong></p>
-                <p>THIS DOCUMENT DOES NOT AUTHORIZE ANYONE TO MAKE MEDICAL AND OTHER HEALTH-CARE DECISIONS FOR YOU.</p>
-                <p>YOU MAY REVOKE THIS POWER OF ATTORNEY IF YOU LATER WISH TO DO SO.</p>
-                <p>IF YOU WANT YOUR AGENT TO HAVE THE AUTHORITY TO SIGN HOME EQUITY LOAN DOCUMENTS ON YOUR BEHALF, THIS POWER OF ATTORNEY MUST BE SIGNED BY YOU AT THE OFFICE OF THE LENDER, AN ATTORNEY AT LAW, OR A TITLE COMPANY.</p>
-            </div>
+           <div class="notice-section">
+    <h4><strong>NOTICE: THE POWERS GRANTED BY THIS DOCUMENT ARE BROAD AND SWEEPING. THEY ARE EXPLAINED IN THE DURABLE POWER OF ATTORNEY ACT, SUBTITLE P, TITLE 2, TEXAS ESTATES CODE. IF YOU HAVE ANY QUESTIONS ABOUT THESE POWERS, OBTAIN COMPETENT LEGAL ADVICE. THIS DOCUMENT DOES NOT AUTHORIZE ANYONE TO MAKE MEDICAL AND OTHER HEALTH-CARE DECISIONS FOR YOU. YOU MAY REVOKE THIS POWER OF ATTORNEY IF YOU LATER WISH TO DO SO. IF YOU WANT YOUR AGENT TO HAVE THE AUTHORITY TO SIGN HOME EQUITY LOAN DOCUMENTS ON YOUR BEHALF, THIS POWER OF ATTORNEY MUST BE SIGNED BY YOU AT THE OFFICE OF THE LENDER, AN ATTORNEY AT LAW, OR A TITLE COMPANY.</strong></h4>
+
+    <p style="margin-top: 20px;">You should select someone you trust to serve as your agent. Unless you specify otherwise, generally the agent's authority will continue until:</p>
+    <p>(1) you die or revoke the power of attorney;</p>
+    <p>(2) your agent resigns, is removed by court order, or is unable to act for you; or</p>
+    <p>(3) a guardian is appointed for your estate.</p>
+
+    <p style="margin-top: 20px;">I, «partyFullName-t[idTestatorName-c]», appoint «partyFullName-t[idPOA1-c]» as my agent to act for me in any lawful way with respect to all of the following powers that I have initialed below. (YOU MAY APPOINT CO-AGENTS. UNLESS YOU PROVIDE OTHERWISE, CO-AGENTS MAY ACT INDEPENDENTLY.)</p>
+
+    <p style="margin-top: 15px;">If I am married to an agent, and my marriage is dissolved, terminated or voided, the authority of that agent under this power of attorney shall also terminate when my marriage terminates, unless I have provided otherwise in this document.</p>
+
+    <p style="margin-top: 15px;"><strong>TO GRANT ALL OF THE FOLLOWING POWERS, INITIAL THE LINE IN FRONT OF (O) AND IGNORE THE LINES IN FRONT OF THE OTHER POWERS LISTED IN (A) THROUGH (N).</strong></p>
+
+    <p><strong>TO GRANT A POWER, YOU MUST INITIAL THE LINE IN FRONT OF THE POWER YOU ARE GRANTING.</strong></p>
+
+    <p><strong>TO WITHHOLD A POWER, DO NOT INITIAL THE LINE IN FRONT OF THE POWER. YOU MAY, BUT DO NOT NEED TO, CROSS OUT EACH POWER WITHHELD.</strong></p>
+</div>
             
             <form id="powerOfAttorneyForm">
                 <div class="form-section">
@@ -665,82 +675,76 @@
                     </div>
                 </div>
 
-                <div class="form-section">
-                    <h3>Grant of Specific Authority</h3>
-                    <div class="section-description">
-                        <strong>CAUTION:</strong> Granting any of the following will give your agent the authority to take actions that could significantly reduce your property or change how your property is distributed at your death. INITIAL ONLY the specific authority you WANT to give your agent. If you DO NOT want to grant your agent one or more of the following powers, you may also CROSS OUT a power you DO NOT want to grant.
-                    </div>
+               <div class="form-section">
+                    <h3><strong>GRANT OF SPECIFIC AUTHORITY</strong></h3>
                     
-                    <p style="margin-bottom: 15px; font-weight: bold;">My agent MAY NOT do any of the following specific acts for me UNLESS I have INITIALED the specific authority listed below:</p>
+                    <p style="margin-bottom: 15px;">My agent MAY NOT do any of the following specific acts for me UNLESS I have INITIALED the specific authority listed below:</p>
+                    
+                    <p style="margin-bottom: 15px;">(CAUTION: Granting any of the following will give your agent the authority to take actions that could significantly reduce your property or change how your property is distributed at your death. INITIAL ONLY the specific authority you WANT to give your agent. If you DO NOT want to grant your agent one or more of the following powers, you may also CROSS OUT a power you DO NOT want to grant.)</p>
                     
                     <div style="background: #fef9e7; padding: 20px; border-radius: 8px; border: 2px solid #f39c12;">
                         <div class="authority-line">
-                            <span class="initial-line">_____</span>
-                            <label><strong>Create, amend, revoke, or terminate an inter vivos trust</strong></label>
+                            <span class="initial-line">________</span>
+                            <label>Create, amend, revoke, or terminate an inter vivos trust</label>
                         </div>
                         <div class="authority-line">
-                            <span class="initial-line">_____</span>
+                            <span class="initial-line">________</span>
                             <label>Create or change rights of survivorship</label>
                         </div>
                         <div class="authority-line">
-                            <span class="initial-line">_____</span>
+                            <span class="initial-line">________</span>
                             <label>Create or change a beneficiary designation</label>
                         </div>
                         <div class="authority-line">
-                            <span class="initial-line">_____</span>
+                            <span class="initial-line">________</span>
                             <label>Authorize another person to exercise the authority granted under this power of attorney</label>
                         </div>
                     </div>
                 </div>
 
-                <div class="form-section">
-                    <h3>Special Instructions</h3>
+               <div class="form-section">
+                    <h3><strong>SPECIAL INSTRUCTIONS:</strong></h3>
                     
-                    <h4 style="color: #2c3e50; margin-bottom: 15px;">COMPENSATION</h4>
-                    <p style="margin-bottom: 15px; color: #666; font-style: italic;">Special instructions applicable to agent compensation (initial in front of one of the following sentences to have it apply; if no selection is made, each agent will be entitled to compensation that is reasonable under the circumstances):</p>
+                    <p style="margin-bottom: 15px;"><strong>COMPENSATION:</strong> Special instructions applicable to agent compensation (initial in front of one of the following sentences to have it apply; if no selection is made, each agent will be entitled to compensation that is reasonable under the circumstances):</p>
                     
                     <div style="background: #f8f9fa; padding: 15px; border-radius: 8px; border: 1px solid #ddd;">
                         <div class="instruction-line">
-                            <span class="initial-line">_____</span>
+                            <span class="initial-line">_______</span>
                             <span>My agent is entitled to reimbursement of reasonable expenses incurred on my behalf and to compensation that is reasonable under the circumstances.</span>
                         </div>
                         <div class="instruction-line">
-                            <span class="initial-line">_____</span>
+                            <span class="initial-line">_______</span>
                             <span>My agent is entitled to reimbursement of reasonable expenses incurred on my behalf but shall receive no compensation for serving as my agent.</span>
                         </div>
                     </div>
 
-                    <h4 style="color: #2c3e50; margin: 25px 0 15px 0;">CO-AGENTS</h4>
-                    <p style="margin-bottom: 15px; color: #666; font-style: italic;">Special instructions applicable to co-agents (If you have appointed co-agents to act, initial in front of one of the following sentences to have it apply; If no selection is made, each agent will be entitled to act independently):</p>
+                    <p style="margin: 25px 0 15px 0;"><strong>CO-AGENTS:</strong> Special instructions applicable to co-agents (If you have appointed co-agents to act, initial in front of one of the following sentences to have it apply; If no selection is made, each agent will be entitled to act independently):</p>
                     
                     <div style="background: #f8f9fa; padding: 15px; border-radius: 8px; border: 1px solid #ddd;">
                         <div class="instruction-line">
-                            <span class="initial-line">_____</span>
+                            <span class="initial-line">_______</span>
                             <span>Each of my co-agents may act independently for me.</span>
                         </div>
                         <div class="instruction-line">
-                            <span class="initial-line">_____</span>
+                            <span class="initial-line">_______</span>
                             <span>My co-agents may act for me only if the co-agents act jointly.</span>
                         </div>
                         <div class="instruction-line">
-                            <span class="initial-line">_____</span>
+                            <span class="initial-line">_______</span>
                             <span>My co-agents may act for me only if a majority of the co-agents act jointly.</span>
                         </div>
                     </div>
 
-                    <h4 style="color: #e74c3c; margin: 25px 0 15px 0;">GIFTS</h4>
-                    <p style="margin-bottom: 15px; color: #666; font-style: italic;">Special instructions applicable to gifts (initial in front of the following sentence to have it apply):</p>
+                    <p style="margin: 25px 0 15px 0;"><strong>GIFTS:</strong> Special instructions applicable to gifts (initial in front of the following sentence to have it apply):</p>
                     
                     <div style="background: #fdf2f2; padding: 15px; border-radius: 8px; border: 2px solid #e74c3c;">
                         <div class="gift-line">
-                            <span class="initial-line">_____</span>
-                            <span style="font-weight: 600; color: #c0392b;"><strong>I grant my agent the power to apply my property to make gifts outright to or for the benefit of a person, including by the exercise of a presently exercisable general power of appointment held by me, except that the amount of a gift to an individual may not exceed the amount of annual exclusions allowed from the federal gift tax for the calendar year of the gift.</strong></span>
+                            <span class="initial-line">_______</span>
+                            <span>I grant my agent the power to apply my property to make gifts outright to or for the benefit of a person, including by the exercise of a presently exercisable general power of appointment held by me, except that the amount of a gift to an individual may not exceed the amount of annual exclusions allowed from the federal gift tax for the calendar year of the gift.</span>
                         </div>
                     </div>
 
-                    <div class="benefits-section">
-                        <h4><strong>GIFTS TO QUALIFY FOR PUBLIC BENEFITS</strong></h4>
-                        <p>If my agent in my agent's sole discretion has determined that I need nursing home or other long-term medical care and that I will receive proper medical care whether I privately pay for such care or if I am a recipient of Title XIX (Medicaid) or other public benefits, then my agent shall have the power: (i) to take any and all steps necessary, in my agent's judgment, to obtain and maintain my eligibility for any and all public benefits and entitlement programs, including, if necessary, signing a deed with a retained life estate (also known as a "Lady Bird Deed") as well as creating and funding a qualified income trust or special needs trust for me or a disabled child, if any; (ii) to transfer with or without consideration my assets to my descendants (if any), or to my natural heirs at law or to the persons named as beneficiaries under my last will and testament or a revocable living trust which I may have established, including my agent; and (iii) to enter into a personal services contract for my benefit, including entering into such contract with my agent, and even if doing so may be considered self-dealing. Such public benefits and entitlement programs shall include, but are not limited to, Social Security, Supplemental Security Income, Medicare, Medicaid and Veterans benefits.</p>
+                    <p style="margin: 25px 0 15px 0;"><strong>GIFTS TO QUALIFY FOR PUBLIC BENEFITS:</strong> If my agent in my agent's sole discretion has determined that I need nursing home or other long-term medical care and that I will receive proper medical care whether I privately pay for such care or if I am a recipient of Title XIX (Medicaid) or other public benefits, then my agent shall have the power: (i) to take any and all steps necessary, in my agent's judgment, to obtain and maintain my eligibility for any and all public benefits and entitlement programs, including, if necessary, signing a deed with a retained life estate (also known as a "Lady Bird Deed") as well as creating and funding a qualified income trust or special needs trust for me or a disabled child, if any; (ii) to transfer with or without consideration my assets to my descendants (if any), or to my natural heirs at law or to the persons named as beneficiaries under my last will and testament or a revocable living trust which I may have established, including my agent; and (iii) to enter into a personal services contract for my benefit, including entering into such contract with my agent, and even if doing so may be considered self-dealing. Such public benefits and entitlement programs shall include, but are not limited to, Social Security, Supplemental Security Income, Medicare, Medicaid and Veterans benefits.</p>
                     </div>
                 </div>
 
@@ -760,7 +764,17 @@
                         <p style="margin-bottom: 10px;"><strong>Power to Appoint Substitute Agent.</strong> The power to appoint or substitute one or more agents to serve as my agent under this power of attorney; provided, however, such power shall be exercisable only by the then-serving agent (or if more than one agent is serving, by all such co-agents acting unanimously), and any such appointment or substitution shall override other provisions contained herein which may attempt to name one or more successor agents. Any such appointment or substitution may be revoked by me or my agent at any time and for any reason, and such appointment or substitution shall not terminate upon the death, disability, incapacity or resignation of the agent or co-agents who made the appointment or substitution. Any such appointment or substitution shall be evidenced by acknowledged written instrument.</p>
                         
                         <p style="margin-bottom: 15px;"><strong>Power to Perform All Other Acts.</strong> In addition to the powers enumerated above, I hereby give and grant unto my agent full power and authority to do and perform all and every act and thing whatsoever requisite and necessary to be done, as fully, to all intents and purposes, as I might or could do if personally present, hereby ratifying and confirming whatsoever my agent shall and may do by virtue hereof; provided, however, and notwithstanding the foregoing, if I have withheld a particular power or powers in this power of attorney, then my agent shall not have such power or powers by virtue of the power and authority conferred by this sentence.</p>
-                    </div>
+                   </div>
+
+                    <p style="margin: 25px 0 15px 0;"><strong>LIMITATIONS:</strong> Notwithstanding any provision herein to the contrary, any authority granted to my agent shall be limited so as to prevent this power of attorney from causing my agent to be taxed on my income (unless my agent is my spouse) and from causing my assets to be subject to a general power of appointment by my agent, as that term is defined in Section 2041 of the Internal Revenue Code of 1986, as amended.</p>
+
+                    <p style="margin: 25px 0 15px 0;"><strong>ADDITIONAL POWERS:</strong> ON THE FOLLOWING LINES YOU MAY GIVE SPECIAL INSTRUCTIONS LIMITING OR EXTENDING THE POWERS GRANTED TO YOUR AGENT.</p>
+
+                    <p style="margin-bottom: 15px;">In addition to the powers granted above, I grant to my agent the following powers:</p>
+
+                    <p style="margin-bottom: 15px;"><strong>Power to Appoint Substitute Agent.</strong> The power to appoint or substitute one or more agents to serve as my agent under this power of attorney; provided, however, such power shall be exercisable only by the then-serving agent (or if more than one agent is serving, by all such co-agents acting unanimously), and any such appointment or substitution shall override other provisions contained herein which may attempt to name one or more successor agents. Any such appointment or substitution may be revoked by me or my agent at any time and for any reason, and such appointment or substitution shall not terminate upon the death, disability, incapacity or resignation of the agent or co-agents who made the appointment or substitution. Any such appointment or substitution shall be evidenced by acknowledged written instrument.</p>
+
+                    <p style="margin-bottom: 15px;"><strong>Power to Perform All Other Acts.</strong> In addition to the powers enumerated above, I hereby give and grant unto my agent full power and authority to do and perform all and every act and thing whatsoever requisite and necessary to be done, as fully, to all intents and purposes, as I might or could do if personally present, hereby ratifying and confirming whatsoever my agent shall and may do by virtue hereof; provided, however, and notwithstanding the foregoing, if I have withheld a particular power or powers in this power of attorney, then my agent shall not have such power or powers by virtue of the power and authority conferred by this sentence.</p>
                 </div>
 
                 <div class="form-section">
