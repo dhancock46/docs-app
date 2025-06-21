@@ -802,13 +802,20 @@
                 loadingMessage.style.display = 'none';
                 successMessage.style.display = 'block';
                 this.reset();
-                // Reset checkboxes and sections
-                document.getElementById('wantSecondAgent').checked = false;
-                document.getElementById('wantThirdAgent').checked = false;
-                document.getElementById('secondAgentSection').classList.add('hidden');
-                document.getElementById('thirdAgentSection').classList.add('hidden');
-                document.getElementById('exactDateSection').classList.add('hidden');
-                document.getElementById('blankDateSection').classList.add('hidden');
+               // Reset checkboxes and sections (only if they exist)
+                const wantSecondAgent = document.getElementById('wantSecondAgent');
+                const wantThirdAgent = document.getElementById('wantThirdAgent');
+                const secondAgentSection = document.getElementById('secondAgentSection');
+                const thirdAgentSection = document.getElementById('thirdAgentSection');
+                const exactDateSection = document.getElementById('exactDateSection');
+                const blankDateSection = document.getElementById('blankDateSection');
+                
+                if (wantSecondAgent) wantSecondAgent.checked = false;
+                if (wantThirdAgent) wantThirdAgent.checked = false;
+                if (secondAgentSection) secondAgentSection.classList.add('hidden');
+                if (thirdAgentSection) thirdAgentSection.classList.add('hidden');
+                if (exactDateSection) exactDateSection.classList.add('hidden');
+                if (blankDateSection) blankDateSection.classList.add('hidden');
                 
             } catch (error) {
                 console.error('Error:', error);
