@@ -545,279 +545,58 @@
             
             <!-- Notice Section -->
                       
-            <form id="powerOfAttorneyForm">
-                <div class="form-section">
-                    <h3>Principal Information</h3>
-                    <div class="form-group">
-                        <label for="testatorName">Full Legal Name of Principal *</label>
-                        <input type="text" id="testatorName" name="testatorName" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="clientEmail">Email Address *</label>
-                        <input type="email" id="clientEmail" name="clientEmail" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="clientPhone">Phone Number</label>
-                        <input type="tel" id="clientPhone" name="clientPhone">
-                    </div>
+          <form id="powerOfAttorneyForm">
+    <div class="form-section">
+        <h3>Principal Information</h3>
+        <div class="form-group">
+            <label for="testatorName">Full Legal Name of Principal *</label>
+            <input type="text" id="testatorName" name="testatorName" required>
+        </div>
+        <div class="form-group">
+            <label for="clientEmail">Email Address *</label>
+            <input type="email" id="clientEmail" name="clientEmail" required>
+        </div>
+    </div>
+
+    <div class="form-section">
+        <h3>Agent Information</h3>
+        <div class="form-group">
+            <label for="primaryAgent">Primary Agent (Full Name) *</label>
+           <input type="text" id="primaryAgent" name="primaryAgent" required autocomplete="off">
+        </div>
+    </div>
+
+    <div class="form-section">
+        <h3>Document Execution Details</h3>
+        <div class="form-group">
+            <label>Date the Document Will Be Signed *</label>
+            <div class="radio-group">
+                <div class="radio-item">
+                    <input type="radio" id="exactDate" name="dateChoice" value="exact" onchange="toggleDateInput()">
+                    <label for="exactDate">I know the exact signing date</label>
                 </div>
+            </div>
+            <div id="exactDateSection" style="margin-top: 15px;">
+                <label for="executionDate">Enter Signing Date</label>
+                <input type="text" id="executionDate" name="executionDate">
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <label for="executionCity">City Where Document Will Be Signed *</label>
+            <input type="text" id="executionCity" name="executionCity" required autocomplete="off">
+        </div>
+        <div class="form-group">
+            <label for="executionState">State Where Document Will Be Signed *</label>
+            <input type="text" id="executionState" name="executionState" required autocomplete="off">
+        </div>
+        <div class="form-group">
+            <label for="executionCounty">County Where Document Will Be Signed *</label>
+            <input type="text" id="executionCounty" name="executionCounty" required autocomplete="off">
+        </div>
+    </div>
 
-                <div class="form-section">
-                    <h3>Agent Information</h3>
-                    <div class="form-group">
-                        <label for="primaryAgent">Primary Agent (Full Name) *</label>
-                       <input type="text" id="primaryAgent" name="primaryAgent" required autocomplete="off">
-                    </div>
-                    
-                    <div class="checkbox-item">
-                        <input type="checkbox" id="wantSecondAgent" onchange="toggleSecondAgent()">
-                        <label for="wantSecondAgent">I want to name a first alternate agent</label>
-                    </div>
-                    
-                    <div class="checkbox-group hidden" id="secondAgentSection">
-                        <div class="form-group">
-                            <label for="secondAgent">First Alternate Agent (Full Name)</label>
-                            <input type="text" id="secondAgent" name="secondAgent">
-                        </div>
-                        
-                        <div class="checkbox-item">
-                            <input type="checkbox" id="wantThirdAgent" onchange="toggleThirdAgent()">
-                            <label for="wantThirdAgent">I want to name a second alternate agent</label>
-                        </div>
-                        
-                        <div class="checkbox-group hidden" id="thirdAgentSection">
-                            <div class="form-group">
-                                <label for="thirdAgent">Second Alternate Agent (Full Name)</label>
-                                <input type="text" id="thirdAgent" name="thirdAgent">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="form-section">
-                    <h3>Powers Granted to Agent</h3>
-                    <div class="section-description">
-                        <strong>Instructions:</strong> The lines below show exactly how your final document will appear. You will initial next to your chosen powers when you sign the document. TO GRANT ALL POWERS, initial only line (O) and ignore lines (A) through (N). TO GRANT SPECIFIC POWERS, initial only the individual powers you want to grant. TO WITHHOLD A POWER, do not initial the line (you may cross it out if desired).
-                    </div>
-                    
-                    <div style="background: #f8f9fa; padding: 20px; border-radius: 8px; border: 1px solid #ddd;">
-                        <p style="margin-bottom: 15px; font-weight: bold;">TO GRANT ALL OF THE FOLLOWING POWERS, INITIAL THE LINE IN FRONT OF (O) AND IGNORE THE LINES IN FRONT OF THE OTHER POWERS LISTED IN (A) THROUGH (N).</p>
-                        <p style="margin-bottom: 15px; font-weight: bold;">TO GRANT A POWER, YOU MUST INITIAL THE LINE IN FRONT OF THE POWER YOU ARE GRANTING.</p>
-                        <p style="margin-bottom: 20px; font-weight: bold;">TO WITHHOLD A POWER, DO NOT INITIAL THE LINE IN FRONT OF THE POWER. YOU MAY, BUT DO NOT NEED TO, CROSS OUT EACH POWER WITHHELD.</p>
-                        
-                        <div class="power-line">
-                            <span class="initial-line">_____</span> (A) Real property transactions;
-                        </div>
-                        <div class="power-line">
-                            <span class="initial-line">_____</span> (B) Tangible personal property transactions;
-                        </div>
-                        <div class="power-line">
-                            <span class="initial-line">_____</span> (C) Stock and bond transactions;
-                        </div>
-                        <div class="power-line">
-                            <span class="initial-line">_____</span> (D) Commodity and option transactions;
-                        </div>
-                        <div class="power-line">
-                            <span class="initial-line">_____</span> (E) Banking and other financial institution transactions;
-                        </div>
-                        <div class="power-line">
-                            <span class="initial-line">_____</span> (F) Business operating transactions;
-                        </div>
-                        <div class="power-line">
-                            <span class="initial-line">_____</span> (G) Insurance and annuity transactions;
-                        </div>
-                        <div class="power-line">
-                            <span class="initial-line">_____</span> (H) Estate, trust, and other beneficiary transactions;
-                        </div>
-                        <div class="power-line">
-                            <span class="initial-line">_____</span> (I) Claims and litigation;
-                        </div>
-                        <div class="power-line">
-                            <span class="initial-line">_____</span> (J) Personal and family maintenance;
-                        </div>
-                        <div class="power-line">
-                            <span class="initial-line">_____</span> (K) Benefits from social security, Medicare, Medicaid, or other governmental programs or civil or military service;
-                        </div>
-                        <div class="power-line">
-                            <span class="initial-line">_____</span> (L) Retirement plan transactions;
-                        </div>
-                        <div class="power-line">
-                            <span class="initial-line">_____</span> (M) Tax matters;
-                        </div>
-                        <div class="power-line">
-                            <span class="initial-line">_____</span> (N) Digital assets and the content of an electronic communication
-                        </div>
-                        
-                        <div style="margin-top: 20px; padding: 15px; background: #e8f5e8; border-radius: 8px; border: 2px solid #27ae60;">
-                            <div class="power-line" style="background: #f8fff8; border: 2px solid #27ae60; padding: 12px;">
-                                <span class="initial-line" style="border-bottom: 2px solid #27ae60;">_____</span> 
-                                <strong style="color: #27ae60;">(O) ALL OF THE POWERS LISTED IN (A) THROUGH (N).</strong>
-                            </div>
-                            <p style="margin-top: 10px; font-size: 0.9rem; color: #27ae60;"><strong>YOU DO NOT HAVE TO INITIAL THE LINE IN FRONT OF ANY OTHER POWER IF YOU INITIAL LINE (O).</strong></p>
-                        </div>
-                    </div>
-                </div>
-
-               <div class="form-section">
-                    <h3><strong>GRANT OF SPECIFIC AUTHORITY</strong></h3>
-                    
-                    <p style="margin-bottom: 15px;">My agent MAY NOT do any of the following specific acts for me UNLESS I have INITIALED the specific authority listed below:</p>
-                    
-                    <p style="margin-bottom: 15px;">(CAUTION: Granting any of the following will give your agent the authority to take actions that could significantly reduce your property or change how your property is distributed at your death. INITIAL ONLY the specific authority you WANT to give your agent. If you DO NOT want to grant your agent one or more of the following powers, you may also CROSS OUT a power you DO NOT want to grant.)</p>
-                    
-                    <div style="background: #fef9e7; padding: 20px; border-radius: 8px; border: 2px solid #f39c12;">
-                        <div class="authority-line">
-                            <span class="initial-line">________</span>
-                            <label>Create, amend, revoke, or terminate an inter vivos trust</label>
-                        </div>
-                        <div class="authority-line">
-                            <span class="initial-line">________</span>
-                            <label>Create or change rights of survivorship</label>
-                        </div>
-                        <div class="authority-line">
-                            <span class="initial-line">________</span>
-                            <label>Create or change a beneficiary designation</label>
-                        </div>
-                        <div class="authority-line">
-                            <span class="initial-line">________</span>
-                            <label>Authorize another person to exercise the authority granted under this power of attorney</label>
-                        </div>
-                    </div>
-                </div>
-
-               <div class="form-section">
-                    <h3><strong>SPECIAL INSTRUCTIONS:</strong></h3>
-                    
-                    <p style="margin-bottom: 15px;"><strong>COMPENSATION:</strong> Special instructions applicable to agent compensation (initial in front of one of the following sentences to have it apply; if no selection is made, each agent will be entitled to compensation that is reasonable under the circumstances):</p>
-                    
-                    <div style="background: #f8f9fa; padding: 15px; border-radius: 8px; border: 1px solid #ddd;">
-                        <div class="instruction-line">
-                            <span class="initial-line">_______</span>
-                            <span>My agent is entitled to reimbursement of reasonable expenses incurred on my behalf and to compensation that is reasonable under the circumstances.</span>
-                        </div>
-                        <div class="instruction-line">
-                            <span class="initial-line">_______</span>
-                            <span>My agent is entitled to reimbursement of reasonable expenses incurred on my behalf but shall receive no compensation for serving as my agent.</span>
-                        </div>
-                    </div>
-
-                    <p style="margin: 25px 0 15px 0;"><strong>CO-AGENTS:</strong> Special instructions applicable to co-agents (If you have appointed co-agents to act, initial in front of one of the following sentences to have it apply; If no selection is made, each agent will be entitled to act independently):</p>
-                    
-                    <div style="background: #f8f9fa; padding: 15px; border-radius: 8px; border: 1px solid #ddd;">
-                        <div class="instruction-line">
-                            <span class="initial-line">_______</span>
-                            <span>Each of my co-agents may act independently for me.</span>
-                        </div>
-                        <div class="instruction-line">
-                            <span class="initial-line">_______</span>
-                            <span>My co-agents may act for me only if the co-agents act jointly.</span>
-                        </div>
-                        <div class="instruction-line">
-                            <span class="initial-line">_______</span>
-                            <span>My co-agents may act for me only if a majority of the co-agents act jointly.</span>
-                        </div>
-                    </div>
-
-                    <p style="margin: 25px 0 15px 0;"><strong>GIFTS:</strong> Special instructions applicable to gifts (initial in front of the following sentence to have it apply):</p>
-                    
-                    <div style="background: #fdf2f2; padding: 15px; border-radius: 8px; border: 2px solid #e74c3c;">
-                        <div class="gift-line">
-                            <span class="initial-line">_______</span>
-                            <span>I grant my agent the power to apply my property to make gifts outright to or for the benefit of a person, including by the exercise of a presently exercisable general power of appointment held by me, except that the amount of a gift to an individual may not exceed the amount of annual exclusions allowed from the federal gift tax for the calendar year of the gift.</span>
-                        </div>
-                    </div>
-
-                    
-                    </div>
-                </div>
-
-                <div class="form-section">
-                    <div class="limitations-section">
-                        <h4><strong>LIMITATIONS</strong></h4>
-                        <p>Notwithstanding any provision herein to the contrary, any authority granted to my agent shall be limited so as to prevent this power of attorney from causing my agent to be taxed on my income (unless my agent is my spouse) and from causing my assets to be subject to a general power of appointment by my agent, as that term is defined in Section 2041 of the Internal Revenue Code of 1986, as amended.</p>
-                    </div>
-                </div>
-
-                <div class="form-section">
-                    <div class="effectiveness-section">
-                        <h4><strong>EFFECTIVENESS</strong></h4>
-                        <p style="margin-bottom: 15px;">UNLESS YOU DIRECT OTHERWISE BELOW, THIS POWER OF ATTORNEY IS EFFECTIVE IMMEDIATELY AND WILL CONTINUE UNTIL IT TERMINATES.</p>
-                        <p style="margin-bottom: 15px;"><strong>CHOOSE ONE OF THE FOLLOWING ALTERNATIVES BY CROSSING OUT THE ALTERNATIVE NOT CHOSEN:</strong></p>
-                        
-                        <div style="background: white; padding: 15px; border: 2px solid #dc3545; border-radius: 6px; margin: 15px 0;">
-                            <p style="margin-bottom: 10px;"><strong>(A) Effective Immediately:</strong> This power of attorney is effective immediately and is not affected by my subsequent disability or incapacity.</p>
-                            <p style="margin-bottom: 15px;" class="strikethrough"><strong>(B) Effective Upon Disability or Incapacity:</strong> This power of attorney becomes effective upon my disability or incapacity.</p>
-                            <p style="margin-bottom: 10px; font-size: 0.9rem;">YOU SHOULD CHOOSE ALTERNATIVE (A) IF THIS POWER OF ATTORNEY IS TO BECOME EFFECTIVE ON THE DATE IT IS EXECUTED.</p>
-                            <p style="font-size: 0.9rem;">IF NEITHER (A) NOR (B) IS CROSSED OUT, IT WILL BE ASSUMED THAT YOU CHOSE ALTERNATIVE (A).</p>
-                        </div>
-                        
-                       
-                    </div>
-                </div>
-
-                <div class="form-section">
-                    <h3>Document Execution Details</h3>
-                    <div class="section-description">
-                        📅 <strong>Important:</strong> The date below should be the date when the document will be signed (executed). The location should be where the signing will take place.
-                    </div>
-                    
-                    <div class="form-group">
-                        <label>Date the Document Will Be Signed *</label>
-                        <div class="radio-group">
-                            <div class="radio-item">
-                                <input type="radio" id="exactDate" name="dateChoice" value="exact" onchange="toggleDateInput()">
-                                <label for="exactDate">I know the exact signing date</label>
-                            </div>
-                            <div class="radio-item">
-                                <input type="radio" id="blankDate" name="dateChoice" value="blank" onchange="toggleDateInput()">
-                                <label for="blankDate">I want to leave blanks for the date (to be filled in when signed)</label>
-                            </div>
-                        </div>
-                        
-                        <div id="exactDateSection" class="hidden" style="margin-top: 15px;">
-                            <label for="executionDate">Enter Signing Date (Example Format: June 19, 2025)</label>
-                            <input type="text" id="executionDate" name="executionDate">
-                        </div>
-                        
-                        <div id="blankDateSection" class="hidden" style="margin-top: 15px;">
-                            <p style="color: #666; margin-bottom: 10px;">Enter what you know (or leave fields blank):</p>
-                            <div class="date-inputs">
-                                <div>
-                                    <label for="executionMonth">Month</label>
-                                    <input type="text" id="executionMonth" name="executionMonth">
-                                </div>
-                                <div>
-                                    <label for="executionDay">Day</label>
-                                    <input type="text" id="executionDay" name="executionDay">
-                                </div>
-                                <div>
-                                    <label for="executionYear">Year</label>
-                                    <input type="text" id="executionYear" name="executionYear">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="executionCity">City Where Document Will Be Signed *</label>
-                        <input type="text" id="executionCity" name="executionCity" required autocomplete="off">
-                    </div>
-                    <div class="form-group">
-                        <label for="executionState">State Where Document Will Be Signed *</label>
-                        <input type="text" id="executionState" name="executionState" required autocomplete="off">
-                    </div>
-                    <div class="form-group">
-                        <label for="executionCounty">County Where Document Will Be Signed *</label>
-                        <input type="text" id="executionCounty" name="executionCounty" required autocomplete="off">
-                    </div>
-                </div>
-
-                <div class="form-section">
-                    <h3>Additional Notes</h3>
-                    <div class="form-group">
-                        <label for="additionalNotes">Special Instructions or Comments</label>
-                        <textarea id="additionalNotes" name="additionalNotes" rows="4"></textarea>
-                    </div>
-                </div>
+    <button type="submit" class="submit-btn">Submit for Review</button>
 
                 <button type="submit" class="submit-btn">
                     Submit for Review
