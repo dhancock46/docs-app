@@ -53,10 +53,9 @@ function generateDocument(data) {
   ];
 
   const powersSection = powersList.map(power => {
-    const letter = power.charAt(0);
-    const isSelected = selectedPowers && selectedPowers.includes(letter);
-    return `${isSelected ? '  X  ' : '     '} (${power}`;
-  }).join('\n');
+  const letter = power.charAt(0);
+  return `_______     (${power}`;
+}).join('\n');
 
   // Generate successor agent section
   let successorSection = '';
