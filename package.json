@@ -2,9 +2,9 @@
   "name": "poa-form-app",
   "version": "1.0.0",
   "description": "Power of Attorney Form Application",
-  "main": "server-new.js",
+  "main": "server.js",
   "scripts": {
-    "start": "node server-new.js",
+    "start": "node server.js",
     "dev": "nodemon server.js"
   },
   "dependencies": {
