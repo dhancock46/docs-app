@@ -143,9 +143,9 @@ UNLESS YOU DIRECT OTHERWISE BELOW, THIS POWER OF ATTORNEY IS EFFECTIVE IMMEDIATE
 
 CHOOSE ONE OF THE FOLLOWING ALTERNATIVES BY CROSSING OUT THE ALTERNATIVE NOT CHOSEN:
 
-(A)       Effective Immediately: This power of attorney is effective immediately and is not affected by my subsequent disability or incapacity.
+(A)       **Effective Immediately:** This power of attorney is effective immediately and is not affected by my subsequent disability or incapacity.
 
-~~(B)       Effective Upon Disability or Incapacity: This power of attorney becomes effective upon my disability or incapacity.~~
+~~(B)       ~~~~**Effective Upon Disability or Incapacity:**~~~~ This power of attorney becomes effective upon my disability or incapacity.~~
 
 YOU SHOULD CHOOSE ALTERNATIVE (A) IF THIS POWER OF ATTORNEY IS TO BECOME EFFECTIVE ON THE DATE IT IS EXECUTED.
 
