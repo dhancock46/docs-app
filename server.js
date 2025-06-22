@@ -1,215 +1,1072 @@
-const express = require('express');
-const nodemailer = require('nodemailer');
-const path = require('path');
-const rateLimit = require('express-rate-limit');
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Legal Document Preparation Service</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-const app = express();
-const PORT = process.env.PORT || 3000;
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
 
-// Middleware
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-app.use(express.static('public'));
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
 
-// Basic rate limiting
-const limiter = rateLimit({
-  windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 5, // limit each IP to 5 requests per windowMs
-  message: { error: 'Too many requests, please try again later.' }
-});
+        .header {
+            background: linear-gradient(135deg, #2c3e50, #34495e);
+            color: white;
+            padding: 3rem 2rem;
+            text-align: center;
+        }
 
-app.use('/submit', limiter);
+        .header h1 {
+            font-size: 2.8rem;
+            margin-bottom: 0.5rem;
+            font-weight: 300;
+        }
 
-// Email configuration
-const transporter = nodemailer.createTransport({
-  service: 'gmail',
-  auth: {
-    user: 'don.r.hancock@gmail.com',
-    pass: process.env.GMAIL_APP_PASSWORD
-  }
-});
+        .header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
 
-// Serve the main form
-app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'index.html'));
-});
+        .main-content {
+            padding: 3rem 2rem;
+            text-align: center;
+        }
 
-// Handle form submission
-app.post('/submit', async (req, res) => {
-  try {
-    const {
-      testatorName, primaryAgent, secondAgent, thirdAgent,
-      executionDate, executionCity, executionState, executionCounty,
-      selectedPowers, specificAuthorities, compensationChoice,
-      coAgentChoice, giftsEnabled, effectiveChoice,
-      clientEmail, clientPhone, additionalNotes
-    } = req.body;
+        .document-selector {
+            background: #f8f9fa;
+            padding: 2rem;
+            border-radius: 12px;
+            margin-bottom: 2rem;
+            border: 2px solid #e9ecef;
+        }
 
-    // Generate the filled document
-    const filledDocument = generateDocument({
-      testatorName, primaryAgent, secondAgent, thirdAgent,
-      executionDate, executionCity, executionState, executionCounty,
-      selectedPowers, specificAuthorities, compensationChoice,
-      coAgentChoice, giftsEnabled, effectiveChoice
-    });
-// Email content
-    const emailHtml = `
-      <h2>New Power of Attorney Request</h2>
-      
-      <h3>Client Information:</h3>
-      <p><strong>Name:</strong> ${testatorName}</p>
-      <p><strong>Email:</strong> ${clientEmail}</p>
-      <p><strong>Phone:</strong> ${clientPhone || 'Not provided'}</p>
-      
-      <h3>Document Details:</h3>
-      <p><strong>Primary Agent:</strong> ${primaryAgent}</p>
-      ${secondAgent ? `<p><strong>Second Agent:</strong> ${secondAgent}</p>` : ''}
-      ${thirdAgent ? `<p><strong>Third Agent:</strong> ${thirdAgent}</p>` : ''}
-      <p><strong>Execution Location:</strong> ${executionCity}, ${executionState}</p>
-      <p><strong>Execution County:</strong> ${executionCounty}</p>
-      <p><strong>Execution Date:</strong> ${executionDate}</p>
-      
-      ${additionalNotes ? `<h3>Additional Notes:</h3><p>${additionalNotes}</p>` : ''}
-      
-      <hr>
-      <h3>Completed Document:</h3>
-      <div style="background-color: #f5f5f5; padding: 20px; font-family: monospace; white-space: pre-wrap; border: 1px solid #ccc;">
-${filledDocument}
-      </div>
-    `;
+        .document-selector h2 {
+            color: #2c3e50;
+            margin-bottom: 1.5rem;
+            font-size: 1.8rem;
+        }
 
-    const mailOptions = {
-      from: 'don.r.hancock@gmail.com',
-      to: 'don.r.hancock@gmail.com', // Replace with your main email
-      subject: `New Power of Attorney Request - ${testatorName}`,
-      html: emailHtml
-    };
+        .dropdown-container {
+            margin-bottom: 2rem;
+        }
 
-    await transporter.sendMail(mailOptions);
+        select {
+            width: 100%;
+            max-width: 400px;
+            padding: 15px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            background: white;
+            cursor: pointer;
+        }
 
-    res.json({ 
-      success: true, 
-      message: 'Thank you, your request has been sent for review. You can expect a response within 1 to 2 days.' 
-    });
+        select:focus {
+            outline: none;
+            border-color: #3498db;
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+        }
 
-  } catch (error) {
-    console.error('Error processing form:', error);
-    res.status(500).json({ 
-      success: false, 
-      message: 'Please try again later.' 
-    });
-  }
-});
+        .continue-btn {
+            background: linear-gradient(135deg, #3498db, #2980b9);
+            color: white;
+            padding: 15px 40px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 1rem;
+        }
 
-function generateDocument(data) {
-  const {
-    testatorName, primaryAgent, secondAgent, thirdAgent,
-    executionDate, executionCity, executionState, executionCounty,
-    selectedPowers, specificAuthorities, compensationChoice,
-    coAgentChoice, giftsEnabled, effectiveChoice
-  } = data;
+        .continue-btn:hover {
+            background: linear-gradient(135deg, #2980b9, #3498db);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(52, 152, 219, 0.3);
+        }
 
-  // Generate power selections
-  const powersList = [
-    'A) Real property transactions',
-    'B) Tangible personal property transactions',
-    'C) Stock and bond transactions',
-    'D) Commodity and option transactions',
-    'E) Banking and other financial institution transactions',
-    'F) Business operating transactions',
-    'G) Insurance and annuity transactions',
-    'H) Estate, trust, and other beneficiary transactions',
-    'I) Claims and litigation',
-    'J) Personal and family maintenance',
-    'K) Benefits from social security, Medicare, Medicaid, or other governmental programs or civil or military service',
-    'L) Retirement plan transactions',
-    'M) Tax matters',
-    'N) Digital assets and the content of an electronic communication',
-    'O) ALL OF THE POWERS LISTED IN (A) THROUGH (N)'
-  ];
+        .continue-btn:disabled {
+            background: #bdc3c7;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
 
-  const powersSection = powersList.map(power => {
-    const letter = power.charAt(0);
-    const isSelected = selectedPowers && selectedPowers.includes(letter);
-    return `${isSelected ? '  X  ' : '     '} (${power}`;
-  }).join('\n');
- // Generate successor agent section
-  let successorSection = '';
-  if (secondAgent && !thirdAgent) {
-    successorSection = `If ${primaryAgent} dies, becomes incapacitated, resigns, refuses to act, or is removed by court order, I appoint ${secondAgent} as successor agent.`;
-  } else if (secondAgent && thirdAgent) {
-    successorSection = `If ${primaryAgent} dies, becomes incapacitated, resigns, refuses to act, or is removed by court order, I appoint ${secondAgent} as successor agent. If both of the above named agents die, become legally disabled, resign, or refuse to act, I appoint ${thirdAgent} as successor agent.`;
-  }
+        .form-container {
+            display: none;
+            padding: 2rem;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
 
-  // Generate specific authorities section
-  const specificAuthList = [
-    'Create, amend, revoke, or terminate an inter vivos trust',
-    'Create or change rights of survivorship',
-    'Create or change a beneficiary designation',
-    'Authorize another person to exercise the authority granted under this power of attorney'
-  ];
+        .form-section {
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            border: 1px solid #e0e0e0;
+            border-radius: 10px;
+            background: #fafafa;
+        }
 
-  const specificAuthSection = specificAuthList.map((auth, index) => {
-    const isSelected = specificAuthorities && specificAuthorities.includes(index.toString());
-    return `${isSelected ? '   X   ' : '       '} ${auth}`;
-  }).join('\n');
+        .form-section h3 {
+            color: #2c3e50;
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 0.5rem;
+        }
 
-  return `${testatorName}
+        .section-description {
+            background: #e8f4f8;
+            padding: 1rem;
+            border-radius: 6px;
+            margin-bottom: 1.5rem;
+            color: #2c3e50;
+            font-style: italic;
+            border-left: 4px solid #3498db;
+        }
 
-STATUTORY POWER OF ATTORNEY
+        .notice-section {
+            background: #fff3cd;
+            border: 2px solid #ffeaa7;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+        }
 
-NOTICE: THE POWERS GRANTED BY THIS DOCUMENT ARE BROAD AND SWEEPING.
-THEY ARE EXPLAINED IN THE DURABLE POWER OF ATTORNEY ACT, SUBTITLE P,
-TITLE 2, TEXAS ESTATES CODE. IF YOU HAVE ANY QUESTIONS ABOUT THESE
-POWERS, OBTAIN COMPETENT LEGAL ADVICE. THIS DOCUMENT DOES NOT AUTHORIZE
-ANYONE TO MAKE MEDICAL AND OTHER HEALTH-CARE DECISIONS FOR YOU. YOU MAY
-REVOKE THIS POWER OF ATTORNEY IF YOU LATER WISH TO DO SO.
+        .notice-section h4 {
+            color: #856404;
+            margin-bottom: 1rem;
+            font-weight: bold;
+        }
 
-I, ${testatorName}, appoint ${primaryAgent} as my agent to act for me in any lawful
-way with respect to all of the following powers that I have initialed below.
+        .notice-section p {
+            color: #856404;
+            margin-bottom: 0.5rem;
+        }
 
-${successorSection}
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
 
-TO GRANT A POWER, YOU MUST INITIAL THE LINE IN FRONT OF THE POWER YOU ARE GRANTING.
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: #2c3e50;
+        }
 
-${powersSection}
+        input[type="text"],
+        input[type="email"],
+        input[type="tel"],
+        textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
 
-GRANT OF SPECIFIC AUTHORITY
+        input[type="text"]:focus,
+        input[type="email"]:focus,
+        input[type="tel"]:focus,
+        textarea:focus {
+            outline: none;
+            border-color: #3498db;
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+        }
 
-${specificAuthSection}
+        .checkbox-group {
+            margin-left: 20px;
+            margin-top: 10px;
+        }
 
-COMPENSATION:
-${compensationChoice === 'with-compensation' ? '   X   ' : '       '} My agent is entitled to reimbursement and compensation.
-${compensationChoice === 'no-compensation' ? '   X   ' : '       '} My agent is entitled to reimbursement only, no compensation.
+        .checkbox-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 15px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
 
-CO-AGENTS:
-${coAgentChoice === 'independently' ? '   X   ' : '       '} Each co-agent may act independently.
-${coAgentChoice === 'jointly' ? '   X   ' : '       '} Co-agents must act jointly.
-${coAgentChoice === 'majority' ? '   X   ' : '       '} Majority of co-agents must act jointly.
+        .checkbox-item:hover {
+            background: #f0f8ff;
+            border-color: #3498db;
+        }
 
-GIFTS:
-${giftsEnabled === 'yes' ? '   X   ' : '       '} I grant my agent the power to make gifts up to annual exclusion limits.
+        .checkbox-item input[type="checkbox"] {
+            margin-right: 15px;
+            margin-top: 3px;
+            transform: scale(1.3);
+            cursor: pointer;
+        }
 
-EFFECTIVE DATE:
-${effectiveChoice === 'immediately' ? '(A) Effective Immediately: This power of attorney is' : '~~(A) Effective Immediately~~'}
-${effectiveChoice === 'upon-disability' ? '(B) Effective Upon Disability or Incapacity' : '~~(B) Effective Upon Disability~~'}
+        .checkbox-item label {
+            cursor: pointer;
+            margin-bottom: 0;
+            flex: 1;
+        }
 
-Signed on ${executionDate} in ${executionCity}, ${executionState}.
+        /* Styles for blank lines approach */
+        .power-line {
+            display: flex;
+            align-items: flex-start;
+            padding: 8px 12px;
+            margin-bottom: 6px;
+            background: white;
+            border-radius: 4px;
+            border: 1px solid #e0e0e0;
+        }
 
-_____________________________
-${testatorName}
+        .initial-line {
+            display: inline-block;
+            width: 60px;
+            border-bottom: 1px solid #333;
+            margin-right: 12px;
+            margin-top: 2px;
+            font-family: monospace;
+            text-align: center;
+            font-size: 0.9rem;
+        }
 
-State of ${executionState}
-County of ${executionCounty}
+        .authority-line {
+            display: flex;
+            align-items: flex-start;
+            padding: 12px;
+            margin-bottom: 8px;
+            background: #fef9e7;
+            border-radius: 6px;
+            border: 2px solid #f39c12;
+        }
 
-Acknowledged before me on ${executionDate} by ${testatorName}.
+        .authority-line .initial-line {
+            width: 70px;
+            border-bottom: 2px solid #d35400;
+            margin-right: 15px;
+        }
 
-_____________________________
-Notary Public, State of ${executionState}`;
-}
+        .authority-line label {
+            font-weight: 600;
+            color: #d35400;
+            margin-bottom: 0;
+        }
 
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
-});
+        .instruction-line {
+            display: flex;
+            align-items: flex-start;
+            padding: 10px 12px;
+            margin-bottom: 6px;
+            background: white;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+        }
 
-module.exports = app;
+        .gift-line {
+            display: flex;
+            align-items: flex-start;
+            padding: 12px;
+            background: #fdf2f2;
+            border-radius: 6px;
+            border: 2px solid #e74c3c;
+            margin-bottom: 10px;
+        }
+
+        .gift-line .initial-line {
+            border-bottom: 2px solid #e74c3c;
+            width: 70px;
+        }
+
+        input[type="radio"] {
+            margin-right: 10px;
+            transform: scale(1.2);
+        }
+
+        .radio-group {
+            margin-top: 10px;
+        }
+
+        .radio-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .radio-item:hover {
+            background: #f0f8ff;
+            border-color: #3498db;
+        }
+
+        .date-inputs {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 15px;
+            margin-top: 10px;
+        }
+
+        .date-inputs input {
+            text-align: center;
+        }
+
+        .submit-btn {
+            background: linear-gradient(135deg, #27ae60, #2ecc71);
+            color: white;
+            padding: 15px 40px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 2rem;
+            transition: all 0.3s ease;
+        }
+
+        .submit-btn:hover {
+            background: linear-gradient(135deg, #2ecc71, #27ae60);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(39, 174, 96, 0.3);
+        }
+
+        .submit-btn:disabled {
+            background: #bdc3c7;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .back-btn {
+            background: #6c757d;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 25px;
+            font-size: 1rem;
+            cursor: pointer;
+            margin-bottom: 2rem;
+        }
+
+        .back-btn:hover {
+            background: #5a6268;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .success-message {
+            display: none;
+            background: #d4edda;
+            color: #155724;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-top: 1rem;
+            border: 1px solid #c3e6cb;
+            text-align: center;
+        }
+
+        .error-message {
+            display: none;
+            background: #f8d7da;
+            color: #721c24;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-top: 1rem;
+            border: 1px solid #f5c6cb;
+            text-align: center;
+        }
+
+        .loading-message {
+            display: none;
+            background: #fff3cd;
+            color: #856404;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-top: 1rem;
+            border: 1px solid #ffeaa7;
+            text-align: center;
+        }
+
+        .benefits-section {
+            background: #f0f8ff;
+            border: 2px solid #3498db;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 15px;
+        }
+
+        .benefits-section h4 {
+            color: #2980b9;
+            margin-bottom: 10px;
+        }
+
+        .benefits-section p {
+            color: #34495e;
+            font-size: 0.9rem;
+            line-height: 1.5;
+            margin-bottom: 0;
+        }
+
+        .limitations-section {
+            background: #f8f9fa;
+            border: 2px solid #6c757d;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+
+        .limitations-section h4 {
+            color: #495057;
+            margin-bottom: 10px;
+        }
+
+        .additional-powers-section {
+            background: #e7f3ff;
+            border: 2px solid #007bff;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+
+        .additional-powers-section h4 {
+            color: #0056b3;
+            margin-bottom: 10px;
+        }
+
+        .effectiveness-section {
+            background: #fff5f5;
+            border: 2px solid #dc3545;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+
+        .effectiveness-section h4 {
+            color: #721c24;
+            margin-bottom: 10px;
+        }
+
+        .strikethrough {
+            text-decoration: line-through;
+            color: #6c757d;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                margin: 10px;
+                border-radius: 10px;
+            }
+            
+            .header h1 {
+                font-size: 2.2rem;
+            }
+            
+            .main-content {
+                padding: 2rem 1rem;
+            }
+
+            .date-inputs {
+                grid-template-columns: 1fr;
+            }
+
+            .form-container {
+                padding: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Legal Document Preparation</h1>
+            <p>Professional Legal Document Drafting Service</p>
+        </div>
+
+        <!-- Home Page -->
+        <div class="main-content" id="homePage">
+            <div class="document-selector">
+                <h2>Select Document Type</h2>
+                <p style="margin-bottom: 1.5rem; color: #666;">Choose the legal document you need prepared:</p>
+                
+                <div class="dropdown-container">
+                    <select id="documentSelect">
+                        <option value="">-- Select a Document --</option>
+                        <option value="power-of-attorney">Power of Attorney (Statutory)</option>
+                    </select>
+                </div>
+                
+                <button class="continue-btn" id="continueBtn" disabled onclick="loadSelectedDocument()">
+                    Continue to Document Preparation
+                </button>
+            </div>
+
+            <div style="background: #e8f4f8; padding: 1.5rem; border-radius: 8px; margin-top: 2rem;">
+                <h3 style="color: #2c3e50; margin-bottom: 1rem;">How It Works</h3>
+                <p style="color: #555; line-height: 1.6;">
+                    1. Select your document type from the dropdown menu<br>
+                    2. Fill out the required information in our guided form<br>
+                    3. Submit for professional review and preparation<br>
+                    4. Receive your completed document within 1-2 business days
+                </p>
+            </div>
+        </div>
+
+        <!-- Power of Attorney Form -->
+        <div class="form-container" id="poaForm">
+            <button class="back-btn" onclick="goHome()">← Back to Document Selection</button>
+            
+            <!-- Notice Section -->
+            <div class="notice-section">
+                <h4>NOTICE: STATUTORY POWER OF ATTORNEY</h4>
+                <p><strong>THE POWERS GRANTED BY THIS DOCUMENT ARE BROAD AND SWEEPING.</strong> THEY ARE EXPLAINED IN THE DURABLE POWER OF ATTORNEY ACT, SUBTITLE P, TITLE 2, TEXAS ESTATES CODE.</p>
+                <p><strong>IF YOU HAVE ANY QUESTIONS ABOUT THESE POWERS, OBTAIN COMPETENT LEGAL ADVICE.</strong></p>
+                <p>THIS DOCUMENT DOES NOT AUTHORIZE ANYONE TO MAKE MEDICAL AND OTHER HEALTH-CARE DECISIONS FOR YOU.</p>
+                <p>YOU MAY REVOKE THIS POWER OF ATTORNEY IF YOU LATER WISH TO DO SO.</p>
+                <p>IF YOU WANT YOUR AGENT TO HAVE THE AUTHORITY TO SIGN HOME EQUITY LOAN DOCUMENTS ON YOUR BEHALF, THIS POWER OF ATTORNEY MUST BE SIGNED BY YOU AT THE OFFICE OF THE LENDER, AN ATTORNEY AT LAW, OR A TITLE COMPANY.</p>
+            </div>
+            
+            <form id="powerOfAttorneyForm">
+          <form id="powerOfAttorneyForm">
+    <div class="form-section">
+        <h3>Principal Information</h3>
+        <div class="form-group">
+            <label for="testatorName">Full Legal Name of Principal *</label>
+            <input type="text" id="testatorName" name="testatorName" required>
+        </div>
+        <div class="form-group">
+            <label for="clientEmail">Email Address *</label>
+            <input type="email" id="clientEmail" name="clientEmail" required>
+        </div>
+    </div>
+
+    <div class="form-section">
+        <h3>Agent Information</h3>
+        <div class="form-group">
+            <label for="primaryAgent">Primary Agent (Full Name) *</label>
+           <input type="text" id="primaryAgent" name="primaryAgent" required autocomplete="off">
+        </div>
+    </div>
+
+    <div class="form-section">
+        <h3>Powers Granted to Agent</h3>
+        <div class="section-description">
+            <strong>Instructions:</strong> The lines below show exactly how your final document will appear. You will initial next to your chosen powers when you sign the document.
+        </div>
+ <div class="form-section">
+        <h3>Powers Granted to Agent</h3>
+        <div class="section-description">
+            <strong>Instructions:</strong> The lines below show exactly how your final document will appear. You will initial next to your chosen powers when you sign the document.
+        </div>
+        
+        <div style="background: #f8f9fa; padding: 20px; border-radius: 8px; border: 1px solid #ddd;">
+            <div class="power-line">
+                <span class="initial-line">_____</span> (A) Real property transactions;
+            </div>
+            <div class="power-line">
+                <span class="initial-line">_____</span> (B) Tangible personal property transactions;
+            </div>
+            <div class="power-line">
+                <span class="initial-line">_____</span> (C) Stock and bond transactions;
+            </div>
+            <div class="power-line">
+                <span class="initial-line">_____</span> (D) Commodity and option transactions;
+            </div>
+            <div class="power-line">
+                <span class="initial-line">_____</span> (E) Banking and other financial institution transactions;
+            </div>
+            <div class="power-line">
+                <span class="initial-line">_____</span> (F) Business operating transactions;
+            </div>
+            <div class="power-line">
+                <span class="initial-line">_____</span> (G) Insurance and annuity transactions;
+            </div>
+            <div class="power-line">
+                <span class="initial-line">_____</span> (H) Estate, trust, and other beneficiary transactions;
+            </div>
+            <div class="power-line">
+                <span class="initial-line">_____</span> (I) Claims and litigation;
+            </div>
+            <div class="power-line">
+                <span class="initial-line">_____</span> (J) Personal and family maintenance;
+            </div>
+            <div class="power-line">
+                <span class="initial-line">_____</span> (K) Benefits from social security, Medicare, Medicaid, or other governmental programs or civil or military service;
+            </div>
+            <div class="power-line">
+                <span class="initial-line">_____</span> (L) Retirement plan transactions;
+            </div>
+            <div class="power-line">
+                <span class="initial-line">_____</span> (M) Tax matters;
+            </div>
+            <div class="power-line">
+                <span class="initial-line">_____</span> (N) Digital assets and the content of an electronic communication
+            </div>
+            
+            <div style="margin-top: 20px; padding: 15px; background: #e8f5e8; border-radius: 8px; border: 2px solid #27ae60;">
+                <div class="power-line" style="background: #f8fff8; border: 2px solid #27ae60; padding: 12px;">
+                    <span class="initial-line" style="border-bottom: 2px solid #27ae60;">_____</span> 
+                    <strong style="color: #27ae60;">(O) ALL OF THE POWERS LISTED IN (A) THROUGH (N).</strong>
+                </div>
+            </div>
+        </div>
+    </div>
+<div class="form-section">
+        <h3><strong>GRANT OF SPECIFIC AUTHORITY</strong></h3>
+        
+        <p style="margin-bottom: 15px;">My agent MAY NOT do any of the following specific acts for me UNLESS I have INITIALED the specific authority listed below:</p>
+        
+        <p style="margin-bottom: 15px;">(CAUTION: Granting any of the following will give your agent the authority to take actions that could significantly reduce your property or change how your property is distributed at your death. INITIAL ONLY the specific authority you WANT to give your agent. If you DO NOT want to grant your agent one or more of the following powers, you may also CROSS OUT a power you DO NOT want to grant.)</p>
+        
+        <div style="background: #fef9e7; padding: 20px; border-radius: 8px; border: 2px solid #f39c12;">
+            <div class="authority-line">
+                <span class="initial-line">________</span>
+                <label>Create, amend, revoke, or terminate an inter vivos trust</label>
+            </div>
+            <div class="authority-line">
+                <span class="initial-line">________</span>
+                <label>Create or change rights of survivorship</label>
+            </div>
+            <div class="authority-line">
+                <span class="initial-line">________</span>
+                <label>Create or change a beneficiary designation</label>
+            </div>
+            <div class="authority-line">
+                <span class="initial-line">________</span>
+                <label>Authorize another person to exercise the authority granted under this power of attorney</label>
+            </div>
+        </div>
+    </div>
+<div class="form-section">
+        <h3><strong>SPECIAL INSTRUCTIONS:</strong></h3>
+        
+        <p style="margin-bottom: 15px;"><strong>COMPENSATION:</strong> Special instructions applicable to agent compensation (initial in front of one of the following sentences to have it apply; if no selection is made, each agent will be entitled to compensation that is reasonable under the circumstances):</p>
+        
+        <div style="background: #f8f9fa; padding: 15px; border-radius: 8px; border: 1px solid #ddd;">
+            <div class="instruction-line">
+                <span class="initial-line">_______</span>
+                <span>My agent is entitled to reimbursement of reasonable expenses incurred on my behalf and to compensation that is reasonable under the circumstances.</span>
+            </div>
+            <div class="instruction-line">
+                <span class="initial-line">_______</span>
+                <span>My agent is entitled to reimbursement of reasonable expenses incurred on my behalf but shall receive no compensation for serving as my agent.</span>
+            </div>
+        </div>
+
+        <p style="margin: 25px 0 15px 0;"><strong>CO-AGENTS:</strong> Special instructions applicable to co-agents (If you have appointed co-agents to act, initial in front of one of the following sentences to have it apply; If no selection is made, each agent will be entitled to act independently):</p>
+        
+        <div style="background: #f8f9fa; padding: 15px; border-radius: 8px; border: 1px solid #ddd;">
+            <div class="instruction-line">
+                <span class="initial-line">_______</span>
+                <span>Each of my co-agents may act independently for me.</span>
+            </div>
+            <div class="instruction-line">
+                <span class="initial-line">_______</span>
+                <span>My co-agents may act for me only if the co-agents act jointly.</span>
+            </div>
+            <div class="instruction-line">
+                <span class="initial-line">_______</span>
+                <span>My co-agents may act for me only if a majority of the co-agents act jointly.</span>
+            </div>
+        </div>
+
+        <p style="margin: 25px 0 15px 0;"><strong>GIFTS:</strong> Special instructions applicable to gifts (initial in front of the following sentence to have it apply):</p>
+        
+        <div style="background: #fdf2f2; padding: 15px; border-radius: 8px; border: 2px solid #e74c3c;">
+            <div class="gift-line">
+                <span class="initial-line">_______</span>
+                <span>I grant my agent the power to apply my property to make gifts outright to or for the benefit of a person, including by the exercise of a presently exercisable general power of appointment held by me, except that the amount of a gift to an individual may not exceed the amount of annual exclusions allowed from the federal gift tax for the calendar year of the gift.</span>
+            </div>
+        </div>
+    </div>
+<div class="form-section">
+        <div class="limitations-section">
+            <h4><strong>LIMITATIONS</strong></h4>
+            <p>Notwithstanding any provision herein to the contrary, any authority granted to my agent shall be limited so as to prevent this power of attorney from causing my agent to be taxed on my income (unless my agent is my spouse) and from causing my assets to be subject to a general power of appointment by my agent, as that term is defined in Section 2041 of the Internal Revenue Code of 1986, as amended.</p>
+        </div>
+    </div>
+ <p style="margin: 25px 0 15px 0;"><strong>GIFTS TO QUALIFY FOR PUBLIC BENEFITS:</strong> If my agent in my agent's sole discretion has determined that I need nursing home or other long-term medical care and that I will receive proper medical care whether I privately pay for such care or if I am a recipient of Title XIX (Medicaid) or other public benefits, then my agent shall have the power:</p>
+
+        <p>(i) to take any and all steps necessary, in my agent's judgment, to obtain and maintain my eligibility for any and all public benefits and entitlement programs, including, if necessary, signing a deed with a retained life estate (also known as a "Lady Bird Deed") as well as creating and funding a qualified income trust or special needs trust for me or a disabled child, if any;</p>
+
+        <p>(ii) to transfer with or without consideration my assets to my descendants (if any), or to my natural heirs at law or to the persons named as beneficiaries under my last will and testament or a revocable living trust which I may have established, including my agent; and</p>
+
+        <p>(iii) to enter into a personal services contract for my benefit, including entering into such contract with my agent, and even if doing so may be considered self-dealing. Such public benefits and entitlement programs shall include, but are not limited to, Social Security, Supplemental Security Income, Medicare, Medicaid and Veterans benefits.</p>
+        <div class="form-group">
+            <label>Date the Document Will Be Signed *</label>
+            <div class="radio-group">
+                <div class="radio-item">
+                    <input type="radio" id="exactDate" name="dateChoice" value="exact" onchange="toggleDateInput()">
+                    <label for="exactDate">I know the exact signing date</label>
+                </div>
+            </div>
+            <div id="exactDateSection" style="margin-top: 15px;">
+                <label for="executionDate">Enter Signing Date</label>
+                <input type="text" id="executionDate" name="executionDate">
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <label for="executionCity">City Where Document Will Be Signed *</label>
+            <input type="text" id="executionCity" name="executionCity" required autocomplete="off">
+        </div>
+        <div class="form-group">
+            <label for="executionState">State Where Document Will Be Signed *</label>
+            <input type="text" id="executionState" name="executionState" required autocomplete="off">
+        </div>
+        <div class="form-group">
+            <label for="executionCounty">County Where Document Will Be Signed *</label>
+            <input type="text" id="executionCounty" name="executionCounty" required autocomplete="off">
+        </div>
+    </div>
+
+    <button type="submit" class="submit-btn">Submit for Review</button>
+
+                <button type="submit" class="submit-btn">
+                    Submit for Review
+                </button>
+
+                <div class="loading-message" id="loadingMessage">
+                    <h4>Generating Document...</h4>
+                    <p>Please wait while we process your request and generate your formatted Word document.</p>
+                </div>
+
+                <div class="success-message" id="successMessage">
+                    <h4>✅ Success!</h4>
+                    <p>Your Power of Attorney request has been sent successfully to don.r.hancock@gmail.com as a formatted Word document with proper initial lines.<br>
+                    You can expect a response within 1-2 business days.</p>
+                </div>
+
+                <div class="error-message" id="errorMessage">
+                    <h4>❌ Error</h4>
+                    <p>There was an error sending your request. Please check your information and try again.</p>
+                </div>
+            </form>
+        </div>
+    </div>
+     <script>
+        // Enable continue button when document is selected
+        document.getElementById('documentSelect').addEventListener('change', function() {
+            const continueBtn = document.getElementById('continueBtn');
+            continueBtn.disabled = this.value === '';
+        });
+
+        // Load selected document form
+        function loadSelectedDocument() {
+            const selectedDoc = document.getElementById('documentSelect').value;
+            const homePage = document.getElementById('homePage');
+            
+            if (selectedDoc === 'power-of-attorney') {
+                homePage.style.display = 'none';
+                document.getElementById('poaForm').style.display = 'block';
+            }
+        }
+
+        // Go back to home page
+        function goHome() {
+            document.getElementById('homePage').style.display = 'block';
+            document.getElementById('poaForm').style.display = 'none';
+            // Reset form completely
+            document.getElementById('powerOfAttorneyForm').reset();
+            // Hide agent sections
+            document.getElementById('secondAgentSection').classList.add('hidden');
+            document.getElementById('thirdAgentSection').classList.add('hidden');
+            // Hide date sections
+            document.getElementById('exactDateSection').classList.add('hidden');
+            document.getElementById('blankDateSection').classList.add('hidden');
+            // Hide messages
+            document.getElementById('successMessage').style.display = 'none';
+            document.getElementById('errorMessage').style.display = 'none';
+            document.getElementById('loadingMessage').style.display = 'none';
+        }
+
+        // Toggle date input options
+        function toggleDateInput() {
+            const exactDate = document.getElementById('exactDate').checked;
+            const blankDate = document.getElementById('blankDate').checked;
+            const exactSection = document.getElementById('exactDateSection');
+            const blankSection = document.getElementById('blankDateSection');
+            
+            if (exactDate) {
+                exactSection.classList.remove('hidden');
+                blankSection.classList.add('hidden');
+                // Clear blank date fields
+                document.getElementById('executionMonth').value = '';
+                document.getElementById('executionDay').value = '';
+                document.getElementById('executionYear').value = '';
+            } else if (blankDate) {
+                blankSection.classList.remove('hidden');
+                exactSection.classList.add('hidden');
+                // Clear exact date field
+                document.getElementById('executionDate').value = '';
+            } else {
+                exactSection.classList.add('hidden');
+                blankSection.classList.add('hidden');
+            }
+        }
+
+        // Toggle second agent section
+        function toggleSecondAgent() {
+            const checkbox = document.getElementById('wantSecondAgent');
+            const section = document.getElementById('secondAgentSection');
+            
+            if (checkbox.checked) {
+                section.classList.remove('hidden');
+            } else {
+                section.classList.add('hidden');
+                // Also hide third agent and uncheck
+                document.getElementById('wantThirdAgent').checked = false;
+                document.getElementById('thirdAgentSection').classList.add('hidden');
+                // Clear the inputs
+                document.getElementById('secondAgent').value = '';
+                document.getElementById('thirdAgent').value = '';
+            }
+        }
+
+        // Toggle third agent section
+        function toggleThirdAgent() {
+            const checkbox = document.getElementById('wantThirdAgent');
+            const section = document.getElementById('thirdAgentSection');
+            
+            if (checkbox.checked) {
+                section.classList.remove('hidden');
+            } else {
+                section.classList.add('hidden');
+                document.getElementById('thirdAgent').value = '';
+            }
+        }
+
+        // Handle form submission
+        document.getElementById('powerOfAttorneyForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const submitBtn = this.querySelector('.submit-btn');
+            const loadingMessage = document.getElementById('loadingMessage');
+            const successMessage = document.getElementById('successMessage');
+            const errorMessage = document.getElementById('errorMessage');
+            
+            // Hide previous messages
+            successMessage.style.display = 'none';
+            errorMessage.style.display = 'none';
+            loadingMessage.style.display = 'block';
+            
+            // Show loading state
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Generating Document...';
+            
+            try {
+                const formData = new FormData(this);
+                const data = {};
+                
+                // Process form data properly
+                for (let [key, value] of formData.entries()) {
+                    if (data[key]) {
+                        // Handle multiple values
+                        if (Array.isArray(data[key])) {
+                            data[key].push(value);
+                        } else {
+                            data[key] = [data[key], value];
+                        }
+                    } else {
+                        data[key] = value;
+                    }
+                }
+                
+                // Handle date formatting
+                if (data.dateChoice === 'exact' && data.executionDate) {
+                    // Keep the exact date as entered
+                } else if (data.dateChoice === 'blank') {
+                    // Format the partial date with blanks
+                    const month = data.executionMonth || '______';
+                    const day = data.executionDay || '___';
+                    const year = data.executionYear || '____';
+                    data.executionDate = `${month} ${day}, ${year}`;
+                } else {
+                    // If no date choice is made, require it
+                    throw new Error('Please select a date option');
+                }
+                
+                // Ensure required fields are present
+                if (!data.testatorName || !data.clientEmail || !data.primaryAgent || 
+                    !data.executionCity || !data.executionState || !data.executionCounty) {
+                    throw new Error('Please fill in all required fields');
+                }
+                
+                // Ensure we have empty strings for optional fields if not provided
+                data.secondAgent = data.secondAgent || '';
+                data.thirdAgent = data.thirdAgent || '';
+                data.clientPhone = data.clientPhone || '';
+                data.additionalNotes = data.additionalNotes || '';
+                
+                // Add flags for Word document generation with blank lines
+                data.generateWordDocument = true;
+                data.useBlankLines = true;  // This tells backend to use _____ instead of checkboxes
+                data.documentType = 'power-of-attorney';
+                
+                console.log('Sending data for Word document generation:', data);
+                
+                // Uncomment when backend is ready:
+                const response = await fetch('/submit', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(data)
+                });
+                
+                console.log('Response status:', response.status);
+                
+                const result = await response.json();
+                console.log('Result:', result);
+                
+                if (!result.success) {
+                    throw new Error(result.message || 'Word document generation failed');
+                }
+                
+                loadingMessage.style.display = 'none';
+                successMessage.style.display = 'block';
+                this.reset();
+               // Reset checkboxes and sections (only if they exist)
+                const wantSecondAgent = document.getElementById('wantSecondAgent');
+                const wantThirdAgent = document.getElementById('wantThirdAgent');
+                const secondAgentSection = document.getElementById('secondAgentSection');
+                const thirdAgentSection = document.getElementById('thirdAgentSection');
+                const exactDateSection = document.getElementById('exactDateSection');
+                const blankDateSection = document.getElementById('blankDateSection');
+                
+                if (wantSecondAgent) wantSecondAgent.checked = false;
+                if (wantThirdAgent) wantThirdAgent.checked = false;
+                if (secondAgentSection) secondAgentSection.classList.add('hidden');
+                if (thirdAgentSection) thirdAgentSection.classList.add('hidden');
+                if (exactDateSection) exactDateSection.classList.add('hidden');
+                if (blankDateSection) blankDateSection.classList.add('hidden');
+                
+            } catch (error) {
+                console.error('Error:', error);
+                loadingMessage.style.display = 'none';
+                errorMessage.style.display = 'block';
+                
+                // Show more specific error message
+                const errorP = errorMessage.querySelector('p');
+                errorP.textContent = error.message || 'There was an error generating your Word document. Please check your information and try again.';
+            } finally {
+                // Reset button state
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Submit for Review';
+            }
+        });
+
+        // Prevent form from submitting when user presses Enter in text fields
+        document.querySelectorAll('input[type="text"], input[type="email"], input[type="tel"]').forEach(input => {
+            input.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                }
+            });
+        });
+
+        // Add some visual feedback when form sections are completed
+        document.querySelectorAll('input[required]').forEach(input => {
+            input.addEventListener('blur', function() {
+                if (this.value.trim()) {
+                    this.style.borderColor = '#27ae60';
+                } else {
+                    this.style.borderColor = '#ddd';
+                }
+            });
+        });
+
+        // Scroll to top when switching between home and form
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Add scroll to top when loading form
+        document.getElementById('continueBtn').addEventListener('click', function() {
+            setTimeout(scrollToTop, 100);
+        });
+
+        // Add scroll to top when going back to home
+        document.querySelector('.back-btn').addEventListener('click', function() {
+            setTimeout(scrollToTop, 100);
+        });
+
+        // Auto-resize textarea
+        document.getElementById('additionalNotes').addEventListener('input', function() {
+            this.style.height = 'auto';
+            this.style.height = (this.scrollHeight) + 'px';
+        });
+
+        // Form validation helper
+        function validateForm() {
+            const requiredFields = document.querySelectorAll('input[required]');
+            let isValid = true;
+            
+            requiredFields.forEach(field => {
+                if (!field.value.trim()) {
+                    field.style.borderColor = '#e74c3c';
+                    isValid = false;
+                } else {
+                    field.style.borderColor = '#27ae60';
+                }
+            });
+            
+            // Check date choice
+            const dateChoice = document.querySelector('input[name="dateChoice"]:checked');
+            if (!dateChoice) {
+                isValid = false;
+                document.querySelectorAll('input[name="dateChoice"]').forEach(radio => {
+                    radio.parentElement.style.borderColor = '#e74c3c';
+                });
+            }
+            
+            return isValid;
+        }
+
+        // Add validation on form submit
+        document.getElementById('powerOfAttorneyForm').addEventListener('submit', function(e) {
+            if (!validateForm()) {
+                e.preventDefault();
+                const errorMessage = document.getElementById('errorMessage');
+                const errorP = errorMessage.querySelector('p');
+                errorP.textContent = 'Please fill in all required fields and make all necessary selections.';
+                errorMessage.style.display = 'block';
+                
+                // Scroll to first error
+                const firstError = document.querySelector('input[style*="border-color: rgb(231, 76, 60)"]');
+                if (firstError) {
+                    firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    firstError.focus();
+                }
+            }
+        });
+    </script>
+</body>
+</html>
