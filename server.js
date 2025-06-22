@@ -111,9 +111,11 @@ My agent MAY NOT do any of the following specific acts for me UNLESS I have INIT
 
 ${specificAuthSection}
 
-COMPENSATION:
-${compensationChoice === 'with-compensation' ? '   X   ' : '       '} My agent is entitled to reimbursement and compensation.
-${compensationChoice === 'no-compensation' ? '   X   ' : '       '} My agent is entitled to reimbursement only, no compensation.
+COMPENSATION: Special instructions applicable to agent compensation (initial in front of one of the following sentences to have it apply; if no selection is made, each agent will be entitled to compensation that is reasonable under the circumstances):
+
+_______            My agent is entitled to reimbursement of reasonable expenses incurred on my behalf and to compensation that is reasonable under the circumstances.
+
+_______            My agent is entitled to reimbursement of reasonable expenses incurred on my behalf but shall receive no compensation for serving as my agent.
 
 CO-AGENTS:
 ${coAgentChoice === 'independently' ? '   X   ' : '       '} Each co-agent may act independently.
