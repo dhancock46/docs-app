@@ -100,7 +100,14 @@ TO WITHHOLD A POWER, DO NOT INITIAL THE LINE IN FRONT OF THE POWER. YOU MAY, BUT
 
 ${powersSection}
 
+YOU DO NOT HAVE TO INITIAL THE LINE IN FRONT OF ANY OTHER POWER IF YOU INITIAL LINE (O).
+
 GRANT OF SPECIFIC AUTHORITY
+
+My agent MAY NOT do any of the following specific acts for me UNLESS I have INITIALED the specific authority listed below:
+
+(CAUTION: Granting any of the following will give your agent the authority to take actions that could significantly reduce your property or change how your property is distributed at your death. INITIAL ONLY the specific authority you WANT to give your agent. If you DO NOT want to grant your agent one or more of the following powers, you may also CROSS OUT a power you DO NOT want to grant.) 
+
 
 ${specificAuthSection}
 
