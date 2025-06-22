@@ -4,7 +4,7 @@
   "description": "Power of Attorney Form Application",
   "main": "server-new.js",
   "scripts": {
-    "start": "node server.js",
+    "start": "node server-new.js",
     "dev": "nodemon server.js"
   },
   "dependencies": {
