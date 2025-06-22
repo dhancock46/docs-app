@@ -139,9 +139,21 @@ Power to Appoint Substitute Agent. The power to appoint or substitute one or mor
 
 Power to Perform All Other Acts. In addition to the powers enumerated above, I hereby give and grant unto my agent full power and authority to do and perform all and every act and thing whatsoever requisite and necessary to be done, as fully, to all intents and purposes, as I might or could do if personally present, hereby ratifying and confirming whatsoever my agent shall and may do by virtue hereof; provided, however, and notwithstanding the foregoing, if I have withheld a particular power or powers in this power of attorney, then my agent shall not have such power or powers by virtue of the power and authority conferred by this sentence.
 
-EFFECTIVE DATE:
-${effectiveChoice === 'immediately' ? '(A) Effective Immediately: This power of attorney is' : '~~(A) Effective Immediately~~'}
-${effectiveChoice === 'upon-disability' ? '(B) Effective Upon Disability or Incapacity' : '~~(B) Effective Upon Disability~~'}
+UNLESS YOU DIRECT OTHERWISE BELOW, THIS POWER OF ATTORNEY IS EFFECTIVE IMMEDIATELY AND WILL CONTINUE UNTIL IT TERMINATES.
+
+CHOOSE ONE OF THE FOLLOWING ALTERNATIVES BY CROSSING OUT THE ALTERNATIVE NOT CHOSEN:
+
+(A)       Effective Immediately: This power of attorney is effective immediately and is not affected by my subsequent disability or incapacity.
+
+~~(B)       Effective Upon Disability or Incapacity: This power of attorney becomes effective upon my disability or incapacity.~~
+
+YOU SHOULD CHOOSE ALTERNATIVE (A) IF THIS POWER OF ATTORNEY IS TO BECOME EFFECTIVE ON THE DATE IT IS EXECUTED.
+
+IF NEITHER (A) NOR (B) IS CROSSED OUT, IT WILL BE ASSUMED THAT YOU CHOSE ALTERNATIVE (A).
+
+If Alternative (B) is chosen, I shall be considered disabled or incapacitated for purposes of this power of attorney if a physician certifies in writing at a date later than the date this power of attorney is executed that, based on the physician's medical examination of me, I am mentally incapable of managing my financial affairs. I authorize the physician who examines me for this purpose to disclose my physical or mental condition to another person for purposes of this power of attorney. A third party who accepts this power of attorney is fully protected from any action taken under this power of attorney that is based on the determination made by a physician of my disability or incapacity. After having been certified as being incapable of managing my financial affairs, if a physician certifies in writing at such later date that, based upon such physician's medical examination of me, I have regained the mental capacity to manage my financial affairs, then this power of attorney shall no longer be effective, and it shall become effective again only if a physician certifies in writing at a date later than the date I regained capacity that, based on the physician's medical examination of me, I am mentally incapable of managing my financial affairs.
+
+I agree that any third party who receives a copy of this document may act under it. Termination of this durable power of attorney is not effective as to a third party until the third party has actual knowledge of the termination. I agree to indemnify the third party for any claims that arise against the third party because of reliance on this power of attorney. The meaning and effect of this durable power of attorney is determined by Texas law.
 
 Signed on ${executionDate} in ${executionCity}, ${executionState}.
 
