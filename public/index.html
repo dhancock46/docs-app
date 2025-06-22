@@ -749,10 +749,6 @@
 
     <button type="submit" class="submit-btn">Submit for Review</button>
 
-                <button type="submit" class="submit-btn">
-                    Submit for Review
-                </button>
-
                 <div class="loading-message" id="loadingMessage">
                     <h4>Generating Document...</h4>
                     <p>Please wait while we process your request and generate your formatted Word document.</p>
@@ -899,19 +895,16 @@
                     }
                 }
                 
-                // Handle date formatting
-                if (data.dateChoice === 'exact' && data.executionDate) {
-                    // Keep the exact date as entered
+               // Handle date formatting
+               if (data.dateChoice === 'exact' && data.executionDate) {
+               // Keep the exact date as entered
                 } else if (data.dateChoice === 'blank') {
-                    // Format the partial date with blanks
-                    const month = data.executionMonth || '______';
-                    const day = data.executionDay || '___';
-                    const year = data.executionYear || '____';
-                    data.executionDate = `${month} ${day}, ${year}`;
-                } else {
-                    // If no date choice is made, require it
-                    throw new Error('Please select a date option');
-                }
+              // Use blanks for unknown date
+              data.executionDate = '____________, 20__';
+              } else {
+             // If no date choice is made, require it
+             throw new Error('Please select a date option');
+             }
                 
                 // Ensure required fields are present
                 if (!data.testatorName || !data.clientEmail || !data.primaryAgent || 
