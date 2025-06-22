@@ -555,17 +555,37 @@
             
             <form id="powerOfAttorneyForm">
           <form id="powerOfAttorneyForm">
-    <div class="form-section">
-        <h3>Principal Information</h3>
-        <div class="form-group">
-            <label for="testatorName">Full Legal Name of Principal *</label>
-            <input type="text" id="testatorName" name="testatorName" required>
-        </div>
-        <div class="form-group">
-            <label for="clientEmail">Email Address *</label>
-            <input type="email" id="clientEmail" name="clientEmail" required>
+   <div class="form-section">
+    <h3>Agent Information</h3>
+    <div class="form-group">
+        <label for="primaryAgent">Primary Agent (Full Name) *</label>
+        <input type="text" id="primaryAgent" name="primaryAgent" required autocomplete="off">
+    </div>
+    
+    <div class="form-group">
+        <label>
+            <input type="checkbox" id="wantSecondAgent" onchange="toggleSecondAgent()">
+            I want to appoint a second agent
+        </label>
+    </div>
+    
+    <div class="form-group hidden" id="secondAgentSection">
+        <label for="secondAgent">Second Agent (Full Name)</label>
+        <input type="text" id="secondAgent" name="secondAgent" autocomplete="off">
+        
+        <div style="margin-top: 15px;">
+            <label>
+                <input type="checkbox" id="wantThirdAgent" onchange="toggleThirdAgent()">
+                I want to appoint a third agent
+            </label>
         </div>
     </div>
+    
+    <div class="form-group hidden" id="thirdAgentSection">
+        <label for="thirdAgent">Third Agent (Full Name)</label>
+        <input type="text" id="thirdAgent" name="thirdAgent" autocomplete="off">
+    </div>
+</div>
 
     <div class="form-section">
         <h3>Agent Information</h3>
@@ -720,18 +740,26 @@
 
         <p>(iii) to enter into a personal services contract for my benefit, including entering into such contract with my agent, and even if doing so may be considered self-dealing. Such public benefits and entitlement programs shall include, but are not limited to, Social Security, Supplemental Security Income, Medicare, Medicaid and Veterans benefits.</p>
         <div class="form-group">
-            <label>Date the Document Will Be Signed *</label>
-            <div class="radio-group">
-                <div class="radio-item">
-                    <input type="radio" id="exactDate" name="dateChoice" value="exact" onchange="toggleDateInput()">
-                    <label for="exactDate">I know the exact signing date</label>
-                </div>
-            </div>
-            <div id="exactDateSection" style="margin-top: 15px;">
-                <label for="executionDate">Enter Signing Date</label>
-                <input type="text" id="executionDate" name="executionDate">
-            </div>
+    <label>Date the Document Will Be Signed *</label>
+    <div class="radio-group">
+        <div class="radio-item">
+            <input type="radio" id="exactDate" name="dateChoice" value="exact" onchange="toggleDateInput()">
+            <label for="exactDate">I know the exact signing date</label>
         </div>
+        <div class="radio-item">
+            <input type="radio" id="blankDate" name="dateChoice" value="blank" onchange="toggleDateInput()">
+            <label for="blankDate">I don't know the exact signing date</label>
+        </div>
+    </div>
+    <div id="exactDateSection" class="hidden" style="margin-top: 15px;">
+        <label for="executionDate">Enter Signing Date</label>
+        <input type="text" id="executionDate" name="executionDate">
+    </div>
+    <div id="blankDateSection" class="hidden" style="margin-top: 15px;">
+        <label>Date will appear as blanks in the document for manual completion</label>
+        <p style="color: #666; font-style: italic;">Example: __________, 20__</p>
+    </div>
+</div>
         
         <div class="form-group">
             <label for="executionCity">City Where Document Will Be Signed *</label>
