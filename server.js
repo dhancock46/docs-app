@@ -73,10 +73,9 @@ function generateDocument(data) {
     'Authorize another person to exercise the authority granted under this power of attorney'
   ];
 
-  const specificAuthSection = specificAuthList.map((auth, index) => {
-    const isSelected = specificAuthorities && specificAuthorities.includes(index.toString());
-    return `${isSelected ? '   X   ' : '       '} ${auth}`;
-  }).join('\n');
+const specificAuthSection = specificAuthList.map((auth, index) => {
+  return `_______     ${auth}`;
+}).join('\n');
 
   return `${testatorName}
 
@@ -116,13 +115,18 @@ _______            My agent is entitled to reimbursement of reasonable expenses 
 
 _______            My agent is entitled to reimbursement of reasonable expenses incurred on my behalf but shall receive no compensation for serving as my agent.
 
-CO-AGENTS:
-${coAgentChoice === 'independently' ? '   X   ' : '       '} Each co-agent may act independently.
-${coAgentChoice === 'jointly' ? '   X   ' : '       '} Co-agents must act jointly.
-${coAgentChoice === 'majority' ? '   X   ' : '       '} Majority of co-agents must act jointly.
+CO-AGENTS: Special instructions applicable to co-agents (If you have appointed co-agents to act, initial in front of one of the following sentences to have it apply; If no selection is made, each agent will be entitled to act independently):
 
-GIFTS:
-${giftsEnabled === 'yes' ? '   X   ' : '       '} I grant my agent the power to make gifts up to annual exclusion limits.
+_______                       Each of my co-agents may act independently for me.
+
+_______                       My co-agents may act for me only if the co-agents act jointly.
+
+_______                       My co-agents may act for me only if a majority of the co-agents act jointly.
+
+GIFTS: Special instructions applicable to gifts (initial in front of the following sentence to have it apply):
+
+_______
+I grant my agent the power to apply my property to make gifts outright to or for the benefit of a person, including by the exercise of a presently exercisable general power of appointment held by me, except that the amount of a gift to an individual may not exceed the amount of annual exclusions allowed from the federal gift tax for the calendar year of the gift.
 
 EFFECTIVE DATE:
 ${effectiveChoice === 'immediately' ? '(A) Effective Immediately: This power of attorney is' : '~~(A) Effective Immediately~~'}
