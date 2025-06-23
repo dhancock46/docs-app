@@ -84,9 +84,7 @@ NOTICE: THE POWERS GRANTED BY THIS DOCUMENT ARE BROAD AND SWEEPING. THEY ARE EXP
 
 I, ${testatorName}, appoint ${primaryAgent} as my agent to act for me in any lawful
 way with respect to all of the following powers that I have initialed below.
-
 ${successorSection}
-
 If I am married to an agent, and my marriage is dissolved, terminated or voided, the authority of that agent under this power of attorney shall also terminate when my marriage terminates, unless I have provided otherwise in this document.
 
 TO GRANT ALL OF THE FOLLOWING POWERS, INITIAL THE LINE IN FRONT OF (O) AND IGNORE THE LINES IN FRONT OF THE OTHER POWERS LISTED IN (A) THROUGH (N).
