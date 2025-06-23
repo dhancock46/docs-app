@@ -215,7 +215,7 @@ async function generateDocument(data) {
           children: [new TextRun({ text: "_______     (L) Retirement plan transactions;", font: "Century Gothic" })],
           spacing: { after: 100 }
         }),
-        new Paragraph({
+       new Paragraph({
           children: [new TextRun({ text: "_______     (M) Tax matters;", font: "Century Gothic" })],
           spacing: { after: 100 }
         }),
