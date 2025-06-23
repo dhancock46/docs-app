@@ -371,16 +371,21 @@ async function generateDocument(data) {
           children: [new TextRun({ text: "_______     My co-agents may act for me only if a majority of the co-agents act jointly.", font: "Century Gothic" })],
           spacing: { after: 400 }
         }),
-new Paragraph({
+
+        // Gifts - centered heading
+        new Paragraph({
           children: [
             new TextRun({
-              text: "Special instructions applicable to gifts (initial in front of the following sentence to have it apply):",
+              text: "GIFTS",
+              bold: true,
+              size: 24,
               font: "Century Gothic"
             })
           ],
-          alignment: AlignmentType.JUSTIFIED,
+          alignment: AlignmentType.CENTER,
           spacing: { after: 200 }
         }),
+
         new Paragraph({
           children: [
             new TextRun({
@@ -391,7 +396,6 @@ new Paragraph({
           alignment: AlignmentType.JUSTIFIED,
           spacing: { after: 200 }
         }),
-
         // Gifts - centered heading
         new Paragraph({
          children: [new TextRun({ text: "_______     I grant my agent the power to apply my property to make gifts outright to or for the benefit of a person, including by the exercise of a presently exercisable general power of appointment held by me, except that the amount of a gift to an individual may not exceed the amount of annual exclusions allowed from the federal gift tax for the calendar year of the gift.", font: "Century Gothic" })],
