@@ -403,7 +403,157 @@ async function generateDocument(data) {
          alignment: AlignmentType.JUSTIFIED,
          indent: { left: 1296, hanging: 1008 }
          }),
+new Paragraph({
+          children: [
+            new TextRun({
+              text: "GIFTS TO QUALIFY FOR PUBLIC BENEFITS: If my agent in my agent's sole discretion has determined that I need nursing home or other long-term medical care and that I will receive proper medical care whether I privately pay for such care or if I am a recipient of Title XIX (Medicaid) or other public benefits, then my agent shall have the power: (i) to take any and all steps necessary, in my agent's judgment, to obtain and maintain my eligibility for any and all public benefits and entitlement programs, including, if necessary, signing a deed with a retained life estate (also known as a \"Lady Bird Deed\") as well as creating and funding a qualified income trust or special needs trust for me or a disabled child, if any; (ii) to transfer with or without consideration my assets to my descendants (if any), or to my natural heirs at law or to the persons named as beneficiaries under my last will and testament or a revocable living trust which I may have established, including my agent; and (iii) to enter into a personal services contract for my benefit, including entering into such contract with my agent, and even if doing so may be considered self-dealing. Such public benefits and entitlement programs shall include, but are not limited to, Social Security, Supplemental Security Income, Medicare, Medicaid and Veterans benefits.",
+              font: "Century Gothic"
+            })
+          ],
+          alignment: AlignmentType.JUSTIFIED,
+          spacing: { after: 400 }
+        }),
 
+        new Paragraph({
+          children: [
+            new TextRun({
+              text: "LIMITATIONS: Notwithstanding any provision herein to the contrary, any authority granted to my agent shall be limited so as to prevent this power of attorney from causing my agent to be taxed on my income (unless my agent is my spouse) and from causing my assets to be subject to a general power of appointment by my agent, as that term is defined in Section 2041 of the Internal Revenue Code of 1986, as amended.",
+              font: "Century Gothic"
+            })
+          ],
+          alignment: AlignmentType.JUSTIFIED,
+          spacing: { after: 400 }
+        }),
+
+        new Paragraph({
+          children: [
+            new TextRun({
+              text: "ADDITIONAL POWERS: ON THE FOLLOWING LINES YOU MAY GIVE SPECIAL INSTRUCTIONS LIMITING OR EXTENDING THE POWERS GRANTED TO YOUR AGENT.",
+              font: "Century Gothic"
+            })
+          ],
+          alignment: AlignmentType.JUSTIFIED,
+          spacing: { after: 200 }
+        }),
+
+        new Paragraph({
+          children: [
+            new TextRun({
+              text: "In addition to the powers granted above, I grant to my agent the following powers:",
+              font: "Century Gothic"
+            })
+          ],
+          alignment: AlignmentType.JUSTIFIED,
+          spacing: { after: 200 }
+        }),
+
+        new Paragraph({
+          children: [
+            new TextRun({
+              text: "Power to Appoint Substitute Agent. The power to appoint or substitute one or more agents to serve as my agent under this power of attorney; provided, however, such power shall be exercisable only by the then-serving agent (or if more than one agent is serving, by all such co-agents acting unanimously), and any such appointment or substitution shall override other provisions contained herein which may attempt to name one or more successor agents. Any such appointment or substitution may be revoked by me or my agent at any time and for any reason, and such appointment or substitution shall not terminate upon the death, disability, incapacity or resignation of the agent or co-agents who made the appointment or substitution. Any such appointment or substitution shall be evidenced by acknowledged written instrument.",
+              font: "Century Gothic"
+            })
+          ],
+          alignment: AlignmentType.JUSTIFIED,
+          spacing: { after: 200 }
+        }),
+
+        new Paragraph({
+          children: [
+            new TextRun({
+              text: "Power to Perform All Other Acts. In addition to the powers enumerated above, I hereby give and grant unto my agent full power and authority to do and perform all and every act and thing whatsoever requisite and necessary to be done, as fully, to all intents and purposes, as I might or could do if personally present, hereby ratifying and confirming whatsoever my agent shall and may do by virtue hereof; provided, however, and notwithstanding the foregoing, if I have withheld a particular power or powers in this power of attorney, then my agent shall not have such power or powers by virtue of the power and authority conferred by this sentence.",
+              font: "Century Gothic"
+            })
+          ],
+          alignment: AlignmentType.JUSTIFIED,
+          spacing: { after: 400 }
+        }),
+
+        new Paragraph({
+          children: [
+            new TextRun({
+              text: "UNLESS YOU DIRECT OTHERWISE BELOW, THIS POWER OF ATTORNEY IS EFFECTIVE IMMEDIATELY AND WILL CONTINUE UNTIL IT TERMINATES.",
+              font: "Century Gothic"
+            })
+          ],
+          alignment: AlignmentType.JUSTIFIED,
+          spacing: { after: 200 }
+        }),
+
+        new Paragraph({
+          children: [
+            new TextRun({
+              text: "CHOOSE ONE OF THE FOLLOWING ALTERNATIVES BY CROSSING OUT THE ALTERNATIVE NOT CHOSEN:",
+              font: "Century Gothic"
+            })
+          ],
+          alignment: AlignmentType.JUSTIFIED,
+          spacing: { after: 200 }
+        }),
+
+        new Paragraph({
+          children: [
+            new TextRun({
+              text: "(A)	**Effective Immediately:** This power of attorney is effective immediately and is not affected by my subsequent disability or incapacity.",
+              font: "Century Gothic"
+            })
+          ],
+          spacing: { after: 200 }
+        }),
+
+        new Paragraph({
+          children: [
+            new TextRun({
+              text: "(B)	Effective Upon Disability or Incapacity: This power of attorney becomes effective upon my disability or incapacity.",
+              font: "Century Gothic"
+            })
+          ],
+          spacing: { after: 200 }
+        }),
+
+        new Paragraph({
+          children: [
+            new TextRun({
+              text: "YOU SHOULD CHOOSE ALTERNATIVE (A) IF THIS POWER OF ATTORNEY IS TO BECOME EFFECTIVE ON THE DATE IT IS EXECUTED.",
+              font: "Century Gothic"
+            })
+          ],
+          alignment: AlignmentType.JUSTIFIED,
+          spacing: { after: 200 }
+        }),
+
+        new Paragraph({
+          children: [
+            new TextRun({
+              text: "IF NEITHER (A) NOR (B) IS CROSSED OUT, IT WILL BE ASSUMED THAT YOU CHOSE ALTERNATIVE (A).",
+              font: "Century Gothic"
+            })
+          ],
+          alignment: AlignmentType.JUSTIFIED,
+          spacing: { after: 200 }
+        }),
+
+        new Paragraph({
+          children: [
+            new TextRun({
+              text: "If Alternative (B) is chosen, I shall be considered disabled or incapacitated for purposes of this power of attorney if a physician certifies in writing at a date later than the date this power of attorney is executed that, based on the physician's medical examination of me, I am mentally incapable of managing my financial affairs. I authorize the physician who examines me for this purpose to disclose my physical or mental condition to another person for purposes of this power of attorney. A third party who accepts this power of attorney is fully protected from any action taken under this power of attorney that is based on the determination made by a physician of my disability or incapacity. After having been certified as being incapable of managing my financial affairs, if a physician certifies in writing at such later date that, based upon such physician's medical examination of me, I have regained the mental capacity to manage my financial affairs, then this power of attorney shall no longer be effective, and it shall become effective again only if a physician certifies in writing at a date later than the date I regained capacity that, based on the physician's medical examination of me, I am mentally incapable of managing my financial affairs.",
+              font: "Century Gothic"
+            })
+          ],
+          alignment: AlignmentType.JUSTIFIED,
+          spacing: { after: 400 }
+        }),
+
+        new Paragraph({
+          children: [
+            new TextRun({
+              text: "I agree that any third party who receives a copy of this document may act under it. Termination of this durable power of attorney is not effective as to a third party until the third party has actual knowledge of the termination. I agree to indemnify the third party for any claims that arise against the third party because of reliance on this power of attorney. The meaning and effect of this durable power of attorney is determined by Texas law.",
+              font: "Century Gothic"
+            })
+          ],
+          alignment: AlignmentType.JUSTIFIED,
+          spacing: { after: 600 }
+        }),
         // Signature section
         new Paragraph({
           children: [
