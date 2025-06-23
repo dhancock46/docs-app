@@ -293,11 +293,11 @@ async function generateDocument(data) {
           children: [new TextRun({ text: "_______     Create or change a beneficiary designation", font: "Century Gothic" })],
           spacing: { after: 100 }
         }),
-       new Paragraph({
-         children: [new TextRun({ text: "_______     Authorize another person to exercise the authority granted under this power of attorney", font: "Century Gothic" })],
-         spacing: { after: 400 },
-         indent: { left: 1296, hanging: 1296 }
-        }),
+      new Paragraph({
+        children: [new TextRun({ text: "_______     Authorize another person to exercise the authority granted under this power of attorney", font: "Century Gothic" })],
+        spacing: { after: 400 },
+        indent: { left: 1296, hanging: 1080 }
+      }),
         // Compensation - centered heading
         new Paragraph({
           children: [
@@ -326,14 +326,14 @@ async function generateDocument(data) {
        new Paragraph({
          children: [new TextRun({ text: "_______     My agent is entitled to reimbursement of reasonable expenses incurred on my behalf and to compensation that is reasonable under the circumstances.", font: "Century Gothic" })],
          spacing: { after: 200 },
-         indent: { left: 1296, hanging: 1296 }
-       }),
+         indent: { left: 1296, hanging: 1080 }
+        }),
 
-      new Paragraph({
-        children: [new TextRun({ text: "_______     My agent is entitled to reimbursement of reasonable expenses incurred on my behalf but shall receive no compensation for serving as my agent.", font: "Century Gothic" })],
-        spacing: { after: 400 },
-        indent: { left: 1296, hanging: 1296 }
-       }),
+    new Paragraph({
+      children: [new TextRun({ text: "_______     My agent is entitled to reimbursement of reasonable expenses incurred on my behalf but shall receive no compensation for serving as my agent.", font: "Century Gothic" })],
+      spacing: { after: 400 },
+      indent: { left: 1296, hanging: 1080 }
+    }),
 
         // Co-Agents - centered heading
         new Paragraph({
