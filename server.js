@@ -50,7 +50,8 @@ async function generateDocument(data) {
             new TextRun({
               text: testatorName,
               bold: true,
-              size: 32
+              size: 32,
+              font: "Century Gothic"
             })
           ],
           alignment: AlignmentType.CENTER,
@@ -63,7 +64,8 @@ async function generateDocument(data) {
             new TextRun({
               text: "STATUTORY POWER OF ATTORNEY",
               bold: true,
-              size: 28
+              size: 28,
+              font: "Century Gothic"
             })
           ],
           alignment: AlignmentType.CENTER,
@@ -75,19 +77,24 @@ async function generateDocument(data) {
           children: [
             new TextRun({
               text: "NOTICE: THE POWERS GRANTED BY THIS DOCUMENT ARE BROAD AND SWEEPING.",
-              bold: true
+              bold: true,
+              font: "Century Gothic"
             }),
             new TextRun({
-              text: " THEY ARE EXPLAINED IN THE DURABLE POWER OF ATTORNEY ACT, SUBTITLE P, TITLE 2, TEXAS ESTATES CODE. "
+              text: " THEY ARE EXPLAINED IN THE DURABLE POWER OF ATTORNEY ACT, SUBTITLE P, TITLE 2, TEXAS ESTATES CODE. ",
+              font: "Century Gothic"
             }),
             new TextRun({
               text: "IF YOU HAVE ANY QUESTIONS ABOUT THESE POWERS, OBTAIN COMPETENT LEGAL ADVICE.",
-              bold: true
+              bold: true,
+              font: "Century Gothic"
             }),
             new TextRun({
-              text: " THIS DOCUMENT DOES NOT AUTHORIZE ANYONE TO MAKE MEDICAL AND OTHER HEALTH-CARE DECISIONS FOR YOU. YOU MAY REVOKE THIS POWER OF ATTORNEY IF YOU LATER WISH TO DO SO. IF YOU WANT YOUR AGENT TO HAVE THE AUTHORITY TO SIGN HOME EQUITY LOAN DOCUMENTS ON YOUR BEHALF, THIS POWER OF ATTORNEY MUST BE SIGNED BY YOU AT THE OFFICE OF THE LENDER, AN ATTORNEY AT LAW, OR A TITLE COMPANY."
+              text: " THIS DOCUMENT DOES NOT AUTHORIZE ANYONE TO MAKE MEDICAL AND OTHER HEALTH-CARE DECISIONS FOR YOU. YOU MAY REVOKE THIS POWER OF ATTORNEY IF YOU LATER WISH TO DO SO. IF YOU WANT YOUR AGENT TO HAVE THE AUTHORITY TO SIGN HOME EQUITY LOAN DOCUMENTS ON YOUR BEHALF, THIS POWER OF ATTORNEY MUST BE SIGNED BY YOU AT THE OFFICE OF THE LENDER, AN ATTORNEY AT LAW, OR A TITLE COMPANY.",
+              font: "Century Gothic"
             })
           ],
+          alignment: AlignmentType.JUSTIFIED,
           spacing: { after: 400 }
         }),
 
@@ -95,15 +102,18 @@ async function generateDocument(data) {
         new Paragraph({
           children: [
             new TextRun({
-              text: `I, ${testatorName}, appoint ${primaryAgent} as my agent to act for me in any lawful way with respect to all of the following powers that I have initialed below.`
+              text: `I, ${testatorName}, appoint ${primaryAgent} as my agent to act for me in any lawful way with respect to all of the following powers that I have initialed below.`,
+              font: "Century Gothic"
             })
           ],
+          alignment: AlignmentType.JUSTIFIED,
           spacing: { after: 200 }
         }),
 
         // Successor section
         ...(successorSection ? [new Paragraph({
-          children: [new TextRun({ text: successorSection })],
+          children: [new TextRun({ text: successorSection, font: "Century Gothic" })],
+          alignment: AlignmentType.JUSTIFIED,
           spacing: { after: 200 }
         })] : []),
 
@@ -111,9 +121,11 @@ async function generateDocument(data) {
         new Paragraph({
           children: [
             new TextRun({
-              text: "If I am married to an agent, and my marriage is dissolved, terminated or voided, the authority of that agent under this power of attorney shall also terminate when my marriage terminates, unless I have provided otherwise in this document."
+              text: "If I am married to an agent, and my marriage is dissolved, terminated or voided, the authority of that agent under this power of attorney shall also terminate when my marriage terminates, unless I have provided otherwise in this document.",
+              font: "Century Gothic"
             })
           ],
+          alignment: AlignmentType.JUSTIFIED,
           spacing: { after: 400 }
         }),
 
@@ -121,98 +133,99 @@ async function generateDocument(data) {
         new Paragraph({
           children: [
             new TextRun({
-              text: "TO GRANT ALL OF THE FOLLOWING POWERS, INITIAL THE LINE IN FRONT OF (O) AND IGNORE THE LINES IN FRONT OF THE OTHER POWERS LISTED IN (A) THROUGH (N)."
+              text: "TO GRANT ALL OF THE FOLLOWING POWERS, INITIAL THE LINE IN FRONT OF (O) AND IGNORE THE LINES IN FRONT OF THE OTHER POWERS LISTED IN (A) THROUGH (N).",
+              font: "Century Gothic"
             })
           ],
+          alignment: AlignmentType.JUSTIFIED,
           spacing: { after: 200 }
         }),
 
         new Paragraph({
           children: [
             new TextRun({
-              text: "TO GRANT A POWER, YOU MUST INITIAL THE LINE IN FRONT OF THE POWER YOU ARE GRANTING."
+              text: "TO GRANT A POWER, YOU MUST INITIAL THE LINE IN FRONT OF THE POWER YOU ARE GRANTING.",
+              font: "Century Gothic"
             })
           ],
+          alignment: AlignmentType.JUSTIFIED,
           spacing: { after: 200 }
         }),
 
         new Paragraph({
           children: [
             new TextRun({
-              text: "TO WITHHOLD A POWER, DO NOT INITIAL THE LINE IN FRONT OF THE POWER. YOU MAY, BUT DO NOT NEED TO, CROSS OUT EACH POWER WITHHELD."
+              text: "TO WITHHOLD A POWER, DO NOT INITIAL THE LINE IN FRONT OF THE POWER. YOU MAY, BUT DO NOT NEED TO, CROSS OUT EACH POWER WITHHELD.",
+              font: "Century Gothic"
             })
           ],
+          alignment: AlignmentType.JUSTIFIED,
           spacing: { after: 400 }
         }),
 
         // Powers list
         new Paragraph({
-          children: [new TextRun({ text: "_______     (A) Real property transactions;" })],
+          children: [new TextRun({ text: "_______     (A) Real property transactions;", font: "Century Gothic" })],
           spacing: { after: 100 }
         }),
         new Paragraph({
-          children: [new TextRun({ text: "_______     (B) Tangible personal property transactions;" })],
+          children: [new TextRun({ text: "_______     (B) Tangible personal property transactions;", font: "Century Gothic" })],
           spacing: { after: 100 }
         }),
         new Paragraph({
-          children: [new TextRun({ text: "_______     (C) Stock and bond transactions;" })],
+          children: [new TextRun({ text: "_______     (C) Stock and bond transactions;", font: "Century Gothic" })],
           spacing: { after: 100 }
         }),
         new Paragraph({
-          children: [new TextRun({ text: "_______     (D) Commodity and option transactions;" })],
+          children: [new TextRun({ text: "_______     (D) Commodity and option transactions;", font: "Century Gothic" })],
           spacing: { after: 100 }
         }),
         new Paragraph({
-          children: [new TextRun({ text: "_______     (E) Banking and other financial institution transactions;" })],
+          children: [new TextRun({ text: "_______     (E) Banking and other financial institution transactions;", font: "Century Gothic" })],
           spacing: { after: 100 }
         }),
         new Paragraph({
-          children: [new TextRun({ text: "_______     (F) Business operating transactions;" })],
+          children: [new TextRun({ text: "_______     (F) Business operating transactions;", font: "Century Gothic" })],
           spacing: { after: 100 }
         }),
         new Paragraph({
-          children: [new TextRun({ text: "_______     (G) Insurance and annuity transactions;" })],
+          children: [new TextRun({ text: "_______     (G) Insurance and annuity transactions;", font: "Century Gothic" })],
           spacing: { after: 100 }
         }),
         new Paragraph({
-          children: [new TextRun({ text: "_______     (H) Estate, trust, and other beneficiary transactions;" })],
+          children: [new TextRun({ text: "_______     (H) Estate, trust, and other beneficiary transactions;", font: "Century Gothic" })],
           spacing: { after: 100 }
         }),
         new Paragraph({
-          children: [new TextRun({ text: "_______     (I) Claims and litigation;" })],
+          children: [new TextRun({ text: "_______     (I) Claims and litigation;", font: "Century Gothic" })],
           spacing: { after: 100 }
         }),
         new Paragraph({
-          children: [new TextRun({ text: "_______     (J) Personal and family maintenance;" })],
+          children: [new TextRun({ text: "_______     (J) Personal and family maintenance;", font: "Century Gothic" })],
           spacing: { after: 100 }
         }),
         new Paragraph({
-          children: [
-            new TextRun({ text: "_______     (K) Benefits from social security, Medicare, Medicaid, or other" }),
-            new TextRun({ text: "\n                    governmental programs or civil or military service;" })
-          ],
+          children: [new TextRun({ text: "_______     (K) Benefits from social security, Medicare, Medicaid, or other governmental programs or civil or military service;", font: "Century Gothic" })],
           spacing: { after: 100 }
         }),
         new Paragraph({
-          children: [new TextRun({ text: "_______     (L) Retirement plan transactions;" })],
+          children: [new TextRun({ text: "_______     (L) Retirement plan transactions;", font: "Century Gothic" })],
           spacing: { after: 100 }
         }),
         new Paragraph({
-          children: [new TextRun({ text: "_______     (M) Tax matters;" })],
+          children: [new TextRun({ text: "_______     (M) Tax matters;", font: "Century Gothic" })],
           spacing: { after: 100 }
         }),
         new Paragraph({
-          children: [
-            new TextRun({ text: "_______     (N) Digital assets and the content of an electronic" }),
-            new TextRun({ text: "\n                    communication;" })
-          ],
+          children: [new TextRun({ text: "_______     (N) Digital assets and the content of an electronic communication;", font: "Century Gothic" })],
           spacing: { after: 200 }
         }),
         new Paragraph({
           children: [
             new TextRun({
               text: "_______     (O) ALL OF THE POWERS LISTED IN (A) THROUGH (N).",
-              bold: true
+              bold: true,
+              font: "Century Gothic"
             })
           ],
           spacing: { after: 400 }
@@ -221,9 +234,11 @@ async function generateDocument(data) {
         new Paragraph({
           children: [
             new TextRun({
-              text: "YOU DO NOT HAVE TO INITIAL THE LINE IN FRONT OF ANY OTHER POWER IF YOU INITIAL LINE (O)."
+              text: "YOU DO NOT HAVE TO INITIAL THE LINE IN FRONT OF ANY OTHER POWER IF YOU INITIAL LINE (O).",
+              font: "Century Gothic"
             })
           ],
+          alignment: AlignmentType.JUSTIFIED,
           spacing: { after: 400 }
         }),
 
@@ -233,7 +248,8 @@ async function generateDocument(data) {
             new TextRun({
               text: "GRANT OF SPECIFIC AUTHORITY",
               bold: true,
-              size: 24
+              size: 24,
+              font: "Century Gothic"
             })
           ],
           alignment: AlignmentType.CENTER,
@@ -243,39 +259,40 @@ async function generateDocument(data) {
         new Paragraph({
           children: [
             new TextRun({
-              text: "My agent MAY NOT do any of the following specific acts for me UNLESS I have INITIALED the specific authority listed below:"
+              text: "My agent MAY NOT do any of the following specific acts for me UNLESS I have INITIALED the specific authority listed below:",
+              font: "Century Gothic"
             })
           ],
+          alignment: AlignmentType.JUSTIFIED,
           spacing: { after: 200 }
         }),
 
         new Paragraph({
           children: [
             new TextRun({
-              text: "(CAUTION: Granting any of the following will give your agent the authority to take actions that could significantly reduce your property or change how your property is distributed at your death. INITIAL ONLY the specific authority you WANT to give your agent. If you DO NOT want to grant your agent one or more of the following powers, you may also CROSS OUT a power you DO NOT want to grant.)"
+              text: "(CAUTION: Granting any of the following will give your agent the authority to take actions that could significantly reduce your property or change how your property is distributed at your death. INITIAL ONLY the specific authority you WANT to give your agent. If you DO NOT want to grant your agent one or more of the following powers, you may also CROSS OUT a power you DO NOT want to grant.)",
+              font: "Century Gothic"
             })
           ],
+          alignment: AlignmentType.JUSTIFIED,
           spacing: { after: 300 }
         }),
 
         // Specific authorities
         new Paragraph({
-          children: [new TextRun({ text: "_______     Create, amend, revoke, or terminate an inter vivos trust" })],
+          children: [new TextRun({ text: "_______     Create, amend, revoke, or terminate an inter vivos trust", font: "Century Gothic" })],
           spacing: { after: 100 }
         }),
         new Paragraph({
-          children: [new TextRun({ text: "_______     Create or change rights of survivorship" })],
+          children: [new TextRun({ text: "_______     Create or change rights of survivorship", font: "Century Gothic" })],
           spacing: { after: 100 }
         }),
         new Paragraph({
-          children: [new TextRun({ text: "_______     Create or change a beneficiary designation" })],
+          children: [new TextRun({ text: "_______     Create or change a beneficiary designation", font: "Century Gothic" })],
           spacing: { after: 100 }
         }),
         new Paragraph({
-          children: [
-            new TextRun({ text: "_______     Authorize another person to exercise the authority granted under" }),
-            new TextRun({ text: "\n                    this power of attorney" })
-          ],
+          children: [new TextRun({ text: "_______     Authorize another person to exercise the authority granted under this power of attorney", font: "Century Gothic" })],
           spacing: { after: 400 }
         }),
 
@@ -285,7 +302,8 @@ async function generateDocument(data) {
             new TextRun({
               text: "COMPENSATION",
               bold: true,
-              size: 24
+              size: 24,
+              font: "Century Gothic"
             })
           ],
           alignment: AlignmentType.CENTER,
@@ -295,27 +313,21 @@ async function generateDocument(data) {
         new Paragraph({
           children: [
             new TextRun({
-              text: "Special instructions applicable to agent compensation (initial in front of one of the following sentences to have it apply; if no selection is made, each agent will be entitled to compensation that is reasonable under the circumstances):"
+              text: "Special instructions applicable to agent compensation (initial in front of one of the following sentences to have it apply; if no selection is made, each agent will be entitled to compensation that is reasonable under the circumstances):",
+              font: "Century Gothic"
             })
           ],
+          alignment: AlignmentType.JUSTIFIED,
           spacing: { after: 200 }
         }),
 
         new Paragraph({
-          children: [
-            new TextRun({ text: "_______     My agent is entitled to reimbursement of reasonable expenses" }),
-            new TextRun({ text: "\n                    incurred on my behalf and to compensation that is reasonable" }),
-            new TextRun({ text: "\n                    under the circumstances." })
-          ],
+          children: [new TextRun({ text: "_______     My agent is entitled to reimbursement of reasonable expenses incurred on my behalf and to compensation that is reasonable under the circumstances.", font: "Century Gothic" })],
           spacing: { after: 200 }
         }),
 
         new Paragraph({
-          children: [
-            new TextRun({ text: "_______     My agent is entitled to reimbursement of reasonable expenses" }),
-            new TextRun({ text: "\n                    incurred on my behalf but shall receive no compensation for" }),
-            new TextRun({ text: "\n                    serving as my agent." })
-          ],
+          children: [new TextRun({ text: "_______     My agent is entitled to reimbursement of reasonable expenses incurred on my behalf but shall receive no compensation for serving as my agent.", font: "Century Gothic" })],
           spacing: { after: 400 }
         }),
 
@@ -325,7 +337,8 @@ async function generateDocument(data) {
             new TextRun({
               text: "CO-AGENTS",
               bold: true,
-              size: 24
+              size: 24,
+              font: "Century Gothic"
             })
           ],
           alignment: AlignmentType.CENTER,
@@ -335,27 +348,24 @@ async function generateDocument(data) {
         new Paragraph({
           children: [
             new TextRun({
-              text: "Special instructions applicable to co-agents (If you have appointed co-agents to act, initial in front of one of the following sentences to have it apply; If no selection is made, each agent will be entitled to act independently):"
+              text: "Special instructions applicable to co-agents (If you have appointed co-agents to act, initial in front of one of the following sentences to have it apply; If no selection is made, each agent will be entitled to act independently):",
+              font: "Century Gothic"
             })
           ],
+          alignment: AlignmentType.JUSTIFIED,
           spacing: { after: 200 }
         }),
 
         new Paragraph({
-          children: [new TextRun({ text: "_______     Each of my co-agents may act independently for me." })],
+          children: [new TextRun({ text: "_______     Each of my co-agents may act independently for me.", font: "Century Gothic" })],
           spacing: { after: 100 }
         }),
         new Paragraph({
-          children: [
-            new TextRun({ text: "_______     My co-agents may act for me only if the co-agents act jointly." })
-          ],
+          children: [new TextRun({ text: "_______     My co-agents may act for me only if the co-agents act jointly.", font: "Century Gothic" })],
           spacing: { after: 100 }
         }),
         new Paragraph({
-          children: [
-            new TextRun({ text: "_______     My co-agents may act for me only if a majority of the co-agents" }),
-            new TextRun({ text: "\n                    act jointly." })
-          ],
+          children: [new TextRun({ text: "_______     My co-agents may act for me only if a majority of the co-agents act jointly.", font: "Century Gothic" })],
           spacing: { after: 400 }
         }),
 
@@ -365,7 +375,8 @@ async function generateDocument(data) {
             new TextRun({
               text: "GIFTS",
               bold: true,
-              size: 24
+              size: 24,
+              font: "Century Gothic"
             })
           ],
           alignment: AlignmentType.CENTER,
@@ -375,21 +386,16 @@ async function generateDocument(data) {
         new Paragraph({
           children: [
             new TextRun({
-              text: "Special instructions applicable to gifts (initial in front of the following sentence to have it apply):"
+              text: "Special instructions applicable to gifts (initial in front of the following sentence to have it apply):",
+              font: "Century Gothic"
             })
           ],
+          alignment: AlignmentType.JUSTIFIED,
           spacing: { after: 200 }
         }),
 
         new Paragraph({
-          children: [
-            new TextRun({ text: "_______     I grant my agent the power to apply my property to make gifts" }),
-            new TextRun({ text: "\n                    outright to or for the benefit of a person, including by the" }),
-            new TextRun({ text: "\n                    exercise of a presently exercisable general power of" }),
-            new TextRun({ text: "\n                    appointment held by me, except that the amount of a gift to an" }),
-            new TextRun({ text: "\n                    individual may not exceed the amount of annual exclusions" }),
-            new TextRun({ text: "\n                    allowed from the federal gift tax for the calendar year of the gift." })
-          ],
+          children: [new TextRun({ text: "_______     I grant my agent the power to apply my property to make gifts outright to or for the benefit of a person, including by the exercise of a presently exercisable general power of appointment held by me, except that the amount of a gift to an individual may not exceed the amount of annual exclusions allowed from the federal gift tax for the calendar year of the gift.", font: "Century Gothic" })],
           spacing: { after: 400 }
         }),
 
@@ -397,49 +403,49 @@ async function generateDocument(data) {
         new Paragraph({
           children: [
             new TextRun({
-              text: `Signed on ${executionDate} in ${executionCity}, ${executionState}.`
+              text: `Signed on ${executionDate} in ${executionCity}, ${executionState}.`,
+              font: "Century Gothic"
             })
           ],
           spacing: { before: 600, after: 400 }
         }),
 
         new Paragraph({
-          children: [new TextRun({ text: "_____________________________" })],
+          children: [new TextRun({ text: "_____________________________", font: "Century Gothic" })],
           spacing: { after: 100 }
         }),
         new Paragraph({
-          children: [new TextRun({ text: testatorName })],
+          children: [new TextRun({ text: testatorName, font: "Century Gothic" })],
           spacing: { after: 400 }
         }),
 
         // Notary section
         new Paragraph({
-          children: [new TextRun({ text: `State of ${executionState}` })],
+          children: [new TextRun({ text: `State of ${executionState}`, font: "Century Gothic" })],
           spacing: { after: 100 }
         }),
         new Paragraph({
-          children: [new TextRun({ text: `County of ${executionCounty}` })],
+          children: [new TextRun({ text: `County of ${executionCounty}`, font: "Century Gothic" })],
           spacing: { after: 300 }
         }),
 
         new Paragraph({
           children: [
-            new TextRun({ text: `Acknowledged before me on ${executionDate} by ${testatorName}.` })
+            new TextRun({ text: `Acknowledged before me on ${executionDate} by ${testatorName}.`, font: "Century Gothic" })
           ],
           spacing: { after: 400 }
         }),
 
         new Paragraph({
-          children: [new TextRun({ text: "_____________________________" })],
+          children: [new TextRun({ text: "_____________________________", font: "Century Gothic" })],
           spacing: { after: 100 }
         }),
         new Paragraph({
-          children: [new TextRun({ text: `Notary Public, State of ${executionState}` })]
+          children: [new TextRun({ text: `Notary Public, State of ${executionState}`, font: "Century Gothic" })]
         })
       ]
     }]
   });
-
   return await Packer.toBuffer(doc);
 }
 
