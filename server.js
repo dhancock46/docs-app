@@ -293,11 +293,11 @@ async function generateDocument(data) {
           children: [new TextRun({ text: "_______     Create or change a beneficiary designation", font: "Century Gothic" })],
           spacing: { after: 100 }
         }),
-        new Paragraph({
-          children: [new TextRun({ text: "_______     Authorize another person to exercise the authority granted under this power of attorney", font: "Century Gothic" })],
-          spacing: { after: 400 },
-          indent: { left: 1296, hanging: 864 }
-       }),
+       new Paragraph({
+        children: [new TextRun({ text: "_______     Authorize another person to exercise the authority granted under this power of attorney", font: "Century Gothic" })],
+        spacing: { after: 400 },
+        indent: { hanging: 1080 }
+      }),
         // Compensation - centered heading
         new Paragraph({
           children: [
@@ -374,17 +374,11 @@ async function generateDocument(data) {
 
         // Gifts - centered heading
         new Paragraph({
-          children: [
-            new TextRun({
-              text: "GIFTS",
-              bold: true,
-              size: 24,
-              font: "Century Gothic"
-            })
-          ],
-          alignment: AlignmentType.CENTER,
-          spacing: { after: 200 }
-        }),
+         children: [new TextRun({ text: "_______     I grant my agent the power to apply my property to make gifts outright to or for the benefit of a person, including by the exercise of a presently exercisable general power of appointment held by me, except that the amount of a gift to an individual may not exceed the amount of annual exclusions allowed from the federal gift tax for the calendar year of the gift.", font: "Century Gothic" })],
+         spacing: { after: 400 },
+         alignment: AlignmentType.JUSTIFIED,
+         indent: { left: 1296, hanging: 1008 }
+         }),
 
         new Paragraph({
           children: [
