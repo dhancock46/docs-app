@@ -77,34 +77,8 @@ const specificAuthSection = specificAuthList.map((auth, index) => {
   return `_______     ${auth}`;
 }).join('\n');
 
-return `                                                    ${testatorName}
-
-
-
+                                                   ${testatorName}
                                             STATUTORY POWER OF ATTORNEY
-2. Find this line:
-
-javascript                                        GRANT OF SPECIFIC AUTHORITY
-3. Find these lines:
-javascriptCOMPENSATION: Special instructions applicable to agent compensation
-Replace with:
-javascript                                                COMPENSATION
-
-Special instructions applicable to agent compensation
-4. Find this line:
-javascriptCO-AGENTS: Special instructions applicable to co-agents
-Replace with:
-javascript                                                CO-AGENTS
-
-Special instructions applicable to co-agents
-5. Find this line:
-javascriptGIFTS: Special instructions applicable to gifts
-Replace with:
-javascript                                                    GIFTS
-
-Special instructions applicable to gifts
-These changes will center the headings in the actual Word document by adding appropriate spacing. The spacing might need fine-tuning depending on how it looks in the final document, but this will get you started with centered headings.
-Would you like me to continue with the other major headings, or would you prefer to test these changes first?RetryClaude can make mistakes. Please double-check responses.Research Sonnet 4
 
 NOTICE: THE POWERS GRANTED BY THIS DOCUMENT ARE BROAD AND SWEEPING. THEY ARE EXPLAINED IN THE DURABLE POWER OF ATTORNEY ACT, SUBTITLE P, TITLE 2, TEXAS ESTATES CODE. IF YOU HAVE ANY QUESTIONS ABOUT THESE POWERS, OBTAIN COMPETENT LEGAL ADVICE. THIS DOCUMENT DOES NOT AUTHORIZE ANYONE TO MAKE MEDICAL AND OTHER HEALTH-CARE DECISIONS FOR YOU. YOU MAY REVOKE THIS POWER OF ATTORNEY IF YOU LATER WISH TO DO SO. IF YOU WANT YOUR AGENT TO HAVE THE AUTHORITY TO SIGN HOME EQUITY LOAN DOCUMENTS ON YOUR BEHALF, THIS POWER OF ATTORNEY MUST BE SIGNED BY YOU AT THE OFFICE OF THE LENDER, AN ATTORNEY AT LAW, OR A TITLE COMPANY.
 
@@ -125,7 +99,7 @@ ${powersSection}
 
 YOU DO NOT HAVE TO INITIAL THE LINE IN FRONT OF ANY OTHER POWER IF YOU INITIAL LINE (O).
 
-GRANT OF SPECIFIC AUTHORITY
+                                        GRANT OF SPECIFIC AUTHORITY
 
 My agent MAY NOT do any of the following specific acts for me UNLESS I have INITIALED the specific authority listed below:
 
