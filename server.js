@@ -77,7 +77,7 @@ const specificAuthSection = specificAuthList.map((auth, index) => {
   return `_______     ${auth}`;
 }).join('\n');
 
-                                                   ${testatorName}
+return `                                                    ${testatorName}
                                             STATUTORY POWER OF ATTORNEY
 
 NOTICE: THE POWERS GRANTED BY THIS DOCUMENT ARE BROAD AND SWEEPING. THEY ARE EXPLAINED IN THE DURABLE POWER OF ATTORNEY ACT, SUBTITLE P, TITLE 2, TEXAS ESTATES CODE. IF YOU HAVE ANY QUESTIONS ABOUT THESE POWERS, OBTAIN COMPETENT LEGAL ADVICE. THIS DOCUMENT DOES NOT AUTHORIZE ANYONE TO MAKE MEDICAL AND OTHER HEALTH-CARE DECISIONS FOR YOU. YOU MAY REVOKE THIS POWER OF ATTORNEY IF YOU LATER WISH TO DO SO. IF YOU WANT YOUR AGENT TO HAVE THE AUTHORITY TO SIGN HOME EQUITY LOAN DOCUMENTS ON YOUR BEHALF, THIS POWER OF ATTORNEY MUST BE SIGNED BY YOU AT THE OFFICE OF THE LENDER, AN ATTORNEY AT LAW, OR A TITLE COMPANY.
@@ -108,21 +108,26 @@ My agent MAY NOT do any of the following specific acts for me UNLESS I have INIT
 
 ${specificAuthSection}
 
-COMPENSATION: Special instructions applicable to agent compensation (initial in front of one of the following sentences to have it apply; if no selection is made, each agent will be entitled to compensation that is reasonable under the circumstances):
+COMPENSATION
+
+Special instructions applicable to agent compensation (initial in front of one of the following sentences to have it apply; if no selection is made, each agent will be entitled to compensation that is reasonable under the circumstances):
 
 _______            My agent is entitled to reimbursement of reasonable expenses incurred on my behalf and to compensation that is reasonable under the circumstances.
 
 _______            My agent is entitled to reimbursement of reasonable expenses incurred on my behalf but shall receive no compensation for serving as my agent.
 
-CO-AGENTS: Special instructions applicable to co-agents (If you have appointed co-agents to act, initial in front of one of the following sentences to have it apply; If no selection is made, each agent will be entitled to act independently):
+                                               CO-AGENTS
 
+Special instructions applicable to co-agents (If you have appointed co-agents to act, initial in front of one of the following sentences to have it apply; If no selection is made, each agent will be entitled to act independently):
 _______                       Each of my co-agents may act independently for me.
 
 _______                       My co-agents may act for me only if the co-agents act jointly.
 
 _______                       My co-agents may act for me only if a majority of the co-agents act jointly.
 
-GIFTS: Special instructions applicable to gifts (initial in front of the following sentence to have it apply):
+                                                GIFTS
+
+Special instructions applicable to gifts (initial in front of the following sentence to have it apply):
 
 _______     I grant my agent the power to apply my property to make gifts outright to or for the benefit of a person, including by the exercise of a presently exercisable general power of appointment held by me, except that the amount of a gift to an individual may not exceed the amount of annual exclusions allowed from the federal gift tax for the calendar year of the gift.
 
