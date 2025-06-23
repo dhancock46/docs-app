@@ -371,7 +371,16 @@ async function generateDocument(data) {
           children: [new TextRun({ text: "_______     My co-agents may act for me only if a majority of the co-agents act jointly.", font: "Century Gothic" })],
           spacing: { after: 400 }
         }),
-
+new Paragraph({
+          children: [
+            new TextRun({
+              text: "Special instructions applicable to gifts (initial in front of the following sentence to have it apply):",
+              font: "Century Gothic"
+            })
+          ],
+          alignment: AlignmentType.JUSTIFIED,
+          spacing: { after: 200 }
+        }),
         new Paragraph({
           children: [
             new TextRun({
