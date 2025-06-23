@@ -217,12 +217,11 @@ async function generateDocument(data) {
         }),
        new Paragraph({
           children: [new TextRun({ text: "_______     (M) Tax matters;", font: "Century Gothic" })],
-          spacing: { after: 100 }
+spacing: { after: 100 }
         }),
-      new Paragraph({
-      new Paragraph({
-      children: [
-      new TextRun({ text: "_______     (N) Digital assets and the content of an electronic", font: "Century Gothic" }),
+        new Paragraph({
+          children: [
+            new TextRun({ text: "_______     (N) Digital assets and the content of an electronic", font: "Century Gothic" }),
       new TextRun({ text: "\n                communication;", font: "Century Gothic" })
       ],
       spacing: { after: 200 }
