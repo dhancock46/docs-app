@@ -205,10 +205,10 @@ async function generateDocument(data) {
           spacing: { after: 100 }
         }),
        new Paragraph({
-       children: [new TextRun({ text: "_______     (K) Benefits from social security, Medicare, Medicaid, or other governmental programs or civil or military service;", font: "Century Gothic" })],
-       spacing: { after: 100 },
-       indent: { hanging: 1296 }
-       }),
+         children: [new TextRun({ text: "_______     (K) Benefits from social security, Medicare, Medicaid, or other governmental programs or civil or military service;", font: "Century Gothic" })],
+         spacing: { after: 100 },
+         indent: { left: 1296, hanging: 1296 }
+         }),
         new Paragraph({
           children: [new TextRun({ text: "_______     (L) Retirement plan transactions;", font: "Century Gothic" })],
           spacing: { after: 100 }
@@ -217,11 +217,11 @@ async function generateDocument(data) {
           children: [new TextRun({ text: "_______     (M) Tax matters;", font: "Century Gothic" })],
           spacing: { after: 100 }
         }),
-       new Paragraph({
-          children: [new TextRun({ text: "_______     (N) Digital assets and the content of an electronic communication;", font: "Century Gothic" })],
-          spacing: { after: 200 },
-          indent: { hanging: 1296 }
-          }),
+      new Paragraph({
+        children: [new TextRun({ text: "_______     (N) Digital assets and the content of an electronic communication;", font: "Century Gothic" })],
+        spacing: { after: 200 },
+        indent: { left: 1296, hanging: 1296 }
+        }),
         new Paragraph({
           children: [
             new TextRun({
