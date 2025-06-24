@@ -293,11 +293,11 @@ async function generateDocument(data) {
           children: [new TextRun({ text: "_______     Create or change a beneficiary designation", font: "Century Gothic" })],
           spacing: { after: 100 }
         }),
-       new Paragraph({
-        children: [new TextRun({ text: "_______     Authorize another person to exercise the authority granted under this power of attorney", font: "Century Gothic" })],
-        spacing: { after: 400 },
-        indent: { hanging: 1080 }
-      }),
+      new Paragraph({
+  children: [new TextRun({ text: "_______     Authorize another person to exercise the authority granted under this power of attorney", font: "Century Gothic" })],
+  spacing: { after: 400 },
+  indent: { left: 1296, hanging: 1080 }
+}),
         // Compensation - centered heading
         new Paragraph({
           children: [
@@ -447,21 +447,27 @@ new Paragraph({
           spacing: { after: 200 }
         }),
 
-        new Paragraph({
-          children: [
-            new TextRun({
-              text: "Power to Appoint Substitute Agent. The power to appoint or substitute one or more agents to serve as my agent under this power of attorney; provided, however, such power shall be exercisable only by the then-serving agent (or if more than one agent is serving, by all such co-agents acting unanimously), and any such appointment or substitution shall override other provisions contained herein which may attempt to name one or more successor agents. Any such appointment or substitution may be revoked by me or my agent at any time and for any reason, and such appointment or substitution shall not terminate upon the death, disability, incapacity or resignation of the agent or co-agents who made the appointment or substitution. Any such appointment or substitution shall be evidenced by acknowledged written instrument.",
-              font: "Century Gothic"
-            })
-          ],
-          alignment: AlignmentType.JUSTIFIED,
-          spacing: { after: 200 }
-        }),
+       new Paragraph({
+  children: [
+    new TextRun({
+      text: "Power to Appoint Substitute Agent.",
+      bold: true,
+      font: "Century Gothic"
+    }),
+    new TextRun({
+      text: " The power to appoint or substitute one or more agents to serve as my agent under this power of attorney; provided, however, such power shall be exercisable only by the then-serving agent (or if more than one agent is serving, by all such co-agents acting unanimously), and any such appointment or substitution shall override other provisions contained herein which may attempt to name one or more successor agents. Any such appointment or substitution may be revoked by me or my agent at any time and for any reason, and such appointment or substitution shall not terminate upon the death, disability, incapacity or resignation of the agent or co-agents who made the appointment or substitution. Any such appointment or substitution shall be evidenced by acknowledged written instrument.",
+      font: "Century Gothic"
+    })
+  ],
+  alignment: AlignmentType.JUSTIFIED,
+  spacing: { after: 200 }
+}),
 
         new Paragraph({
           children: [
             new TextRun({
               text: "Power to Perform All Other Acts. In addition to the powers enumerated above, I hereby give and grant unto my agent full power and authority to do and perform all and every act and thing whatsoever requisite and necessary to be done, as fully, to all intents and purposes, as I might or could do if personally present, hereby ratifying and confirming whatsoever my agent shall and may do by virtue hereof; provided, however, and notwithstanding the foregoing, if I have withheld a particular power or powers in this power of attorney, then my agent shall not have such power or powers by virtue of the power and authority conferred by this sentence.",
+              bold: true,
               font: "Century Gothic"
             })
           ],
@@ -501,15 +507,16 @@ new Paragraph({
           spacing: { after: 200 }
         }),
 
-        new Paragraph({
-          children: [
-            new TextRun({
-              text: "(B)	Effective Upon Disability or Incapacity: This power of attorney becomes effective upon my disability or incapacity.",
-              font: "Century Gothic"
-            })
-          ],
-          spacing: { after: 200 }
-        }),
+       new Paragraph({
+  children: [
+    new TextRun({
+      text: "(B)	Effective Upon Disability or Incapacity: This power of attorney becomes effective upon my disability or incapacity.",
+      font: "Century Gothic",
+      strike: true
+    })
+  ],
+  spacing: { after: 200 }
+}),
 
         new Paragraph({
           children: [
