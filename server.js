@@ -296,7 +296,7 @@ async function generateDocument(data) {
       new Paragraph({
   children: [new TextRun({ text: "_______     Authorize another person to exercise the authority granted under this power of attorney", font: "Century Gothic" })],
   spacing: { after: 400 },
-  indent: { left: 1296, hanging: 1080 }
+  indent: { left: 1152, hanging: 1080 }
 }),
         // Compensation - centered heading
         new Paragraph({
@@ -403,38 +403,53 @@ async function generateDocument(data) {
          alignment: AlignmentType.JUSTIFIED,
          indent: { left: 1296, hanging: 1008 }
          }),
-new Paragraph({
-          children: [
-            new TextRun({
-              text: "GIFTS TO QUALIFY FOR PUBLIC BENEFITS: If my agent in my agent's sole discretion has determined that I need nursing home or other long-term medical care and that I will receive proper medical care whether I privately pay for such care or if I am a recipient of Title XIX (Medicaid) or other public benefits, then my agent shall have the power: (i) to take any and all steps necessary, in my agent's judgment, to obtain and maintain my eligibility for any and all public benefits and entitlement programs, including, if necessary, signing a deed with a retained life estate (also known as a \"Lady Bird Deed\") as well as creating and funding a qualified income trust or special needs trust for me or a disabled child, if any; (ii) to transfer with or without consideration my assets to my descendants (if any), or to my natural heirs at law or to the persons named as beneficiaries under my last will and testament or a revocable living trust which I may have established, including my agent; and (iii) to enter into a personal services contract for my benefit, including entering into such contract with my agent, and even if doing so may be considered self-dealing. Such public benefits and entitlement programs shall include, but are not limited to, Social Security, Supplemental Security Income, Medicare, Medicaid and Veterans benefits.",
-              font: "Century Gothic"
-            })
-          ],
-          alignment: AlignmentType.JUSTIFIED,
-          spacing: { after: 400 }
-        }),
+  new Paragraph({
+  children: [
+    new TextRun({
+      text: "GIFTS TO QUALIFY FOR PUBLIC BENEFITS:",
+      bold: true,
+      font: "Century Gothic"
+    }),
+    new TextRun({
+      text: " If my agent in my agent's sole discretion has determined that I need nursing home or other long-term medical care...",
+      font: "Century Gothic"
+    })
+  ],
+  alignment: AlignmentType.JUSTIFIED,
+  spacing: { after: 400 }
+}),
+
+       new Paragraph({
+  children: [
+    new TextRun({
+      text: "LIMITATIONS:",
+      bold: true,
+      font: "Century Gothic"
+    }),
+    new TextRun({
+      text: " Notwithstanding any provision herein to the contrary...",
+      font: "Century Gothic"
+    })
+  ],
+  alignment: AlignmentType.JUSTIFIED,
+  spacing: { after: 400 }
+}),
 
         new Paragraph({
-          children: [
-            new TextRun({
-              text: "LIMITATIONS: Notwithstanding any provision herein to the contrary, any authority granted to my agent shall be limited so as to prevent this power of attorney from causing my agent to be taxed on my income (unless my agent is my spouse) and from causing my assets to be subject to a general power of appointment by my agent, as that term is defined in Section 2041 of the Internal Revenue Code of 1986, as amended.",
-              font: "Century Gothic"
-            })
-          ],
-          alignment: AlignmentType.JUSTIFIED,
-          spacing: { after: 400 }
-        }),
-
-        new Paragraph({
-          children: [
-            new TextRun({
-              text: "ADDITIONAL POWERS: ON THE FOLLOWING LINES YOU MAY GIVE SPECIAL INSTRUCTIONS LIMITING OR EXTENDING THE POWERS GRANTED TO YOUR AGENT.",
-              font: "Century Gothic"
-            })
-          ],
-          alignment: AlignmentType.JUSTIFIED,
-          spacing: { after: 200 }
-        }),
+  children: [
+    new TextRun({
+      text: "ADDITIONAL POWERS:",
+      bold: true,
+      font: "Century Gothic"
+    }),
+    new TextRun({
+      text: " ON THE FOLLOWING LINES YOU MAY GIVE SPECIAL INSTRUCTIONS...",
+      font: "Century Gothic"
+    })
+  ],
+  alignment: AlignmentType.JUSTIFIED,
+  spacing: { after: 200 }
+}),
 
         new Paragraph({
           children: [
@@ -463,17 +478,21 @@ new Paragraph({
   spacing: { after: 200 }
 }),
 
-        new Paragraph({
-          children: [
-            new TextRun({
-              text: "Power to Perform All Other Acts. In addition to the powers enumerated above, I hereby give and grant unto my agent full power and authority to do and perform all and every act and thing whatsoever requisite and necessary to be done, as fully, to all intents and purposes, as I might or could do if personally present, hereby ratifying and confirming whatsoever my agent shall and may do by virtue hereof; provided, however, and notwithstanding the foregoing, if I have withheld a particular power or powers in this power of attorney, then my agent shall not have such power or powers by virtue of the power and authority conferred by this sentence.",
-              bold: true,
-              font: "Century Gothic"
-            })
-          ],
-          alignment: AlignmentType.JUSTIFIED,
-          spacing: { after: 400 }
-        }),
+       new Paragraph({
+  children: [
+    new TextRun({
+      text: "Power to Perform All Other Acts.",
+      bold: true,
+      font: "Century Gothic"
+    }),
+    new TextRun({
+      text: " In addition to the powers enumerated above, I hereby give and grant unto my agent full power and authority to do and perform all and every act and thing whatsoever requisite and necessary to be done, as fully, to all intents and purposes, as I might or could do if personally present, hereby ratifying and confirming whatsoever my agent shall and may do by virtue hereof; provided, however, and notwithstanding the foregoing, if I have withheld a particular power or powers in this power of attorney, then my agent shall not have such power or powers by virtue of the power and authority conferred by this sentence.",
+      font: "Century Gothic"
+    })
+  ],
+  alignment: AlignmentType.JUSTIFIED,
+  spacing: { after: 400 }
+}),
 
         new Paragraph({
           children: [
