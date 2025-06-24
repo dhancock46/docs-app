@@ -671,6 +671,7 @@
                     <select id="documentSelect">
                         <option value="">-- Select a Document --</option>
                         <option value="power-of-attorney">Power of Attorney (Statutory)</option>
+                        <option value="medical-power-of-attorney">Medical Power of Attorney</option>
                     </select>
                 </div>
                 
@@ -818,7 +819,74 @@
         </div>
     </form>
 </div>
- 
+ <!-- Medical Power of Attorney Form -->
+<div class="form-container" id="medicalPoaForm" style="display: none;">
+    <button class="back-btn" onclick="goHome()">← Back to Document Selection</button>
+    
+    <form id="medicalPowerOfAttorneyForm">
+        <div class="form-section">
+            <h3>Personal Information</h3>
+            <div class="form-group">
+                <label for="medicalTestatorName">
+                    Full Legal Name of Principal *
+                    <span class="help-icon" onclick="showHelp('principalNameHelp')">💡</span>
+                </label>
+                <input type="text" id="medicalTestatorName" name="testatorName" required>
+            </div>
+            <div class="form-group">
+                <label for="medicalClientEmail">Email Address *</label>
+                <input type="email" id="medicalClientEmail" name="clientEmail" required>
+            </div>
+        </div>
+
+        <div class="form-section">
+            <h3>Health Care Agent Information</h3>
+            <div class="form-group">
+                <label for="medicalPrimaryAgent">
+                    Primary Health Care Agent (Full Name) *
+                    <span class="help-icon" onclick="showHelp('primaryAgentHelp')">💡</span>
+                </label>
+                <input type="text" id="medicalPrimaryAgent" name="primaryAgent" required autocomplete="off">
+            </div>
+            
+            <div class="form-group">
+                <label>Alternate Agents</label>
+                <div class="radio-group">
+                    <div class="radio-item">
+                        <input type="radio" id="noAlternates" name="alternateChoice" value="none" onchange="toggleAlternateAgents()" required>
+                        <label for="noAlternates">I elect not to name any alternate agents</label>
+                    </div>
+                    <div class="radio-item">
+                        <input type="radio" id="wantAlternates" name="alternateChoice" value="yes" onchange="toggleAlternateAgents()" required>
+                        <label for="wantAlternates">I want to designate alternate agents</label>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="form-group hidden" id="alternateAgentsSection">
+                <div class="form-group">
+                    <label for="firstAlternateAgent">First Alternate Agent (Full Name)</label>
+                    <input type="text" id="firstAlternateAgent" name="firstAlternateAgent" autocomplete="off">
+                </div>
+                
+                <div class="form-group">
+                    <label>
+                        <input type="checkbox" id="wantSecondAlternate" onchange="toggleSecondAlternate()">
+                        I want to appoint a second alternate agent
+                    </label>
+                </div>
+                
+                <div class="form-group hidden" id="secondAlternateSection">
+                    <label for="secondAlternateAgent">Second Alternate Agent (Full Name)</label>
+                    <input type="text" id="secondAlternateAgent" name="secondAlternateAgent" autocomplete="off">
+                </div>
+            </div>
+        </div>
+        
+        <!-- We'll add more sections here -->
+        
+    </form>
+</div>
   <script>
         // Help system functions
         function showHelp(helpId) {
