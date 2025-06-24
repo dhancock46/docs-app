@@ -1077,25 +1077,6 @@ function goHome() {
     if (medicalForm) {
         medicalForm.reset();
     
-    // Hide agent sections (Statutory POA)
-    document.getElementById('secondAgentSection').classList.add('hidden');
-    document.getElementById('thirdAgentSection').classList.add('hidden');
-    
-    // Hide alternate agent sections (Medical POA)
-    const alternateSection = document.getElementById('alternateAgentsSection');
-    const secondAlternateSection = document.getElementById('secondAlternateSection');
-    if (alternateSection) alternateSection.classList.add('hidden');
-    if (secondAlternateSection) secondAlternateSection.classList.add('hidden');
-    
-    // Hide date sections
-    document.getElementById('exactDateSection').classList.add('hidden');
-    document.getElementById('blankDateSection').classList.add('hidden');
-    
-    // Hide messages
-    document.getElementById('successMessage').style.display = 'none';
-    document.getElementById('errorMessage').style.display = 'none';
-    document.getElementById('loadingMessage').style.display = 'none';
-}
         // Toggle date input options
         function toggleDateInput() {
             const exactDate = document.getElementById('exactDate').checked;
