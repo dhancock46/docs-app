@@ -531,6 +531,82 @@
                 padding: 1rem;
             }
         }
+        Yes, that's exactly the right location! You should add the help system CSS before the </style> tag, but after the media queries section you showed me.
+Here's how it should look:
+css        .date-inputs {
+            grid-template-columns: 1fr;
+        }
+        
+        .form-container {
+            padding: 1rem;
+        }
+    }
+
+    /* Help system styles */
+    .help-icon {
+        display: inline-block;
+        margin-left: 8px;
+        cursor: pointer;
+        font-size: 16px;
+        color: #3498db;
+        transition: color 0.3s ease;
+    }
+
+    .help-icon:hover {
+        color: #2980b9;
+    }
+
+    .help-popup {
+        display: none;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: white;
+        border: 2px solid #3498db;
+        border-radius: 8px;
+        padding: 20px;
+        max-width: 400px;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+        z-index: 1000;
+    }
+
+    .help-popup h4 {
+        color: #2c3e50;
+        margin-bottom: 10px;
+        font-size: 1.1rem;
+    }
+
+    .help-popup p {
+        color: #555;
+        line-height: 1.5;
+        margin-bottom: 15px;
+    }
+
+    .help-close {
+        background: #3498db;
+        color: white;
+        border: none;
+        padding: 8px 16px;
+        border-radius: 4px;
+        cursor: pointer;
+        float: right;
+    }
+
+    .help-close:hover {
+        background: #2980b9;
+    }
+
+    .help-overlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0,0,0,0.5);
+        z-index: 999;
+    }
     </style>
 </head>
 <body>
@@ -587,22 +663,28 @@
             </div>
             
          <form id="powerOfAttorneyForm">
-    <div class="form-section">
-        <h3>Principal Information</h3>
-        <div class="form-group">
-            <label for="testatorName">Full Legal Name of Principal *</label>
-            <input type="text" id="testatorName" name="testatorName" required>
-        </div>
-        <div class="form-group">
-            <label for="clientEmail">Email Address *</label>
-            <input type="email" id="clientEmail" name="clientEmail" required>
-        </div>
-    </div>
-
-    <div class="form-section">
-        <h3>Agent Information</h3>
+   <div class="form-section">
+    <h3>Principal Information</h3>
     <div class="form-group">
-        <label for="primaryAgent">Primary Agent (Full Name) *</label>
+        <label for="testatorName">
+            Full Legal Name of Principal *
+            <span class="help-icon" onclick="showHelp('principalNameHelp')">💡</span>
+        </label>
+        <input type="text" id="testatorName" name="testatorName" required>
+    </div>
+    <div class="form-group">
+        <label for="clientEmail">Email Address *</label>
+        <input type="email" id="clientEmail" name="clientEmail" required>
+    </div>
+</div>
+
+   <div class="form-section">
+    <h3>Agent Information</h3>
+    <div class="form-group">
+        <label for="primaryAgent">
+            Primary Agent (Full Name) *
+            <span class="help-icon" onclick="showHelp('primaryAgentHelp')">💡</span>
+        </label>
         <input type="text" id="primaryAgent" name="primaryAgent" required autocomplete="off">
     </div>
     
@@ -630,7 +712,6 @@
         <input type="text" id="thirdAgent" name="thirdAgent" autocomplete="off">
     </div>
 </div>
-
     <div class="form-section">
         <h3>Powers Granted to Agent</h3>
         <div class="section-description">
@@ -844,7 +925,22 @@
             </form>
         </div>
     </div>
-     <script>
+ 
+  <script>
+        // Help system functions
+        function showHelp(helpId) {
+            document.getElementById('helpOverlay').style.display = 'block';
+            document.getElementById(helpId).style.display = 'block';
+        }
+
+        function closeHelp() {
+            document.getElementById('helpOverlay').style.display = 'none';
+            const helpPopups = document.querySelectorAll('.help-popup');
+            helpPopups.forEach(popup => {
+                popup.style.display = 'none';
+            });
+        }
+
         // Enable continue button when document is selected
         document.getElementById('documentSelect').addEventListener('change', function() {
             const continueBtn = document.getElementById('continueBtn');
@@ -1140,6 +1236,20 @@
                 }
             }
         });
-    </script>
+</script>
+    <!-- Help Popups -->
+<div class="help-overlay" id="helpOverlay" onclick="closeHelp()"></div>
+
+<div class="help-popup" id="principalNameHelp">
+    <h4>Full Legal Name of Principal</h4>
+    <p>Use your full legal name such as the name on your birth certificate or drivers license.</p>
+    <button class="help-close" onclick="closeHelp()">Close</button>
+</div>
+
+<div class="help-popup" id="primaryAgentHelp">
+    <h4>Primary Agent (Full Name)</h4>
+    <p>Use your full legal name such as the name on your birth certificate or drivers license. We prefer that you not name co-agents, so insert only one name in here. You may name two additional alternate agents rather than naming co-agents.</p>
+    <button class="help-close" onclick="closeHelp()">Close</button>
+</div>
 </body>
 </html>
