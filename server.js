@@ -401,7 +401,7 @@ async function generateDocument(data) {
          children: [new TextRun({ text: "_______     I grant my agent the power to apply my property to make gifts outright to or for the benefit of a person, including by the exercise of a presently exercisable general power of appointment held by me, except that the amount of a gift to an individual may not exceed the amount of annual exclusions allowed from the federal gift tax for the calendar year of the gift.", font: "Century Gothic" })],
          spacing: { after: 400 },
          alignment: AlignmentType.JUSTIFIED,
-         indent: { left: 1152, hanging: 1008 }
+         indent: { left: 1080, hanging: 1008 }
          }),
 new Paragraph({
   children: [
