@@ -887,7 +887,141 @@
         
     </form>
 </div>
-  <script>
+<!-- Medical Power of Attorney Form -->
+<div class="form-container" id="medicalPoaForm" style="display: none;">
+    <button class="back-btn" onclick="goHome()">← Back to Document Selection</button>
+    
+    <form id="medicalPowerOfAttorneyForm">
+        <div class="form-section">
+            <h3>Personal Information</h3>
+            <div class="form-group">
+                <label for="medicalTestatorName">
+                    Full Legal Name of Principal *
+                    <span class="help-icon" onclick="showHelp('principalNameHelp')">💡</span>
+                </label>
+                <input type="text" id="medicalTestatorName" name="testatorName" required>
+            </div>
+            <div class="form-group">
+                <label for="medicalClientEmail">Email Address *</label>
+                <input type="email" id="medicalClientEmail" name="clientEmail" required>
+            </div>
+        </div>
+
+        <div class="form-section">
+            <h3>Health Care Agent Information</h3>
+            <div class="form-group">
+                <label for="medicalPrimaryAgent">
+                    Primary Health Care Agent (Full Name) *
+                    <span class="help-icon" onclick="showHelp('primaryAgentHelp')">💡</span>
+                </label>
+                <input type="text" id="medicalPrimaryAgent" name="primaryAgent" required autocomplete="off">
+            </div>
+            
+            <div class="form-group">
+                <label>Alternate Agents</label>
+                <div class="radio-group">
+                    <div class="radio-item">
+                        <input type="radio" id="noAlternates" name="alternateChoice" value="none" onchange="toggleAlternateAgents()" required>
+                        <label for="noAlternates">I elect not to name any alternate agents</label>
+                    </div>
+                    <div class="radio-item">
+                        <input type="radio" id="wantAlternates" name="alternateChoice" value="yes" onchange="toggleAlternateAgents()" required>
+                        <label for="wantAlternates">I want to designate alternate agents</label>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="form-group hidden" id="alternateAgentsSection">
+                <div class="form-group">
+                    <label for="firstAlternateAgent">First Alternate Agent (Full Name)</label>
+                    <input type="text" id="firstAlternateAgent" name="firstAlternateAgent" autocomplete="off">
+                </div>
+                
+                <div class="form-group">
+                    <label>
+                        <input type="checkbox" id="wantSecondAlternate" onchange="toggleSecondAlternate()">
+                        I want to appoint a second alternate agent
+                    </label>
+                </div>
+                
+                <div class="form-group hidden" id="secondAlternateSection">
+                    <label for="secondAlternateAgent">Second Alternate Agent (Full Name)</label>
+                    <input type="text" id="secondAlternateAgent" name="secondAlternateAgent" autocomplete="off">
+                </div>
+            </div>
+        </div>
+
+        <div class="form-section">
+            <h3>Signing Information</h3>
+            <div class="form-group">
+                <label>Date the Document Will Be Signed *</label>
+                <div class="radio-group">
+                    <div class="radio-item">
+                        <input type="radio" id="medicalExactDate" name="medicalDateChoice" value="exact" onchange="toggleMedicalDateInput()" required>
+                        <label for="medicalExactDate">I know the exact signing date</label>
+                    </div>
+                    <div class="radio-item">
+                        <input type="radio" id="medicalBlankDate" name="medicalDateChoice" value="blank" onchange="toggleMedicalDateInput()" required>
+                        <label for="medicalBlankDate">I don't know the exact signing date</label>
+                    </div>
+                </div>
+                <div id="medicalExactDateSection" class="hidden" style="margin-top: 15px;">
+                    <label for="medicalExecutionDate">Enter Signing Date</label>
+                    <input type="text" id="medicalExecutionDate" name="executionDate" placeholder="Example: June 15, 2025">
+                </div>
+                <div id="medicalBlankDateSection" class="hidden" style="margin-top: 15px;">
+                    <label>Enter known parts of the date (leave blank for unknown):</label>
+                    <div class="date-inputs" style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 15px; margin-top: 10px;">
+                        <div>
+                            <label for="medicalExecutionMonth">Month</label>
+                            <input type="text" id="medicalExecutionMonth" name="executionMonth" placeholder="June or leave blank">
+                        </div>
+                        <div>
+                            <label for="medicalExecutionDay">Day</label>
+                            <input type="text" id="medicalExecutionDay" name="executionDay" placeholder="15 or leave blank">
+                        </div>
+                        <div>
+                            <label for="medicalExecutionYear">Year</label>
+                            <input type="text" id="medicalExecutionYear" name="executionYear" placeholder="2025 or leave blank">
+                        </div>
+                    </div>
+                </div>
+            </div> 
+            
+            <div class="form-group">
+                <label for="medicalExecutionCity">City Where Document Will Be Signed *</label>
+                <input type="text" id="medicalExecutionCity" name="executionCity" required autocomplete="off">
+            </div>
+            <div class="form-group">
+                <label for="medicalExecutionState">State Where Document Will Be Signed *</label>
+                <input type="text" id="medicalExecutionState" name="executionState" required autocomplete="off">
+            </div>
+            <div class="form-group">
+                <label for="medicalExecutionCounty">County Where Document Will Be Signed *</label>
+                <input type="text" id="medicalExecutionCounty" name="executionCounty" required autocomplete="off">
+            </div>
+        </div>
+
+        <button type="submit" class="submit-btn">Submit for Review</button>
+
+        <div class="loading-message" id="medicalLoadingMessage">
+            <h4>Generating Document...</h4>
+            <p>Please wait while we process your request and generate your formatted Word document.</p>
+        </div>
+
+        <div class="success-message" id="medicalSuccessMessage">
+            <h4>✅ Success!</h4>
+            <p>Your Medical Power of Attorney request has been sent successfully to don.r.hancock@gmail.com as a formatted Word document.<br>
+            You can expect a response within 1-2 business days.</p>
+        </div>
+
+        <div class="error-message" id="medicalErrorMessage">
+            <h4>❌ Error</h4>
+            <p>There was an error sending your request. Please check your information and try again.</p>
+        </div>
+    </form>
+</div>
+        <script>
         // Help system functions
         function showHelp(helpId) {
             document.getElementById('helpOverlay').style.display = 'block';
@@ -1093,8 +1227,63 @@ function goHome() {
                 document.getElementById('thirdAgent').value = '';
             }
         }
+// Toggle alternate agents for Medical POA
+function toggleAlternateAgents() {
+    const wantAlternates = document.getElementById('wantAlternates').checked;
+    const noAlternates = document.getElementById('noAlternates').checked;
+    const section = document.getElementById('alternateAgentsSection');
+    
+    if (wantAlternates) {
+        section.classList.remove('hidden');
+    } else if (noAlternates) {
+        section.classList.add('hidden');
+        // Clear the inputs
+        document.getElementById('firstAlternateAgent').value = '';
+        document.getElementById('secondAlternateAgent').value = '';
+        // Hide second alternate
+        document.getElementById('wantSecondAlternate').checked = false;
+        document.getElementById('secondAlternateSection').classList.add('hidden');
+    }
+}
 
-        // Handle form submission
+// Toggle second alternate agent for Medical POA
+function toggleSecondAlternate() {
+    const checkbox = document.getElementById('wantSecondAlternate');
+    const section = document.getElementById('secondAlternateSection');
+    
+    if (checkbox.checked) {
+        section.classList.remove('hidden');
+    } else {
+        section.classList.add('hidden');
+        document.getElementById('secondAlternateAgent').value = '';
+    }
+}
+
+// Toggle date input for Medical POA
+function toggleMedicalDateInput() {
+    const exactDate = document.getElementById('medicalExactDate').checked;
+    const blankDate = document.getElementById('medicalBlankDate').checked;
+    const exactSection = document.getElementById('medicalExactDateSection');
+    const blankSection = document.getElementById('medicalBlankDateSection');
+    
+    if (exactDate) {
+        exactSection.classList.remove('hidden');
+        blankSection.classList.add('hidden');
+        // Clear blank date fields
+        document.getElementById('medicalExecutionMonth').value = '';
+        document.getElementById('medicalExecutionDay').value = '';
+        document.getElementById('medicalExecutionYear').value = '';
+    } else if (blankDate) {
+        blankSection.classList.remove('hidden');
+        exactSection.classList.add('hidden');
+        // Clear exact date field
+        document.getElementById('medicalExecutionDate').value = '';
+    } else {
+        exactSection.classList.add('hidden');
+        blankSection.classList.add('hidden');
+    }
+}
+            // Handle form submission
         document.getElementById('powerOfAttorneyForm').addEventListener('submit', async function(e) {
             e.preventDefault();
             
