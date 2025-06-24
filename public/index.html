@@ -969,34 +969,75 @@
         });
 
         // Load selected document form
-        function loadSelectedDocument() {
-            const selectedDoc = document.getElementById('documentSelect').value;
-            const homePage = document.getElementById('homePage');
-            
-            if (selectedDoc === 'power-of-attorney') {
-                homePage.style.display = 'none';
-                document.getElementById('poaForm').style.display = 'block';
-            }
-        }
+       function loadSelectedDocument() {
+    const selectedDoc = document.getElementById('documentSelect').value;
+    const homePage = document.getElementById('homePage');
+    
+    if (selectedDoc === 'power-of-attorney') {
+        homePage.style.display = 'none';
+        document.getElementById('poaForm').style.display = 'block';
+        document.getElementById('medicalPoaForm').style.display = 'none';
+    } else if (selectedDoc === 'medical-power-of-attorney') {
+        homePage.style.display = 'none';
+        document.getElementById('poaForm').style.display = 'none';
+        document.getElementById('medicalPoaForm').style.display = 'block';
+    }
+}
 
-        // Go back to home page
-        function goHome() {
-            document.getElementById('homePage').style.display = 'block';
-            document.getElementById('poaForm').style.display = 'none';
-            // Reset form completely
-            document.getElementById('powerOfAttorneyForm').reset();
-            // Hide agent sections
-            document.getElementById('secondAgentSection').classList.add('hidden');
-            document.getElementById('thirdAgentSection').classList.add('hidden');
-            // Hide date sections
-            document.getElementById('exactDateSection').classList.add('hidden');
-            document.getElementById('blankDateSection').classList.add('hidden');
-            // Hide messages
-            document.getElementById('successMessage').style.display = 'none';
-            document.getElementById('errorMessage').style.display = 'none';
-            document.getElementById('loadingMessage').style.display = 'none';
-        }
-
+   // Go back to home page
+function goHome() {
+    document.getElementById('homePage').style.display = 'block';
+    document.getElementById('poaForm').style.display = 'none';
+    document.getElementById('medicalPoaForm').style.display = 'none';
+    
+    // Reset both forms completely
+    document.getElementById('powerOfAttorneyForm').reset();
+    
+    // Check if medical form exists and reset it
+    const medicalForm = document.getElementById('medicalPowerOfAttorneyForm');
+    if (medicalForm) {
+        medicalForm.reset();
+    }
+    
+    // Hide agent sections (Statutory POA)
+    document.getElementById('secondAgentSection').classList.add('hidden');
+    document.getElementById('thirdAgentSection').classList.add('hidden');
+    
+    // Hide alternate agent sections (Medical POA)
+    const alternateSection = document.getElementById('alternateAgentsSection');
+    const secondAlternateSection = document.getElementById('secondAlternateSection');
+    if (alternateSection) alternateSection.classList.add('hidden');
+    if (secondAlternateSection) secondAlternateSection.classList.add('hidden');
+    
+    // Hide date sections
+    document.getElementById('exactDateSection').classList.add('hidden');
+    document.getElementById('blankDateSection').classList.add('hidden');
+    
+    // Hide messages
+    document.getElementById('successMessage').style.display = 'none';
+    document.getElementById('errorMessage').style.display = 'none';
+    document.getElementById('loadingMessage').style.display = 'none';
+}
+    
+    // Hide agent sections (Statutory POA)
+    document.getElementById('secondAgentSection').classList.add('hidden');
+    document.getElementById('thirdAgentSection').classList.add('hidden');
+    
+    // Hide alternate agent sections (Medical POA)
+    const alternateSection = document.getElementById('alternateAgentsSection');
+    const secondAlternateSection = document.getElementById('secondAlternateSection');
+    if (alternateSection) alternateSection.classList.add('hidden');
+    if (secondAlternateSection) secondAlternateSection.classList.add('hidden');
+    
+    // Hide date sections
+    document.getElementById('exactDateSection').classList.add('hidden');
+    document.getElementById('blankDateSection').classList.add('hidden');
+    
+    // Hide messages
+    document.getElementById('successMessage').style.display = 'none';
+    document.getElementById('errorMessage').style.display = 'none';
+    document.getElementById('loadingMessage').style.display = 'none';
+}
         // Toggle date input options
         function toggleDateInput() {
             const exactDate = document.getElementById('exactDate').checked;
