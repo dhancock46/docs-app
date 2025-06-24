@@ -1097,27 +1097,6 @@ if (medicalStateField) {
         }
     });
 }
-        const entered = this.value.trim().toUpperCase();
-        if (stateAbbreviations[entered]) {
-            this.value = stateAbbreviations[entered];
-        }
-    });
-    
-    const entered = this.value.trim().toUpperCase();
-    if (stateAbbreviations[entered]) {
-        this.value = stateAbbreviations[entered];
-    }
-});     
-            const entered = this.value.trim().toUpperCase();
-            if (stateAbbreviations[entered]) {
-                this.value = stateAbbreviations[entered];
-            }
-        });
-        // Enable continue button when document is selected
-        document.getElementById('documentSelect').addEventListener('change', function() {
-            const continueBtn = document.getElementById('continueBtn');
-            continueBtn.disabled = this.value === '';
-        });
 
         // Load selected document form
        function loadSelectedDocument() {
