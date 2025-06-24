@@ -1033,7 +1033,11 @@ if (executionStateField) {
         }
     });
 }
-
+// Enable continue button when document is selected
+document.getElementById('documentSelect').addEventListener('change', function() {
+    const continueBtn = document.getElementById('continueBtn');
+    continueBtn.disabled = this.value === '';
+});
 // Auto-expand state abbreviations for Medical POA
 const medicalStateField = document.getElementById('medicalExecutionState');
 if (medicalStateField) {
