@@ -645,7 +645,7 @@ new Paragraph({
 
         new Paragraph({
           children: [
-            new TextRun({ text: `Acknowledged before me on ${executionDate} by ${testatorName}.`, font: "Century Gothic" })
+            new TextRun({ text: `The foregoing Statutory Power of Attorney was acknowledged before me on  ${executionDate} by ${testatorName}.`, font: "Century Gothic" })
           ],
           spacing: { after: 400 }
         }),
