@@ -44,7 +44,6 @@ async function generateDocument(data) {
     sections: [{
       properties: {},
       children: [
-        // Principal name - large, centered
         new Paragraph({
           children: [
             new TextRun({
@@ -58,7 +57,6 @@ async function generateDocument(data) {
           spacing: { after: 400 }
         }),
 
-        // Document title - centered, bold
         new Paragraph({
           children: [
             new TextRun({
@@ -72,8 +70,6 @@ async function generateDocument(data) {
           spacing: { after: 600 }
         }),
 
-        // Notice section
-       // Notice section
         new Paragraph({
           children: [
             new TextRun({
@@ -90,7 +86,6 @@ async function generateDocument(data) {
           spacing: { after: 400 }
         }),
 
-        // Main appointment text
         new Paragraph({
           children: [
             new TextRun({
@@ -102,14 +97,12 @@ async function generateDocument(data) {
           spacing: { after: 200 }
         }),
 
-        // Successor section
         ...(successorSection ? [new Paragraph({
           children: [new TextRun({ text: successorSection, font: "Century Gothic" })],
           alignment: AlignmentType.JUSTIFIED,
           spacing: { after: 200 }
         })] : []),
 
-        // Marriage termination clause
         new Paragraph({
           children: [
             new TextRun({
@@ -121,7 +114,6 @@ async function generateDocument(data) {
           spacing: { after: 400 }
         }),
 
-        // Powers instructions
         new Paragraph({
           children: [
             new TextRun({
@@ -155,7 +147,6 @@ async function generateDocument(data) {
           spacing: { after: 400 }
         }),
 
-        // Powers list
         new Paragraph({
           children: [new TextRun({ text: "_______     (A) Real property transactions;", font: "Century Gothic" })],
           spacing: { after: 100 }
@@ -196,23 +187,23 @@ async function generateDocument(data) {
           children: [new TextRun({ text: "_______     (J) Personal and family maintenance;", font: "Century Gothic" })],
           spacing: { after: 100 }
         }),
-       new Paragraph({
-         children: [new TextRun({ text: "_______     (K) Benefits from social security, Medicare, Medicaid, or other governmental programs or civil or military service;", font: "Century Gothic" })],
-         spacing: { after: 100 },
-         indent: { left: 1296, hanging: 1296 }
-         }),
+        new Paragraph({
+          children: [new TextRun({ text: "_______     (K) Benefits from social security, Medicare, Medicaid, or other governmental programs or civil or military service;", font: "Century Gothic" })],
+          spacing: { after: 100 },
+          indent: { left: 1296, hanging: 1296 }
+        }),
         new Paragraph({
           children: [new TextRun({ text: "_______     (L) Retirement plan transactions;", font: "Century Gothic" })],
           spacing: { after: 100 }
         }),
-       new Paragraph({
+        new Paragraph({
           children: [new TextRun({ text: "_______     (M) Tax matters;", font: "Century Gothic" })],
           spacing: { after: 100 }
         }),
-      new Paragraph({
-        children: [new TextRun({ text: "_______     (N) Digital assets and the content of an electronic communication;", font: "Century Gothic" })],
-        spacing: { after: 200 },
-        indent: { left: 1296, hanging: 1296 }
+        new Paragraph({
+          children: [new TextRun({ text: "_______     (N) Digital assets and the content of an electronic communication;", font: "Century Gothic" })],
+          spacing: { after: 200 },
+          indent: { left: 1296, hanging: 1296 }
         }),
         new Paragraph({
           children: [
@@ -236,7 +227,6 @@ async function generateDocument(data) {
           spacing: { after: 400 }
         }),
 
-        // Grant of Specific Authority - centered heading
         new Paragraph({
           children: [
             new TextRun({
@@ -272,7 +262,6 @@ async function generateDocument(data) {
           spacing: { after: 300 }
         }),
 
-        // Specific authorities
         new Paragraph({
           children: [new TextRun({ text: "_______     Create, amend, revoke, or terminate an inter vivos trust", font: "Century Gothic" })],
           spacing: { after: 100 }
@@ -285,12 +274,12 @@ async function generateDocument(data) {
           children: [new TextRun({ text: "_______     Create or change a beneficiary designation", font: "Century Gothic" })],
           spacing: { after: 100 }
         }),
-      new Paragraph({
-  children: [new TextRun({ text: "_______     Authorize another person to exercise the authority granted under this power of attorney", font: "Century Gothic" })],
-  spacing: { after: 400 },
-  indent: { left: 1044, hanging: 1080 }
-}),
-        // Compensation - centered heading
+        new Paragraph({
+          children: [new TextRun({ text: "_______     Authorize another person to exercise the authority granted under this power of attorney", font: "Century Gothic" })],
+          spacing: { after: 400 },
+          indent: { left: 1044, hanging: 1080 }
+        }),
+
         new Paragraph({
           children: [
             new TextRun({
@@ -315,18 +304,17 @@ async function generateDocument(data) {
           spacing: { after: 200 }
         }),
 
-      new Paragraph({
-        children: [new TextRun({ text: "_______     My agent is entitled to reimbursement of reasonable expenses incurred on my behalf and to compensation that is reasonable under the circumstances.", font: "Century Gothic" })],
-        spacing: { after: 200 },
-        indent: { left: 1296, hanging: 1008 }
-      }),
-     new Paragraph({
-       children: [new TextRun({ text: "_______     My agent is entitled to reimbursement of reasonable expenses incurred on my behalf but shall receive no compensation for serving as my agent.", font: "Century Gothic" })],
-       spacing: { after: 400 },
-       indent: { left: 1296, hanging: 1008 }
-    }),
+        new Paragraph({
+          children: [new TextRun({ text: "_______     My agent is entitled to reimbursement of reasonable expenses incurred on my behalf and to compensation that is reasonable under the circumstances.", font: "Century Gothic" })],
+          spacing: { after: 200 },
+          indent: { left: 1296, hanging: 1008 }
+        }),
+        new Paragraph({
+          children: [new TextRun({ text: "_______     My agent is entitled to reimbursement of reasonable expenses incurred on my behalf but shall receive no compensation for serving as my agent.", font: "Century Gothic" })],
+          spacing: { after: 400 },
+          indent: { left: 1296, hanging: 1008 }
+        }),
 
-        // Co-Agents - centered heading
         new Paragraph({
           children: [
             new TextRun({
@@ -364,7 +352,6 @@ async function generateDocument(data) {
           spacing: { after: 400 }
         }),
 
-        // Gifts - centered heading
         new Paragraph({
           children: [
             new TextRun({
@@ -388,93 +375,94 @@ async function generateDocument(data) {
           alignment: AlignmentType.JUSTIFIED,
           spacing: { after: 200 }
         }),
-        // Gifts - centered heading
-        new Paragraph({
-         children: [new TextRun({ text: "_______     I grant my agent the power to apply my property to make gifts outright to or for the benefit of a person, including by the exercise of a presently exercisable general power of appointment held by me, except that the amount of a gift to an individual may not exceed the amount of annual exclusions allowed from the federal gift tax for the calendar year of the gift.", font: "Century Gothic" })],
-         spacing: { after: 400 },
-         alignment: AlignmentType.JUSTIFIED,
-         indent: { left: 1080, hanging: 1008 }
-         }),
-new Paragraph({
-  children: [
-    new TextRun({
-      text: "GIFTS TO QUALIFY FOR PUBLIC BENEFITS:",
-      bold: true,
-      font: "Century Gothic"
-    }),
-    new TextRun({
-      text: " If my agent in my agent's sole discretion has determined that I need nursing home or other long-term medical care and that I will receive proper medical care whether I privately pay for such care or if I am a recipient of Title XIX (Medicaid) or other public benefits, then my agent shall have the power:",
-      font: "Century Gothic"
-    })
-  ],
-  alignment: AlignmentType.JUSTIFIED,
-  spacing: { after: 200 }
-}),
-
-new Paragraph({
-  children: [
-    new TextRun({
-      text: "(i) to take any and all steps necessary, in my agent's judgment, to obtain and maintain my eligibility for any and all public benefits and entitlement programs, including, if necessary, signing a deed with a retained life estate (also known as a \"Lady Bird Deed\") as well as creating and funding a qualified income trust or special needs trust for me or a disabled child, if any;",
-      font: "Century Gothic"
-    })
-  ],
-  alignment: AlignmentType.JUSTIFIED,
-  spacing: { after: 200 }
-}),
-
-new Paragraph({
-  children: [
-    new TextRun({
-      text: "(ii) to transfer with or without consideration my assets to my descendants (if any), or to my natural heirs at law or to the persons named as beneficiaries under my last will and testament or a revocable living trust which I may have established, including my agent; and",
-      font: "Century Gothic"
-    })
-  ],
-  alignment: AlignmentType.JUSTIFIED,
-  spacing: { after: 200 }
-}),
-
-new Paragraph({
-  children: [
-    new TextRun({
-      text: "(iii) to enter into a personal services contract for my benefit, including entering into such contract with my agent, and even if doing so may be considered self-dealing. Such public benefits and entitlement programs shall include, but are not limited to, Social Security, Supplemental Security Income, Medicare, Medicaid and Veterans benefits.",
-      font: "Century Gothic"
-    })
-  ],
-  alignment: AlignmentType.JUSTIFIED,
-  spacing: { after: 400 }
-}),
-
-  new Paragraph({
-  children: [
-    new TextRun({
-      text: "LIMITATIONS:",
-      bold: true,
-      font: "Century Gothic"
-    }),
-    new TextRun({
-      text: " Notwithstanding any provision herein to the contrary, any authority granted to my agent shall be limited so as to prevent this power of attorney from causing my agent to be taxed on my income (unless my agent is my spouse) and from causing my assets to be subject to a general power of appointment by my agent, as that term is defined in Section 2041 of the Internal Revenue Code of 1986, as amended.",
-      font: "Century Gothic"
-    })
-  ],
-  alignment: AlignmentType.JUSTIFIED,
-  spacing: { after: 400 }
-}),
 
         new Paragraph({
-  children: [
-    new TextRun({
-      text: "ADDITIONAL POWERS:",
-      bold: true,
-      font: "Century Gothic"
-    }),
-    new TextRun({
-      text: " ON THE FOLLOWING LINES YOU MAY GIVE SPECIAL INSTRUCTIONS...",
-      font: "Century Gothic"
-    })
-  ],
-  alignment: AlignmentType.JUSTIFIED,
-  spacing: { after: 200 }
-}),
+          children: [new TextRun({ text: "_______     I grant my agent the power to apply my property to make gifts outright to or for the benefit of a person, including by the exercise of a presently exercisable general power of appointment held by me, except that the amount of a gift to an individual may not exceed the amount of annual exclusions allowed from the federal gift tax for the calendar year of the gift.", font: "Century Gothic" })],
+          spacing: { after: 400 },
+          alignment: AlignmentType.JUSTIFIED,
+          indent: { left: 1080, hanging: 1008 }
+        }),
+
+        new Paragraph({
+          children: [
+            new TextRun({
+              text: "GIFTS TO QUALIFY FOR PUBLIC BENEFITS:",
+              bold: true,
+              font: "Century Gothic"
+            }),
+            new TextRun({
+              text: " If my agent in my agent's sole discretion has determined that I need nursing home or other long-term medical care and that I will receive proper medical care whether I privately pay for such care or if I am a recipient of Title XIX (Medicaid) or other public benefits, then my agent shall have the power:",
+              font: "Century Gothic"
+            })
+          ],
+          alignment: AlignmentType.JUSTIFIED,
+          spacing: { after: 200 }
+        }),
+
+        new Paragraph({
+          children: [
+            new TextRun({
+              text: "(i) to take any and all steps necessary, in my agent's judgment, to obtain and maintain my eligibility for any and all public benefits and entitlement programs, including, if necessary, signing a deed with a retained life estate (also known as a \"Lady Bird Deed\") as well as creating and funding a qualified income trust or special needs trust for me or a disabled child, if any;",
+              font: "Century Gothic"
+            })
+          ],
+          alignment: AlignmentType.JUSTIFIED,
+          spacing: { after: 200 }
+        }),
+
+        new Paragraph({
+          children: [
+            new TextRun({
+              text: "(ii) to transfer with or without consideration my assets to my descendants (if any), or to my natural heirs at law or to the persons named as beneficiaries under my last will and testament or a revocable living trust which I may have established, including my agent; and",
+              font: "Century Gothic"
+            })
+          ],
+          alignment: AlignmentType.JUSTIFIED,
+          spacing: { after: 200 }
+        }),
+
+        new Paragraph({
+          children: [
+            new TextRun({
+              text: "(iii) to enter into a personal services contract for my benefit, including entering into such contract with my agent, and even if doing so may be considered self-dealing. Such public benefits and entitlement programs shall include, but are not limited to, Social Security, Supplemental Security Income, Medicare, Medicaid and Veterans benefits.",
+              font: "Century Gothic"
+            })
+          ],
+          alignment: AlignmentType.JUSTIFIED,
+          spacing: { after: 400 }
+        }),
+
+        new Paragraph({
+          children: [
+            new TextRun({
+              text: "LIMITATIONS:",
+              bold: true,
+              font: "Century Gothic"
+            }),
+            new TextRun({
+              text: " Notwithstanding any provision herein to the contrary, any authority granted to my agent shall be limited so as to prevent this power of attorney from causing my agent to be taxed on my income (unless my agent is my spouse) and from causing my assets to be subject to a general power of appointment by my agent, as that term is defined in Section 2041 of the Internal Revenue Code of 1986, as amended.",
+              font: "Century Gothic"
+            })
+          ],
+          alignment: AlignmentType.JUSTIFIED,
+          spacing: { after: 400 }
+        }),
+
+        new Paragraph({
+          children: [
+            new TextRun({
+              text: "ADDITIONAL POWERS:",
+              bold: true,
+              font: "Century Gothic"
+            }),
+            new TextRun({
+              text: " ON THE FOLLOWING LINES YOU MAY GIVE SPECIAL INSTRUCTIONS...",
+              font: "Century Gothic"
+            })
+          ],
+          alignment: AlignmentType.JUSTIFIED,
+          spacing: { after: 200 }
+        }),
 
         new Paragraph({
           children: [
@@ -487,37 +475,37 @@ new Paragraph({
           spacing: { after: 200 }
         }),
 
-       new Paragraph({
-  children: [
-    new TextRun({
-      text: "Power to Appoint Substitute Agent.",
-      bold: true,
-      font: "Century Gothic"
-    }),
-    new TextRun({
-      text: " The power to appoint or substitute one or more agents to serve as my agent under this power of attorney; provided, however, such power shall be exercisable only by the then-serving agent (or if more than one agent is serving, by all such co-agents acting unanimously), and any such appointment or substitution shall override other provisions contained herein which may attempt to name one or more successor agents. Any such appointment or substitution may be revoked by me or my agent at any time and for any reason, and such appointment or substitution shall not terminate upon the death, disability, incapacity or resignation of the agent or co-agents who made the appointment or substitution. Any such appointment or substitution shall be evidenced by acknowledged written instrument.",
-      font: "Century Gothic"
-    })
-  ],
-  alignment: AlignmentType.JUSTIFIED,
-  spacing: { after: 200 }
-}),
+        new Paragraph({
+          children: [
+            new TextRun({
+              text: "Power to Appoint Substitute Agent.",
+              bold: true,
+              font: "Century Gothic"
+            }),
+            new TextRun({
+              text: " The power to appoint or substitute one or more agents to serve as my agent under this power of attorney; provided, however, such power shall be exercisable only by the then-serving agent (or if more than one agent is serving, by all such co-agents acting unanimously), and any such appointment or substitution shall override other provisions contained herein which may attempt to name one or more successor agents. Any such appointment or substitution may be revoked by me or my agent at any time and for any reason, and such appointment or substitution shall not terminate upon the death, disability, incapacity or resignation of the agent or co-agents who made the appointment or substitution. Any such appointment or substitution shall be evidenced by acknowledged written instrument.",
+              font: "Century Gothic"
+            })
+          ],
+          alignment: AlignmentType.JUSTIFIED,
+          spacing: { after: 200 }
+        }),
 
-       new Paragraph({
-  children: [
-    new TextRun({
-      text: "Power to Perform All Other Acts.",
-      bold: true,
-      font: "Century Gothic"
-    }),
-    new TextRun({
-      text: " In addition to the powers enumerated above, I hereby give and grant unto my agent full power and authority to do and perform all and every act and thing whatsoever requisite and necessary to be done, as fully, to all intents and purposes, as I might or could do if personally present, hereby ratifying and confirming whatsoever my agent shall and may do by virtue hereof; provided, however, and notwithstanding the foregoing, if I have withheld a particular power or powers in this power of attorney, then my agent shall not have such power or powers by virtue of the power and authority conferred by this sentence.",
-      font: "Century Gothic"
-    })
-  ],
-  alignment: AlignmentType.JUSTIFIED,
-  spacing: { after: 400 }
-}),
+        new Paragraph({
+          children: [
+            new TextRun({
+              text: "Power to Perform All Other Acts.",
+              bold: true,
+              font: "Century Gothic"
+            }),
+            new TextRun({
+              text: " In addition to the powers enumerated above, I hereby give and grant unto my agent full power and authority to do and perform all and every act and thing whatsoever requisite and necessary to be done, as fully, to all intents and purposes, as I might or could do if personally present, hereby ratifying and confirming whatsoever my agent shall and may do by virtue hereof; provided, however, and notwithstanding the foregoing, if I have withheld a particular power or powers in this power of attorney, then my agent shall not have such power or powers by virtue of the power and authority conferred by this sentence.",
+              font: "Century Gothic"
+            })
+          ],
+          alignment: AlignmentType.JUSTIFIED,
+          spacing: { after: 400 }
+        }),
 
         new Paragraph({
           children: [
@@ -551,16 +539,16 @@ new Paragraph({
           spacing: { after: 200 }
         }),
 
-       new Paragraph({
-  children: [
-    new TextRun({
-      text: "(B)	Effective Upon Disability or Incapacity: This power of attorney becomes effective upon my disability or incapacity.",
-      font: "Century Gothic",
-      strike: true
-    })
-  ],
-  spacing: { after: 200 }
-}),
+        new Paragraph({
+          children: [
+            new TextRun({
+              text: "(B)	Effective Upon Disability or Incapacity: This power of attorney becomes effective upon my disability or incapacity.",
+              font: "Century Gothic",
+              strike: true
+            })
+          ],
+          spacing: { after: 200 }
+        }),
 
         new Paragraph({
           children: [
@@ -605,7 +593,7 @@ new Paragraph({
           alignment: AlignmentType.JUSTIFIED,
           spacing: { after: 600 }
         }),
-        // Signature section
+
         new Paragraph({
           children: [
             new TextRun({
@@ -625,7 +613,6 @@ new Paragraph({
           spacing: { after: 400 }
         }),
 
-  // Notary section
         new Paragraph({
           children: [new TextRun({ text: `State of ${executionState}`, font: "Century Gothic" })],
           spacing: { after: 100 }
@@ -655,62 +642,12 @@ new Paragraph({
   return await Packer.toBuffer(doc);
 }
 
-app.post('/submit', async (req, res) => {
-  try {
-    console.log('Received data:', req.body);
-    
-    let document;
-    let documentType;
-    
-    // Determine document type and generate accordingly
-    if (req.body.documentType === 'medical-power-of-attorney') {
-      document = await generateMedicalPOADocument(req.body);
-      documentType = 'Medical Power of Attorney';
-    } else {
-      // Default to statutory POA
-      document = await generateDocument(req.body);
-      documentType = 'Statutory Power of Attorney';
-    }
-    
-    const mailOptions = {
-      from: process.env.EMAIL_USER,
-      to: 'don.r.hancock@gmail.com',
-      subject: `${documentType} Request`,
-      text: `Please find the ${documentType} document attached.`,
-      attachments: [{
-        filename: `${documentType.replace(/\s+/g, '_')}.docx`,
-        content: document,
-        contentType: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
-      }]
-    };
-
-    await transporter.sendMail(mailOptions);
-    res.json({ success: true, message: `${documentType} sent successfully` });
-  } catch (error) {
-    console.error('Error:', error);
-    res.status(500).json({ success: false, message: error.message });
-  }
-});
-
-    await transporter.sendMail(mailOptions);
-    res.json({ success: true });
-  } catch (error) {
-    console.error('Error:', error);
-    res.status(500).json({ success: false, message: error.message });
-  }
-});
-
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
-});
-
-javascriptasync function generateMedicalPOADocument(data) {
+async function generateMedicalPOADocument(data) {
   const {
     testatorName, primaryAgent, firstAlternateAgent, secondAlternateAgent,
     executionDate, executionCity, executionState, executionCounty, alternateChoice
   } = data;
 
-  // Generate alternate agent section
   let alternateSection = '';
   if (alternateChoice === 'yes') {
     if (firstAlternateAgent && !secondAlternateAgent) {
@@ -819,6 +756,7 @@ javascriptasync function generateMedicalPOADocument(data) {
   
   return await Packer.toBuffer(doc);
 }
+
 app.post('/submit', async (req, res) => {
   try {
     console.log('Received data:', req.body);
@@ -826,38 +764,36 @@ app.post('/submit', async (req, res) => {
     let document;
     let documentType;
     
-    // Determine document type and generate accordingly
-    if (req.body.documentType === 'medical-power-of-attorney') {
-      document = await generateMedicalPOADocument(req.body);
-      documentType = 'Medical Power of Attorney';
-    } else {
-      // Default to statutory POA
-      document = await generateDocument(req.body);
-      documentType = 'Statutory Power of Attorney';
-    }
-    
-    const mailOptions = {
-      from: process.env.EMAIL_USER,
-      to: 'don.r.hancock@gmail.com',
-      subject: `${documentType} Request`,
-      text: `Please find the ${documentType} document attached.`,
-      attachments: [{
-        filename: `${documentType.replace(/\s+/g, '_')}.docx`,
-        content: document,
-        contentType: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
-      }]
-    };
+if (req.body.documentType === 'medical-power-of-attorney') {
+     document = await generateMedicalPOADocument(req.body);
+     documentType = 'Medical Power of Attorney';
+   } else {
+     document = await generateDocument(req.body);
+     documentType = 'Statutory Power of Attorney';
+   }
+   
+   const mailOptions = {
+     from: process.env.EMAIL_USER,
+     to: 'don.r.hancock@gmail.com',
+     subject: `${documentType} Request`,
+     text: `Please find the ${documentType} document attached.`,
+     attachments: [{
+       filename: `${documentType.replace(/\s+/g, '_')}.docx`,
+       content: document,
+       contentType: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
+     }]
+   };
 
-    await transporter.sendMail(mailOptions);
-    res.json({ success: true, message: `${documentType} sent successfully` });
-  } catch (error) {
-    console.error('Error:', error);
-    res.status(500).json({ success: false, message: error.message });
-  }
+   await transporter.sendMail(mailOptions);
+   res.json({ success: true, message: `${documentType} sent successfully` });
+ } catch (error) {
+   console.error('Error:', error);
+   res.status(500).json({ success: false, message: error.message });
+ }
 });
 
 app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
+ console.log(`Server running on port ${PORT}`);
 });
 
 module.exports = app;
