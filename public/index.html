@@ -1376,7 +1376,118 @@ function toggleMedicalDateInput() {
                 submitBtn.textContent = 'Submit for Review';
             }
         });
-
+// Handle Medical POA form submission
+document.getElementById('medicalPowerOfAttorneyForm').addEventListener('submit', async function(e) {
+    e.preventDefault();
+    
+    const submitBtn = this.querySelector('.submit-btn');
+    const loadingMessage = document.getElementById('medicalLoadingMessage');
+    const successMessage = document.getElementById('medicalSuccessMessage');
+    const errorMessage = document.getElementById('medicalErrorMessage');
+    
+    // Hide previous messages
+    successMessage.style.display = 'none';
+    errorMessage.style.display = 'none';
+    loadingMessage.style.display = 'block';
+    
+    // Show loading state
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Generating Document...';
+    
+    try {
+        const formData = new FormData(this);
+        const data = {};
+        
+        // Process form data properly
+        for (let [key, value] of formData.entries()) {
+            if (data[key]) {
+                // Handle multiple values
+                if (Array.isArray(data[key])) {
+                    data[key].push(value);
+                } else {
+                    data[key] = [data[key], value];
+                }
+            } else {
+                data[key] = value;
+            }
+        }
+        
+        // Handle date formatting for Medical POA
+        if (data.medicalDateChoice === 'exact' && data.executionDate) {
+            // Keep the exact date as entered
+        } else if (data.medicalDateChoice === 'blank') {
+            // Format the partial date with blanks
+            const month = data.executionMonth || '_______';
+            const day = data.executionDay || '___';
+            const year = data.executionYear || '____';
+            data.executionDate = `${month} ${day}, ${year}`;
+        } else {
+            // If no date choice is made, require it
+            throw new Error('Please select a date option');
+        }
+        
+        // Ensure required fields are present
+        if (!data.testatorName || !data.clientEmail || !data.primaryAgent || 
+            !data.executionCity || !data.executionState || !data.executionCounty) {
+            throw new Error('Please fill in all required fields');
+        }
+        
+        // Ensure we have empty strings for optional fields if not provided
+        data.firstAlternateAgent = data.firstAlternateAgent || '';
+        data.secondAlternateAgent = data.secondAlternateAgent || '';
+        
+        // Add flags for Word document generation
+        data.generateWordDocument = true;
+        data.documentType = 'medical-power-of-attorney';
+        
+        console.log('Sending Medical POA data:', data);
+        
+        const response = await fetch('/submit', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data)
+        });
+        
+        console.log('Response status:', response.status);
+        
+        const result = await response.json();
+        console.log('Result:', result);
+        
+        if (!result.success) {
+            throw new Error(result.message || 'Medical POA document generation failed');
+        }
+        
+        loadingMessage.style.display = 'none';
+        successMessage.style.display = 'block';
+        this.reset();
+        
+        // Reset alternate agent sections
+        const alternateSection = document.getElementById('alternateAgentsSection');
+        const secondAlternateSection = document.getElementById('secondAlternateSection');
+        const medicalExactDateSection = document.getElementById('medicalExactDateSection');
+        const medicalBlankDateSection = document.getElementById('medicalBlankDateSection');
+        
+        if (alternateSection) alternateSection.classList.add('hidden');
+        if (secondAlternateSection) secondAlternateSection.classList.add('hidden');
+        if (medicalExactDateSection) medicalExactDateSection.classList.add('hidden');
+        if (medicalBlankDateSection) medicalBlankDateSection.classList.add('hidden');
+        
+    } catch (error) {
+        console.error('Error:', error);
+        loadingMessage.style.display = 'none';
+        errorMessage.style.display = 'block';
+        
+        // Show more specific error message
+        const errorP = errorMessage.querySelector('p');
+        errorP.textContent = error.message || 'There was an error generating your Medical Power of Attorney document. Please check your information and try again.';
+    } finally {
+        // Reset button state
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Submit for Review';
+    }
+});
         // Prevent form from submitting when user presses Enter in text fields
         document.querySelectorAll('input[type="text"], input[type="email"], input[type="tel"]').forEach(input => {
             input.addEventListener('keypress', function(e) {
