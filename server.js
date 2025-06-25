@@ -625,7 +625,7 @@ new Paragraph({
           spacing: { after: 400 }
         }),
 
-        // Notary section
+  // Notary section
         new Paragraph({
           children: [new TextRun({ text: `State of ${executionState}`, font: "Century Gothic" })],
           spacing: { after: 100 }
@@ -635,6 +635,23 @@ new Paragraph({
           spacing: { after: 300 }
         }),
 
+        new Paragraph({
+          children: [
+            new TextRun({ text: `The foregoing Statutory Power of Attorney was acknowledged before me on ${executionDate} by ${testatorName}.`, font: "Century Gothic" })
+          ],
+          spacing: { after: 400 }
+        }),
+
+        new Paragraph({
+          children: [new TextRun({ text: "_____________________________", font: "Century Gothic" })],
+          spacing: { after: 100 }
+        }),
+        new Paragraph({
+          children: [new TextRun({ text: `Notary Public, State of ${executionState}`, font: "Century Gothic" })]
+        })
+      ]
+    }]
+  });
   return await Packer.toBuffer(doc);
 }
 
