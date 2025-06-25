@@ -1232,7 +1232,30 @@ function toggleSecondAlternate() {
         document.getElementById('secondAlternateAgent').value = '';
     }
 }
-
+// Toggle date input for Statutory POA
+function toggleDateInput() {
+    const exactDate = document.getElementById('exactDate').checked;
+    const blankDate = document.getElementById('blankDate').checked;
+    const exactSection = document.getElementById('exactDateSection');
+    const blankSection = document.getElementById('blankDateSection');
+    
+    if (exactDate) {
+        exactSection.classList.remove('hidden');
+        blankSection.classList.add('hidden');
+        // Clear blank date fields
+        document.getElementById('executionMonth').value = '';
+        document.getElementById('executionDay').value = '';
+        document.getElementById('executionYear').value = '';
+    } else if (blankDate) {
+        blankSection.classList.remove('hidden');
+        exactSection.classList.add('hidden');
+        // Clear exact date field
+        document.getElementById('executionDate').value = '';
+    } else {
+        exactSection.classList.add('hidden');
+        blankSection.classList.add('hidden');
+    }
+}
 // Toggle date input for Medical POA
 function toggleMedicalDateInput() {
     const exactDate = document.getElementById('medicalExactDate').checked;
