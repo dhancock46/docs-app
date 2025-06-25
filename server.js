@@ -802,6 +802,42 @@ javascriptasync function generateMedicalPOADocument(data) {
   
   return await Packer.toBuffer(doc);
 }
+app.post('/submit', async (req, res) => {
+  try {
+    console.log('Received data:', req.body);
+    
+    let document;
+    let documentType;
+    
+    // Determine document type and generate accordingly
+    if (req.body.documentType === 'medical-power-of-attorney') {
+      document = await generateMedicalPOADocument(req.body);
+      documentType = 'Medical Power of Attorney';
+    } else {
+      // Default to statutory POA
+      document = await generateDocument(req.body);
+      documentType = 'Statutory Power of Attorney';
+    }
+    
+    const mailOptions = {
+      from: process.env.EMAIL_USER,
+      to: 'don.r.hancock@gmail.com',
+      subject: `${documentType} Request`,
+      text: `Please find the ${documentType} document attached.`,
+      attachments: [{
+        filename: `${documentType.replace(/\s+/g, '_')}.docx`,
+        content: document,
+        contentType: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
+      }]
+    };
+
+    await transporter.sendMail(mailOptions);
+    res.json({ success: true, message: `${documentType} sent successfully` });
+  } catch (error) {
+    console.error('Error:', error);
+    res.status(500).json({ success: false, message: error.message });
+  }
+});
 
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
