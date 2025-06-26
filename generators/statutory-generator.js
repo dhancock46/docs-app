@@ -238,3 +238,4 @@ async function generateStatutoryPOA(data) {
   
   return await Packer.toBuffer(doc);
 }
+module.exports = { generateStatutoryPOA };
