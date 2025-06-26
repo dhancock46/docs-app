@@ -179,7 +179,7 @@ async function generateStatutoryPOA(data) {
           spacing: { after: 200 },
           indent: { left: 1296, hanging: 1296 }
         }),
-          new Paragraph({
+        new Paragraph({
           children: [
             new TextRun({
               text: "_______     (O) ALL OF THE POWERS LISTED IN (A) THROUGH (N).",
@@ -190,7 +190,6 @@ async function generateStatutoryPOA(data) {
           spacing: { after: 400 }
         }),
 
-        // ADD THIS MISSING CONTENT:
         new Paragraph({
           children: [
             new TextRun({
@@ -316,6 +315,7 @@ async function generateStatutoryPOA(data) {
           alignment: AlignmentType.JUSTIFIED,
           spacing: { after: 400 }
         }),
+
         new Paragraph({
           children: [
             new TextRun({
@@ -364,4 +364,5 @@ async function generateStatutoryPOA(data) {
   
   return await Packer.toBuffer(doc);
 }
+
 module.exports = { generateStatutoryPOA };
