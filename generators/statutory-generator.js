@@ -179,7 +179,7 @@ async function generateStatutoryPOA(data) {
           spacing: { after: 200 },
           indent: { left: 1296, hanging: 1296 }
         }),
-        new Paragraph({
+          new Paragraph({
           children: [
             new TextRun({
               text: "_______     (O) ALL OF THE POWERS LISTED IN (A) THROUGH (N).",
@@ -190,6 +190,132 @@ async function generateStatutoryPOA(data) {
           spacing: { after: 400 }
         }),
 
+        // ADD THIS MISSING CONTENT:
+        new Paragraph({
+          children: [
+            new TextRun({
+              text: "IF I WANT TO GRANT A GENERAL AUTHORITY WITH RESPECT TO DIGITAL ASSETS AND THE CONTENT OF AN ELECTRONIC COMMUNICATION THAT OVERRIDES CONTRARY PROVISIONS IN TERMS-OF-SERVICE AGREEMENTS, I MUST INITIAL THE LINE IN FRONT OF (N) AND ALSO INITIAL THE FOLLOWING:",
+              font: "Century Gothic"
+            })
+          ],
+          alignment: AlignmentType.JUSTIFIED,
+          spacing: { after: 200 }
+        }),
+
+        new Paragraph({
+          children: [new TextRun({ text: "_______     I grant general authority with respect to digital assets and the content of an electronic communication.", font: "Century Gothic" })],
+          spacing: { after: 400 }
+        }),
+
+        new Paragraph({
+          children: [
+            new TextRun({
+              text: "ON THE FOLLOWING LINES YOU MAY GIVE SPECIAL INSTRUCTIONS LIMITING OR EXTENDING THE POWERS GRANTED TO YOUR AGENT.",
+              font: "Century Gothic"
+            })
+          ],
+          alignment: AlignmentType.JUSTIFIED,
+          spacing: { after: 200 }
+        }),
+
+        new Paragraph({
+          children: [new TextRun({ text: "________________________________________________________________________", font: "Century Gothic" })],
+          spacing: { after: 100 }
+        }),
+        new Paragraph({
+          children: [new TextRun({ text: "________________________________________________________________________", font: "Century Gothic" })],
+          spacing: { after: 100 }
+        }),
+        new Paragraph({
+          children: [new TextRun({ text: "________________________________________________________________________", font: "Century Gothic" })],
+          spacing: { after: 400 }
+        }),
+
+        new Paragraph({
+          children: [
+            new TextRun({
+              text: "UNLESS YOU DIRECT OTHERWISE ABOVE, THIS POWER OF ATTORNEY IS EFFECTIVE IMMEDIATELY AND WILL CONTINUE UNTIL IT IS REVOKED.",
+              font: "Century Gothic"
+            })
+          ],
+          alignment: AlignmentType.JUSTIFIED,
+          spacing: { after: 400 }
+        }),
+
+        new Paragraph({
+          children: [
+            new TextRun({
+              text: "CHOOSE ONE OF THE FOLLOWING ALTERNATIVES BY CROSSING OUT THE ALTERNATIVE NOT CHOSEN:",
+              font: "Century Gothic"
+            })
+          ],
+          alignment: AlignmentType.JUSTIFIED,
+          spacing: { after: 200 }
+        }),
+
+        new Paragraph({
+          children: [
+            new TextRun({
+              text: "(A) This power of attorney is not affected by my subsequent disability or incapacity.",
+              font: "Century Gothic"
+            })
+          ],
+          spacing: { after: 200 }
+        }),
+
+        new Paragraph({
+          children: [
+            new TextRun({
+              text: "(B) This power of attorney becomes effective upon my disability or incapacity.",
+              font: "Century Gothic"
+            })
+          ],
+          spacing: { after: 400 }
+        }),
+
+        new Paragraph({
+          children: [
+            new TextRun({
+              text: "YOU SHOULD SELECT ALTERNATIVE (A) IF THIS POWER OF ATTORNEY IS TO BECOME EFFECTIVE ON THE DATE IT IS EXECUTED.",
+              font: "Century Gothic"
+            })
+          ],
+          alignment: AlignmentType.JUSTIFIED,
+          spacing: { after: 200 }
+        }),
+
+        new Paragraph({
+          children: [
+            new TextRun({
+              text: "IF NEITHER (A) NOR (B) IS CROSSED OUT, IT WILL BE ASSUMED THAT YOU CHOSE ALTERNATIVE (A).",
+              font: "Century Gothic"
+            })
+          ],
+          alignment: AlignmentType.JUSTIFIED,
+          spacing: { after: 400 }
+        }),
+
+        new Paragraph({
+          children: [
+            new TextRun({
+              text: "If Alternative (B) is chosen and a definition of my disability or incapacity is not contained in this power of attorney, I shall be considered disabled or incapacitated for purposes of this power of attorney if a physician certifies in writing at a date later than the date this power of attorney is executed that, based on the physician's medical examination of me, I am mentally incapable of managing my financial affairs. I authorize the physician who examines me for this purpose to disclose my physical or mental condition to another person for purposes of this power of attorney. A third party who accepts this power of attorney is fully protected from any action taken under this power of attorney that is based on the determination made by a physician of my disability or incapacity.",
+              font: "Century Gothic"
+            })
+          ],
+          alignment: AlignmentType.JUSTIFIED,
+          spacing: { after: 400 }
+        }),
+
+        new Paragraph({
+          children: [
+            new TextRun({
+              text: "I agree that any third party who receives a copy of this document may act under it. Revocation of the power of attorney is not effective as to a third party until the third party learns of the revocation. I agree to indemnify the third party for any claims that arise against the third party because of reliance on this power of attorney.",
+              font: "Century Gothic"
+            })
+          ],
+          alignment: AlignmentType.JUSTIFIED,
+          spacing: { after: 400 }
+        }),
         new Paragraph({
           children: [
             new TextRun({
