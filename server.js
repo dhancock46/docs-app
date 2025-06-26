@@ -16,7 +16,7 @@ app.use('/submit', limiter);
 app.use(express.json());
 app.use(express.static('public'));
 
-// Email configuration - FIXED: createTransport (not createTransporter)
+// Email configuration
 const transporter = nodemailer.createTransport({
   service: 'gmail',
   auth: {
