@@ -1,20 +1,4 @@
-const { Document, Packer, Paragraph, TextRun, AlignmentType } = require('docx');
-
-async function generateStatutoryPOA(data) {
-  const {
-    testatorName, primaryAgent, secondAgent, thirdAgent,
-    executionDate, executionCity, executionState, executionCounty
-  } = data;
-
-  // Generate successor agent section
-  let successorSection = '';
-  if (secondAgent && !thirdAgent) {
-    successorSection = `If ${primaryAgent} dies, becomes incapacitated, resigns, refuses to act, or is removed by court order, I appoint ${secondAgent} as successor agent.`;
-  } else if (secondAgent && thirdAgent) {
-    successorSection = `If ${primaryAgent} dies, becomes incapacitated, resigns, refuses to act, or is removed by court order, I appoint ${secondAgent} as successor agent. If both of the above named agents die, become legally disabled, resign, or refuse to act, I appoint ${thirdAgent} as successor agent.`;
-  }
-
-  const doc = new Document({
+const doc = new Document({
     sections: [{
       properties: {},
       children: [
@@ -53,6 +37,17 @@ async function generateStatutoryPOA(data) {
             }),
             new TextRun({
               text: " THE POWERS GRANTED BY THIS DOCUMENT ARE BROAD AND SWEEPING. THEY ARE EXPLAINED IN THE DURABLE POWER OF ATTORNEY ACT, SUBTITLE P, TITLE 2, TEXAS ESTATES CODE. IF YOU HAVE ANY QUESTIONS ABOUT THESE POWERS, OBTAIN COMPETENT LEGAL ADVICE. THIS DOCUMENT DOES NOT AUTHORIZE ANYONE TO MAKE MEDICAL AND OTHER HEALTH-CARE DECISIONS FOR YOU. YOU MAY REVOKE THIS POWER OF ATTORNEY IF YOU LATER WISH TO DO SO. IF YOU WANT YOUR AGENT TO HAVE THE AUTHORITY TO SIGN HOME EQUITY LOAN DOCUMENTS ON YOUR BEHALF, THIS POWER OF ATTORNEY MUST BE SIGNED BY YOU AT THE OFFICE OF THE LENDER, AN ATTORNEY AT LAW, OR A TITLE COMPANY.",
+              font: "Century Gothic"
+            })
+          ],
+          alignment: AlignmentType.JUSTIFIED,
+          spacing: { after: 400 }
+        }),
+
+        new Paragraph({
+          children: [
+            new TextRun({
+              text: "You should select someone you trust to serve as your agent. Unless you specify otherwise, generally the agent's authority will continue until: (1) you die or revoke the power of attorney; (2) your agent resigns or is unable to act for you; or (3) a guardian is appointed for your estate.",
               font: "Century Gothic"
             })
           ],
@@ -190,7 +185,6 @@ async function generateStatutoryPOA(data) {
           spacing: { after: 400 }
         }),
 
-        // ADD ALL THE MISSING CONTENT HERE:
         new Paragraph({
           children: [
             new TextRun({
@@ -270,12 +264,18 @@ async function generateStatutoryPOA(data) {
         new Paragraph({
           children: [
             new TextRun({
-              text: "COMPENSATION: Special instructions applicable to agent compensation (initial in front of one of the following sentences to have it apply; if no selection is made, each agent will be entitled to compensation that is reasonable under the circumstances):",
+              text: "COMPENSATION:",
+              bold: true,
+              font: "Century Gothic"
+            }),
+            new TextRun({
+              text: " Special instructions applicable to agent compensation (initial in front of one of the following sentences to have it apply; if no selection is made, each agent will be entitled to compensation that is reasonable under the circumstances):",
               font: "Century Gothic"
             })
           ],
           alignment: AlignmentType.JUSTIFIED,
-          spacing: { after: 200 }
+          spacing: { after: 200 },
+          indent: { left: 720, hanging: 720 }
         }),
 
         new Paragraph({
@@ -291,7 +291,12 @@ async function generateStatutoryPOA(data) {
         new Paragraph({
           children: [
             new TextRun({
-              text: "CO-AGENTS: Special instructions applicable to co-agents (If you have appointed co-agents to act, initial in front of one of the following sentences to have it apply; If no selection is made, each agent will be entitled to act independently):",
+              text: "CO-AGENTS:",
+              bold: true,
+              font: "Century Gothic"
+            }),
+            new TextRun({
+              text: " Special instructions applicable to co-agents (If you have appointed co-agents to act, initial in front of one of the following sentences to have it apply; If no selection is made, each agent will be entitled to act independently):",
               font: "Century Gothic"
             })
           ],
@@ -317,7 +322,12 @@ async function generateStatutoryPOA(data) {
         new Paragraph({
           children: [
             new TextRun({
-              text: "GIFTS: Special instructions applicable to gifts (initial in front of the following sentence to have it apply):",
+              text: "GIFTS:",
+              bold: true,
+              font: "Century Gothic"
+            }),
+            new TextRun({
+              text: " Special instructions applicable to gifts (initial in front of the following sentence to have it apply):",
               font: "Century Gothic"
             })
           ],
@@ -333,7 +343,12 @@ async function generateStatutoryPOA(data) {
         new Paragraph({
           children: [
             new TextRun({
-              text: "GIFTS TO QUALIFY FOR PUBLIC BENEFITS: If my agent in my agent's sole discretion has determined that I need nursing home or other long-term medical care and that I will receive proper medical care whether I privately pay for such care or if I am a recipient of Title XIX (Medicaid) or other public benefits, then my agent shall have the power: (i) to take any and all steps necessary, in my agent's judgment, to obtain and maintain my eligibility for any and all public benefits and entitlement programs, including, if necessary, signing a deed with a retained life estate (also known as a \"Lady Bird Deed\") as well as creating and funding a qualified income trust or special needs trust for me or a disabled child, if any; (ii) to transfer with or without consideration my assets to my descendants (if any), or to my natural heirs at law or to the persons named as beneficiaries under my last will and testament or a revocable living trust which I may have established, including my agent; and (iii) to enter into a personal services contract for my benefit, including entering into such contract with my agent, and even if doing so may be considered self-dealing. Such public benefits and entitlement programs shall include, but are not limited to, Social Security, Supplemental Security Income, Medicare, Medicaid and Veterans benefits.",
+              text: "GIFTS TO QUALIFY FOR PUBLIC BENEFITS:",
+              bold: true,
+              font: "Century Gothic"
+            }),
+            new TextRun({
+              text: " If my agent in my agent's sole discretion has determined that I need nursing home or other long-term medical care and that I will receive proper medical care whether I privately pay for such care or if I am a recipient of Title XIX (Medicaid) or other public benefits, then my agent shall have the power: (i) to take any and all steps necessary, in my agent's judgment, to obtain and maintain my eligibility for any and all public benefits and entitlement programs, including, if necessary, signing a deed with a retained life estate (also known as a \"Lady Bird Deed\") as well as creating and funding a qualified income trust or special needs trust for me or a disabled child, if any; (ii) to transfer with or without consideration my assets to my descendants (if any), or to my natural heirs at law or to the persons named as beneficiaries under my last will and testament or a revocable living trust which I may have established, including my agent; and (iii) to enter into a personal services contract for my benefit, including entering into such contract with my agent, and even if doing so may be considered self-dealing. Such public benefits and entitlement programs shall include, but are not limited to, Social Security, Supplemental Security Income, Medicare, Medicaid and Veterans benefits.",
               font: "Century Gothic"
             })
           ],
@@ -344,7 +359,12 @@ async function generateStatutoryPOA(data) {
         new Paragraph({
           children: [
             new TextRun({
-              text: "LIMITATIONS: Notwithstanding any provision herein to the contrary, any authority granted to my agent shall be limited so as to prevent this power of attorney from causing my agent to be taxed on my income (unless my agent is my spouse) and from causing my assets to be subject to a general power of appointment by my agent, as that term is defined in Section 2041 of the Internal Revenue Code of 1986, as amended.",
+              text: "LIMITATIONS:",
+              bold: true,
+              font: "Century Gothic"
+            }),
+            new TextRun({
+              text: " Notwithstanding any provision herein to the contrary, any authority granted to my agent shall be limited so as to prevent this power of attorney from causing my agent to be taxed on my income (unless my agent is my spouse) and from causing my assets to be subject to a general power of appointment by my agent, as that term is defined in Section 2041 of the Internal Revenue Code of 1986, as amended.",
               font: "Century Gothic"
             })
           ],
@@ -355,7 +375,12 @@ async function generateStatutoryPOA(data) {
         new Paragraph({
           children: [
             new TextRun({
-              text: "ADDITIONAL POWERS: ON THE FOLLOWING LINES YOU MAY GIVE SPECIAL INSTRUCTIONS LIMITING OR EXTENDING THE POWERS GRANTED TO YOUR AGENT.",
+              text: "ADDITIONAL POWERS:",
+              bold: true,
+              font: "Century Gothic"
+            }),
+            new TextRun({
+              text: " ON THE FOLLOWING LINES YOU MAY GIVE SPECIAL INSTRUCTIONS LIMITING OR EXTENDING THE POWERS GRANTED TO YOUR AGENT.",
               font: "Century Gothic"
             })
           ],
