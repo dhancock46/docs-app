@@ -214,16 +214,3 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 });
-Your New File Structure:
-your-project/
-├── index.html (home/selector only)
-├── statutory-poa.html 
-├── medical-poa.html
-├── server.js
-├── package.json
-└── public/
-    ├── css/
-    │   └── styles.css
-    └── js/
-        ├── statutory-poa.js
-        └── medical-poa.js
