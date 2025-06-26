@@ -117,3 +117,4 @@ async function generateMedicalPOA(data) {
   
   return await Packer.toBuffer(doc);
 }
+module.exports = { generateMedicalPOA };
