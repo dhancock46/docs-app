@@ -190,6 +190,212 @@ async function generateStatutoryPOA(data) {
           spacing: { after: 400 }
         }),
 
+        // ADD ALL THE MISSING CONTENT HERE:
+        new Paragraph({
+          children: [
+            new TextRun({
+              text: "YOU DO NOT HAVE TO INITIAL THE LINE IN FRONT OF ANY OTHER POWER IF YOU INITIAL LINE (O).",
+              font: "Century Gothic"
+            })
+          ],
+          alignment: AlignmentType.JUSTIFIED,
+          spacing: { after: 400 }
+        }),
+
+        new Paragraph({
+          children: [
+            new TextRun({
+              text: "GRANT OF SPECIFIC AUTHORITY",
+              bold: true,
+              font: "Century Gothic"
+            })
+          ],
+          alignment: AlignmentType.CENTER,
+          spacing: { after: 200 }
+        }),
+
+        new Paragraph({
+          children: [
+            new TextRun({
+              text: "My agent MAY NOT do any of the following specific acts for me UNLESS I have INITIALED the specific authority listed below:",
+              font: "Century Gothic"
+            })
+          ],
+          alignment: AlignmentType.JUSTIFIED,
+          spacing: { after: 200 }
+        }),
+
+        new Paragraph({
+          children: [
+            new TextRun({
+              text: "(CAUTION: Granting any of the following will give your agent the authority to take actions that could significantly reduce your property or change how your property is distributed at your death. INITIAL ONLY the specific authority you WANT to give your agent. If you DO NOT want to grant your agent one or more of the following powers, you may also CROSS OUT a power you DO NOT want to grant.)",
+              font: "Century Gothic"
+            })
+          ],
+          alignment: AlignmentType.JUSTIFIED,
+          spacing: { after: 200 }
+        }),
+
+        new Paragraph({
+          children: [new TextRun({ text: "________	Create, amend, revoke, or terminate an inter vivos trust", font: "Century Gothic" })],
+          spacing: { after: 100 }
+        }),
+
+        new Paragraph({
+          children: [new TextRun({ text: "________	Create or change rights of survivorship", font: "Century Gothic" })],
+          spacing: { after: 100 }
+        }),
+
+        new Paragraph({
+          children: [new TextRun({ text: "________	Create or change a beneficiary designation", font: "Century Gothic" })],
+          spacing: { after: 100 }
+        }),
+
+        new Paragraph({
+          children: [new TextRun({ text: "________	Authorize another person to exercise the authority granted under this power of attorney", font: "Century Gothic" })],
+          spacing: { after: 400 }
+        }),
+
+        new Paragraph({
+          children: [
+            new TextRun({
+              text: "SPECIAL INSTRUCTIONS:",
+              bold: true,
+              font: "Century Gothic"
+            })
+          ],
+          spacing: { after: 200 }
+        }),
+
+        new Paragraph({
+          children: [
+            new TextRun({
+              text: "COMPENSATION: Special instructions applicable to agent compensation (initial in front of one of the following sentences to have it apply; if no selection is made, each agent will be entitled to compensation that is reasonable under the circumstances):",
+              font: "Century Gothic"
+            })
+          ],
+          alignment: AlignmentType.JUSTIFIED,
+          spacing: { after: 200 }
+        }),
+
+        new Paragraph({
+          children: [new TextRun({ text: "_______	My agent is entitled to reimbursement of reasonable expenses incurred on my behalf and to compensation that is reasonable under the circumstances.", font: "Century Gothic" })],
+          spacing: { after: 100 }
+        }),
+
+        new Paragraph({
+          children: [new TextRun({ text: "_______	My agent is entitled to reimbursement of reasonable expenses incurred on my behalf but shall receive no compensation for serving as my agent.", font: "Century Gothic" })],
+          spacing: { after: 200 }
+        }),
+
+        new Paragraph({
+          children: [
+            new TextRun({
+              text: "CO-AGENTS: Special instructions applicable to co-agents (If you have appointed co-agents to act, initial in front of one of the following sentences to have it apply; If no selection is made, each agent will be entitled to act independently):",
+              font: "Century Gothic"
+            })
+          ],
+          alignment: AlignmentType.JUSTIFIED,
+          spacing: { after: 200 }
+        }),
+
+        new Paragraph({
+          children: [new TextRun({ text: "_______		Each of my co-agents may act independently for me.", font: "Century Gothic" })],
+          spacing: { after: 100 }
+        }),
+
+        new Paragraph({
+          children: [new TextRun({ text: "_______		My co-agents may act for me only if the co-agents act jointly.", font: "Century Gothic" })],
+          spacing: { after: 100 }
+        }),
+
+        new Paragraph({
+          children: [new TextRun({ text: "_______		My co-agents may act for me only if a majority of the co-agents act jointly.", font: "Century Gothic" })],
+          spacing: { after: 200 }
+        }),
+
+        new Paragraph({
+          children: [
+            new TextRun({
+              text: "GIFTS: Special instructions applicable to gifts (initial in front of the following sentence to have it apply):",
+              font: "Century Gothic"
+            })
+          ],
+          alignment: AlignmentType.JUSTIFIED,
+          spacing: { after: 200 }
+        }),
+
+        new Paragraph({
+          children: [new TextRun({ text: "_______	I grant my agent the power to apply my property to make gifts outright to or for the benefit of a person, including by the exercise of a presently exercisable general power of appointment held by me, except that the amount of a gift to an individual may not exceed the amount of annual exclusions allowed from the federal gift tax for the calendar year of the gift.", font: "Century Gothic" })],
+          spacing: { after: 200 }
+        }),
+
+        new Paragraph({
+          children: [
+            new TextRun({
+              text: "GIFTS TO QUALIFY FOR PUBLIC BENEFITS: If my agent in my agent's sole discretion has determined that I need nursing home or other long-term medical care and that I will receive proper medical care whether I privately pay for such care or if I am a recipient of Title XIX (Medicaid) or other public benefits, then my agent shall have the power: (i) to take any and all steps necessary, in my agent's judgment, to obtain and maintain my eligibility for any and all public benefits and entitlement programs, including, if necessary, signing a deed with a retained life estate (also known as a \"Lady Bird Deed\") as well as creating and funding a qualified income trust or special needs trust for me or a disabled child, if any; (ii) to transfer with or without consideration my assets to my descendants (if any), or to my natural heirs at law or to the persons named as beneficiaries under my last will and testament or a revocable living trust which I may have established, including my agent; and (iii) to enter into a personal services contract for my benefit, including entering into such contract with my agent, and even if doing so may be considered self-dealing. Such public benefits and entitlement programs shall include, but are not limited to, Social Security, Supplemental Security Income, Medicare, Medicaid and Veterans benefits.",
+              font: "Century Gothic"
+            })
+          ],
+          alignment: AlignmentType.JUSTIFIED,
+          spacing: { after: 200 }
+        }),
+
+        new Paragraph({
+          children: [
+            new TextRun({
+              text: "LIMITATIONS: Notwithstanding any provision herein to the contrary, any authority granted to my agent shall be limited so as to prevent this power of attorney from causing my agent to be taxed on my income (unless my agent is my spouse) and from causing my assets to be subject to a general power of appointment by my agent, as that term is defined in Section 2041 of the Internal Revenue Code of 1986, as amended.",
+              font: "Century Gothic"
+            })
+          ],
+          alignment: AlignmentType.JUSTIFIED,
+          spacing: { after: 200 }
+        }),
+
+        new Paragraph({
+          children: [
+            new TextRun({
+              text: "ADDITIONAL POWERS: ON THE FOLLOWING LINES YOU MAY GIVE SPECIAL INSTRUCTIONS LIMITING OR EXTENDING THE POWERS GRANTED TO YOUR AGENT.",
+              font: "Century Gothic"
+            })
+          ],
+          alignment: AlignmentType.JUSTIFIED,
+          spacing: { after: 200 }
+        }),
+
+        new Paragraph({
+          children: [
+            new TextRun({
+              text: "In addition to the powers granted above, I grant to my agent the following powers:",
+              font: "Century Gothic"
+            })
+          ],
+          alignment: AlignmentType.JUSTIFIED,
+          spacing: { after: 200 }
+        }),
+
+        new Paragraph({
+          children: [
+            new TextRun({
+              text: "Power to Appoint Substitute Agent. The power to appoint or substitute one or more agents to serve as my agent under this power of attorney; provided, however, such power shall be exercisable only by the then-serving agent (or if more than one agent is serving, by all such co-agents acting unanimously), and any such appointment or substitution shall override other provisions contained herein which may attempt to name one or more successor agents. Any such appointment or substitution may be revoked by me or my agent at any time and for any reason, and such appointment or substitution shall not terminate upon the death, disability, incapacity or resignation of the agent or co-agents who made the appointment or substitution. Any such appointment or substitution shall be evidenced by acknowledged written instrument.",
+              font: "Century Gothic"
+            })
+          ],
+          alignment: AlignmentType.JUSTIFIED,
+          spacing: { after: 200 }
+        }),
+
+        new Paragraph({
+          children: [
+            new TextRun({
+              text: "Power to Perform All Other Acts. In addition to the powers enumerated above, I hereby give and grant unto my agent full power and authority to do and perform all and every act and thing whatsoever requisite and necessary to be done, as fully, to all intents and purposes, as I might or could do if personally present, hereby ratifying and confirming whatsoever my agent shall and may do by virtue hereof; provided, however, and notwithstanding the foregoing, if I have withheld a particular power or powers in this power of attorney, then my agent shall not have such power or powers by virtue of the power and authority conferred by this sentence.",
+              font: "Century Gothic"
+            })
+          ],
+          alignment: AlignmentType.JUSTIFIED,
+          spacing: { after: 400 }
+        }),
+
         new Paragraph({
           children: [
             new TextRun({
