@@ -514,7 +514,7 @@ async function generateStatutoryPOA(data) {
           children: [
             new TextRun({
               text: "(B) This power of attorney becomes effective upon my disability or incapacity.",
-              strike: true
+              strike: true,
               font: "Century Gothic"
             })
           ],
