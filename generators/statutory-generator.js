@@ -1,4 +1,20 @@
-const doc = new Document({
+const { Document, Packer, Paragraph, TextRun, AlignmentType } = require('docx');
+
+async function generateStatutoryPOA(data) {
+  const {
+    testatorName, primaryAgent, secondAgent, thirdAgent,
+    executionDate, executionCity, executionState, executionCounty
+  } = data;
+
+  // Generate successor agent section
+  let successorSection = '';
+  if (secondAgent && !thirdAgent) {
+    successorSection = `If ${primaryAgent} dies, becomes incapacitated, resigns, refuses to act, or is removed by court order, I appoint ${secondAgent} as successor agent.`;
+  } else if (secondAgent && thirdAgent) {
+    successorSection = `If ${primaryAgent} dies, becomes incapacitated, resigns, refuses to act, or is removed by court order, I appoint ${secondAgent} as successor agent. If both of the above named agents die, become legally disabled, resign, or refuse to act, I appoint ${thirdAgent} as successor agent.`;
+  }
+
+  const doc = new Document({
     sections: [{
       properties: {},
       children: [
