@@ -6,19 +6,18 @@ router.post('/medical-poa', async (req, res) => {
     try {
         console.log('Received Medical POA data:', req.body);
         
-        const document = await generateMedicalPOA(req.body);
-        
-        const mailOptions = {
-            from: process.env.EMAIL_USER,
-            to: 'don.r.hancock@gmail.com',
-            subject: 'Medical Power of Attorney Request',
-            text: 'Please find the Medical Power of Attorney document attached.',
-            attachments: [{
-                filename: 'Medical_Power_of_Attorney.docx',
-                content: document,
-                contentType: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
-            }]
-        };
+     const mailOptions = {
+    from: process.env.EMAIL_USER,
+    to: 'don.r.hancock@gmail.com',
+    subject: 'Medical Power of Attorney Request',
+    text: 'Please find the Medical Power of Attorney document attached.',
+    attachments: [{
+        filename: 'Medical_Power_of_Attorney.docx',
+        content: document,
+        contentType: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+        contentDisposition: 'attachment'
+    }]
+};
 
         const transporter = req.app.locals.transporter;
         await transporter.sendMail(mailOptions);
