@@ -697,6 +697,7 @@ async function generateMedicalPOA(data) {
 
 new Paragraph({
   children: [new TextRun({ text: "_____________________________", font: "Century Gothic" })],
+  keepNext: true
   spacing: { after: 100 }
 }),
 new Paragraph({
