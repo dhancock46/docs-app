@@ -5,6 +5,8 @@ const router = express.Router();
 router.post('/medical-poa', async (req, res) => {
     try {
         console.log('Received Medical POA data:', req.body);
+        console.log('alternateChoice value:', req.body.alternateChoice);
+        console.log('alternateChoice type:', typeof req.body.alternateChoice);
         
         const document = await generateMedicalPOA(req.body);
         
@@ -15,12 +17,12 @@ router.post('/medical-poa', async (req, res) => {
             text: 'Please find the Medical Power of Attorney document attached.',
             attachments: [{
                 filename: 'Medical_Power_of_Attorney.docx',
-                content: document,  // This variable now exists
+                content: document,
                 contentType: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
                 contentDisposition: 'attachment'
             }]
         };
-
+        
         const transporter = req.app.locals.transporter;
         await transporter.sendMail(mailOptions);
         
@@ -30,4 +32,5 @@ router.post('/medical-poa', async (req, res) => {
         res.status(500).json({ success: false, message: error.message });
     }
 });
-module.exports = router; 
+
+module.exports = router;
