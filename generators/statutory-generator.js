@@ -263,7 +263,7 @@ async function generateStatutoryPOA(data) {
 
        new Paragraph({
        children: [new TextRun({ text: "________	Authorize another person to exercise the authority granted under this power of attorney", font: "Century Gothic" })],
-       spacing: { after: 400 },
+       spacing: { after: 100 },
        indent: { left: 720 }
        }),
 
