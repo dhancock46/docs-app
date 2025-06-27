@@ -114,19 +114,33 @@
                     </div>
                     
                     <div class="form-group">
-                        <label for="executionCity">City Where Document Will Be Signed *</label>
-                        <input type="text" id="executionCity" name="executionCity" required autocomplete="off">
-                    </div>
-                    <div class="form-group">
-                        <label for="executionState">State Where Document Will Be Signed *</label>
-                        <input type="text" id="executionState" name="executionState" required autocomplete="off">
-                    </div>
-                    <div class="form-group">
-                        <label for="executionCounty">County Where Document Will Be Signed *</label>
-                        <input type="text" id="executionCounty" name="executionCounty" required autocomplete="off">
-                    </div>
-                </div>
+    <label for="executionCity">City Where Document Will Be Signed *</label>
+    <input type="text" id="executionCity" name="executionCity" required autocomplete="off">
+</div>
+<div class="form-group">
+    <label for="executionState">State Where Document Will Be Signed *</label>
+    <input type="text" id="executionState" name="executionState" required autocomplete="off">
+</div>
+<div class="form-group">
+    <label for="executionCounty">County Where Document Will Be Signed *</label>
+    <input type="text" id="executionCounty" name="executionCounty" required autocomplete="off">
+</div>
 
+<!-- ADD THE EXECUTION METHOD SECTION HERE -->
+<div class="form-group">
+    <label>How would you like to execute this document? *</label>
+    <div class="radio-group">
+        <div class="radio-item">
+            <input type="radio" id="witnesses" name="signatureChoice" value="witnesses" required>
+            <label for="witnesses">Sign in front of two witnesses</label>
+        </div>
+        <div class="radio-item">
+            <input type="radio" id="notary" name="signatureChoice" value="notary" required>
+            <label for="notary">Sign in front of a notary</label>
+        </div>
+    </div>
+</div>
+                </div>
                 <button type="submit" class="submit-btn">Submit for Review</button>
 
                 <div class="loading-message" id="loadingMessage">
