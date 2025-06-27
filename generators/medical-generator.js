@@ -3,7 +3,8 @@ const { Document, Packer, Paragraph, TextRun, AlignmentType } = require('docx');
 async function generateMedicalPOA(data) {
   const {
     testatorName, primaryAgent, firstAlternateAgent, secondAlternateAgent,
-    executionDate, executionCity, executionState, executionCounty, alternateChoice
+    executionDate, executionCity, executionState, executionCounty, alternateChoice,
+    signatureChoice
   } = data;
 
   // Create alternate agent paragraphs based on user choice
@@ -684,48 +685,181 @@ async function generateMedicalPOA(data) {
           spacing: { after: 400 }
         }),
 
-        new Paragraph({
-          children: [
-            new TextRun({
-              text: `Signed on ${executionDate} in ${executionCity}, ${executionState}.`,
-              font: "Century Gothic"
-            })
-          ],
-          spacing: { before: 600, after: 400 }
-        }),
+       new Paragraph({
+  children: [
+    new TextRun({
+      text: `I have signed my name to this durable power of attorney for health care, on ${executionDate}, in ${executionCity}, ${executionState}.`,
+      font: "Century Gothic"
+    })
+  ],
+  spacing: { before: 600, after: 400 }
+}),
 
-        new Paragraph({
-          children: [new TextRun({ text: "_____________________________", font: "Century Gothic" })],
-          spacing: { after: 100 }
-        }),
-        new Paragraph({
-          children: [new TextRun({ text: testatorName, font: "Century Gothic" })],
-          spacing: { after: 400 }
-        }),
+new Paragraph({
+  children: [new TextRun({ text: "_____________________________", font: "Century Gothic" })],
+  spacing: { after: 100 }
+}),
+new Paragraph({
+  children: [new TextRun({ text: testatorName, font: "Century Gothic" })],
+  spacing: { after: 400 }
+}),
 
-        new Paragraph({
-          children: [new TextRun({ text: `State of ${executionState}`, font: "Century Gothic" })],
-          spacing: { after: 100 }
-        }),
-        new Paragraph({
-          children: [new TextRun({ text: `County of ${executionCounty}`, font: "Century Gothic" })],
-          spacing: { after: 300 }
-        }),
+// Conditional witness or notary section
+...(signatureChoice === 'witnesses' ? [
+  new Paragraph({
+    children: [
+      new TextRun({
+        text: "WITNESS OPTION",
+        bold: true,
+        font: "Century Gothic"
+      })
+    ],
+    alignment: AlignmentType.CENTER,
+    spacing: { after: 400 }
+  }),
 
-        new Paragraph({
-          children: [
-            new TextRun({ text: `The foregoing Medical Power of Attorney was acknowledged before me on ${executionDate} by ${testatorName}.`, font: "Century Gothic" })
-          ],
-          spacing: { after: 400 }
-        }),
+  new Paragraph({
+    children: [
+      new TextRun({
+        text: "STATEMENT OF WITNESSES",
+        bold: true,
+        font: "Century Gothic"
+      })
+    ],
+    alignment: AlignmentType.CENTER,
+    spacing: { after: 400 }
+  }),
 
-        new Paragraph({
-          children: [new TextRun({ text: "_____________________________", font: "Century Gothic" })],
-          spacing: { after: 100 }
-        }),
-        new Paragraph({
-          children: [new TextRun({ text: `Notary Public, State of ${executionState}`, font: "Century Gothic" })]
-        })
+  new Paragraph({
+    children: [
+      new TextRun({
+        text: "I declare under penalty of perjury that the principal has identified himself to me, that the principal signed or acknowledged this durable power of attorney in my presence, that I believe the principal to be of sound mind, that the principal has affirmed that the principal is aware of the nature of the document and is signing it voluntarily and free from duress, that the principal requested that I serve as witness to the principal's execution of this document, that I am not the person appointed as agent by this document, and that I am not a provider of health or residential care, an employee of a provider of health or residential care, the operator of a community care facility, or an employee of an operator of a health care facility.",
+        font: "Century Gothic"
+      })
+    ],
+    alignment: AlignmentType.JUSTIFIED,
+    spacing: { after: 200 }
+  }),
+
+  new Paragraph({
+    children: [
+      new TextRun({
+        text: "I declare that I am not related to the principal by blood, marriage, or adoption and that to the best of my knowledge I am not entitled to any part of the estate of the principal on the death of the principal under a will or by operation of law.",
+        font: "Century Gothic"
+      })
+    ],
+    alignment: AlignmentType.JUSTIFIED,
+    spacing: { after: 400 }
+  }),
+
+  new Paragraph({
+    children: [
+      new TextRun({
+        text: "Date:",
+        bold: true,
+        font: "Century Gothic"
+      }),
+      new TextRun({
+        text: ` ${executionDate}`,
+        font: "Century Gothic"
+      })
+    ],
+    spacing: { after: 200 }
+  }),
+
+  new Paragraph({
+    children: [
+      new TextRun({
+        text: "Signature:",
+        bold: true,
+        font: "Century Gothic"
+      }),
+      new TextRun({
+        text: " ______________________________",
+        font: "Century Gothic"
+      }),
+      new TextRun({
+        text: " Printed Name:",
+        bold: true,
+        font: "Century Gothic"
+      }),
+      new TextRun({
+        text: " ___________________________, Witness",
+        font: "Century Gothic"
+      })
+    ],
+    spacing: { after: 200 }
+  }),
+
+  new Paragraph({
+    children: [
+      new TextRun({
+        text: "Signature:",
+        bold: true,
+        font: "Century Gothic"
+      }),
+      new TextRun({
+        text: " ______________________________",
+        font: "Century Gothic"
+      }),
+      new TextRun({
+        text: " Printed Name:",
+        bold: true,
+        font: "Century Gothic"
+      }),
+      new TextRun({
+        text: " ___________________________, Witness",
+        font: "Century Gothic"
+      })
+    ],
+    spacing: { after: 400 }
+  })
+] : [
+  new Paragraph({
+    children: [
+      new TextRun({
+        text: "State of " + executionState,
+        bold: true,
+        font: "Century Gothic"
+      })
+    ],
+    spacing: { after: 100 }
+  }),
+  new Paragraph({
+    children: [
+      new TextRun({
+        text: "County of " + executionCounty,
+        bold: true,
+        font: "Century Gothic"
+      })
+    ],
+    spacing: { after: 300 }
+  }),
+
+  new Paragraph({
+    children: [
+      new TextRun({
+        text: `The foregoing Medical Power of Attorney was acknowledged before me on ${executionDate}, by ${testatorName}.`,
+        font: "Century Gothic"
+      })
+    ],
+    spacing: { after: 400 }
+  }),
+
+ new Paragraph({
+  children: [new TextRun({ text: "_____________________________", font: "Century Gothic" })],
+  spacing: { after: 100 }
+}),
+new Paragraph({
+  children: [
+    new TextRun({
+      text: "Notary Public, State of Texas",
+      bold: true,
+      font: "Century Gothic"
+    })
+  ]
+})
+])
       ]
     }]
   });
