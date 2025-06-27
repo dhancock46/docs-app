@@ -291,7 +291,7 @@ new Paragraph({
     new TextRun({
       text: "3.\tI authorize and direct each covered entity to disclose to my agent any and all health information my agent may request.",
       font: "Century Gothic"
-    })
+    }),
   ],
   alignment: AlignmentType.JUSTIFIED,
   spacing: { after: 200 }
