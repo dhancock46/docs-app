@@ -239,16 +239,18 @@ new Paragraph({
       text: " Not Applicable",
       bold: true,
       font: "Century Gothic"
-    })
+    }),
   ],
-  
+  alignment: AlignmentType.JUSTIFIED,    // ← ADD THIS
+  spacing: { after: 400 }                // ← ADD THIS
+}),
 new Paragraph({
   children: [
     new TextRun({
       text: "AUTHORITY CONCERNING MEDICAL INFORMATION AND RECORDS",
       bold: true,
       font: "Century Gothic"
-    })
+    }),
   ],
   alignment: AlignmentType.CENTER,
   spacing: { after: 400 }
