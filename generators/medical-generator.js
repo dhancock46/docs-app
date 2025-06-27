@@ -150,27 +150,26 @@ async function generateMedicalPOA(data) {
               bold: true,
               font: "Century Gothic"
             }),
-            new TextRun({
-              text: " None.",
-              font: "Century Gothic"
-            })
-          ],
-          alignment: AlignmentType.JUSTIFIED,
-          spacing: { after: 400 }
-        }),
+          new TextRun({
+  text: " None.",
+  font: "Century Gothic"
+})
+],
+alignment: AlignmentType.JUSTIFIED,
+spacing: { after: 400 }
+}),
 
-        new Paragraph({
-          children: [
-            new TextRun({
-              text: "DESIGNATION OF ALTERNATE AGENT",
-              bold: true,
-              font: "Century Gothic"
-            })
-          ],
-          alignment: AlignmentType.CENTER,
-          spacing: { after: 200 }
-        }),
-
+new Paragraph({
+  children: [
+    new TextRun({
+      text: "DESIGNATION OF ALTERNATE AGENT",
+      bold: true,
+      font: "Century Gothic"
+    })
+  ],
+  alignment: AlignmentType.CENTER,
+  spacing: { after: 200 }
+}),
         ...alternateAgentParagraphs,
 
 new Paragraph({
@@ -242,6 +241,136 @@ new Paragraph({
       font: "Century Gothic"
     })
   ],
+  
+new Paragraph({
+  children: [
+    new TextRun({
+      text: "AUTHORITY CONCERNING MEDICAL INFORMATION AND RECORDS",
+      bold: true,
+      font: "Century Gothic"
+    })
+  ],
+  alignment: AlignmentType.CENTER,
+  spacing: { after: 400 }
+}),
+
+new Paragraph({
+  children: [
+    new TextRun({
+      text: "Despite the provisions of the Health Insurance Portability and Accountability Act (\"HIPAA\"), I want my health care providers to provide any and all of my protected medical information which my agent may request. Therefore, I am making this authorization pursuant to HIPAA and the regulations promulgated under HIPAA, including 45 CFR 164.501 and 45 CFR Sec. 164.508.",
+      font: "Century Gothic"
+    })
+  ],
+  alignment: AlignmentType.JUSTIFIED,
+  spacing: { after: 200 }
+}),
+
+new Paragraph({
+  children: [
+    new TextRun({
+      text: "1.\tIn this authorization: a. A \"covered entity\" shall mean any health care provider as defined by HIPAA, including but not limited to a doctor (including but not limited to a physician, podiatrist, chiropractor, or osteopath), psychiatrist, psychologist, dentist, therapist, nurse, hospital, clinic, pharmacy, laboratory, ambulance service, assisted living facility, residential care facility, bed and board facility, nursing home, medical insurance company or any other health care provider or affiliate. b. \"Health information\" means any and all information described in or protected by HIPAA, including but not limited to any and all health care information, reports and/or records concerning my medical history, condition, diagnosis, testing, prognosis, treatment, billing information and identity of health care providers, whether past, present or future and any other information which is in any way related to my health care. c. My \"agent\" shall mean a person designated as my health care agent under this Medical Power of Attorney.",
+      font: "Century Gothic"
+    })
+  ],
+  alignment: AlignmentType.JUSTIFIED,
+  spacing: { after: 200 }
+}),
+
+new Paragraph({
+  children: [
+    new TextRun({
+      text: "2.\t\"Individually identifiable health information\" means health information that can be linked to me or from which I could reasonably be identified.",
+      font: "Century Gothic"
+    })
+  ],
+
+new Paragraph({
+  children: [
+    new TextRun({
+      text: "3.\tI authorize and direct each covered entity to disclose to my agent any and all health information my agent may request.",
+      font: "Century Gothic"
+    })
+  ],
+  alignment: AlignmentType.JUSTIFIED,
+  spacing: { after: 200 }
+}),
+
+new Paragraph({
+  children: [
+    new TextRun({
+      text: "4.\tI also authorize and direct each covered entity, together with its employees and other agents, to discuss my health information with my agent and to answer questions about my health information which my agent may ask, whether or not I am incapacitated at the time.",
+      font: "Century Gothic"
+    })
+  ],
+  alignment: AlignmentType.JUSTIFIED,
+  spacing: { after: 200 }
+}),
+
+new Paragraph({
+  children: [
+    new TextRun({
+      text: "5.\tSubject to any limitation stated in this document, my agent shall have, in addition to any power and authority granted in this document or by law, the specific power and authority to do all of the following: a. Request, review, and receive any information, verbal or written, regarding my physical or mental health, including, but not limited to, individually identifiable health information or other medical or hospital records; and b. Execute on my behalf any release or other documents that may be required to obtain individually identifiable health information or other medical or hospital records. c. Disclose or consent to the disclosure of individually identifiable health information or other medical or hospital records.",
+      font: "Century Gothic"
+    })
+  ],
+  alignment: AlignmentType.JUSTIFIED,
+  spacing: { after: 200 }
+}),
+
+new Paragraph({
+  children: [
+    new TextRun({
+      text: "6.\tBy including this authorization concerning medical records, I acknowledge that the health information used or disclosed pursuant to this authorization may be subject to re-disclosure by my agent and the health information once disclosed will no longer be protected by HIPAA or the rules promulgated under HIPAA. No covered entity shall require my agent to indemnify the covered entity or agree to perform any act in order for the covered entity to comply with this authorization.",
+      font: "Century Gothic"
+    })
+  ],
+  alignment: AlignmentType.JUSTIFIED,
+  spacing: { after: 200 }
+}),
+
+new Paragraph({
+  children: [
+    new TextRun({
+      text: "7.\tI release any covered entity that acts in reliance on this authorization from any liability that may accrue from releasing any of my health information and for any actions taken by my agent.",
+      font: "Century Gothic"
+    })
+  ],
+  alignment: AlignmentType.JUSTIFIED,
+  spacing: { after: 200 }
+}),
+
+new Paragraph({
+  children: [
+    new TextRun({
+      text: "8.\tMy agent, or any successor agent, is authorized to bring a legal action in any appropriate forum against any covered entity that refuses to recognize and accept this authorization. Additionally, my agent is authorized to sign any documents that he or she deems appropriate to obtain the health information.",
+      font: "Century Gothic"
+    })
+  ],
+  alignment: AlignmentType.JUSTIFIED,
+  spacing: { after: 200 }
+}),
+
+new Paragraph({
+  children: [
+    new TextRun({
+      text: "9.\tThis authorization shall terminate on the first to occur of: (1) two years following my death or (2) upon my written revocation actually received by the covered entity. Proof of receipt of my written revocation may be by certified mail, registered mail, facsimile, or any other receipt evidencing actual receipt by the covered entity. This revocation shall be effective upon the actual receipt of the notice by the covered entity except to the extent that the covered entity has taken action in reliance on it. This authorization is not affected by my subsequent disability or incapacity.",
+      font: "Century Gothic"
+    })
+  ],
+  alignment: AlignmentType.JUSTIFIED,
+  spacing: { after: 200 }
+}),
+
+new Paragraph({
+  children: [
+    new TextRun({
+      text: "10.\tA copy or facsimile of this medical power or attorney, including the authorization concerning medical records, original authorization shall be accepted as though it were an original document.",
+      font: "Century Gothic"
+    })
+  ],
+  alignment: AlignmentType.JUSTIFIED,
+  spacing: { after: 400 }
+}),
   alignment: AlignmentType.JUSTIFIED,
   spacing: { after: 400 }
 }),
