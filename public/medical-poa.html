@@ -82,7 +82,10 @@
                 <div class="form-section">
                     <h3>Signing Information</h3>
                     <div class="form-group">
-                        <label>Date the Document Will Be Signed *</label>
+                    <label>
+                    Date the Document Will Be Signed *
+                   <span class="help-icon" onclick="showHelp('signingDateHelp')">💡</span>
+                   </label>
                         <div class="radio-group">
                             <div class="radio-item">
                                 <input type="radio" id="exactDate" name="medicalDateChoice" value="exact" onchange="toggleDateInput()" required>
@@ -131,7 +134,10 @@
 
 <!-- ADD THE EXECUTION METHOD SECTION HERE -->
 <div class="form-group">
-    <label>How would you like to execute this document? *</label>
+    <label>
+        How would you like to execute this document? *
+        <span class="help-icon" onclick="showHelp('executionMethodHelp')">💡</span>
+    </label>
     <div class="radio-group">
         <div class="radio-item">
             <input type="radio" id="witnesses" name="signatureChoice" value="witnesses" required>
@@ -184,5 +190,16 @@
     <h4>Alternate Agents</h4>
     <p>You are not required to name an alternate agent. However, if you have someone you trust to make healthcare decisions, naming an alternate will help ensure someone can make healthcare decisions for you if your primary agent is unavailable when needed.</p>
     <button class="help-close" onclick="closeHelp()">Close</button>
-</div></body>
+</div>
+<div class="help-popup" id="signingDateHelp">
+    <h4>Date the Document Will Be Signed</h4>
+    <p>Do not guess the date the document will be signed. If you are not sure of the date, select the "I don't know the exact signing date" option. If you know the month but not the date you can add the month and leave the day blank to be filled in at signing or you can leave the entire date blank.</p>
+    <button class="help-close" onclick="closeHelp()">Close</button>
+</div>
+    <div class="help-popup" id="executionMethodHelp">
+    <h4>How would you like to execute this document?</h4>
+    <p>Whether you elect to use two witnesses or a notary is your choice. If you are signing only this Medical Power of Attorney, using two witnesses rather than a notary might be more convenient. If you are signing your will you will need two witnesses and a notary so your choice here is largely irrelevant since you will need both witnesses and a notary for the will signing. If you are signing this document and a statutory financial power of attorney, that document has to be notarized so it might be more convenient to use a notary for this document.</p>
+    <button class="help-close" onclick="closeHelp()">Close</button>
+</div>
+</body>
 </html>
