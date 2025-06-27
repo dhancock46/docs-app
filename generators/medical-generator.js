@@ -378,314 +378,312 @@ async function generateMedicalPOA(data) {
           alignment: AlignmentType.JUSTIFIED,
           spacing: { after: 400 }
         }),
-// Add these sections after the HIPAA section and before the signature section
 
-new Paragraph({
-  children: [
-    new TextRun({
-      text: "ADDITIONAL AUTHORITY OF MY AGENT",
-      bold: true,
-      font: "Century Gothic"
-    })
-  ],
-  alignment: AlignmentType.CENTER,
-  spacing: { after: 400 }
-}),
+        new Paragraph({
+          children: [
+            new TextRun({
+              text: "ADDITIONAL AUTHORITY OF MY AGENT",
+              bold: true,
+              font: "Century Gothic"
+            })
+          ],
+          alignment: AlignmentType.CENTER,
+          spacing: { after: 400 }
+        }),
 
-new Paragraph({
-  children: [
-    new TextRun({
-      text: "My agent is also authorized to:",
-      font: "Century Gothic"
-    })
-  ],
-  alignment: AlignmentType.JUSTIFIED,
-  spacing: { after: 200 }
-}),
+        new Paragraph({
+          children: [
+            new TextRun({
+              text: "My agent is also authorized to:",
+              font: "Century Gothic"
+            })
+          ],
+          alignment: AlignmentType.JUSTIFIED,
+          spacing: { after: 200 }
+        }),
 
-new Paragraph({
-  children: [
-    new TextRun({
-      text: "1. Execute documents such as \"Do Not Resuscitate Orders\", \"Refusal to Permit Treatment\", \"Leaving Hospital against Medical Advice\", or any necessary waiver or release from liability required by a hospital or physician;",
-      font: "Century Gothic"
-    })
-  ],
-  alignment: AlignmentType.JUSTIFIED,
-  spacing: { after: 100 }
-}),
+        new Paragraph({
+          children: [
+            new TextRun({
+              text: "1. Execute documents such as \"Do Not Resuscitate Orders\", \"Refusal to Permit Treatment\", \"Leaving Hospital against Medical Advice\", or any necessary waiver or release from liability required by a hospital or physician;",
+              font: "Century Gothic"
+            })
+          ],
+          alignment: AlignmentType.JUSTIFIED,
+          spacing: { after: 100 }
+        }),
 
-new Paragraph({
-  children: [
-    new TextRun({
-      text: "2. Enter into contracts of any kind to provide for my health care;",
-      font: "Century Gothic"
-    })
-  ],
-  alignment: AlignmentType.JUSTIFIED,
-  spacing: { after: 100 }
-}),
+        new Paragraph({
+          children: [
+            new TextRun({
+              text: "2. Enter into contracts of any kind to provide for my health care;",
+              font: "Century Gothic"
+            })
+          ],
+          alignment: AlignmentType.JUSTIFIED,
+          spacing: { after: 100 }
+        }),
 
-new Paragraph({
-  children: [
-    new TextRun({
-      text: "3. Employ and discharge physicians, nurses and other health care providers and medical personnel; and",
-      font: "Century Gothic"
-    })
-  ],
-  alignment: AlignmentType.JUSTIFIED,
-  spacing: { after: 100 }
-}),
+        new Paragraph({
+          children: [
+            new TextRun({
+              text: "3. Employ and discharge physicians, nurses and other health care providers and medical personnel; and",
+              font: "Century Gothic"
+            })
+          ],
+          alignment: AlignmentType.JUSTIFIED,
+          spacing: { after: 100 }
+        }),
 
-new Paragraph({
-  children: [
-    new TextRun({
-      text: "4. Grant releases to health care professionals or institutions to assure that my wishes and needs are fulfilled, including, but not limited to any release or waiver of liability permitted under the Health Insurance Portability and Accountability Act (\"HIPAA\").",
-      font: "Century Gothic"
-    })
-  ],
-  alignment: AlignmentType.JUSTIFIED,
-  spacing: { after: 400 }
-}),
+        new Paragraph({
+          children: [
+            new TextRun({
+              text: "4. Grant releases to health care professionals or institutions to assure that my wishes and needs are fulfilled, including, but not limited to any release or waiver of liability permitted under the Health Insurance Portability and Accountability Act (\"HIPAA\").",
+              font: "Century Gothic"
+            })
+          ],
+          alignment: AlignmentType.JUSTIFIED,
+          spacing: { after: 400 }
+        }),
 
-new Paragraph({
-  children: [
-    new TextRun({
-      text: "DETERMINATION OF INCAPACITY",
-      bold: true,
-      font: "Century Gothic"
-    })
-  ],
-  alignment: AlignmentType.CENTER,
-  spacing: { after: 400 }
-}),
+        new Paragraph({
+          children: [
+            new TextRun({
+              text: "DETERMINATION OF INCAPACITY",
+              bold: true,
+              font: "Century Gothic"
+            })
+          ],
+          alignment: AlignmentType.CENTER,
+          spacing: { after: 400 }
+        }),
 
-new Paragraph({
-  children: [
-    new TextRun({
-      text: "When in the process of determining my incapacity, all individually identifiable health information and medical records may be released to the person who is my nominated agent or successor or alternate agent, to include any written opinion relating to my incapacity that the person so nominated may have requested. This release authority applies to any information governed by HIPAA and applies even if that person has not yet been appointed as my successor or alternate agent.",
-      font: "Century Gothic"
-    })
-  ],
-  alignment: AlignmentType.JUSTIFIED,
-  spacing: { after: 400 }
-}),
+        new Paragraph({
+          children: [
+            new TextRun({
+              text: "When in the process of determining my incapacity, all individually identifiable health information and medical records may be released to the person who is my nominated agent or successor or alternate agent, to include any written opinion relating to my incapacity that the person so nominated may have requested. This release authority applies to any information governed by HIPAA and applies even if that person has not yet been appointed as my successor or alternate agent.",
+              font: "Century Gothic"
+            })
+          ],
+          alignment: AlignmentType.JUSTIFIED,
+          spacing: { after: 400 }
+        }),
 
-new Paragraph({
-  children: [
-    new TextRun({
-      text: "PRIOR DESIGNATIONS REVOKED",
-      bold: true,
-      font: "Century Gothic"
-    })
-  ],
-  alignment: AlignmentType.CENTER,
-  spacing: { after: 400 }
-}),
+        new Paragraph({
+          children: [
+            new TextRun({
+              text: "PRIOR DESIGNATIONS REVOKED",
+              bold: true,
+              font: "Century Gothic"
+            })
+          ],
+          alignment: AlignmentType.CENTER,
+          spacing: { after: 400 }
+        }),
 
-new Paragraph({
-  children: [
-    new TextRun({
-      text: "I revoke any prior durable power of attorney for health care.",
-      font: "Century Gothic"
-    })
-  ],
-  alignment: AlignmentType.JUSTIFIED,
-  spacing: { after: 400 }
-}),
-        // Add this section after the PRIOR DESIGNATIONS REVOKED section and before the signature section
+        new Paragraph({
+          children: [
+            new TextRun({
+              text: "I revoke any prior durable power of attorney for health care.",
+              font: "Century Gothic"
+            })
+          ],
+          alignment: AlignmentType.JUSTIFIED,
+          spacing: { after: 400 }
+        }),
 
-new Paragraph({
-  children: [
-    new TextRun({
-      text: "DISCLOSURE STATEMENT",
-      bold: true,
-      font: "Century Gothic"
-    })
-  ],
-  alignment: AlignmentType.CENTER,
-  spacing: { after: 400 }
-}),
+        new Paragraph({
+          children: [
+            new TextRun({
+              text: "DISCLOSURE STATEMENT",
+              bold: true,
+              font: "Century Gothic"
+            })
+          ],
+          alignment: AlignmentType.CENTER,
+          spacing: { after: 400 }
+        }),
 
-new Paragraph({
-  children: [
-    new TextRun({
-      text: "THIS MEDICAL POWER OF ATTORNEY IS AN IMPORTANT LEGAL DOCUMENT. BEFORE SIGNING THIS DOCUMENT, YOU SHOULD KNOW THESE IMPORTANT FACTS:",
-      bold: true,
-      font: "Century Gothic"
-    })
-  ],
-  alignment: AlignmentType.JUSTIFIED,
-  spacing: { after: 400 }
-}),
+        new Paragraph({
+          children: [
+            new TextRun({
+              text: "THIS MEDICAL POWER OF ATTORNEY IS AN IMPORTANT LEGAL DOCUMENT. BEFORE SIGNING THIS DOCUMENT, YOU SHOULD KNOW THESE IMPORTANT FACTS:",
+              bold: true,
+              font: "Century Gothic"
+            })
+          ],
+          alignment: AlignmentType.JUSTIFIED,
+          spacing: { after: 400 }
+        }),
 
-new Paragraph({
-  children: [
-    new TextRun({
-      text: "Except to the extent you state otherwise, this document gives the person you name as your agent the authority to make any and all health care decisions for you in accordance with your wishes, including your religious and moral beliefs, when you are unable to make the decisions for yourself. Because \"health care\" means any treatment, service, or procedure to maintain, diagnose, or treat your physical or mental condition, your agent has the power to make a broad range of health care decisions for you. Your agent may consent, refuse to consent, or withdraw consent to medical treatment and may make decisions about withdrawing or withholding life-sustaining treatment. Your agent may not consent to voluntary inpatient mental health services, convulsive treatment, psychosurgery, or abortion. A physician must comply with your agent's instructions or allow you to be transferred to another physician. Your agent's authority is effective when your doctor certifies that you lack the competence to make health care decisions.",
-      font: "Century Gothic"
-    })
-  ],
-  alignment: AlignmentType.JUSTIFIED,
-  spacing: { after: 200 }
-}),
+        new Paragraph({
+          children: [
+            new TextRun({
+              text: "Except to the extent you state otherwise, this document gives the person you name as your agent the authority to make any and all health care decisions for you in accordance with your wishes, including your religious and moral beliefs, when you are unable to make the decisions for yourself. Because \"health care\" means any treatment, service, or procedure to maintain, diagnose, or treat your physical or mental condition, your agent has the power to make a broad range of health care decisions for you. Your agent may consent, refuse to consent, or withdraw consent to medical treatment and may make decisions about withdrawing or withholding life-sustaining treatment. Your agent may not consent to voluntary inpatient mental health services, convulsive treatment, psychosurgery, or abortion. A physician must comply with your agent's instructions or allow you to be transferred to another physician. Your agent's authority is effective when your doctor certifies that you lack the competence to make health care decisions.",
+              font: "Century Gothic"
+            })
+          ],
+          alignment: AlignmentType.JUSTIFIED,
+          spacing: { after: 200 }
+        }),
 
-new Paragraph({
-  children: [
-    new TextRun({
-      text: "Your agent is obligated to follow your instructions when making decisions on your behalf. Unless you state otherwise, your agent has the same authority to make decisions about your health care as you would have if you were able to make health care decisions for yourself.",
-      font: "Century Gothic"
-    })
-  ],
-  alignment: AlignmentType.JUSTIFIED,
-  spacing: { after: 200 }
-}),
+        new Paragraph({
+          children: [
+            new TextRun({
+              text: "Your agent is obligated to follow your instructions when making decisions on your behalf. Unless you state otherwise, your agent has the same authority to make decisions about your health care as you would have if you were able to make health care decisions for yourself.",
+              font: "Century Gothic"
+            })
+          ],
+          alignment: AlignmentType.JUSTIFIED,
+          spacing: { after: 200 }
+        }),
 
-new Paragraph({
-  children: [
-    new TextRun({
-      text: "It is important that you discuss this document with your physician or other health care provider before you sign the document to ensure that you understand the nature and range of decisions that may be made on your behalf. If you do not have a physician, you should talk with someone else who is knowledgeable about these issues and can answer your questions. You do not need a lawyer's assistance to complete this document, but if there is anything in this document that you do not understand, you should ask a lawyer to explain it to you.",
-      font: "Century Gothic"
-    })
-  ],
-  alignment: AlignmentType.JUSTIFIED,
-  spacing: { after: 200 }
-}),
+        new Paragraph({
+          children: [
+            new TextRun({
+              text: "It is important that you discuss this document with your physician or other health care provider before you sign the document to ensure that you understand the nature and range of decisions that may be made on your behalf. If you do not have a physician, you should talk with someone else who is knowledgeable about these issues and can answer your questions. You do not need a lawyer's assistance to complete this document, but if there is anything in this document that you do not understand, you should ask a lawyer to explain it to you.",
+              font: "Century Gothic"
+            })
+          ],
+          alignment: AlignmentType.JUSTIFIED,
+          spacing: { after: 200 }
+        }),
 
-new Paragraph({
-  children: [
-    new TextRun({
-      text: "The person you appoint as agent should be someone you know and trust. The person must be 18 years of age or older or a person under 18 years of age who has had the disabilities of minority removed. If you appoint your health or residential care provider (e.g., your physician or an employee of a home health agency, hospital, nursing facility, or residential care facility, other than a relative), that person has to choose between acting as your agent or as your health or residential care provider; the law does not allow a person to serve as both at the same time.",
-      font: "Century Gothic"
-    })
-  ],
-  alignment: AlignmentType.JUSTIFIED,
-  spacing: { after: 200 }
-}),
+        new Paragraph({
+          children: [
+            new TextRun({
+              text: "The person you appoint as agent should be someone you know and trust. The person must be 18 years of age or older or a person under 18 years of age who has had the disabilities of minority removed. If you appoint your health or residential care provider (e.g., your physician or an employee of a home health agency, hospital, nursing facility, or residential care facility, other than a relative), that person has to choose between acting as your agent or as your health or residential care provider; the law does not allow a person to serve as both at the same time.",
+              font: "Century Gothic"
+            })
+          ],
+          alignment: AlignmentType.JUSTIFIED,
+          spacing: { after: 200 }
+        }),
 
-new Paragraph({
-  children: [
-    new TextRun({
-      text: "You should inform the person you appoint that you want the person to be your health care agent. You should discuss this document with your agent and your physician and give each a signed copy. You should indicate on the document itself the people and institutions that you intend to have signed copies. Your agent is not liable for health care decisions made in good faith on your behalf.",
-      font: "Century Gothic"
-    })
-  ],
-  alignment: AlignmentType.JUSTIFIED,
-  spacing: { after: 200 }
-}),
+        new Paragraph({
+          children: [
+            new TextRun({
+              text: "You should inform the person you appoint that you want the person to be your health care agent. You should discuss this document with your agent and your physician and give each a signed copy. You should indicate on the document itself the people and institutions that you intend to have signed copies. Your agent is not liable for health care decisions made in good faith on your behalf.",
+              font: "Century Gothic"
+            })
+          ],
+          alignment: AlignmentType.JUSTIFIED,
+          spacing: { after: 200 }
+        }),
 
-new Paragraph({
-  children: [
-    new TextRun({
-      text: "Once you have signed this document, you have the right to make health care decisions for yourself as long as you are able to make those decisions, and treatment cannot be given to you or stopped over your objection. You have the right to revoke the authority granted to your agent by informing your agent or your health or residential care provider orally or in writing or by your execution of a subsequent medical power of attorney. Unless you state otherwise in this document, your appointment of a spouse is revoked if your marriage is dissolved, annulled, or declared void.",
-      font: "Century Gothic"
-    })
-  ],
-  alignment: AlignmentType.JUSTIFIED,
-  spacing: { after: 200 }
-}),
+        new Paragraph({
+          children: [
+            new TextRun({
+              text: "Once you have signed this document, you have the right to make health care decisions for yourself as long as you are able to make those decisions, and treatment cannot be given to you or stopped over your objection. You have the right to revoke the authority granted to your agent by informing your agent or your health or residential care provider orally or in writing or by your execution of a subsequent medical power of attorney. Unless you state otherwise in this document, your appointment of a spouse is revoked if your marriage is dissolved, annulled, or declared void.",
+              font: "Century Gothic"
+            })
+          ],
+          alignment: AlignmentType.JUSTIFIED,
+          spacing: { after: 200 }
+        }),
 
-new Paragraph({
-  children: [
-    new TextRun({
-      text: "This document may not be changed or modified. If you want to make changes in this document, you must execute a new medical power of attorney.",
-      font: "Century Gothic"
-    })
-  ],
-  alignment: AlignmentType.JUSTIFIED,
-  spacing: { after: 200 }
-}),
+        new Paragraph({
+          children: [
+            new TextRun({
+              text: "This document may not be changed or modified. If you want to make changes in this document, you must execute a new medical power of attorney.",
+              font: "Century Gothic"
+            })
+          ],
+          alignment: AlignmentType.JUSTIFIED,
+          spacing: { after: 200 }
+        }),
 
-new Paragraph({
-  children: [
-    new TextRun({
-      text: "You may wish to designate an alternate agent in the event that your agent is unwilling, unable, or ineligible to act as your agent. If you designate an alternate agent, the alternate agent has the same authority as the agent to make health care decisions for you.",
-      font: "Century Gothic"
-    })
-  ],
-  // Add this section after the DISCLOSURE STATEMENT and before the signature section
+        new Paragraph({
+          children: [
+            new TextRun({
+              text: "You may wish to designate an alternate agent in the event that your agent is unwilling, unable, or ineligible to act as your agent. If you designate an alternate agent, the alternate agent has the same authority as the agent to make health care decisions for you.",
+              font: "Century Gothic"
+            })
+          ],
+          alignment: AlignmentType.JUSTIFIED,
+          spacing: { after: 400 }
+        }),
 
-new Paragraph({
-  children: [
-    new TextRun({
-      text: "THIS POWER OF ATTORNEY IS NOT VALID UNLESS:",
-      bold: true,
-      font: "Century Gothic"
-    }),
-  ],
-  alignment: AlignmentType.JUSTIFIED,
-  spacing: { after: 200 }
-}),
+        new Paragraph({
+          children: [
+            new TextRun({
+              text: "THIS POWER OF ATTORNEY IS NOT VALID UNLESS:",
+              bold: true,
+              font: "Century Gothic"
+            })
+          ],
+          alignment: AlignmentType.JUSTIFIED,
+          spacing: { after: 200 }
+        }),
 
-new Paragraph({
-  children: [
-    new TextRun({
-      text: "(1) YOU SIGN IT AND HAVE YOUR SIGNATURE ACKNOWLEDGED BEFORE A NOTARY PUBLIC; OR",
-      font: "Century Gothic"
-    })
-  ],
-  alignment: AlignmentType.JUSTIFIED,
-  spacing: { after: 100 }
-}),
+        new Paragraph({
+          children: [
+            new TextRun({
+              text: "(1) YOU SIGN IT AND HAVE YOUR SIGNATURE ACKNOWLEDGED BEFORE A NOTARY PUBLIC; OR",
+              font: "Century Gothic"
+            })
+          ],
+          alignment: AlignmentType.JUSTIFIED,
+          spacing: { after: 100 }
+        }),
 
-new Paragraph({
-  children: [
-    new TextRun({
-      text: "(2) YOU SIGN IT IN THE PRESENCE OF TWO COMPETENT ADULT WITNESSES.",
-      font: "Century Gothic"
-    })
-  ],
-  alignment: AlignmentType.JUSTIFIED,
-  spacing: { after: 400 }
-}),
+        new Paragraph({
+          children: [
+            new TextRun({
+              text: "(2) YOU SIGN IT IN THE PRESENCE OF TWO COMPETENT ADULT WITNESSES.",
+              font: "Century Gothic"
+            })
+          ],
+          alignment: AlignmentType.JUSTIFIED,
+          spacing: { after: 400 }
+        }),
 
-new Paragraph({
-  children: [
-    new TextRun({
-      text: "THE FOLLOWING PERSONS MAY NOT ACT AS ONE OF THE WITNESSES:",
-      bold: true,
-      font: "Century Gothic"
-    })
-  ],
-  alignment: AlignmentType.JUSTIFIED,
-  spacing: { after: 200 }
-}),
+        new Paragraph({
+          children: [
+            new TextRun({
+              text: "THE FOLLOWING PERSONS MAY NOT ACT AS ONE OF THE WITNESSES:",
+              bold: true,
+              font: "Century Gothic"
+            })
+          ],
+          alignment: AlignmentType.JUSTIFIED,
+          spacing: { after: 200 }
+        }),
 
-new Paragraph({
-  children: [
-    new TextRun({
-      text: "(1) the person you have designated as your agent; (2) a person related to you by blood or marriage; (3) a person entitled to any part of your estate after your death under a will or codicil executed by you or by operation of law; (4) your attending physician; (5) an employee of your attending physician; (6) an employee of a health care facility in which you are a patient if the employee is providing direct patient care to you or is an officer, director, partner, or business office employee of the health care facility or of any parent organization of the health care facility; or (7) a person who, at the time this medical power of attorney is executed, has a claim against any part of your estate after your death.",
-      font: "Century Gothic"
-    })
-  ],
-  alignment: AlignmentType.JUSTIFIED,
-  spacing: { after: 400 }
-}),
+        new Paragraph({
+          children: [
+            new TextRun({
+              text: "(1) the person you have designated as your agent; (2) a person related to you by blood or marriage; (3) a person entitled to any part of your estate after your death under a will or codicil executed by you or by operation of law; (4) your attending physician; (5) an employee of your attending physician; (6) an employee of a health care facility in which you are a patient if the employee is providing direct patient care to you or is an officer, director, partner, or business office employee of the health care facility or of any parent organization of the health care facility; or (7) a person who, at the time this medical power of attorney is executed, has a claim against any part of your estate after your death.",
+              font: "Century Gothic"
+            })
+          ],
+          alignment: AlignmentType.JUSTIFIED,
+          spacing: { after: 400 }
+        }),
 
-new Paragraph({
-  children: [
-    new TextRun({
-      text: "By signing below, I acknowledge that I have read and understand the information contained in the above disclosure statement.",
-      font: "Century Gothic"
-    })
-  ],
-  alignment: AlignmentType.JUSTIFIED,
-  spacing: { after: 400 }
-}),
+        new Paragraph({
+          children: [
+            new TextRun({
+              text: "By signing below, I acknowledge that I have read and understand the information contained in the above disclosure statement.",
+              font: "Century Gothic"
+            })
+          ],
+          alignment: AlignmentType.JUSTIFIED,
+          spacing: { after: 400 }
+        }),
 
-new Paragraph({
-  children: [
-    new TextRun({
-      text: "(YOU MUST DATE AND SIGN THIS POWER OF ATTORNEY. YOU MAY SIGN IT AND HAVE YOUR SIGNATURE ACKNOWLEDGED BEFORE A NOTARY PUBLIC OR YOU MAY SIGN IT IN THE PRESENCE OF TWO COMPETENT ADULT WITNESSES.)",
-      bold: true,
-      font: "Century Gothic"
-    })
-  ],
-  alignment: AlignmentType.JUSTIFIED,
-  spacing: { after: 400 }
-}),
-  alignment: AlignmentType.JUSTIFIED,
-  spacing: { after: 400 }
-}),
+        new Paragraph({
+          children: [
+            new TextRun({
+              text: "(YOU MUST DATE AND SIGN THIS POWER OF ATTORNEY. YOU MAY SIGN IT AND HAVE YOUR SIGNATURE ACKNOWLEDGED BEFORE A NOTARY PUBLIC OR YOU MAY SIGN IT IN THE PRESENCE OF TWO COMPETENT ADULT WITNESSES.)",
+              bold: true,
+              font: "Century Gothic"
+            })
+          ],
+          alignment: AlignmentType.JUSTIFIED,
+          spacing: { after: 400 }
+        }),
+
         new Paragraph({
           children: [
             new TextRun({
