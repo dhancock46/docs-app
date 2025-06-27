@@ -610,7 +610,7 @@ new Paragraph({
       text: "THIS POWER OF ATTORNEY IS NOT VALID UNLESS:",
       bold: true,
       font: "Century Gothic"
-    })
+    }),
   ],
   alignment: AlignmentType.JUSTIFIED,
   spacing: { after: 200 }
