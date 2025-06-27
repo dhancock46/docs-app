@@ -492,6 +492,119 @@ new Paragraph({
   alignment: AlignmentType.JUSTIFIED,
   spacing: { after: 400 }
 }),
+        // Add this section after the PRIOR DESIGNATIONS REVOKED section and before the signature section
+
+new Paragraph({
+  children: [
+    new TextRun({
+      text: "DISCLOSURE STATEMENT",
+      bold: true,
+      font: "Century Gothic"
+    })
+  ],
+  alignment: AlignmentType.CENTER,
+  spacing: { after: 400 }
+}),
+
+new Paragraph({
+  children: [
+    new TextRun({
+      text: "THIS MEDICAL POWER OF ATTORNEY IS AN IMPORTANT LEGAL DOCUMENT. BEFORE SIGNING THIS DOCUMENT, YOU SHOULD KNOW THESE IMPORTANT FACTS:",
+      bold: true,
+      font: "Century Gothic"
+    })
+  ],
+  alignment: AlignmentType.JUSTIFIED,
+  spacing: { after: 400 }
+}),
+
+new Paragraph({
+  children: [
+    new TextRun({
+      text: "Except to the extent you state otherwise, this document gives the person you name as your agent the authority to make any and all health care decisions for you in accordance with your wishes, including your religious and moral beliefs, when you are unable to make the decisions for yourself. Because \"health care\" means any treatment, service, or procedure to maintain, diagnose, or treat your physical or mental condition, your agent has the power to make a broad range of health care decisions for you. Your agent may consent, refuse to consent, or withdraw consent to medical treatment and may make decisions about withdrawing or withholding life-sustaining treatment. Your agent may not consent to voluntary inpatient mental health services, convulsive treatment, psychosurgery, or abortion. A physician must comply with your agent's instructions or allow you to be transferred to another physician. Your agent's authority is effective when your doctor certifies that you lack the competence to make health care decisions.",
+      font: "Century Gothic"
+    })
+  ],
+  alignment: AlignmentType.JUSTIFIED,
+  spacing: { after: 200 }
+}),
+
+new Paragraph({
+  children: [
+    new TextRun({
+      text: "Your agent is obligated to follow your instructions when making decisions on your behalf. Unless you state otherwise, your agent has the same authority to make decisions about your health care as you would have if you were able to make health care decisions for yourself.",
+      font: "Century Gothic"
+    })
+  ],
+  alignment: AlignmentType.JUSTIFIED,
+  spacing: { after: 200 }
+}),
+
+new Paragraph({
+  children: [
+    new TextRun({
+      text: "It is important that you discuss this document with your physician or other health care provider before you sign the document to ensure that you understand the nature and range of decisions that may be made on your behalf. If you do not have a physician, you should talk with someone else who is knowledgeable about these issues and can answer your questions. You do not need a lawyer's assistance to complete this document, but if there is anything in this document that you do not understand, you should ask a lawyer to explain it to you.",
+      font: "Century Gothic"
+    })
+  ],
+  alignment: AlignmentType.JUSTIFIED,
+  spacing: { after: 200 }
+}),
+
+new Paragraph({
+  children: [
+    new TextRun({
+      text: "The person you appoint as agent should be someone you know and trust. The person must be 18 years of age or older or a person under 18 years of age who has had the disabilities of minority removed. If you appoint your health or residential care provider (e.g., your physician or an employee of a home health agency, hospital, nursing facility, or residential care facility, other than a relative), that person has to choose between acting as your agent or as your health or residential care provider; the law does not allow a person to serve as both at the same time.",
+      font: "Century Gothic"
+    })
+  ],
+  alignment: AlignmentType.JUSTIFIED,
+  spacing: { after: 200 }
+}),
+
+new Paragraph({
+  children: [
+    new TextRun({
+      text: "You should inform the person you appoint that you want the person to be your health care agent. You should discuss this document with your agent and your physician and give each a signed copy. You should indicate on the document itself the people and institutions that you intend to have signed copies. Your agent is not liable for health care decisions made in good faith on your behalf.",
+      font: "Century Gothic"
+    })
+  ],
+  alignment: AlignmentType.JUSTIFIED,
+  spacing: { after: 200 }
+}),
+
+new Paragraph({
+  children: [
+    new TextRun({
+      text: "Once you have signed this document, you have the right to make health care decisions for yourself as long as you are able to make those decisions, and treatment cannot be given to you or stopped over your objection. You have the right to revoke the authority granted to your agent by informing your agent or your health or residential care provider orally or in writing or by your execution of a subsequent medical power of attorney. Unless you state otherwise in this document, your appointment of a spouse is revoked if your marriage is dissolved, annulled, or declared void.",
+      font: "Century Gothic"
+    })
+  ],
+  alignment: AlignmentType.JUSTIFIED,
+  spacing: { after: 200 }
+}),
+
+new Paragraph({
+  children: [
+    new TextRun({
+      text: "This document may not be changed or modified. If you want to make changes in this document, you must execute a new medical power of attorney.",
+      font: "Century Gothic"
+    })
+  ],
+  alignment: AlignmentType.JUSTIFIED,
+  spacing: { after: 200 }
+}),
+
+new Paragraph({
+  children: [
+    new TextRun({
+      text: "You may wish to designate an alternate agent in the event that your agent is unwilling, unable, or ineligible to act as your agent. If you designate an alternate agent, the alternate agent has the same authority as the agent to make health care decisions for you.",
+      font: "Century Gothic"
+    })
+  ],
+  alignment: AlignmentType.JUSTIFIED,
+  spacing: { after: 400 }
+}),
         new Paragraph({
           children: [
             new TextRun({
