@@ -97,7 +97,7 @@ async function generateMedicalPOA(data) {
       alternateAgentParagraphs.push(
         new Paragraph({
           children: [new TextRun({ text: "", font: "Century Gothic" })],
-          spacing: { after: 400 }
+          spacing: { after: 0 }
         })
       );
     }
