@@ -43,7 +43,10 @@
                     </div>
                     
                     <div class="form-group">
-                        <label>Alternate Agents</label>
+                      <label>
+                      Alternate Agents
+                      <span class="help-icon" onclick="showHelp('alternateAgentsHelp')">💡</span>
+                      </label>
                         <div class="radio-group">
                             <div class="radio-item">
                                 <input type="radio" id="noAlternates" name="alternateChoice" value="none" onchange="toggleAlternateAgents()" required>
@@ -176,5 +179,10 @@
         <p>Use your full legal name such as the name on your drivers license or passport. Include any suffixes such as "Jr." or "Sr." Do not use prefixes such as "Mr." or "Ms.". Do not use nicknames such as "Billy" rather than "William."</p>
         <button class="help-close" onclick="closeHelp()">Close</button>
     </div>
-</body>
+
+<div class="help-popup" id="alternateAgentsHelp">
+    <h4>Alternate Agents</h4>
+    <p>You are not required to name an alternate agent. However, if you have someone you trust to make healthcare decisions, naming an alternate will help ensure someone is can make healthcare decisions for you if your primary agent is unavailable when needed.</p>
+    <button class="help-close" onclick="closeHelp()">Close</button>
+</div></body>
 </html>
