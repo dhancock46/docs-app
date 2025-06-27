@@ -9,7 +9,7 @@ async function generateMedicalPOA(data) {
   // Create alternate agent paragraphs based on user choice
   let alternateAgentParagraphs = [];
 
-  if (alternateChoice === 'no') {
+  if (alternateChoice === 'none') {
     alternateAgentParagraphs.push(
       new Paragraph({
         children: [
