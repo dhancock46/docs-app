@@ -4,9 +4,6 @@ const router = express.Router();
 
 router.post('/medical-poa', async (req, res) => {
     try {
-        console.log('Received Medical POA data:', req.body);
-        console.log('alternateChoice value:', req.body.alternateChoice);
-        console.log('alternateChoice type:', typeof req.body.alternateChoice);
         
         const document = await generateMedicalPOA(req.body);
         
