@@ -602,6 +602,87 @@ new Paragraph({
       font: "Century Gothic"
     })
   ],
+  // Add this section after the DISCLOSURE STATEMENT and before the signature section
+
+new Paragraph({
+  children: [
+    new TextRun({
+      text: "THIS POWER OF ATTORNEY IS NOT VALID UNLESS:",
+      bold: true,
+      font: "Century Gothic"
+    })
+  ],
+  alignment: AlignmentType.JUSTIFIED,
+  spacing: { after: 200 }
+}),
+
+new Paragraph({
+  children: [
+    new TextRun({
+      text: "(1) YOU SIGN IT AND HAVE YOUR SIGNATURE ACKNOWLEDGED BEFORE A NOTARY PUBLIC; OR",
+      font: "Century Gothic"
+    })
+  ],
+  alignment: AlignmentType.JUSTIFIED,
+  spacing: { after: 100 }
+}),
+
+new Paragraph({
+  children: [
+    new TextRun({
+      text: "(2) YOU SIGN IT IN THE PRESENCE OF TWO COMPETENT ADULT WITNESSES.",
+      font: "Century Gothic"
+    })
+  ],
+  alignment: AlignmentType.JUSTIFIED,
+  spacing: { after: 400 }
+}),
+
+new Paragraph({
+  children: [
+    new TextRun({
+      text: "THE FOLLOWING PERSONS MAY NOT ACT AS ONE OF THE WITNESSES:",
+      bold: true,
+      font: "Century Gothic"
+    })
+  ],
+  alignment: AlignmentType.JUSTIFIED,
+  spacing: { after: 200 }
+}),
+
+new Paragraph({
+  children: [
+    new TextRun({
+      text: "(1) the person you have designated as your agent; (2) a person related to you by blood or marriage; (3) a person entitled to any part of your estate after your death under a will or codicil executed by you or by operation of law; (4) your attending physician; (5) an employee of your attending physician; (6) an employee of a health care facility in which you are a patient if the employee is providing direct patient care to you or is an officer, director, partner, or business office employee of the health care facility or of any parent organization of the health care facility; or (7) a person who, at the time this medical power of attorney is executed, has a claim against any part of your estate after your death.",
+      font: "Century Gothic"
+    })
+  ],
+  alignment: AlignmentType.JUSTIFIED,
+  spacing: { after: 400 }
+}),
+
+new Paragraph({
+  children: [
+    new TextRun({
+      text: "By signing below, I acknowledge that I have read and understand the information contained in the above disclosure statement.",
+      font: "Century Gothic"
+    })
+  ],
+  alignment: AlignmentType.JUSTIFIED,
+  spacing: { after: 400 }
+}),
+
+new Paragraph({
+  children: [
+    new TextRun({
+      text: "(YOU MUST DATE AND SIGN THIS POWER OF ATTORNEY. YOU MAY SIGN IT AND HAVE YOUR SIGNATURE ACKNOWLEDGED BEFORE A NOTARY PUBLIC OR YOU MAY SIGN IT IN THE PRESENCE OF TWO COMPETENT ADULT WITNESSES.)",
+      bold: true,
+      font: "Century Gothic"
+    })
+  ],
+  alignment: AlignmentType.JUSTIFIED,
+  spacing: { after: 400 }
+}),
   alignment: AlignmentType.JUSTIFIED,
   spacing: { after: 400 }
 }),
