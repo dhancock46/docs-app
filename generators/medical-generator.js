@@ -378,7 +378,120 @@ async function generateMedicalPOA(data) {
           alignment: AlignmentType.JUSTIFIED,
           spacing: { after: 400 }
         }),
+// Add these sections after the HIPAA section and before the signature section
 
+new Paragraph({
+  children: [
+    new TextRun({
+      text: "ADDITIONAL AUTHORITY OF MY AGENT",
+      bold: true,
+      font: "Century Gothic"
+    })
+  ],
+  alignment: AlignmentType.CENTER,
+  spacing: { after: 400 }
+}),
+
+new Paragraph({
+  children: [
+    new TextRun({
+      text: "My agent is also authorized to:",
+      font: "Century Gothic"
+    })
+  ],
+  alignment: AlignmentType.JUSTIFIED,
+  spacing: { after: 200 }
+}),
+
+new Paragraph({
+  children: [
+    new TextRun({
+      text: "1. Execute documents such as \"Do Not Resuscitate Orders\", \"Refusal to Permit Treatment\", \"Leaving Hospital against Medical Advice\", or any necessary waiver or release from liability required by a hospital or physician;",
+      font: "Century Gothic"
+    })
+  ],
+  alignment: AlignmentType.JUSTIFIED,
+  spacing: { after: 100 }
+}),
+
+new Paragraph({
+  children: [
+    new TextRun({
+      text: "2. Enter into contracts of any kind to provide for my health care;",
+      font: "Century Gothic"
+    })
+  ],
+  alignment: AlignmentType.JUSTIFIED,
+  spacing: { after: 100 }
+}),
+
+new Paragraph({
+  children: [
+    new TextRun({
+      text: "3. Employ and discharge physicians, nurses and other health care providers and medical personnel; and",
+      font: "Century Gothic"
+    })
+  ],
+  alignment: AlignmentType.JUSTIFIED,
+  spacing: { after: 100 }
+}),
+
+new Paragraph({
+  children: [
+    new TextRun({
+      text: "4. Grant releases to health care professionals or institutions to assure that my wishes and needs are fulfilled, including, but not limited to any release or waiver of liability permitted under the Health Insurance Portability and Accountability Act (\"HIPAA\").",
+      font: "Century Gothic"
+    })
+  ],
+  alignment: AlignmentType.JUSTIFIED,
+  spacing: { after: 400 }
+}),
+
+new Paragraph({
+  children: [
+    new TextRun({
+      text: "DETERMINATION OF INCAPACITY",
+      bold: true,
+      font: "Century Gothic"
+    })
+  ],
+  alignment: AlignmentType.CENTER,
+  spacing: { after: 400 }
+}),
+
+new Paragraph({
+  children: [
+    new TextRun({
+      text: "When in the process of determining my incapacity, all individually identifiable health information and medical records may be released to the person who is my nominated agent or successor or alternate agent, to include any written opinion relating to my incapacity that the person so nominated may have requested. This release authority applies to any information governed by HIPAA and applies even if that person has not yet been appointed as my successor or alternate agent.",
+      font: "Century Gothic"
+    })
+  ],
+  alignment: AlignmentType.JUSTIFIED,
+  spacing: { after: 400 }
+}),
+
+new Paragraph({
+  children: [
+    new TextRun({
+      text: "PRIOR DESIGNATIONS REVOKED",
+      bold: true,
+      font: "Century Gothic"
+    })
+  ],
+  alignment: AlignmentType.CENTER,
+  spacing: { after: 400 }
+}),
+
+new Paragraph({
+  children: [
+    new TextRun({
+      text: "I revoke any prior durable power of attorney for health care.",
+      font: "Century Gothic"
+    })
+  ],
+  alignment: AlignmentType.JUSTIFIED,
+  spacing: { after: 400 }
+}),
         new Paragraph({
           children: [
             new TextRun({
