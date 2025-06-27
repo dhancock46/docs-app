@@ -173,6 +173,78 @@ async function generateMedicalPOA(data) {
 
         ...alternateAgentParagraphs,
 
+new Paragraph({
+  children: [
+    new TextRun({
+      text: "LOCATION OF DOCUMENT",
+      bold: true,
+      font: "Century Gothic"
+    })
+  ],
+  alignment: AlignmentType.CENTER,
+  spacing: { after: 400 }
+}),
+
+new Paragraph({
+  children: [
+    new TextRun({
+      text: "The original of this document is in my custody.",
+      font: "Century Gothic"
+    })
+  ],
+  alignment: AlignmentType.JUSTIFIED,
+  spacing: { after: 200 }
+}),
+
+new Paragraph({
+  children: [
+    new TextRun({
+      text: "My agent is authorized to deliver signed copies to my present or any future physician, or other health or residential care provider.",
+      font: "Century Gothic"
+    })
+  ],
+  alignment: AlignmentType.JUSTIFIED,
+  spacing: { after: 400 }
+}),
+
+new Paragraph({
+  children: [
+    new TextRun({
+      text: "DURATION",
+      bold: true,
+      font: "Century Gothic"
+    })
+  ],
+  alignment: AlignmentType.CENTER,
+  spacing: { after: 400 }
+}),
+
+new Paragraph({
+  children: [
+    new TextRun({
+      text: "I understand that this power of attorney exists indefinitely from the date I execute this document unless I establish a shorter time or revoke the power of attorney. If I am unable to make health care decisions for myself when this power of attorney expires, the authority I have granted my agent continues to exist until the time I become able to make health care decisions for myself.",
+      font: "Century Gothic"
+    })
+  ],
+  alignment: AlignmentType.JUSTIFIED,
+  spacing: { after: 200 }
+}),
+
+new Paragraph({
+  children: [
+    new TextRun({
+      text: "This power of attorney ends on the following date:",
+      font: "Century Gothic"
+    }),
+    new TextRun({
+      text: " Not Applicable",
+      bold: true,
+      font: "Century Gothic"
+    })
+  ],
+  alignment: AlignmentType.JUSTIFIED,
+  spacing: { after: 400 }
+}),
         new Paragraph({
           children: [
             new TextRun({
