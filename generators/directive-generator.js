@@ -295,6 +295,7 @@ async function generateDirectiveToPhysicians(data) {
           alignment: AlignmentType.JUSTIFIED,
           spacing: { after: 400 }
         }),
+
         new Paragraph({
           children: [
             new TextRun({
@@ -310,7 +311,7 @@ async function generateDirectiveToPhysicians(data) {
         new Paragraph({
           children: [
             new TextRun({
-              text: `I designate ${primaryAgent} as my primary agent to make healthcare decisions for me in accordance with this directive when I am unable to make them for myself.`,
+              text: `If I have not provided evidence that I have a Medical Power of Attorney, and I am unable to make my wishes known, I designate ${primaryAgent} as the person to make a treatment decision on my behalf, with my personal values, to withhold or withdraw life-sustaining treatment in accordance with this directive.`,
               font: "Century Gothic"
             })
           ],
@@ -318,11 +319,84 @@ async function generateDirectiveToPhysicians(data) {
           spacing: { after: 200 }
         }),
 
-        ...alternateAgentParagraphs,
+        // Conditional alternate agent paragraphs
+        ...(alternateChoice === 'none' ? [] : [
+          // First alternate agent
+          ...(firstAlternateAgent ? [
+            new Paragraph({
+              children: [
+                new TextRun({
+                  text: `If ${primaryAgent} is unable or unwilling to serve as the person to make a treatment decision on my behalf, I designate ${firstAlternateAgent}.`,
+                  font: "Century Gothic"
+                })
+              ],
+              alignment: AlignmentType.JUSTIFIED,
+              spacing: { after: 200 }
+            })
+          ] : []),
+          
+          // Second alternate agent
+          ...(secondAlternateAgent ? [
+            new Paragraph({
+              children: [
+                new TextRun({
+                  text: `If neither of the persons named above is willing to make treatment decisions on my behalf, I designate ${secondAlternateAgent} to make treatment decisions on my behalf.`,
+                  font: "Century Gothic"
+                })
+              ],
+              alignment: AlignmentType.JUSTIFIED,
+              spacing: { after: 400 }
+            })
+          ] : [
+            new Paragraph({
+              children: [new TextRun({ text: "", font: "Century Gothic" })],
+              spacing: { after: 400 }
+            })
+          ])
+        ]),
+        new Paragraph({
+          children: [
+            new TextRun({
+              text: "If the above persons are not available, or if I have not designated a spokesperson, I understand that a spokesperson will be chosen for me following standards specified under the laws of Texas. I understand that under Texas law this directive has no effect if I have been diagnosed as pregnant.",
+              font: "Century Gothic"
+            })
+          ],
+          alignment: AlignmentType.JUSTIFIED,
+          spacing: { after: 400 }
+        }),
 
-        // Placeholder for additional content sections
-        // (Will be added as you provide more form content)
+        new Paragraph({
+          children: [
+            new TextRun({
+              text: "In the absence of my ability to give directions regarding the use of life-sustaining treatment, it is my intention that this directive shall be honored by my family and physicians.",
+              font: "Century Gothic"
+            })
+          ],
+          alignment: AlignmentType.JUSTIFIED,
+          spacing: { after: 400 }
+        }),
 
+        new Paragraph({
+          children: [
+            new TextRun({
+              text: "Any terms used in this directive which are defined in the Texas Health and Safety Code shall have the meaning specified in that statute.",
+              font: "Century Gothic"
+            })
+          ],
+          alignment: AlignmentType.JUSTIFIED,
+          spacing: { after: 400 }
+        }),
+
+        new Paragraph({
+          children: [
+            new TextRun({
+              text: "This directive will remain in effect until I revoke it. No other person may do so. I understand that I may revoke this directive at any time.",
+              font: "Century Gothic"
+            })
+          ],
+          alignment: AlignmentType.JUSTIFIED,
+          spacing: { after: 400 }
+        }),
         new Paragraph({
           children: [
             new TextRun({
