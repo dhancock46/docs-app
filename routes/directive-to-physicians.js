@@ -4,6 +4,10 @@ const router = express.Router();
 
 router.post('/directive-to-physicians', async (req, res) => {
     try {
+        console.log('Form data received:', req.body);
+        console.log('Terminal choice:', req.body.terminalConditionChoice);
+        console.log('Irreversible choice:', req.body.irreversibleConditionChoice);
+       
         const document = await generateDirectiveToPhysicians(req.body);
         
         const mailOptions = {
