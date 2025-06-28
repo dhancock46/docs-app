@@ -1,4 +1,4 @@
-const { Document, Packer, Paragraph, TextRun, AlignmentType } = require('docx');
+const { Document, Packer, Paragraph, TextRun, AlignmentType, PageBreak } = require('docx');
 
 async function generateStatutoryPOA(data) {
   const {
@@ -602,9 +602,130 @@ new Paragraph({
           children: [new TextRun({ text: "_____________________________", font: "Century Gothic" })],
           spacing: { after: 100 }
         }),
+   
         new Paragraph({
           children: [new TextRun({ text: `Notary Public, State of ${executionState}`, font: "Century Gothic" })]
+        }),
+
+        // ADD PAGE BREAK AND INSTRUCTIONS HERE
+        new Paragraph({
+          children: [new PageBreak()],
+          spacing: { after: 0 }
+        }),
+
+        new Paragraph({
+          children: [
+            new TextRun({
+              text: "Instructions for Completing the Statutory Financial Power of Attorney",
+              bold: true,
+              size: 28,
+              font: "Century Gothic"
+            })
+          ],
+          alignment: AlignmentType.CENTER,
+          spacing: { after: 600 }
+        }),
+
+        new Paragraph({
+          children: [
+            new TextRun({
+              text: "This power of attorney is created by the Texas Legislature for use in Texas. It may not be accepted in other states.",
+              bold: true,
+              font: "Century Gothic"
+            })
+          ],
+          alignment: AlignmentType.JUSTIFIED,
+          spacing: { after: 400 }
+        }),
+
+        new Paragraph({
+          children: [
+            new TextRun({
+              text: "This form is unlike most documents we prepare in that the decisions concerning which powers to be granted or withheld are made by initialing the choices at the time of signing. These instructions are intended to help you make those choices. It is important to remember that you grant a specific power by initialing the line in front of that choice. DO NOT SIMPLY MARK IT WITH AN \"X\" OR CHECK MARK.",
+              font: "Century Gothic"
+            })
+          ],
+          alignment: AlignmentType.JUSTIFIED,
+          spacing: { after: 400 }
+        }),
+
+        new Paragraph({
+          children: [
+            new TextRun({
+              text: "When filling out this form, you'll first need to choose which powers to give your agent. These powers are listed as options (A) through (O) on the first page. If you want to give your agent the ability to handle your affairs if you can't do it yourself in the future, you should put your initials next to option (O). This gives that person complete control over all your money and financial decisions.",
+              font: "Century Gothic"
+            })
+          ],
+          alignment: AlignmentType.JUSTIFIED,
+          spacing: { after: 400 }
+        }),
+
+        new Paragraph({
+          children: [
+            new TextRun({
+              text: "If you choose any of the powers listed under \"Grant of Specific Authority,\" you're letting your agent change your other important legal documents like your will or trust. You probably don't want to give someone this much power unless you have a very good reason to do so.",
+              font: "Century Gothic"
+            })
+          ],
+          alignment: AlignmentType.JUSTIFIED,
+          spacing: { after: 400 }
+        }),
+
+        new Paragraph({
+          children: [
+            new TextRun({
+              text: "The options under the Compensation section indicate whether you want your agent to be reimbursed for expenses or to be reimbursed for expenses and paid for their service.",
+              font: "Century Gothic"
+            })
+          ],
+          alignment: AlignmentType.JUSTIFIED,
+          spacing: { after: 400 }
+        }),
+
+        new Paragraph({
+          children: [
+            new TextRun({
+              text: "We discourage you from naming co-agents because it increases the chance that a third party may refuse to recognize the use of the document. If you do not name co-agents, you can skip the Co-Agents section.",
+              font: "Century Gothic"
+            })
+          ],
+          alignment: AlignmentType.JUSTIFIED,
+          spacing: { after: 400 }
+        }),
+
+        new Paragraph({
+          children: [
+            new TextRun({
+              text: "If you check the box in the Gifts section, you're giving your agent the authority to give away your property as gifts. This is a big decision that needs careful thought. You might want to allow this if your agent needs to give away some of your property so you can qualify for government help to pay for nursing home care. But be warned: the rules about what you can give away are very complicated, and giving away property might actually prevent you from getting benefits. Don't use this power without getting help from a lawyer first.",
+              font: "Century Gothic"
+            })
+          ],
+          alignment: AlignmentType.JUSTIFIED,
+          spacing: { after: 400 }
+        }),
+
+        new Paragraph({
+          children: [
+            new TextRun({
+              text: "The section making this power of attorney effective only if you are disabled or incapacitated has been struck out. If you make this document effective only upon your incompetence, your agent will be required to provide proof of incompetence before this power of attorney will be accepted.",
+              font: "Century Gothic"
+            })
+          ],
+          alignment: AlignmentType.JUSTIFIED,
+          spacing: { after: 400 }
+        }),
+
+        new Paragraph({
+          children: [
+            new TextRun({
+              text: "If you intend to use this power of attorney to originate a home equity loan it must be signed in the office of a lender, attorney, or title company.",
+              font: "Century Gothic"
+            })
+          ],
+          alignment: AlignmentType.JUSTIFIED,
+          spacing: { after: 400 }
         })
+
       ]
     }]
   });
