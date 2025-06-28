@@ -1,4 +1,4 @@
-/ Toggle alternate agents section
+// Toggle alternate agents section
 function toggleAlternateAgents() {
     const alternateChoice = document.querySelector('input[name="alternateChoice"]:checked').value;
     const alternateAgentsSection = document.getElementById('alternateAgentsSection');
