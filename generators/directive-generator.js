@@ -1,10 +1,11 @@
 const { Document, Packer, Paragraph, TextRun, AlignmentType } = require('docx');
 
 async function generateDirectiveToPhysicians(data) {
-  const {
-    testatorName, primaryAgent, firstAlternateAgent, secondAlternateAgent,
-    executionDate, executionCity, executionState, executionCounty, alternateChoice
-  } = data;
+ const {
+  testatorName, primaryAgent, firstAlternateAgent, secondAlternateAgent,
+  executionDate, executionCity, executionState, executionCounty, alternateChoice,
+  terminalConditionChoice, irreversibleConditionChoice
+} = data;
 
   // Create alternate agent paragraphs based on user choice
   let alternateAgentParagraphs = [];
