@@ -140,7 +140,7 @@ async function generateDirectiveToPhysicians(data) {
           spacing: { after: 400 }
         }),
 
-       new Paragraph({
+        new Paragraph({
           children: [
             new TextRun({
               text: "Treatment preferences if I become unable to make my wishes known",
@@ -152,33 +152,12 @@ async function generateDirectiveToPhysicians(data) {
           spacing: { after: 400 }
         }),
 
-        new Paragraph({
-          children: [
-            new TextRun({
-              text: "If I have a \"terminal condition.\"",
-              bold: true,
-              font: "Century Gothic"
-            }),
-            new TextRun({
-              text: " If, in the judgment of my physician, I am suffering with a terminal condition from which I am expected to die within six months, even with life-sustaining treatment provided in accordance with prevailing standards of medical care (indicate your preference by initialing in front of one of the following paragraphs):",
-              font: "Century Gothic"
-            })
-          ],
-          alignment: AlignmentType.JUSTIFIED,
-          spacing: { after: 200 }
-        }),
-
         // Conditional terminal condition paragraph
         ...(terminalConditionChoice === 'withhold' ? [
           new Paragraph({
             children: [
               new TextRun({
-                text: "_______ Withhold life-sustaining treatment.",
-                bold: true,
-                font: "Century Gothic"
-              }),
-              new TextRun({
-                text: " I request that all life-sustaining treatments other than those needed to keep me comfortable be discontinued or withheld, and my physician allow me to die as gently as possible.",
+                text: "If, in the judgment of my physician, I am suffering with a terminal condition from which I am expected to die within six months, even with life-sustaining treatment provided in accordance with prevailing standards of medical care I request that all life-sustaining treatments other than those needed to keep me comfortable be discontinued or withheld, and my physician allow me to die as gently as possible.",
                 font: "Century Gothic"
               })
             ],
@@ -189,12 +168,7 @@ async function generateDirectiveToPhysicians(data) {
           new Paragraph({
             children: [
               new TextRun({
-                text: "_______ Do not withhold life-sustaining treatment.",
-                bold: true,
-                font: "Century Gothic"
-              }),
-              new TextRun({
-                text: " I request that I be kept alive in this terminal condition using available life-sustaining treatment unless: (a) I or my representative elect hospice care; or (b) if, in the judgment of my physician, my death is imminent within minutes to hours, even with the use of all available life-sustaining treatment. If either of these two events occur, all treatments may be withheld or removed except those needed to keep me comfortable.",
+                text: "If, in the judgment of my physician, I am suffering with a terminal condition from which I am expected to die within six months, even with life-sustaining treatment provided in accordance with prevailing standards of medical care I request that I be kept alive in this terminal condition using available life-sustaining treatment unless: (a) I or my representative elect hospice care; or (b) if, in the judgment of my physician, my death is imminent within minutes to hours, even with the use of all available life-sustaining treatment. If either of these two events occur, all treatments may be withheld or removed except those needed to keep me comfortable.",
                 font: "Century Gothic"
               })
             ],
@@ -203,33 +177,12 @@ async function generateDirectiveToPhysicians(data) {
           })
         ]),
 
-        new Paragraph({
-          children: [
-            new TextRun({
-              text: "If I have an \"irreversible condition.\"",
-              bold: true,
-              font: "Century Gothic"
-            }),
-            new TextRun({
-              text: " If, in the judgment of my physician, I am suffering with an irreversible condition (other than a \"terminal condition,\" which is provided for above) so that I cannot care for myself or make decisions for myself and am expected to die (but not necessarily within 6 months) without life-sustaining treatment provided in accordance with prevailing standards of care (indicate your preference by initialing in front of one of the following paragraphs):",
-              font: "Century Gothic"
-            })
-          ],
-          alignment: AlignmentType.JUSTIFIED,
-          spacing: { after: 200 }
-        }),
-
         // Conditional irreversible condition paragraph
         ...(irreversibleConditionChoice === 'withhold' ? [
           new Paragraph({
             children: [
               new TextRun({
-                text: "_______ Withhold life-sustaining treatment.",
-                bold: true,
-                font: "Century Gothic"
-              }),
-              new TextRun({
-                text: " I request that all life-sustaining treatments other than those needed to keep me comfortable be discontinued or withheld and my physician allow me to die as gently as possible.",
+                text: "If, in the judgment of my physician, I am suffering with an irreversible condition (other than a terminal condition, which is provided for above) so that I cannot care for myself or make decisions for myself and am expected to die (but not necessarily within 6 months) without life-sustaining treatment provided in accordance with prevailing standards of care I request that all life-sustaining treatments other than those needed to keep me comfortable be discontinued or withheld and my physician allow me to die as gently as possible.",
                 font: "Century Gothic"
               })
             ],
@@ -240,12 +193,7 @@ async function generateDirectiveToPhysicians(data) {
           new Paragraph({
             children: [
               new TextRun({
-                text: "_______ Do not withhold life-sustaining treatment.",
-                bold: true,
-                font: "Century Gothic"
-              }),
-              new TextRun({
-                text: " I request that I be kept alive in this irreversible condition using available life-sustaining treatment unless: (a) I or my representative elect hospice care; or (b) if, in the judgment of my physician, my death is imminent within minutes to hours, even with the use of all available life-sustaining treatment. If either of these two events occur, all treatments may be withheld or removed except those needed to keep me comfortable.",
+                text: "If, in the judgment of my physician, I am suffering with an irreversible condition (other than a terminal condition, which is provided for above) so that I cannot care for myself or make decisions for myself and am expected to die (but not necessarily within 6 months) without life-sustaining treatment provided in accordance with prevailing standards of care I request that I be kept alive in this irreversible condition using available life-sustaining treatment unless: (a) I or my representative elect hospice care; or (b) if, in the judgment of my physician, my death is imminent within minutes to hours, even with the use of all available life-sustaining treatment. If either of these two events occur, all treatments may be withheld or removed except those needed to keep me comfortable.",
                 font: "Century Gothic"
               })
             ],
