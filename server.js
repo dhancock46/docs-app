@@ -31,6 +31,7 @@ app.locals.transporter = transporter;
 // Import route modules
 const statutoryPoaRoutes = require('./routes/statutory-poa');
 const medicalPoaRoutes = require('./routes/medical-poa');
+const directiveToPhysiciansRoutes = require('./routes/directive-to-physicians');
 
 // Legacy route handler for backward compatibility
 app.post('/submit', async (req, res) => {
@@ -45,6 +46,10 @@ app.post('/submit', async (req, res) => {
       // Forward to medical POA route  
       req.url = '/medical-poa';
       return medicalPoaRoutes(req, res);
+      } else if (documentType === 'directive-to-physicians') {
+  // Forward to directive route
+  req.url = '/directive-to-physicians';
+  return directiveToPhysiciansRoutes(req, res);
     } else {
       throw new Error('Unknown document type');
     }
@@ -57,6 +62,7 @@ app.post('/submit', async (req, res) => {
 // Use route modules for new endpoints
 app.use('/submit', statutoryPoaRoutes);
 app.use('/submit', medicalPoaRoutes);
+app.use('/submit', directiveToPhysiciansRoutes);
 
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
