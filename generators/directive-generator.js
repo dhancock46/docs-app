@@ -140,7 +140,7 @@ async function generateDirectiveToPhysicians(data) {
           spacing: { after: 400 }
         }),
 
-javascript        new Paragraph({
+       new Paragraph({
           children: [
             new TextRun({
               text: "Treatment preferences if I become unable to make my wishes known",
