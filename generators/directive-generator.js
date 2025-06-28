@@ -201,6 +201,100 @@ async function generateDirectiveToPhysicians(data) {
             spacing: { after: 400 }
           })
         ]),
+       new Paragraph({
+          children: [
+            new TextRun({
+              text: "Guidance for Specific Situations",
+              bold: true,
+              font: "Century Gothic"
+            })
+          ],
+          alignment: AlignmentType.CENTER,
+          spacing: { after: 400 }
+        }),
+
+        new Paragraph({
+          children: [
+            new TextRun({
+              text: "I recognize that life can present complex and unforeseen medical scenarios. I provide the following specific instructions to assist my physicians and family:",
+              font: "Century Gothic"
+            })
+          ],
+          alignment: AlignmentType.JUSTIFIED,
+          spacing: { after: 400 }
+        }),
+
+        new Paragraph({
+          children: [
+            new TextRun({
+              text: "1. ",
+              font: "Century Gothic"
+            }),
+            new TextRun({
+              text: "Temporary Reversible Conditions",
+              bold: true,
+              font: "Century Gothic"
+            }),
+            new TextRun({
+              text: ": If a condition arises that temporarily impairs my decision-making but has a high likelihood of recovery, I wish to receive treatment, including life-sustaining treatment, with the goal of recovery.",
+              font: "Century Gothic"
+            })
+          ],
+          alignment: AlignmentType.JUSTIFIED,
+          spacing: { after: 200 }
+        }),
+
+        new Paragraph({
+          children: [
+            new TextRun({
+              text: "2. ",
+              font: "Century Gothic"
+            }),
+            new TextRun({
+              text: "Experimental Treatments",
+              bold: true,
+              font: "Century Gothic"
+            }),
+            new TextRun({
+              text: ": If no conventional treatment options remain, I am open to receiving experimental treatments only if they offer a reasonable chance of meaningful recovery and do not prolong suffering.",
+              font: "Century Gothic"
+            })
+          ],
+          alignment: AlignmentType.JUSTIFIED,
+          spacing: { after: 400 }
+        }),
+
+        new Paragraph({
+          children: [
+            new TextRun({
+              text: "Keeping me comfortable:",
+              bold: true,
+              font: "Century Gothic"
+            }),
+            new TextRun({
+              text: " In the situations described above, keeping me comfortable shall include the administration of pain management medication, anxiety relief, the performance of a medical procedure necessary to provide comfort care, or any other medical care provided or comfort measures to alleviate my pain even if they may unintentionally shorten my life. My comfort and dignity should be prioritized over prolonging life.",
+              font: "Century Gothic"
+            })
+          ],
+          alignment: AlignmentType.JUSTIFIED,
+          spacing: { after: 400 }
+        }),
+
+        new Paragraph({
+          children: [
+            new TextRun({
+              text: "Effect of electing hospice care.",
+              bold: true,
+              font: "Century Gothic"
+            }),
+            new TextRun({
+              text: " After signing this directive, if my representative or I elect hospice care, I understand and agree that only those treatments needed to keep me comfortable would be provided, and I would not be given available life-sustaining treatments.",
+              font: "Century Gothic"
+            })
+          ],
+          alignment: AlignmentType.JUSTIFIED,
+          spacing: { after: 400 }
+        }),
         new Paragraph({
           children: [
             new TextRun({
