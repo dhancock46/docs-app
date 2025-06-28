@@ -78,9 +78,52 @@
                         </div>
                     </div>
                 </div>
+            
 
-                <div class="form-section">
-                    <h3>Signing Information</h3>
+            <div class="form-section">
+                <h3>Treatment Preferences</h3>
+                
+                <!-- Terminal Condition Section -->
+                <div class="form-group">
+                    <label>
+                        If I have a terminal condition
+                        <span class="help-icon" onclick="showHelp('terminalConditionHelp')">💡</span>
+                        *
+                    </label>
+                    <div class="radio-group">
+                        <div class="radio-item">
+                            <input type="radio" id="terminalWithhold" name="terminalConditionChoice" value="withhold" required>
+                            <label for="terminalWithhold">Withhold life-sustaining treatment</label>
+                        </div>
+                        <div class="radio-item">
+                            <input type="radio" id="terminalNotWithhold" name="terminalConditionChoice" value="not-withhold" required>
+                            <label for="terminalNotWithhold">Do not withhold life-sustaining treatment</label>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Irreversible Condition Section -->
+                <div class="form-group">
+                    <label>
+                        If I have an irreversible condition
+                        <span class="help-icon" onclick="showHelp('irreversibleConditionHelp')">💡</span>
+                        *
+                    </label>
+                    <div class="radio-group">
+                        <div class="radio-item">
+                            <input type="radio" id="irreversibleWithhold" name="irreversibleConditionChoice" value="withhold" required>
+                            <label for="irreversibleWithhold">Withhold life-sustaining treatment</label>
+                        </div>
+                        <div class="radio-item">
+                            <input type="radio" id="irreversibleNotWithhold" name="irreversibleConditionChoice" value="not-withhold" required>
+                            <label for="irreversibleNotWithhold">Do not withhold life-sustaining treatment</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="form-section">
+                <h3>Signing Information</h3>
                     <div class="form-group">
                         <label>
                             Date the Document Will Be Signed *
@@ -178,5 +221,16 @@
         <p>Do not guess the date the document will be signed. If you are not sure of the date, select the "I don't know the exact signing date" option. If you know the month but not the date you can add the month and leave the day blank to be filled in at signing or you can leave the entire date blank.</p>
         <button class="help-close" onclick="closeHelp()">Close</button>
     </div>
+                <div class="help-popup" id="terminalConditionHelp">
+    <h4>Terminal Condition</h4>
+    <p>A terminal condition means you are suffering with a condition from which you are expected to die within six months, even with life-sustaining treatment provided in accordance with prevailing standards of medical care.</p>
+    <button class="help-close" onclick="closeHelp()">Close</button>
+</div>
+
+<div class="help-popup" id="irreversibleConditionHelp">
+    <h4>Irreversible Condition</h4>
+    <p>An irreversible condition (other than a terminal condition) means you cannot care for yourself or make decisions for yourself and are expected to die (but not necessarily within 6 months) without life-sustaining treatment provided in accordance with prevailing standards of care.</p>
+    <button class="help-close" onclick="closeHelp()">Close</button>
+</div>
 </body>
 </html>
