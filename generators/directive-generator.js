@@ -180,8 +180,12 @@ async function generateDirectiveToPhysicians(data) {
               new TextRun({
                 text: " If, in the judgment of my physician, I am suffering with a terminal condition from which I am expected to die within six months, even with life-sustaining treatment provided in accordance with prevailing standards of medical care I request that I be kept alive in this terminal condition using available life-sustaining treatment unless: (a) I or my representative elect hospice care; or (b) if, in the judgment of my physician, my death is imminent within minutes to hours, even with the use of all available life-sustaining treatment. If either of these two events occur, all treatments may be withheld or removed except those needed to keep me comfortable.",
                 font: "Century Gothic"
-              })
+            })
             ],
+            alignment: AlignmentType.JUSTIFIED,
+            spacing: { after: 400 }
+            })
+            ]),
 
         // Conditional irreversible condition paragraph
         ...(irreversibleConditionChoice === 'withhold' ? [
@@ -217,10 +221,7 @@ async function generateDirectiveToPhysicians(data) {
             spacing: { after: 400 }
           })
         ]),
-            alignment: AlignmentType.JUSTIFIED,
-            spacing: { after: 400 }
-          })
-        ]),
+          
        new Paragraph({
           children: [
             new TextRun({
