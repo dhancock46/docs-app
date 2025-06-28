@@ -139,9 +139,7 @@ async function generateDirectiveToPhysicians(data) {
           alignment: AlignmentType.JUSTIFIED,
           spacing: { after: 400 }
         }),
-NO! You still have the same duplicates and broken code. You need to completely DELETE ALL OF THAT and replace with clean code.
-DELETE everything you just showed me (all those duplicates and broken paragraphs).
-REPLACE with this clean version:
+
 javascript        new Paragraph({
           children: [
             new TextRun({
