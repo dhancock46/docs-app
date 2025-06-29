@@ -1,1 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Last Will and Testament - Legal Document Preparation</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Last Will and Testament</h1>
+            <p>Complete the form below to prepare your document</p>
+        </div>
 
+        <div class="form-container" style="display: block;">
+            <button class="back-btn" onclick="window.location.href='index.html'">← Back to Document Selection</button>
+            
+            <form id="willForm">
+                <!-- Personal Information Section -->
+                <div class="form-section">
+                    <h3>Testator Information</h3>
+                    <div class="form-group">
+                        <label for="testatorName">
+                            Full Legal Name *
+                            <span class="help-icon" onclick="showHelp('testatorNameHelp')">💡</span>
+                        </label>
+                        <input type="text" id="testatorName" name="testatorName" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="clientEmail">Email Address *</label>
+                        <input type="email" id="clientEmail" name="clientEmail" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="testatorCity">City of Residence *</label>
+                        <input type="text" id="testatorCity" name="testatorCity" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="testatorState">State of Residence *</label>
+                        <input type="text" id="testatorState" name="testatorState" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="testatorCounty">County of Residence *</label>
+                        <input type="text" id="testatorCounty" name="testatorCounty" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Gender *</label>
+                        <div class="radio-group">
+                            <div class="radio-item">
+                                <input type="radio" id="genderMale" name="testatorGender" value="male" required>
+                                <label for="genderMale">Male</label>
+                            </div>
+                            <div class="radio-item">
+                                <input type="radio" id="genderFemale" name="testatorGender" value="female" required>
+                                <label for="genderFemale">Female</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Marital Status Section -->
+                <div class="form-section">
+                    <h3>Marital Status</h3>
+                    <div class="form-group">
+                        <label>Marital Status *</label>
+                        <div class="radio-group">
+                            <div class="radio-item">
+                                <input type="radio" id="statusSingle" name="maritalStatus" value="single" onchange="toggleMaritalSections()" required>
+                                <label for="statusSingle">Single</label>
+                            </div>
+                            <div class="radio-item">
+                                <input type="radio" id="statusMarried" name="maritalStatus" value="married" onchange="toggleMaritalSections()" required>
+                                <label for="statusMarried">Married</label>
+                            </div>
+                            <div class="radio-item">
+                                <input type="radio" id="statusDivorced" name="maritalStatus" value="divorced" onchange="toggleMaritalSections()" required>
+                                <label for="statusDivorced">Divorced</label>
+                            </div>
+                            <div class="radio-item">
+                                <input type="radio" id="statusWidowed" name="maritalStatus" value="widowed" onchange="toggleMaritalSections()" required>
+                                <label for="statusWidowed">Widowed</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Spouse Information (shown only if married) -->
+                    <div class="form-group hidden" id="spouseSection">
+                        <div class="form-group">
+                            <label for="spouseName">Spouse's Full Legal Name *</label>
+                            <input type="text" id="spouseName" name="spouseName">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Spouse's Gender *</label>
+                            <div class="radio-group">
+                                <div class="radio-item">
+                                    <input type="radio" id="spouseGenderMale" name="spouseGender" value="male">
+                                    <label for="spouseGenderMale">Male</label>
+                                </div>
+                                <div class="radio-item">
+                                    <input type="radio" id="spouseGenderFemale" name="spouseGender" value="female">
+                                    <label for="spouseGenderFemale">Female</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Children Section -->
+                <div class="form-section">
+                    <h3>Children Information</h3>
+                    <div class="form-group">
+                        <label>Do you have children? *</label>
+                        <div class="radio-group">
+                            <div class="radio-item">
+                                <input type="radio" id="hasChildrenYes" name="hasChildren" value="yes" onchange="toggleChildrenSection()" required>
+                                <label for="hasChildrenYes">Yes</label>
+                            </div>
+                            <div class="radio-item">
+                                <input type="radio" id="hasChildrenNo" name="hasChildren" value="no" onchange="toggleChildrenSection()" required>
+                                <label for="hasChildrenNo">No</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Children Details (shown only if has children) -->
+                    <div class="form-group hidden" id="childrenSection">
+                        <!-- Single/Divorced/Widowed Children -->
+                        <div class="form-group" id="singleChildrenSection">
+                            <h4>Your Children</h4>
+                            <div id="singleChildrenList">
+                                <div class="child-entry">
+                                    <div class="form-group">
+                                        <label for="singleChild1Name">Child's Full Name</label>
+                                        <input type="text" id="singleChild1Name" name="singleChildName[]" class="child-name">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="singleChild1Birthday">Date of Birth</label>
+                                        <input type="text" id="singleChild1Birthday" name="singleChildBirthday[]" placeholder="Month Day, Year">
+                                    </div>
+                                </div>
+                            </div>
+                            <button type="button" class="add-child-btn" onclick="addSingleChild()">+ Add Another Child</button>
+                        </div>
+
+                        <!-- Married Children Sections -->
+                        <div class="form-group hidden" id="marriedChildrenSection">
+                            <!-- Children from current marriage -->
+                            <div class="form-group">
+                                <label>Do you and your spouse have children together? *</label>
+                                <div class="radio-group">
+                                    <div class="radio-item">
+                                        <input type="radio" id="hasCurrentMarriageChildrenYes" name="hasCurrentMarriageChildren" value="yes" onchange="toggleCurrentMarriageChildren()">
+                                        <label for="hasCurrentMarriageChildrenYes">Yes</label>
+                                    </div>
+                                    <div class="radio-item">
+                                        <input type="radio" id="hasCurrentMarriageChildrenNo" name="hasCurrentMarriageChildren" value="no" onchange="toggleCurrentMarriageChildren()">
+                                        <label for="hasCurrentMarriageChildrenNo">No</label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group hidden" id="currentMarriageChildrenDetails">
+                                <h4>Children Born or Adopted During Current Marriage</h4>
+                                <div id="currentMarriageChildrenList">
+                                    <div class="child-entry">
+                                        <div class="form-group">
+                                            <label for="currentChild1Name">Child's Full Name</label>
+                                            <input type="text" id="currentChild1Name" name="currentMarriageChildName[]" class="child-name">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="currentChild1Birthday">Date of Birth</label>
+                                            <input type="text" id="currentChild1Birthday" name="currentMarriageChildBirthday[]" placeholder="Month Day, Year">
+                                        </div>
+                                    </div>
+                                </div>
+                                <button type="button" class="add-child-btn" onclick="addCurrentMarriageChild()">+ Add Another Child</button>
+                            </div>
+
+                            <!-- Testator's children from prior relationship -->
+                            <div class="form-group">
+                                <label>Do you have children from a prior relationship? *</label>
+                                <div class="radio-group">
+                                    <div class="radio-item">
+                                        <input type="radio" id="hasPriorChildrenYes" name="hasPriorChildren" value="yes" onchange="togglePriorChildren()">
+                                        <label for="hasPriorChildrenYes">Yes</label>
+                                    </div>
+                                    <div class="radio-item">
+                                        <input type="radio" id="hasPriorChildrenNo" name="hasPriorChildren" value="no" onchange="togglePriorChildren()">
+                                        <label for="hasPriorChildrenNo">No</label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group hidden" id="priorChildrenDetails">
+                                <h4>Your Children from Prior Relationship</h4>
+                                <div id="priorChildrenList">
+                                    <div class="child-entry">
+                                        <div class="form-group">
+                                            <label for="priorChild1Name">Child's Full Name</label>
+                                            <input type="text" id="priorChild1Name" name="priorChildName[]" class="child-name">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="priorChild1Birthday">Date of Birth</label>
+                                            <input type="text" id="priorChild1Birthday" name="priorChildBirthday[]" placeholder="Month Day, Year">
+                                        </div>
+                                    </div>
+                                </div>
+                                <button type="button" class="add-child-btn" onclick="addPriorChild()">+ Add Another Child</button>
+                            </div>
+
+                            <!-- Spouse's children from prior relationship -->
+                            <div class="form-group">
+                                <label>Does your spouse have children from a prior relationship? *</label>
+                                <div class="radio-group">
+                                    <div class="radio-item">
+                                        <input type="radio" id="hasSpousePriorChildrenYes" name="hasSpousePriorChildren" value="yes" onchange="toggleSpousePriorChildren()">
+                                        <label for="hasSpousePriorChildrenYes">Yes</label>
+                                    </div>
+                                    <div class="radio-item">
+                                        <input type="radio" id="hasSpousePriorChildrenNo" name="hasSpousePriorChildren" value="no" onchange="toggleSpousePriorChildren()">
+                                        <label for="hasSpousePriorChildrenNo">No</label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group hidden" id="spousePriorChildrenDetails">
+                                <h4>Spouse's Children from Prior Relationship</h4>
+                                <div id="spousePriorChildrenList">
+                                    <div class="child-entry">
+                                        <div class="form-group">
+                                            <label for="spousePriorChild1Name">Child's Full Name</label>
+                                            <input type="text" id="spousePriorChild1Name" name="spousePriorChildName[]" class="child-name">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="spousePriorChild1Birthday">Date of Birth</label>
+                                            <input type="text" id="spousePriorChild1Birthday" name="spousePriorChildBirthday[]" placeholder="Month Day, Year">
+                                        </div>
+                                    </div>
+                                </div>
+                                <button type="button" class="add-child-btn" onclick="addSpousePriorChild()">+ Add Another Child</button>
+                            </div>
+
+                            <!-- Blended family question -->
+                            <div class="form-group" id="blendedFamilySection" style="display: none;">
+                                <label>
+                                    Have you and your spouse agreed to treat all children as one family unit?
+                                    <span class="help-icon" onclick="showHelp('blendedFamilyHelp')">💡</span>
+                                </label>
+                                <div class="radio-group">
+                                    <div class="radio-item">
+                                        <input type="radio" id="blendedFamilyYes" name="blendedFamily" value="yes">
+                                        <label for="blendedFamilyYes">Yes</label>
+                                    </div>
+                                    <div class="radio-item">
+                                        <input type="radio" id="blendedFamilyNo" name="blendedFamily" value="no">
+                                        <label for="blendedFamilyNo">No</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <button type="submit" class="submit-btn">Continue to Next Section</button>
+
+                <div class="loading-message" id="loadingMessage">
+                    <h4>Processing...</h4>
+                    <p>Please wait while we process your information.</p>
+                </div>
+
+                <div class="success-message" id="successMessage">
+                    <h4>✅ Success!</h4>
+                    <p>Your information has been saved. Continue to the next section.</p>
+                </div>
+
+                <div class="error-message" id="errorMessage">
+                    <h4>❌ Error</h4>
+                    <p>There was an error processing your information. Please check your entries and try again.</p>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="js/will.js"></script>
+
+    <!-- Help Popups -->
+    <div class="help-overlay" id="helpOverlay" onclick="closeHelp()"></div>
+    <div class="help-popup" id="testatorNameHelp">
+        <h4>Full Legal Name</h4>
+        <p>Use your full legal name as it appears on your driver's license or passport. Include any suffixes such as "Jr." or "Sr." Do not use prefixes such as "Mr." or "Ms." Do not use nicknames.</p>
+        <button class="help-close" onclick="closeHelp()">Close</button>
+    </div>
+    <div class="help-popup" id="blendedFamilyHelp">
+        <h4>Blended Family Treatment</h4>
+        <p>If you and your spouse have agreed to treat all children (yours, theirs, and yours together) as one family unit, each child will receive an equal share of your remaining estate as though they were all born during your current marriage.</p>
+        <button class="help-close" onclick="closeHelp()">Close</button>
+    </div>
+</body>
+</html>
