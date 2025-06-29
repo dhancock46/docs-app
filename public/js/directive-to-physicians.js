@@ -1,3 +1,19 @@
+// State abbreviations expansion
+const stateAbbreviations = {
+    'TX': 'Texas', 'CA': 'California', 'FL': 'Florida', 'NY': 'New York',
+    'AL': 'Alabama', 'AK': 'Alaska', 'AZ': 'Arizona', 'AR': 'Arkansas',
+    'CO': 'Colorado', 'CT': 'Connecticut', 'DE': 'Delaware', 'GA': 'Georgia',
+    'HI': 'Hawaii', 'ID': 'Idaho', 'IL': 'Illinois', 'IN': 'Indiana',
+    'IA': 'Iowa', 'KS': 'Kansas', 'KY': 'Kentucky', 'LA': 'Louisiana',
+    'ME': 'Maine', 'MD': 'Maryland', 'MA': 'Massachusetts', 'MI': 'Michigan',
+    'MN': 'Minnesota', 'MS': 'Mississippi', 'MO': 'Missouri', 'MT': 'Montana',
+    'NE': 'Nebraska', 'NV': 'Nevada', 'NH': 'New Hampshire', 'NJ': 'New Jersey',
+    'NM': 'New Mexico', 'NC': 'North Carolina', 'ND': 'North Dakota', 'OH': 'Ohio',
+    'OK': 'Oklahoma', 'OR': 'Oregon', 'PA': 'Pennsylvania', 'RI': 'Rhode Island',
+    'SC': 'South Carolina', 'SD': 'South Dakota', 'TN': 'Tennessee', 'UT': 'Utah',
+    'VT': 'Vermont', 'VA': 'Virginia', 'WA': 'Washington', 'WV': 'West Virginia',
+    'WI': 'Wisconsin', 'WY': 'Wyoming'
+};
 // Toggle alternate agents section
 function toggleAlternateAgents() {
     const alternateChoice = document.querySelector('input[name="alternateChoice"]:checked').value;
@@ -119,5 +135,17 @@ document.getElementById('directiveToPhysiciansForm').addEventListener('submit', 
         loadingMessage.style.display = 'none';
         errorMessage.style.display = 'block';
         errorMessage.scrollIntoView({ behavior: 'smooth' });
+    }
+});
+// Setup state expansion when page loads
+document.addEventListener('DOMContentLoaded', function() {
+    const executionStateField = document.getElementById('executionState');
+    if (executionStateField) {
+        executionStateField.addEventListener('blur', function() {
+            const entered = this.value.trim().toUpperCase();
+            if (stateAbbreviations[entered]) {
+                this.value = stateAbbreviations[entered];
+            }
+        });
     }
 });
