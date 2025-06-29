@@ -32,7 +32,7 @@ app.locals.transporter = transporter;
 const statutoryPoaRoutes = require('./routes/statutory-poa');
 const medicalPoaRoutes = require('./routes/medical-poa');
 const directiveToPhysiciansRoutes = require('./routes/directive-to-physicians');
-const willRoutes = require('./public/routes/will');
+const willRoutes = require('./routes/will');
 
 // Legacy route handler for backward compatibility
 app.post('/submit', async (req, res) => {
