@@ -1,98 +1,84 @@
-const express = require('express');
-const { generateWill } = require('../generators/will-generator');
-const router = express.Router();
-
-router.post('/will', async (req, res) => {
+// Form submission
+document.getElementById('willForm').addEventListener('submit', async function(e) {
+    e.preventDefault();
+    
+    const loadingMessage = document.getElementById('loadingMessage');
+    const successMessage = document.getElementById('successMessage');
+    const errorMessage = document.getElementById('errorMessage');
+    
+    // Hide all messages initially
+    loadingMessage.style.display = 'none';
+    successMessage.style.display = 'none';
+    errorMessage.style.display = 'none';
+    
+    // Show loading message
+    loadingMessage.style.display = 'block';
+    
+    // Collect form data
+    const formData = new FormData(this);
+    const data = Object.fromEntries(formData.entries());
+    
+    // Handle arrays for children data
+    const singleChildNames = formData.getAll('singleChildName[]').filter(name => name.trim());
+    const singleChildBirthdays = formData.getAll('singleChildBirthday[]').filter(birthday => birthday.trim());
+    const currentMarriageChildNames = formData.getAll('currentMarriageChildName[]').filter(name => name.trim());
+    const currentMarriageChildBirthdays = formData.getAll('currentMarriageChildBirthday[]').filter(birthday => birthday.trim());
+    const priorChildNames = formData.getAll('priorChildName[]').filter(name => name.trim());
+    const priorChildBirthdays = formData.getAll('priorChildBirthday[]').filter(birthday => birthday.trim());
+    const spousePriorChildNames = formData.getAll('spousePriorChildName[]').filter(name => name.trim());
+    const spousePriorChildBirthdays = formData.getAll('spousePriorChildBirthday[]').filter(birthday => birthday.trim());
+    
+    // Build children arrays
+    data.singleChildren = singleChildNames.map((name, index) => ({
+        name: name,
+        birthday: singleChildBirthdays[index] || ''
+    }));
+    
+    data.currentMarriageChildren = currentMarriageChildNames.map((name, index) => ({
+        name: name,
+        birthday: currentMarriageChildBirthdays[index] || ''
+    }));
+    
+    data.priorChildren = priorChildNames.map((name, index) => ({
+        name: name,
+        birthday: priorChildBirthdays[index] || ''
+    }));
+    
+    data.spousePriorChildren = spousePriorChildNames.map((name, index) => ({
+        name: name,
+        birthday: spousePriorChildBirthdays[index] || ''
+    }));
+    
+    // Add document type
+    data.documentType = 'will';
+    data.section = 'personal-info';
+    
     try {
-        console.log('Will form data received:', req.body);
-        
-        // For now, we'll just validate and store the data
-        // The actual document generation will happen when all sections are complete
-        
-        // Validate required fields
-        const requiredFields = ['testatorName', 'clientEmail', 'testatorCity', 'testatorState', 'testatorCounty', 'testatorGender', 'maritalStatus'];
-        
-        for (const field of requiredFields) {
-            if (!req.body[field]) {
-                throw new Error(`Missing required field: ${field}`);
-            }
-        }
-        
-        // Validate marital status specific requirements
-        if (req.body.maritalStatus === 'married') {
-            if (!req.body.spouseName || !req.body.spouseGender) {
-                throw new Error('Spouse information is required for married testators');
-            }
-        }
-        
-        // Validate children information if applicable
-        if (req.body.hasChildren === 'yes') {
-            const maritalStatus = req.body.maritalStatus;
-            
-            if (maritalStatus === 'married') {
-                // For married testators, validate appropriate children sections
-                const hasCurrentChildren = req.body.hasCurrentMarriageChildren === 'yes';
-                const hasPriorChildren = req.body.hasPriorChildren === 'yes';
-                const hasSpousePriorChildren = req.body.hasSpousePriorChildren === 'yes';
-                
-                if (!hasCurrentChildren && !hasPriorChildren && !hasSpousePriorChildren) {
-                    throw new Error('If you have children, please specify which category they belong to');
-                }
-                
-                // Validate that children data exists for selected categories
-                if (hasCurrentChildren && (!req.body.currentMarriageChildren || req.body.currentMarriageChildren.length === 0)) {
-                    throw new Error('Please provide information for children from current marriage');
-                }
-                
-                if (hasPriorChildren && (!req.body.priorChildren || req.body.priorChildren.length === 0)) {
-                    throw new Error('Please provide information for your children from prior relationships');
-                }
-                
-                if (hasSpousePriorChildren && (!req.body.spousePriorChildren || req.body.spousePriorChildren.length === 0)) {
-                    throw new Error('Please provide information for spouse\'s children from prior relationships');
-                }
-            } else {
-                // For single/divorced/widowed testators
-                if (!req.body.singleChildren || req.body.singleChildren.length === 0) {
-                    throw new Error('Please provide information for your children');
-                }
-            }
-        }
-        
-        // Process and clean the data
-        const processedData = {
-            ...req.body,
-            section: 'personal-info',
-            timestamp: new Date().toISOString()
-        };
-        
-        // In a real application, you would save this to a database
-        // For now, we'll just validate and return success
-        
-        // Send email notification about the section completion
-        const mailOptions = {
-            from: process.env.EMAIL_USER,
-            to: 'don.r.hancock@gmail.com',
-            subject: 'Will - Personal Information Section Completed',
-            text: `Personal information section completed for ${req.body.testatorName}\n\nData:\n${JSON.stringify(processedData, null, 2)}`
-        };
-        
-        const transporter = req.app.locals.transporter;
-        await transporter.sendMail(mailOptions);
-        
-        res.json({ 
-            success: true, 
-            message: 'Personal information section completed successfully',
-            nextSection: 'executor-guardian' // This will be the next section
+        const response = await fetch('/submit/will', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data)
         });
         
+        const result = await response.json();
+        
+        loadingMessage.style.display = 'none';
+        
+        if (result.success) {
+            // Redirect to gifts section with user data
+            const testatorName = encodeURIComponent(data.testatorName);
+            const email = encodeURIComponent(data.clientEmail);
+            window.location.href = `gifts.html?testatorName=${testatorName}&email=${email}`;
+        } else {
+            errorMessage.style.display = 'block';
+            errorMessage.scrollIntoView({ behavior: 'smooth' });
+        }
     } catch (error) {
-        console.error('Will Error:', error);
-        res.status(500).json({ 
-            success: false, 
-            message: error.message || 'Error processing will information'
-        });
+        console.error('Error:', error);
+        loadingMessage.style.display = 'none';
+        errorMessage.style.display = 'block';
+        errorMessage.scrollIntoView({ behavior: 'smooth' });
     }
 });
-
-module.exports = router;
