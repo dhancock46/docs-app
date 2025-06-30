@@ -1,4 +1,5 @@
-const express = require('express');
+Here's the complete corrected server.js file with all the necessary additions:
+javascriptconst express = require('express');
 const nodemailer = require('nodemailer');
 const rateLimit = require('express-rate-limit');
 const path = require('path');
@@ -17,7 +18,7 @@ app.use(express.json());
 app.use(express.static('public'));
 
 // Email configuration
-const transporter = nodemailer.createTransport({
+const transporter = nodemailer.createTransporter({
   service: 'gmail',
   auth: {
     user: process.env.EMAIL_USER,
@@ -33,6 +34,7 @@ const statutoryPoaRoutes = require('./routes/statutory-poa');
 const medicalPoaRoutes = require('./routes/medical-poa');
 const directiveToPhysiciansRoutes = require('./routes/directive-to-physicians');
 const willRoutes = require('./routes/will');
+const giftsRoutes = require('./routes/gifts');
 
 // Legacy route handler for backward compatibility
 app.post('/submit', async (req, res) => {
@@ -68,7 +70,8 @@ app.post('/submit', async (req, res) => {
 app.use('/submit', statutoryPoaRoutes);
 app.use('/submit', medicalPoaRoutes);
 app.use('/submit', directiveToPhysiciansRoutes);
-app.use('/submit', willRoutes); 
+app.use('/submit', willRoutes);
+app.use('/submit', giftsRoutes);
 
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
