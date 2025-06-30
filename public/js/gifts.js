@@ -2,8 +2,45 @@
 let specificGiftCount = 1;
 let charitableGiftCount = 1;
 
+// Toggle retirement gift option based on spouse having retirement accounts
+function toggleRetirementGiftOption() {
+    const hasRetirement = document.querySelector('input[name="spouseHasRetirementPre"]:checked')?.value;
+    const retirementOption = document.getElementById('spouseRetirementGiftOption');
+    
+    if (hasRetirement === 'yes') {
+        retirementOption.style.display = 'block';
+    } else {
+        retirementOption.style.display = 'none';
+        // Uncheck the retirement gift option if hidden
+        document.getElementById('spouseRetirementGift').checked = false;
+        document.getElementById('spouseRetirementSection').classList.add('hidden');
+    }
+}
+
+// Handle "no specific gifts" option
+function toggleNoGifts() {
+    const noGifts = document.getElementById('noSpecificGifts').checked;
+    
+    if (noGifts) {
+        // Uncheck all other gift options
+        document.querySelectorAll('input[name="giftTypes"]:not(#noSpecificGifts)').forEach(checkbox => {
+            checkbox.checked = false;
+        });
+        // Hide all gift sections
+        document.getElementById('spouseRetirementSection').classList.add('hidden');
+        document.getElementById('priorChildrenTrustSection').classList.add('hidden');
+        document.getElementById('specificPersonGiftsSection').classList.add('hidden');
+        document.getElementById('charitableGiftsSection').classList.add('hidden');
+    }
+}
+
 // Toggle gift sections based on checkboxes
 function toggleGiftSections() {
+    // If "no gifts" is checked, don't show any sections
+    if (document.getElementById('noSpecificGifts').checked) {
+        return;
+    }
+    
     const spouseRetirement = document.getElementById('spouseRetirementGift').checked;
     const priorChildrenTrust = document.getElementById('priorChildrenTrust').checked;
     const specificPersonGifts = document.getElementById('specificPersonGifts').checked;
@@ -19,62 +56,12 @@ function toggleGiftSections() {
     if (specificPersonGifts) {
         // Auto-show the gift entry form regardless of marital status initially
         document.getElementById('specificGiftsList').style.display = 'block';
-        // Check if we need to show marital status dependent fields
-        const isMarried = document.querySelector('input[name="isMarried"]:checked');
-        if (isMarried && isMarried.value === 'yes') {
-            document.querySelectorAll('[id^="giftSurvivalCondition"]').forEach(section => {
-                section.classList.remove('hidden');
-            });
-        }
     }
     
     // If charitable gifts is checked, make sure the gift list is visible
     if (charitableGifts) {
         // Auto-show the gift entry form regardless of marital status initially
         document.getElementById('charitableGiftsList').style.display = 'block';
-        // Check if we need to show marital status dependent fields
-        const isMarriedCharity = document.querySelector('input[name="isMarriedCharity"]:checked');
-        if (isMarriedCharity && isMarriedCharity.value === 'yes') {
-            document.querySelectorAll('[id^="charitySurvivalCondition"]').forEach(section => {
-                section.classList.remove('hidden');
-            });
-        }
-    }
-}
-
-// Toggle married options for specific gifts
-function toggleMarriedOptions() {
-    const isMarried = document.querySelector('input[name="isMarried"]:checked')?.value;
-    const spouseNameSection = document.getElementById('spouseNameForGifts');
-    const survivalConditions = document.querySelectorAll('[id^="giftSurvivalCondition"]');
-    
-    if (isMarried === 'yes') {
-        spouseNameSection.classList.remove('hidden');
-        survivalConditions.forEach(section => section.classList.remove('hidden'));
-        document.getElementById('spouseNameGifts').required = true;
-    } else {
-        spouseNameSection.classList.add('hidden');
-        survivalConditions.forEach(section => section.classList.add('hidden'));
-        document.getElementById('spouseNameGifts').required = false;
-        document.getElementById('spouseNameGifts').value = '';
-    }
-}
-
-// Toggle married options for charitable gifts
-function toggleCharityMarriedOptions() {
-    const isMarried = document.querySelector('input[name="isMarriedCharity"]:checked')?.value;
-    const spouseNameSection = document.getElementById('spouseNameForCharity');
-    const survivalConditions = document.querySelectorAll('[id^="charitySurvivalCondition"]');
-    
-    if (isMarried === 'yes') {
-        spouseNameSection.classList.remove('hidden');
-        survivalConditions.forEach(section => section.classList.remove('hidden'));
-        document.getElementById('spouseNameCharity').required = true;
-    } else {
-        spouseNameSection.classList.add('hidden');
-        survivalConditions.forEach(section => section.classList.add('hidden'));
-        document.getElementById('spouseNameCharity').required = false;
-        document.getElementById('spouseNameCharity').value = '';
     }
 }
 
@@ -82,7 +69,6 @@ function toggleCharityMarriedOptions() {
 function addSpecificGift() {
     specificGiftCount++;
     const giftsList = document.getElementById('specificGiftsList');
-    const isMarried = document.querySelector('input[name="isMarried"]:checked')?.value === 'yes';
     
     const newGiftEntry = document.createElement('div');
     newGiftEntry.className = 'specific-gift-entry';
@@ -100,7 +86,7 @@ function addSpecificGift() {
             <label for="specificGift${specificGiftCount}Relationship">Relationship to You</label>
             <input type="text" id="specificGift${specificGiftCount}Relationship" name="specificGiftRelationship[]" placeholder="e.g., my daughter, my nephew, my friend">
         </div>
-        <div class="form-group ${isMarried ? '' : 'hidden'}" id="giftSurvivalCondition${specificGiftCount}">
+        <div class="form-group hidden" id="giftSurvivalCondition${specificGiftCount}">
             <label>Should this gift be made if your spouse survives you? *</label>
             <div class="radio-group">
                 <div class="radio-item">
@@ -122,7 +108,6 @@ function addSpecificGift() {
 function addCharitableGift() {
     charitableGiftCount++;
     const giftsList = document.getElementById('charitableGiftsList');
-    const isMarried = document.querySelector('input[name="isMarriedCharity"]:checked')?.value === 'yes';
     
     const newGiftEntry = document.createElement('div');
     newGiftEntry.className = 'charitable-gift-entry';
@@ -136,7 +121,7 @@ function addCharitableGift() {
             <label for="charitableGift${charitableGiftCount}Recipient">Charity Name *</label>
             <input type="text" id="charitableGift${charitableGiftCount}Recipient" name="charitableGiftRecipient[]" placeholder="Full legal name of charity">
         </div>
-        <div class="form-group ${isMarried ? '' : 'hidden'}" id="charitySurvivalCondition${charitableGiftCount}">
+        <div class="form-group hidden" id="charitySurvivalCondition${charitableGiftCount}">
             <label>Should this charitable gift be made if your spouse survives you? *</label>
             <div class="radio-group">
                 <div class="radio-item">
@@ -280,19 +265,21 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
     
-    // Auto-populate marital status if available
+    // Handle spouse-related sections for married users
     if (maritalStatus === 'married') {
-        // Pre-select married for both sections if user was married
-        const marriedRadio = document.getElementById('marriedYes');
-        const marriedCharityRadio = document.getElementById('marriedForCharityYes');
-        if (marriedRadio) marriedRadio.checked = true;
-        if (marriedCharityRadio) marriedCharityRadio.checked = true;
+        // Show the spouse retirement pre-check section
+        document.getElementById('spouseRetirementPreCheck').style.display = 'block';
+        
+        // Auto-show survival condition fields since we know they're married
+        document.querySelectorAll('[id^="giftSurvivalCondition"]').forEach(section => {
+            section.classList.remove('hidden');
+        });
+        document.querySelectorAll('[id^="charitySurvivalCondition"]').forEach(section => {
+            section.classList.remove('hidden');
+        });
     } else {
-        // Pre-select not married
-        const notMarriedRadio = document.getElementById('marriedNo');
-        const notMarriedCharityRadio = document.getElementById('marriedForCharityNo');
-        if (notMarriedRadio) notMarriedRadio.checked = true;
-        if (notMarriedCharityRadio) notMarriedCharityRadio.checked = true;
+        // Hide spouse retirement section entirely for non-married users
+        document.getElementById('spouseRetirementPreCheck').style.display = 'none';
     }
     
     // Prevent Enter key submission in text fields
