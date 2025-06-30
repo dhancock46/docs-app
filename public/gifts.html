@@ -17,6 +17,8 @@
             <button class="back-btn" onclick="window.location.href='will.html'">← Back to Personal Information</button>
             
             <form id="giftsForm">
+                <input type="hidden" id="testatorName" name="testatorName">
+                <input type="hidden" id="clientEmail" name="clientEmail">
                 <!-- Progress Indicator -->
                 <div class="form-section">
                     <h3>Section Progress</h3>
@@ -24,88 +26,64 @@
                     <p>🔄 <strong>Current: Specific Gifts</strong></p>
                     <p>⏳ Remaining Estate Distribution (Next)</p>
                 </div>
-
-                <!-- Testator Identification -->
-                <div class="form-section">
-                    <h3>Testator Information</h3>
-                    <div class="form-group">
-                        <label for="testatorName">Your Full Legal Name *</label>
-                        <input type="text" id="testatorName" name="testatorName" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="clientEmail">Email Address *</label>
-                        <input type="email" id="clientEmail" name="clientEmail" required>
-                    </div>
-                </div>
-
+<div class="form-section" id="spouseRetirementPreCheck" style="display: none;">
+    <h3>Spouse's Retirement Accounts</h3>
+    <div class="form-group">
+        <label>
+            Does your spouse have retirement accounts (IRA, 401K, etc.)? *
+            <span class="help-icon" onclick="showHelp('spouseRetirementHelp')">💡</span>
+        </label>
+        <div class="radio-group">
+            <div class="radio-item">
+                <input type="radio" id="spouseHasRetirementPreYes" name="spouseHasRetirementPre" value="yes" onchange="toggleRetirementGiftOption()" required>
+                <label for="spouseHasRetirementPreYes">Yes</label>
+            </div>
+            <div class="radio-item">
+                <input type="radio" id="spouseHasRetirementPreNo" name="spouseHasRetirementPre" value="no" onchange="toggleRetirementGiftOption()" required>
+                <label for="spouseHasRetirementPreNo">No</label>
+            </div>
+        </div>
+    </div>
+</div>
                 <!-- Gift Options Selection -->
-                <div class="form-section">
-                    <h3>Specific Gifts You Want to Make</h3>
-                    <p>Select all types of specific gifts you want to include in your will:</p>
-                    
+             <div class="form-section">
+    <h3>
+        Select Any Specific Gifts You Want to Make
+        <span class="help-icon" onclick="showHelp('specificGiftsHelp')">💡</span>
+    </h3>
+    <p>Select the categories of specific gifts you want to include in your will:</p>
                     <div class="checkbox-group">
-                        <div class="checkbox-item">
-                            <input type="checkbox" id="spouseRetirementGift" name="giftTypes" value="spouseRetirement" onchange="toggleGiftSections()">
-                            <label for="spouseRetirementGift">Gift of my interest in my spouse's retirement accounts to my spouse</label>
-                        </div>
-                        
+                       <div class="checkbox-item" id="spouseRetirementGiftOption" style="display: none;">
+                      <input type="checkbox" id="spouseRetirementGift" name="giftTypes" value="spouseRetirement" onchange="toggleGiftSections()">
+                      <label for="spouseRetirementGift">Gift of my interest in my spouse's retirement accounts to my spouse</label>
+                      </div>
                        <div class="checkbox-item" id="priorChildrenTrustOption" style="display: none;">
                            <input type="checkbox" id="priorChildrenTrust" name="giftTypes" value="priorChildrenTrust" onchange="toggleGiftSections()">
                            <label for="priorChildrenTrust">
                            Gift to a Trust for My Child/Children from a Prior Relationship
-                           <span class="help-icon" onclick="showHelp('priorChildrenTrustHelp')">💡</span>
                            </label>
                           </div>
-                        
                         <div class="checkbox-item">
-                            <input type="checkbox" id="specificPersonGifts" name="giftTypes" value="specificPersonGifts" onchange="toggleGiftSections()">
-                            <label for="specificPersonGifts">
-                                Specific Gifts to a Person
-                                <span class="help-icon" onclick="showHelp('specificGiftsHelp')">💡</span>
-                            </label>
-                        </div>
-                        
-                        <div class="checkbox-item">
-                            <input type="checkbox" id="charitableGifts" name="giftTypes" value="charitableGifts" onchange="toggleGiftSections()">
-                            <label for="charitableGifts">Gifts to Charities</label>
-                        </div>
-                    </div>
-                </div>
+                       <input type="checkbox" id="specificPersonGifts" name="giftTypes" value="specificPersonGifts" onchange="toggleGiftSections()">
+                      <label for="specificPersonGifts">Specific Gifts to a Person</label>
+                      </div>
 
-                <!-- Spouse Retirement Gift Details -->
-                <div class="form-section hidden" id="spouseRetirementSection">
-                    <h3>Gift of Interest in Spouse's Retirement Accounts</h3>
-                    <div class="form-group">
-                        <label for="spouseName">Spouse's Full Legal Name *</label>
-                        <input type="text" id="spouseName" name="spouseName">
-                    </div>
-                    <div class="form-group">
-                        <label>Spouse's Gender *</label>
-                        <div class="radio-group">
-                            <div class="radio-item">
-                                <input type="radio" id="spouseGenderMale" name="spouseGender" value="male">
-                                <label for="spouseGenderMale">Male</label>
-                            </div>
-                            <div class="radio-item">
-                                <input type="radio" id="spouseGenderFemale" name="spouseGender" value="female">
-                                <label for="spouseGenderFemale">Female</label>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label>Does your spouse have retirement accounts (IRA, 401K, etc.)? *</label>
-                        <div class="radio-group">
-                            <div class="radio-item">
-                                <input type="radio" id="spouseHasRetirementYes" name="spouseHasRetirement" value="yes">
-                                <label for="spouseHasRetirementYes">Yes</label>
-                            </div>
-                            <div class="radio-item">
-                                <input type="radio" id="spouseHasRetirementNo" name="spouseHasRetirement" value="no">
-                                <label for="spouseHasRetirementNo">No</label>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                      <div class="checkbox-item">
+                      <input type="checkbox" id="charitableGifts" name="giftTypes" value="charitableGifts" onchange="toggleGiftSections()">
+                      <label for="charitableGifts">Gifts to Charities</label>
+                      </div>
+                       <div class="checkbox-item">
+                      <input type="checkbox" id="noSpecificGifts" name="giftTypes" value="none" onchange="toggleNoGifts()">
+                      <label for="noSpecificGifts">I don't want to make any specific gifts</label>
+                      </div>
+                   </div>  
+                   </div>  
+
+               <!-- Spouse Retirement Gift Details -->
+               <div class="form-section hidden" id="spouseRetirementSection">
+               <h3>Gift of Interest in Spouse's Retirement Accounts</h3>
+               <p>This gift will transfer your interest in your spouse's retirement accounts to your spouse.</p>
+               </div>
 
                 <!-- Prior Children Trust Details -->
                 <div class="form-section hidden" id="priorChildrenTrustSection">
@@ -140,24 +118,6 @@
                 <!-- Specific Person Gifts Details -->
                 <div class="form-section hidden" id="specificPersonGiftsSection">
                     <h3>Specific Gifts to Persons</h3>
-                    <div class="form-group">
-                        <label>Are you married? *</label>
-                        <div class="radio-group">
-                            <div class="radio-item">
-                                <input type="radio" id="marriedYes" name="isMarried" value="yes" onchange="toggleMarriedOptions()">
-                                <label for="marriedYes">Yes</label>
-                            </div>
-                            <div class="radio-item">
-                                <input type="radio" id="marriedNo" name="isMarried" value="no" onchange="toggleMarriedOptions()">
-                                <label for="marriedNo">No</label>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="form-group hidden" id="spouseNameForGifts">
-                        <label for="spouseNameGifts">Spouse's Full Legal Name *</label>
-                        <input type="text" id="spouseNameGifts" name="spouseNameGifts">
-                    </div>
 
                     <div id="specificGiftsList">
                         <div class="specific-gift-entry">
@@ -196,24 +156,6 @@
                 <!-- Charitable Gifts Details -->
                 <div class="form-section hidden" id="charitableGiftsSection">
                     <h3>Charitable Gifts</h3>
-                    <div class="form-group">
-                        <label>Are you married? *</label>
-                        <div class="radio-group">
-                            <div class="radio-item">
-                                <input type="radio" id="marriedForCharityYes" name="isMarriedCharity" value="yes" onchange="toggleCharityMarriedOptions()">
-                                <label for="marriedForCharityYes">Yes</label>
-                            </div>
-                            <div class="radio-item">
-                                <input type="radio" id="marriedForCharityNo" name="isMarriedCharity" value="no" onchange="toggleCharityMarriedOptions()">
-                                <label for="marriedForCharityNo">No</label>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="form-group hidden" id="spouseNameForCharity">
-                        <label for="spouseNameCharity">Spouse's Full Legal Name *</label>
-                        <input type="text" id="spouseNameCharity" name="spouseNameCharity">
-                    </div>
 
                     <div id="charitableGiftsList">
                         <div class="charitable-gift-entry">
@@ -295,5 +237,10 @@
         <p><strong>Bottom line:</strong> Focus on the "Remaining Estate" section - that's where you'll distribute most of your wealth to your spouse, children, or other main beneficiaries.</p>
         <button class="help-close" onclick="closeHelp()">Close</button>
     </div>
+    <div class="help-popup" id="spouseRetirementHelp">
+    <h4>Gift of Interest in Spouse's Retirement Accounts</h4>
+    <p>In Texas, both spouses automatically own half of any retirement savings earned during marriage, regardless of who actually earned the money or whose name is on the account. This gift transfers the deceased spouse's interest in the surviving spouse's retirement accounts to the surviving spouse, so the survivor ends up owning 100% of the surviving spouse's retirement accounts.</p>
+    <button class="help-close" onclick="closeHelp()">Close</button>
+</div>
 </body>
 </html>
