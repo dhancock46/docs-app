@@ -348,9 +348,10 @@ document.getElementById('willForm').addEventListener('submit', async function(e)
         loadingMessage.style.display = 'none';
         
         if (result.success) {
-            successMessage.style.display = 'block';
-            // Scroll to success message
-            successMessage.scrollIntoView({ behavior: 'smooth' });
+            // Redirect to gifts section with user data
+            const testatorName = encodeURIComponent(data.testatorName);
+            const email = encodeURIComponent(data.clientEmail);
+            window.location.href = `gifts.html?testatorName=${testatorName}&email=${email}`;
         } else {
             errorMessage.style.display = 'block';
             errorMessage.scrollIntoView({ behavior: 'smooth' });
