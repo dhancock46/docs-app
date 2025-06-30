@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Will Gifts Section - Legal Document Preparation</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Last Will and Testament - Gifts Section</h1>
+            <p>Specify your specific gifts and bequests</p>
+        </div>
+
+        <div class="form-container" style="display: block;">
+            <button class="back-btn" onclick="window.location.href='will.html'">← Back to Personal Information</button>
+            
+            <form id="giftsForm">
+                <!-- Progress Indicator -->
+                <div class="form-section">
+                    <h3>Section Progress</h3>
+                    <p>✅ Personal & Family Information Complete</p>
+                    <p>🔄 <strong>Current: Specific Gifts</strong></p>
+                    <p>⏳ Remaining Estate Distribution (Next)</p>
+                </div>
+
+                <!-- Testator Identification -->
+                <div class="form-section">
+                    <h3>Testator Information</h3>
+                    <div class="form-group">
+                        <label for="testatorName">Your Full Legal Name *</label>
+                        <input type="text" id="testatorName" name="testatorName" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="clientEmail">Email Address *</label>
+                        <input type="email" id="clientEmail" name="clientEmail" required>
+                    </div>
+                </div>
+
+                <!-- Gift Options Selection -->
+                <div class="form-section">
+                    <h3>Specific Gifts You Want to Make</h3>
+                    <p>Select all types of specific gifts you want to include in your will:</p>
+                    
+                    <div class="checkbox-group">
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="spouseRetirementGift" name="giftTypes" value="spouseRetirement" onchange="toggleGiftSections()">
+                            <label for="spouseRetirementGift">Gift of my interest in my spouse's retirement accounts to my spouse</label>
+                        </div>
+                        
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="priorChildrenTrust" name="giftTypes" value="priorChildrenTrust" onchange="toggleGiftSections()">
+                            <label for="priorChildrenTrust">
+                                Gift to a Trust for My Child/Children from a Prior Relationship
+                                <span class="help-icon" onclick="showHelp('priorChildrenTrustHelp')">💡</span>
+                            </label>
+                        </div>
+                        
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="specificPersonGifts" name="giftTypes" value="specificPersonGifts" onchange="toggleGiftSections()">
+                            <label for="specificPersonGifts">
+                                Specific Gifts to a Person
+                                <span class="help-icon" onclick="showHelp('specificGiftsHelp')">💡</span>
+                            </label>
+                        </div>
+                        
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="charitableGifts" name="giftTypes" value="charitableGifts" onchange="toggleGiftSections()">
+                            <label for="charitableGifts">Gifts to Charities</label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Spouse Retirement Gift Details -->
+                <div class="form-section hidden" id="spouseRetirementSection">
+                    <h3>Gift of Interest in Spouse's Retirement Accounts</h3>
+                    <div class="form-group">
+                        <label for="spouseName">Spouse's Full Legal Name *</label>
+                        <input type="text" id="spouseName" name="spouseName">
+                    </div>
+                    <div class="form-group">
+                        <label>Spouse's Gender *</label>
+                        <div class="radio-group">
+                            <div class="radio-item">
+                                <input type="radio" id="spouseGenderMale" name="spouseGender" value="male">
+                                <label for="spouseGenderMale">Male</label>
+                            </div>
+                            <div class="radio-item">
+                                <input type="radio" id="spouseGenderFemale" name="spouseGender" value="female">
+                                <label for="spouseGenderFemale">Female</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Does your spouse have retirement accounts (IRA, 401K, etc.)? *</label>
+                        <div class="radio-group">
+                            <div class="radio-item">
+                                <input type="radio" id="spouseHasRetirementYes" name="spouseHasRetirement" value="yes">
+                                <label for="spouseHasRetirementYes">Yes</label>
+                            </div>
+                            <div class="radio-item">
+                                <input type="radio" id="spouseHasRetirementNo" name="spouseHasRetirement" value="no">
+                                <label for="spouseHasRetirementNo">No</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Prior Children Trust Details -->
+                <div class="form-section hidden" id="priorChildrenTrustSection">
+                    <h3>Trust for Children from Prior Relationship</h3>
+                    <div class="form-group">
+                        <label for="priorChildrenNames">Names of Children from Prior Relationship *</label>
+                        <textarea id="priorChildrenNames" name="priorChildrenNames" rows="3" placeholder="Enter full names of children, separated by commas"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="trustAmount">Amount to Fund Trust *</label>
+                        <input type="text" id="trustAmount" name="trustAmount" placeholder="e.g., $100, $1,000, $10,000">
+                    </div>
+                    <div class="form-group">
+                        <label for="trustName">Trust Name *</label>
+                        <input type="text" id="trustName" name="trustName" placeholder="e.g., Smith Children Trust, or use child's name if only one child">
+                    </div>
+                    <div class="form-group">
+                        <label>Do you plan to fund this trust with life insurance? *</label>
+                        <div class="radio-group">
+                            <div class="radio-item">
+                                <input type="radio" id="lifeInsuranceFundingYes" name="lifeInsuranceFunding" value="yes">
+                                <label for="lifeInsuranceFundingYes">Yes</label>
+                            </div>
+                            <div class="radio-item">
+                                <input type="radio" id="lifeInsuranceFundingNo" name="lifeInsuranceFunding" value="no">
+                                <label for="lifeInsuranceFundingNo">No</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Specific Person Gifts Details -->
+                <div class="form-section hidden" id="specificPersonGiftsSection">
+                    <h3>Specific Gifts to Persons</h3>
+                    <div class="form-group">
+                        <label>Are you married? *</label>
+                        <div class="radio-group">
+                            <div class="radio-item">
+                                <input type="radio" id="marriedYes" name="isMarried" value="yes" onchange="toggleMarriedOptions()">
+                                <label for="marriedYes">Yes</label>
+                            </div>
+                            <div class="radio-item">
+                                <input type="radio" id="marriedNo" name="isMarried" value="no" onchange="toggleMarriedOptions()">
+                                <label for="marriedNo">No</label>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group hidden" id="spouseNameForGifts">
+                        <label for="spouseNameGifts">Spouse's Full Legal Name *</label>
+                        <input type="text" id="spouseNameGifts" name="spouseNameGifts">
+                    </div>
+
+                    <div id="specificGiftsList">
+                        <div class="specific-gift-entry">
+                            <h4>Specific Gift #1</h4>
+                            <div class="form-group">
+                                <label for="specificGift1Description">Gift Description *</label>
+                                <input type="text" id="specificGift1Description" name="specificGiftDescription[]" placeholder="e.g., $5,000, my car, my jewelry collection">
+                            </div>
+                            <div class="form-group">
+                                <label for="specificGift1Recipient">Recipient's Full Name *</label>
+                                <input type="text" id="specificGift1Recipient" name="specificGiftRecipient[]" placeholder="Full legal name of recipient">
+                            </div>
+                            <div class="form-group">
+                                <label for="specificGift1Relationship">Relationship to You</label>
+                                <input type="text" id="specificGift1Relationship" name="specificGiftRelationship[]" placeholder="e.g., my daughter, my nephew, my friend">
+                            </div>
+                            <div class="form-group hidden" id="giftSurvivalCondition1">
+                                <label>Should this gift be made if your spouse survives you? *</label>
+                                <div class="radio-group">
+                                    <div class="radio-item">
+                                        <input type="radio" id="giftIfSpouseSurvives1Yes" name="giftIfSpouseSurvives1" value="yes">
+                                        <label for="giftIfSpouseSurvives1Yes">Yes, make this gift even if my spouse survives me</label>
+                                    </div>
+                                    <div class="radio-item">
+                                        <input type="radio" id="giftIfSpouseSurvives1No" name="giftIfSpouseSurvives1" value="no">
+                                        <label for="giftIfSpouseSurvives1No">No, only make this gift if my spouse does not survive me</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <button type="button" class="add-child-btn" onclick="addSpecificGift()">+ Add Another Specific Gift</button>
+                </div>
+
+                <!-- Charitable Gifts Details -->
+                <div class="form-section hidden" id="charitableGiftsSection">
+                    <h3>Charitable Gifts</h3>
+                    <div class="form-group">
+                        <label>Are you married? *</label>
+                        <div class="radio-group">
+                            <div class="radio-item">
+                                <input type="radio" id="marriedForCharityYes" name="isMarriedCharity" value="yes" onchange="toggleCharityMarriedOptions()">
+                                <label for="marriedForCharityYes">Yes</label>
+                            </div>
+                            <div class="radio-item">
+                                <input type="radio" id="marriedForCharityNo" name="isMarriedCharity" value="no" onchange="toggleCharityMarriedOptions()">
+                                <label for="marriedForCharityNo">No</label>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group hidden" id="spouseNameForCharity">
+                        <label for="spouseNameCharity">Spouse's Full Legal Name *</label>
+                        <input type="text" id="spouseNameCharity" name="spouseNameCharity">
+                    </div>
+
+                    <div id="charitableGiftsList">
+                        <div class="charitable-gift-entry">
+                            <h4>Charitable Gift #1</h4>
+                            <div class="form-group">
+                                <label for="charitableGift1Description">Gift Description *</label>
+                                <input type="text" id="charitableGift1Description" name="charitableGiftDescription[]" placeholder="e.g., $1,000, 5% of my estate">
+                            </div>
+                            <div class="form-group">
+                                <label for="charitableGift1Recipient">Charity Name *</label>
+                                <input type="text" id="charitableGift1Recipient" name="charitableGiftRecipient[]" placeholder="Full legal name of charity">
+                            </div>
+                            <div class="form-group hidden" id="charitySurvivalCondition1">
+                                <label>Should this charitable gift be made if your spouse survives you? *</label>
+                                <div class="radio-group">
+                                    <div class="radio-item">
+                                        <input type="radio" id="charityIfSpouseSurvives1Yes" name="charityIfSpouseSurvives1" value="yes">
+                                        <label for="charityIfSpouseSurvives1Yes">Yes, make this gift even if my spouse survives me</label>
+                                    </div>
+                                    <div class="radio-item">
+                                        <input type="radio" id="charityIfSpouseSurvives1No" name="charityIfSpouseSurvives1" value="no">
+                                        <label for="charityIfSpouseSurvives1No">No, only make this gift if my spouse does not survive me</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <button type="button" class="add-child-btn" onclick="addCharitableGift()">+ Add Another Charitable Gift</button>
+                </div>
+
+                <button type="submit" class="submit-btn">Continue to Remaining Estate Section</button>
+
+                <div class="loading-message" id="loadingMessage">
+                    <h4>Processing...</h4>
+                    <p>Please wait while we process your gift information.</p>
+                </div>
+
+                <div class="success-message" id="successMessage">
+                    <h4>✅ Success!</h4>
+                    <p>Your specific gifts information has been saved. Continue to the remaining estate section.</p>
+                    <button onclick="window.location.href='remaining-estate.html'" class="continue-btn">Continue to Remaining Estate</button>
+                </div>
+
+                <div class="error-message" id="errorMessage">
+                    <h4>❌ Error</h4>
+                    <p>There was an error processing your information. Please check your entries and try again.</p>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="js/gifts.js"></script>
+
+    <!-- Help Popups -->
+    <div class="help-overlay" id="helpOverlay" onclick="closeHelp()"></div>
+    
+    <div class="help-popup" id="priorChildrenTrustHelp">
+        <h4>Providing for Children from a Prior Relationship</h4>
+        <p>If you have children from a previous marriage or relationship, you face a difficult choice: leaving them money means less for your current spouse and children, but leaving them nothing feels wrong.</p>
+        <p><strong>A Solution:</strong> A nominal trust created in your will and funded by term life insurance</p>
+        <p>Create a trust funded with a small amount (like $100) then purchase term life insurance to fund the balance of the trust.</p>
+        <p><strong>This way:</strong></p>
+        <ul>
+            <li>Your children from the prior relationship receive something meaningful</li>
+            <li>Your current family keeps your existing assets</li>
+            <li>The life insurance provides the real funding without reducing what your spouse and current children inherit</li>
+        </ul>
+        <p>This approach lets you care for all your children without penalizing your current family.</p>
+        <button class="help-close" onclick="closeHelp()">Close</button>
+    </div>
+
+    <div class="help-popup" id="specificGiftsHelp">
+        <h4>Specific Gifts (Optional)</h4>
+        <p>These are particular items or small amounts for specific people (e.g., "$5,000 to my nephew" or "my car to my daughter"). Most users don't make specific gifts but if you have a specific item or cash that you want to give to someone, this is where you can do that.</p>
+        <p><strong>Remaining Estate (Where Your Main Distribution Goes)</strong></p>
+        <p>This is the bulk of your estate - typically 90-100% of your wealth including your cash, your home, investments and any other property you own.</p>
+        <p><strong>Example:</strong> If your estate is worth $500,000 and you make a $10,000 specific gift, your remaining estate of $490,000 goes to your primary beneficiaries.</p>
+        <p><strong>Bottom line:</strong> Focus on the "Remaining Estate" section - that's where you'll distribute most of your wealth to your spouse, children, or other main beneficiaries.</p>
+        <button class="help-close" onclick="closeHelp()">Close</button>
+    </div>
+</body>
+</html>
