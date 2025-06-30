@@ -112,9 +112,3 @@ router.post('/gifts', async (req, res) => {
 });
 
 module.exports = router;
-The issue in your version was that there was an incomplete line at the beginning:
-javascript// This was incomplete and broken:
-const selectedGiftTypes = req.body
-
-// Should be:
-const selectedGiftTypes = req.body.selectedGiftTypes || [];
