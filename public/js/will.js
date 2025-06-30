@@ -347,21 +347,25 @@ document.getElementById('willForm').addEventListener('submit', async function(e)
         
         loadingMessage.style.display = 'none';
         
-        if (result.success) {
-            // Redirect to gifts section with user data
-            const testatorName = encodeURIComponent(data.testatorName);
-            const email = encodeURIComponent(data.clientEmail);
-            window.location.href = `gifts.html?testatorName=${testatorName}&email=${email}`;
-        } else {
-            errorMessage.style.display = 'block';
-            errorMessage.scrollIntoView({ behavior: 'smooth' });
-        }
-    } catch (error) {
-        console.error('Error:', error);
-        loadingMessage.style.display = 'none';
-        errorMessage.style.display = 'block';
-        errorMessage.scrollIntoView({ behavior: 'smooth' });
-    }
+   if (result.success) {
+    // Redirect to gifts section with user data
+    const testatorName = encodeURIComponent(data.testatorName);
+    const email = encodeURIComponent(data.clientEmail);
+    const maritalStatus = encodeURIComponent(data.maritalStatus || 'single');
+    const hasChildren = encodeURIComponent(data.hasChildren || 'no');
+    const hasPriorChildren = encodeURIComponent(data.hasPriorChildren || 'no');
+    
+    window.location.href = `gifts.html?testatorName=${testatorName}&email=${email}&maritalStatus=${maritalStatus}&hasChildren=${hasChildren}&hasPriorChildren=${hasPriorChildren}`;
+} else {
+    errorMessage.style.display = 'block';
+    errorMessage.scrollIntoView({ behavior: 'smooth' });
+}
+} catch (error) {
+    console.error('Error:', error);
+    loadingMessage.style.display = 'none';
+    errorMessage.style.display = 'block';
+    errorMessage.scrollIntoView({ behavior: 'smooth' });
+}
 });
 
 // Setup state expansion when page loads
