@@ -14,6 +14,32 @@ function toggleGiftSections() {
     document.getElementById('priorChildrenTrustSection').classList.toggle('hidden', !priorChildrenTrust);
     document.getElementById('specificPersonGiftsSection').classList.toggle('hidden', !specificPersonGifts);
     document.getElementById('charitableGiftsSection').classList.toggle('hidden', !charitableGifts);
+    
+    // If specific gifts is checked, make sure the gift list is visible
+    if (specificPersonGifts) {
+        // Auto-show the gift entry form regardless of marital status initially
+        document.getElementById('specificGiftsList').style.display = 'block';
+        // Check if we need to show marital status dependent fields
+        const isMarried = document.querySelector('input[name="isMarried"]:checked');
+        if (isMarried && isMarried.value === 'yes') {
+            document.querySelectorAll('[id^="giftSurvivalCondition"]').forEach(section => {
+                section.classList.remove('hidden');
+            });
+        }
+    }
+    
+    // If charitable gifts is checked, make sure the gift list is visible
+    if (charitableGifts) {
+        // Auto-show the gift entry form regardless of marital status initially
+        document.getElementById('charitableGiftsList').style.display = 'block';
+        // Check if we need to show marital status dependent fields
+        const isMarriedCharity = document.querySelector('input[name="isMarriedCharity"]:checked');
+        if (isMarriedCharity && isMarriedCharity.value === 'yes') {
+            document.querySelectorAll('[id^="charitySurvivalCondition"]').forEach(section => {
+                section.classList.remove('hidden');
+            });
+        }
+    }
 }
 
 // Toggle married options for specific gifts
@@ -235,12 +261,38 @@ document.addEventListener('DOMContentLoaded', function() {
     const urlParams = new URLSearchParams(window.location.search);
     const testatorName = urlParams.get('testatorName');
     const email = urlParams.get('email');
+    const maritalStatus = urlParams.get('maritalStatus');
+    const hasChildren = urlParams.get('hasChildren');
+    const hasPriorChildren = urlParams.get('hasPriorChildren');
     
     if (testatorName) {
-        document.getElementById('testatorName').value = testatorName;
+        document.getElementById('testatorName').value = decodeURIComponent(testatorName);
     }
     if (email) {
-        document.getElementById('clientEmail').value = email;
+        document.getElementById('clientEmail').value = decodeURIComponent(email);
+    }
+    
+    // Show/hide prior children trust option
+    if (hasPriorChildren === 'yes') {
+        const priorChildrenOption = document.getElementById('priorChildrenTrustOption');
+        if (priorChildrenOption) {
+            priorChildrenOption.style.display = 'block';
+        }
+    }
+    
+    // Auto-populate marital status if available
+    if (maritalStatus === 'married') {
+        // Pre-select married for both sections if user was married
+        const marriedRadio = document.getElementById('marriedYes');
+        const marriedCharityRadio = document.getElementById('marriedForCharityYes');
+        if (marriedRadio) marriedRadio.checked = true;
+        if (marriedCharityRadio) marriedCharityRadio.checked = true;
+    } else {
+        // Pre-select not married
+        const notMarriedRadio = document.getElementById('marriedNo');
+        const notMarriedCharityRadio = document.getElementById('marriedForCharityNo');
+        if (notMarriedRadio) notMarriedRadio.checked = true;
+        if (notMarriedCharityRadio) notMarriedCharityRadio.checked = true;
     }
     
     // Prevent Enter key submission in text fields
@@ -252,4 +304,3 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 });
-
