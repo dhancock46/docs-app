@@ -291,10 +291,15 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
     
-    // Handle spouse-related sections for married users
-    if (maritalStatus === 'married') {
-        // Show the spouse retirement pre-check section
-        document.getElementById('spouseRetirementPreCheck').style.display = 'block';
+// Handle spouse-related sections for married users
+if (maritalStatus === 'married') {
+    // Show the spouse retirement pre-check section
+    document.getElementById('spouseRetirementPreCheck').style.display = 'block';
+    
+    // Remove required attribute initially - will be added back when section is visible
+    document.querySelectorAll('input[name="spouseHasRetirementPre"]').forEach(radio => {
+        radio.required = false;
+    });
         
         // Auto-show survival condition fields since we know they're married
         document.querySelectorAll('[id^="giftSurvivalCondition"]').forEach(section => {
