@@ -347,13 +347,27 @@ document.getElementById('willForm').addEventListener('submit', async function(e)
         
         loadingMessage.style.display = 'none';
         
-   if (result.success) {
+if (result.success) {
     // Redirect to gifts section with user data
     const testatorName = encodeURIComponent(data.testatorName);
     const email = encodeURIComponent(data.clientEmail);
     const maritalStatus = encodeURIComponent(data.maritalStatus || 'single');
-    const hasChildren = encodeURIComponent(data.hasChildren || 'no');
-    const hasPriorChildren = encodeURIComponent(data.hasPriorChildren || 'no');
+    let hasChildren = 'no';
+    let hasPriorChildren = 'no';
+    
+    // Handle different children scenarios based on marital status
+    if (data.maritalStatus === 'married') {
+        hasChildren = data.hasChildren || 'no';
+        hasPriorChildren = data.hasPriorChildren || 'no';
+    } else {
+        // For single/divorced/widowed, check if they have any children at all
+        if (data.hasChildren === 'yes') {
+            hasChildren = 'yes';
+            // For single users, their children are effectively "prior children" 
+            // since they're not from a current marriage
+            hasPriorChildren = 'yes';
+        }
+    }
     
     window.location.href = `gifts.html?testatorName=${testatorName}&email=${email}&maritalStatus=${maritalStatus}&hasChildren=${hasChildren}&hasPriorChildren=${hasPriorChildren}`;
 } else {
