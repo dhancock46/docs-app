@@ -354,22 +354,31 @@ if (result.success) {
     const maritalStatus = encodeURIComponent(data.maritalStatus || 'single');
     let hasChildren = 'no';
     let hasPriorChildren = 'no';
+    let priorChildrenNames = '';
     
     // Handle different children scenarios based on marital status
     if (data.maritalStatus === 'married') {
         hasChildren = data.hasChildren || 'no';
         hasPriorChildren = data.hasPriorChildren || 'no';
+        
+        // Get prior children names if they exist
+        if (hasPriorChildren === 'yes' && data.priorChildren && data.priorChildren.length > 0) {
+            priorChildrenNames = encodeURIComponent(data.priorChildren.map(child => child.name).join(', '));
+        }
     } else {
         // For single/divorced/widowed, check if they have any children at all
         if (data.hasChildren === 'yes') {
             hasChildren = 'yes';
-            // For single users, their children are effectively "prior children" 
-            // since they're not from a current marriage
             hasPriorChildren = 'yes';
+            
+            // For single users, all children are "prior children"
+            if (data.singleChildren && data.singleChildren.length > 0) {
+                priorChildrenNames = encodeURIComponent(data.singleChildren.map(child => child.name).join(', '));
+            }
         }
     }
     
-    window.location.href = `gifts.html?testatorName=${testatorName}&email=${email}&maritalStatus=${maritalStatus}&hasChildren=${hasChildren}&hasPriorChildren=${hasPriorChildren}`;
+    window.location.href = `gifts.html?testatorName=${testatorName}&email=${email}&maritalStatus=${maritalStatus}&hasChildren=${hasChildren}&hasPriorChildren=${hasPriorChildren}&priorChildrenNames=${priorChildrenNames}`;
 } else {
     errorMessage.style.display = 'block';
     errorMessage.scrollIntoView({ behavior: 'smooth' });
