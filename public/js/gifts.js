@@ -274,23 +274,23 @@ document.addEventListener('DOMContentLoaded', function() {
         document.getElementById('clientEmail').value = decodeURIComponent(email);
     }
     
-    // Show/hide prior children trust option
-    if (hasPriorChildren === 'yes') {
-        const priorChildrenOption = document.getElementById('priorChildrenTrustOption');
-        if (priorChildrenOption) {
-            priorChildrenOption.style.display = 'block';
-        }
-        
-        // Auto-populate prior children trust information if available
-        const savedChildNames = localStorage.getItem('priorChildrenNames');
-        if (savedChildNames) {
-            const priorChildrenNamesField = document.getElementById('priorChildrenNames');
-            if (priorChildrenNamesField) {
-                priorChildrenNamesField.value = savedChildNames;
-            }
-        }
+// Show/hide prior children trust option
+if (hasPriorChildren === 'yes') {
+    const priorChildrenOption = document.getElementById('priorChildrenTrustOption');
+    if (priorChildrenOption) {
+        priorChildrenOption.style.display = 'block';
     }
     
+    // Auto-populate prior children trust information if available
+    const priorChildrenNamesParam = urlParams.get('priorChildrenNames');
+    if (priorChildrenNamesParam) {
+        const priorChildrenNamesField = document.getElementById('priorChildrenNames');
+        if (priorChildrenNamesField) {
+            priorChildrenNamesField.value = decodeURIComponent(priorChildrenNamesParam);
+        }
+    }
+}
+
 // Handle spouse-related sections for married users
 if (maritalStatus === 'married') {
     // Show the spouse retirement pre-check section
