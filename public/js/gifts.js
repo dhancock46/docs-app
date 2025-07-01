@@ -165,24 +165,12 @@ function closeHelp() {
 document.getElementById('giftsForm').addEventListener('submit', async function(e) {
     e.preventDefault();
     
-    // DEBUG: Add this logging
-    console.log('=== GIFTS FORM DEBUG ===');
-    const urlParams = new URLSearchParams(window.location.search);
-    console.log('URL Parameters:', {
-        testatorName: urlParams.get('testatorName'),
-        email: urlParams.get('email'),
-        maritalStatus: urlParams.get('maritalStatus'),
-        hasChildren: urlParams.get('hasChildren'),
-        hasPriorChildren: urlParams.get('hasPriorChildren')
-    });
-    
     const selectedGiftTypes = Array.from(document.querySelectorAll('input[name="giftTypes"]:checked')).map(cb => cb.value);
-    console.log('Selected gift types:', selectedGiftTypes);
-    console.log('=========================');
     
     const loadingMessage = document.getElementById('loadingMessage');
     const successMessage = document.getElementById('successMessage');
     const errorMessage = document.getElementById('errorMessage');
+    
     
     // Hide all messages initially
     loadingMessage.style.display = 'none';
