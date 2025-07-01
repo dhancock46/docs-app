@@ -3,7 +3,10 @@ const router = express.Router();
 
 router.post('/gifts', async (req, res) => {
     try {
-        console.log('Gifts form data received:', req.body);
+console.log('=== GIFTS BACKEND DEBUG ===');
+console.log('Request body:', JSON.stringify(req.body, null, 2));
+console.log('Selected gift types:', req.body.selectedGiftTypes);
+console.log('==========================');
         
         // Validate required fields
         const requiredFields = ['testatorName', 'clientEmail'];
