@@ -42,25 +42,28 @@ function toggleGiftSections() {
     }
     
     const spouseRetirement = document.getElementById('spouseRetirementGift').checked;
-    const priorChildrenTrust = document.getElementById('priorChildrenTrust').checked;
+    const priorChildrenTrust = document.getElementById('priorChildrenTrust') ? 
+        document.getElementById('priorChildrenTrust').checked : false;
     const specificPersonGifts = document.getElementById('specificPersonGifts').checked;
     const charitableGifts = document.getElementById('charitableGifts').checked;
     
     // Show/hide sections based on selections
     document.getElementById('spouseRetirementSection').classList.toggle('hidden', !spouseRetirement);
-    document.getElementById('priorChildrenTrustSection').classList.toggle('hidden', !priorChildrenTrust);
+    
+    if (document.getElementById('priorChildrenTrustSection')) {
+        document.getElementById('priorChildrenTrustSection').classList.toggle('hidden', !priorChildrenTrust);
+    }
+    
     document.getElementById('specificPersonGiftsSection').classList.toggle('hidden', !specificPersonGifts);
     document.getElementById('charitableGiftsSection').classList.toggle('hidden', !charitableGifts);
     
     // If specific gifts is checked, make sure the gift list is visible
     if (specificPersonGifts) {
-        // Auto-show the gift entry form regardless of marital status initially
         document.getElementById('specificGiftsList').style.display = 'block';
     }
     
     // If charitable gifts is checked, make sure the gift list is visible
     if (charitableGifts) {
-        // Auto-show the gift entry form regardless of marital status initially
         document.getElementById('charitableGiftsList').style.display = 'block';
     }
 }
@@ -86,7 +89,7 @@ function addSpecificGift() {
             <label for="specificGift${specificGiftCount}Relationship">Relationship to You</label>
             <input type="text" id="specificGift${specificGiftCount}Relationship" name="specificGiftRelationship[]" placeholder="e.g., my daughter, my nephew, my friend">
         </div>
-        <div class="form-group hidden" id="giftSurvivalCondition${specificGiftCount}">
+        <div class="form-group" id="giftSurvivalCondition${specificGiftCount}">
             <label>Should this gift be made if your spouse survives you? *</label>
             <div class="radio-group">
                 <div class="radio-item">
@@ -102,6 +105,13 @@ function addSpecificGift() {
         <button type="button" class="remove-child-btn" onclick="removeSpecificGift(this)">Remove This Gift</button>
     `;
     giftsList.appendChild(newGiftEntry);
+    
+    // Show survival conditions for married users
+    const urlParams = new URLSearchParams(window.location.search);
+    const maritalStatus = urlParams.get('maritalStatus');
+    if (maritalStatus === 'married') {
+        document.getElementById(`giftSurvivalCondition${specificGiftCount}`).classList.remove('hidden');
+    }
 }
 
 // Add another charitable gift entry
@@ -121,7 +131,7 @@ function addCharitableGift() {
             <label for="charitableGift${charitableGiftCount}Recipient">Charity Name *</label>
             <input type="text" id="charitableGift${charitableGiftCount}Recipient" name="charitableGiftRecipient[]" placeholder="Full legal name of charity">
         </div>
-        <div class="form-group hidden" id="charitySurvivalCondition${charitableGiftCount}">
+        <div class="form-group" id="charitySurvivalCondition${charitableGiftCount}">
             <label>Should this charitable gift be made if your spouse survives you? *</label>
             <div class="radio-group">
                 <div class="radio-item">
@@ -137,6 +147,13 @@ function addCharitableGift() {
         <button type="button" class="remove-child-btn" onclick="removeCharitableGift(this)">Remove This Gift</button>
     `;
     giftsList.appendChild(newGiftEntry);
+    
+    // Show survival conditions for married users
+    const urlParams = new URLSearchParams(window.location.search);
+    const maritalStatus = urlParams.get('maritalStatus');
+    if (maritalStatus === 'married') {
+        document.getElementById(`charitySurvivalCondition${charitableGiftCount}`).classList.remove('hidden');
+    }
 }
 
 // Remove specific gift entry
@@ -179,40 +196,42 @@ document.getElementById('giftsForm').addEventListener('submit', async function(e
     // Show loading message
     loadingMessage.style.display = 'block';
     
-    // Collect form data
-    const formData = new FormData(this);
-    const data = Object.fromEntries(formData.entries());
-    
-    // Handle arrays for gift data
-    const specificGiftDescriptions = formData.getAll('specificGiftDescription[]').filter(desc => desc.trim());
-    const specificGiftRecipients = formData.getAll('specificGiftRecipient[]').filter(recipient => recipient.trim());
-    const specificGiftRelationships = formData.getAll('specificGiftRelationship[]').filter(rel => rel.trim());
-    
-    const charitableGiftDescriptions = formData.getAll('charitableGiftDescription[]').filter(desc => desc.trim());
-    const charitableGiftRecipients = formData.getAll('charitableGiftRecipient[]').filter(recipient => recipient.trim());
-    
-    // Build gift arrays
-    data.specificGifts = specificGiftDescriptions.map((desc, index) => ({
-        description: desc,
-        recipient: specificGiftRecipients[index] || '',
-        relationship: specificGiftRelationships[index] || '',
-        survivalCondition: data[`giftIfSpouseSurvives${index + 1}`] || 'no'
-    }));
-    
-    data.charitableGifts = charitableGiftDescriptions.map((desc, index) => ({
-        description: desc,
-        recipient: charitableGiftRecipients[index] || '',
-        survivalCondition: data[`charityIfSpouseSurvives${index + 1}`] || 'no'
-    }));
-    
-    // Get selected gift types
-    data.selectedGiftTypes = Array.from(document.querySelectorAll('input[name="giftTypes"]:checked')).map(cb => cb.value);
-    
-    // Add document type and section
-    data.documentType = 'will';
-    data.section = 'gifts';
-    
     try {
+        // Collect form data
+        const formData = new FormData(this);
+        const data = Object.fromEntries(formData.entries());
+        
+        // Handle arrays for gift data
+        const specificGiftDescriptions = formData.getAll('specificGiftDescription[]').filter(desc => desc.trim());
+        const specificGiftRecipients = formData.getAll('specificGiftRecipient[]').filter(recipient => recipient.trim());
+        const specificGiftRelationships = formData.getAll('specificGiftRelationship[]').filter(rel => rel.trim());
+        
+        const charitableGiftDescriptions = formData.getAll('charitableGiftDescription[]').filter(desc => desc.trim());
+        const charitableGiftRecipients = formData.getAll('charitableGiftRecipient[]').filter(recipient => recipient.trim());
+        
+        // Build gift arrays
+        data.specificGifts = specificGiftDescriptions.map((desc, index) => ({
+            description: desc,
+            recipient: specificGiftRecipients[index] || '',
+            relationship: specificGiftRelationships[index] || '',
+            survivalCondition: data[`giftIfSpouseSurvives${index + 1}`] || 'no'
+        }));
+        
+        data.charitableGifts = charitableGiftDescriptions.map((desc, index) => ({
+            description: desc,
+            recipient: charitableGiftRecipients[index] || '',
+            survivalCondition: data[`charityIfSpouseSurvives${index + 1}`] || 'no'
+        }));
+        
+        // Get selected gift types
+        data.selectedGiftTypes = Array.from(document.querySelectorAll('input[name="giftTypes"]:checked')).map(cb => cb.value);
+        
+        // Add document type and section
+        data.documentType = 'will';
+        data.section = 'gifts';
+        
+        console.log('Submitting gifts data:', data);
+        
         const response = await fetch('/submit/gifts', {
             method: 'POST',
             headers: {
@@ -230,12 +249,20 @@ document.getElementById('giftsForm').addEventListener('submit', async function(e
             successMessage.scrollIntoView({ behavior: 'smooth' });
         } else {
             errorMessage.style.display = 'block';
+            const errorP = errorMessage.querySelector('p');
+            if (errorP) {
+                errorP.textContent = result.message || 'There was an error processing your information. Please check your entries and try again.';
+            }
             errorMessage.scrollIntoView({ behavior: 'smooth' });
         }
     } catch (error) {
-        console.error('Error:', error);
+        console.error('Gifts submission error:', error);
         loadingMessage.style.display = 'none';
         errorMessage.style.display = 'block';
+        const errorP = errorMessage.querySelector('p');
+        if (errorP) {
+            errorP.textContent = 'There was an error processing your information. Please check your entries and try again.';
+        }
         errorMessage.scrollIntoView({ behavior: 'smooth' });
     }
 });
@@ -249,6 +276,8 @@ document.addEventListener('DOMContentLoaded', function() {
     const maritalStatus = urlParams.get('maritalStatus');
     const hasChildren = urlParams.get('hasChildren');
     const hasPriorChildren = urlParams.get('hasPriorChildren');
+    
+    console.log('URL Parameters:', { testatorName, email, maritalStatus, hasChildren, hasPriorChildren });
     
     if (testatorName) {
         document.getElementById('testatorName').value = decodeURIComponent(testatorName);
@@ -268,7 +297,10 @@ document.addEventListener('DOMContentLoaded', function() {
     // Handle spouse-related sections for married users
     if (maritalStatus === 'married') {
         // Show the spouse retirement pre-check section
-        document.getElementById('spouseRetirementPreCheck').style.display = 'block';
+        const spouseRetirementPreCheck = document.getElementById('spouseRetirementPreCheck');
+        if (spouseRetirementPreCheck) {
+            spouseRetirementPreCheck.style.display = 'block';
+        }
         
         // Auto-show survival condition fields since we know they're married
         document.querySelectorAll('[id^="giftSurvivalCondition"]').forEach(section => {
@@ -279,7 +311,10 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     } else {
         // Hide spouse retirement section entirely for non-married users
-        document.getElementById('spouseRetirementPreCheck').style.display = 'none';
+        const spouseRetirementPreCheck = document.getElementById('spouseRetirementPreCheck');
+        if (spouseRetirementPreCheck) {
+            spouseRetirementPreCheck.style.display = 'none';
+        }
     }
     
     // Prevent Enter key submission in text fields
