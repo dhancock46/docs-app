@@ -7,6 +7,14 @@ console.log('=== GIFTS BACKEND DEBUG ===');
 console.log('Request body:', JSON.stringify(req.body, null, 2));
 console.log('Selected gift types:', req.body.selectedGiftTypes);
 console.log('==========================');
+
+console.log('=== VALIDATION DEBUG ===');
+console.log('priorChildrenNames:', req.body.priorChildrenNames);
+console.log('trustAmount:', req.body.trustAmount);
+console.log('trustName:', req.body.trustName);
+console.log('lifeInsuranceFunding:', req.body.lifeInsuranceFunding);
+console.log('spouseHasRetirementPre:', req.body.spouseHasRetirementPre);
+console.log('========================');
         
         // Validate required fields
         const requiredFields = ['testatorName', 'clientEmail'];
