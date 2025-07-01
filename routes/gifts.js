@@ -19,10 +19,10 @@ router.post('/gifts', async (req, res) => {
         
         // Validate spouse retirement gift
         if (selectedGiftTypes.includes('spouseRetirement')) {
-            if (!req.body.spouseName || !req.body.spouseGender || !req.body.spouseHasRetirement) {
-                throw new Error('Complete spouse retirement account information is required');
+            if (!req.body.spouseHasRetirementPre) {
+                throw new Error('Please indicate if your spouse has retirement accounts');
             }
-            if (req.body.spouseHasRetirement === 'no') {
+            if (req.body.spouseHasRetirementPre === 'no') {
                 throw new Error('Cannot make gift of spouse retirement accounts if spouse has no retirement accounts');
             }
         }
@@ -36,14 +36,6 @@ router.post('/gifts', async (req, res) => {
         
         // Validate specific person gifts
         if (selectedGiftTypes.includes('specificPersonGifts')) {
-            if (!req.body.isMarried) {
-                throw new Error('Marital status is required for specific gifts');
-            }
-            
-            if (req.body.isMarried === 'yes' && !req.body.spouseNameGifts) {
-                throw new Error('Spouse name is required for specific gifts when married');
-            }
-            
             if (!req.body.specificGifts || req.body.specificGifts.length === 0) {
                 throw new Error('At least one specific gift must be provided');
             }
@@ -58,14 +50,6 @@ router.post('/gifts', async (req, res) => {
         
         // Validate charitable gifts
         if (selectedGiftTypes.includes('charitableGifts')) {
-            if (!req.body.isMarriedCharity) {
-                throw new Error('Marital status is required for charitable gifts');
-            }
-            
-            if (req.body.isMarriedCharity === 'yes' && !req.body.spouseNameCharity) {
-                throw new Error('Spouse name is required for charitable gifts when married');
-            }
-            
             if (!req.body.charitableGifts || req.body.charitableGifts.length === 0) {
                 throw new Error('At least one charitable gift must be provided');
             }
