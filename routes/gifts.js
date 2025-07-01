@@ -14,52 +14,59 @@ router.post('/gifts', async (req, res) => {
             }
         }
         
-        // Validate gift-specific requirements based on selected types
+        // Get selected gift types
         const selectedGiftTypes = req.body.selectedGiftTypes || [];
         
-        // Validate spouse retirement gift
-        if (selectedGiftTypes.includes('spouseRetirement')) {
-            if (!req.body.spouseHasRetirementPre) {
-                throw new Error('Please indicate if your spouse has retirement accounts');
-            }
-            if (req.body.spouseHasRetirementPre === 'no') {
-                throw new Error('Cannot make gift of spouse retirement accounts if spouse has no retirement accounts');
-            }
-        }
-        
-        // Validate prior children trust
-        if (selectedGiftTypes.includes('priorChildrenTrust')) {
-            if (!req.body.priorChildrenNames || !req.body.trustAmount || !req.body.trustName || !req.body.lifeInsuranceFunding) {
-                throw new Error('Complete prior children trust information is required');
-            }
-        }
-        
-        // Validate specific person gifts
-        if (selectedGiftTypes.includes('specificPersonGifts')) {
-            if (!req.body.specificGifts || req.body.specificGifts.length === 0) {
-                throw new Error('At least one specific gift must be provided');
+        // If no gifts selected or "none" selected, that's valid
+        if (selectedGiftTypes.length === 0 || selectedGiftTypes.includes('none')) {
+            console.log('No specific gifts selected - this is valid');
+        } else {
+            // Validate gift-specific requirements based on selected types
+            
+            // Validate spouse retirement gift
+            if (selectedGiftTypes.includes('spouseRetirement')) {
+                if (!req.body.spouseHasRetirementPre) {
+                    throw new Error('Please indicate if your spouse has retirement accounts');
+                }
+                if (req.body.spouseHasRetirementPre === 'no') {
+                    throw new Error('Cannot make gift of spouse retirement accounts if spouse has no retirement accounts');
+                }
             }
             
-            // Validate each specific gift
-            req.body.specificGifts.forEach((gift, index) => {
-                if (!gift.description || !gift.recipient) {
-                    throw new Error(`Specific gift #${index + 1} is incomplete - description and recipient are required`);
+            // Validate prior children trust
+            if (selectedGiftTypes.includes('priorChildrenTrust')) {
+                if (!req.body.priorChildrenNames || !req.body.trustAmount || !req.body.trustName || !req.body.lifeInsuranceFunding) {
+                    throw new Error('Complete prior children trust information is required');
                 }
-            });
-        }
-        
-        // Validate charitable gifts
-        if (selectedGiftTypes.includes('charitableGifts')) {
-            if (!req.body.charitableGifts || req.body.charitableGifts.length === 0) {
-                throw new Error('At least one charitable gift must be provided');
             }
             
-            // Validate each charitable gift
-            req.body.charitableGifts.forEach((gift, index) => {
-                if (!gift.description || !gift.recipient) {
-                    throw new Error(`Charitable gift #${index + 1} is incomplete - description and recipient are required`);
+            // Validate specific person gifts
+            if (selectedGiftTypes.includes('specificPersonGifts')) {
+                if (!req.body.specificGifts || req.body.specificGifts.length === 0) {
+                    throw new Error('At least one specific gift must be provided');
                 }
-            });
+                
+                // Validate each specific gift
+                req.body.specificGifts.forEach((gift, index) => {
+                    if (!gift.description || !gift.recipient) {
+                        throw new Error(`Specific gift #${index + 1} is incomplete - description and recipient are required`);
+                    }
+                });
+            }
+            
+            // Validate charitable gifts
+            if (selectedGiftTypes.includes('charitableGifts')) {
+                if (!req.body.charitableGifts || req.body.charitableGifts.length === 0) {
+                    throw new Error('At least one charitable gift must be provided');
+                }
+                
+                // Validate each charitable gift
+                req.body.charitableGifts.forEach((gift, index) => {
+                    if (!gift.description || !gift.recipient) {
+                        throw new Error(`Charitable gift #${index + 1} is incomplete - description and recipient are required`);
+                    }
+                });
+            }
         }
         
         // Process and clean the data
