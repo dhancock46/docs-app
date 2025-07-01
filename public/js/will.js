@@ -73,7 +73,7 @@ function toggleChildrenSection() {
     }
 }
 
-// Toggle current marriage children
+// Toggle current marriage children - CORRECTED VERSION
 function toggleCurrentMarriageChildren() {
     const hasCurrentChildren = document.querySelector('input[name="hasCurrentMarriageChildren"]:checked');
     const currentMarriageChildrenDetails = document.getElementById('currentMarriageChildrenDetails');
