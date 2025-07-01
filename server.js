@@ -9,7 +9,7 @@ const PORT = process.env.PORT || 3000;
 // Rate limiting
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 5 // limit each IP to 5 requests per windowMs
+  max: 50 // Increase from 5 to 50 requests
 });
 
 app.use('/submit', limiter);
