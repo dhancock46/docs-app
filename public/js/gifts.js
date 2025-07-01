@@ -28,7 +28,9 @@ function toggleNoGifts() {
         });
         // Hide all gift sections
         document.getElementById('spouseRetirementSection').classList.add('hidden');
-        document.getElementById('priorChildrenTrustSection').classList.add('hidden');
+        if (document.getElementById('priorChildrenTrustSection')) {
+            document.getElementById('priorChildrenTrustSection').classList.add('hidden');
+        }
         document.getElementById('specificPersonGiftsSection').classList.add('hidden');
         document.getElementById('charitableGiftsSection').classList.add('hidden');
     }
@@ -201,30 +203,37 @@ document.getElementById('giftsForm').addEventListener('submit', async function(e
         const formData = new FormData(this);
         const data = Object.fromEntries(formData.entries());
         
-        // Handle arrays for gift data
-        const specificGiftDescriptions = formData.getAll('specificGiftDescription[]').filter(desc => desc.trim());
-        const specificGiftRecipients = formData.getAll('specificGiftRecipient[]').filter(recipient => recipient.trim());
-        const specificGiftRelationships = formData.getAll('specificGiftRelationship[]').filter(rel => rel.trim());
-        
-        const charitableGiftDescriptions = formData.getAll('charitableGiftDescription[]').filter(desc => desc.trim());
-        const charitableGiftRecipients = formData.getAll('charitableGiftRecipient[]').filter(recipient => recipient.trim());
-        
-        // Build gift arrays
-        data.specificGifts = specificGiftDescriptions.map((desc, index) => ({
-            description: desc,
-            recipient: specificGiftRecipients[index] || '',
-            relationship: specificGiftRelationships[index] || '',
-            survivalCondition: data[`giftIfSpouseSurvives${index + 1}`] || 'no'
-        }));
-        
-        data.charitableGifts = charitableGiftDescriptions.map((desc, index) => ({
-            description: desc,
-            recipient: charitableGiftRecipients[index] || '',
-            survivalCondition: data[`charityIfSpouseSurvives${index + 1}`] || 'no'
-        }));
-        
         // Get selected gift types
         data.selectedGiftTypes = Array.from(document.querySelectorAll('input[name="giftTypes"]:checked')).map(cb => cb.value);
+        
+        // If no specific gifts selected, that's okay
+        if (data.selectedGiftTypes.length === 0 || data.selectedGiftTypes.includes('none')) {
+            data.selectedGiftTypes = ['none'];
+            data.specificGifts = [];
+            data.charitableGifts = [];
+        } else {
+            // Handle arrays for gift data only if gifts are selected
+            const specificGiftDescriptions = formData.getAll('specificGiftDescription[]').filter(desc => desc.trim());
+            const specificGiftRecipients = formData.getAll('specificGiftRecipient[]').filter(recipient => recipient.trim());
+            const specificGiftRelationships = formData.getAll('specificGiftRelationship[]').filter(rel => rel.trim());
+            
+            const charitableGiftDescriptions = formData.getAll('charitableGiftDescription[]').filter(desc => desc.trim());
+            const charitableGiftRecipients = formData.getAll('charitableGiftRecipient[]').filter(recipient => recipient.trim());
+            
+            // Build gift arrays
+            data.specificGifts = specificGiftDescriptions.map((desc, index) => ({
+                description: desc,
+                recipient: specificGiftRecipients[index] || '',
+                relationship: specificGiftRelationships[index] || '',
+                survivalCondition: data[`giftIfSpouseSurvives${index + 1}`] || 'no'
+            }));
+            
+            data.charitableGifts = charitableGiftDescriptions.map((desc, index) => ({
+                description: desc,
+                recipient: charitableGiftRecipients[index] || '',
+                survivalCondition: data[`charityIfSpouseSurvives${index + 1}`] || 'no'
+            }));
+        }
         
         // Add document type and section
         data.documentType = 'will';
