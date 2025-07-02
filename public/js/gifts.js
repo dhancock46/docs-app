@@ -7,13 +7,30 @@ function toggleRetirementGiftOption() {
     const hasRetirement = document.querySelector('input[name="spouseHasRetirementPre"]:checked')?.value;
     const retirementOption = document.getElementById('spouseRetirementGiftOption');
     
-    if (hasRetirement === 'yes') {
-        retirementOption.style.display = 'block';
+    console.log('toggleRetirementGiftOption called, hasRetirement:', hasRetirement); // Debug line
+    
+    if (retirementOption) {
+        if (hasRetirement === 'yes') {
+            retirementOption.style.display = 'block';
+            console.log('Showing retirement option'); // Debug line
+        } else {
+            retirementOption.style.display = 'none';
+            console.log('Hiding retirement option'); // Debug line
+            
+            // Safely uncheck the retirement gift option if it exists
+            const retirementCheckbox = document.getElementById('spouseRetirementGift');
+            if (retirementCheckbox) {
+                retirementCheckbox.checked = false;
+            }
+            
+            // Safely hide the retirement section if it exists
+            const retirementSection = document.getElementById('spouseRetirementSection');
+            if (retirementSection) {
+                retirementSection.classList.add('hidden');
+            }
+        }
     } else {
-        retirementOption.style.display = 'none';
-        // Uncheck the retirement gift option if hidden
-        document.getElementById('spouseRetirementGift').checked = false;
-        document.getElementById('spouseRetirementSection').classList.add('hidden');
+        console.log('retirementOption element not found'); // Debug line
     }
 }
 
