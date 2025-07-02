@@ -481,7 +481,7 @@ if (maritalStatus !== 'married') {
         }
     });
     
-    // ALSO hide any parent containers that might contain these questions
+   // ALSO hide any parent containers that might contain these questions
     const giftTypeCheckboxes = document.querySelectorAll('input[name="giftTypes"]');
     giftTypeCheckboxes.forEach(checkbox => {
         if (checkbox.value === 'spouseRetirement' || checkbox.value === 'priorChildrenTrust') {
@@ -492,5 +492,29 @@ if (maritalStatus !== 'married') {
             }
         }
     });
+}
+
+// ADDITIONAL HIDING FOR MARRIED USERS
+if (maritalStatus === 'married') {
+    console.log('FINAL HIDE: Processing married user options');
+    
+    // Hide prior children trust if no prior children
+    if (hasPriorChildren !== 'yes') {
+        const priorChildrenOption = document.getElementById('priorChildrenTrustOption');
+        if (priorChildrenOption) {
+            priorChildrenOption.style.display = 'none';
+            console.log('Hid prior children trust - no prior children');
+        }
+        
+        // Hide the checkbox too
+        const priorChildrenCheckbox = document.querySelector('input[value="priorChildrenTrust"]');
+        if (priorChildrenCheckbox) {
+            const parentDiv = priorChildrenCheckbox.closest('.checkbox-item');
+            if (parentDiv) {
+                parentDiv.style.display = 'none';
+                console.log('Hid prior children trust checkbox container');
+            }
+        }
+    }
 }
 });
