@@ -55,13 +55,19 @@ router.post('/gifts', async (req, res) => {
             }
         }
         
-        // Validate prior children trust
-        if (selectedGiftTypes.includes('priorChildrenTrust')) {
-            if (!req.body.priorChildrenNames || !req.body.trustAmount || !req.body.trustName || !req.body.lifeInsuranceFunding) {
-                throw new Error('Complete prior children trust information is required');
-            }
-        }
-        
+     // Validate prior children trust
+if (selectedGiftTypes.includes('priorChildrenTrust')) {
+    console.log('DEBUG: Checking prior children trust fields:', {
+        priorChildrenNames: req.body.priorChildrenNames,
+        trustAmount: req.body.trustAmount,
+        trustName: req.body.trustName,
+        lifeInsuranceFunding: req.body.lifeInsuranceFunding
+    });
+    
+    if (!req.body.priorChildrenNames || !req.body.trustAmount || !req.body.trustName || !req.body.lifeInsuranceFunding) {
+        throw new Error('Complete prior children trust information is required');
+    }
+}
         // Validate specific person gifts
         if (selectedGiftTypes.includes('specificPersonGifts')) {
             if (!req.body.specificGifts || req.body.specificGifts.length === 0) {
