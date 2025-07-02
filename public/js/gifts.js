@@ -16,9 +16,12 @@ function toggleRetirementGiftOption() {
     retirementOption.classList.remove('hidden');
     retirementOption.removeAttribute('hidden');
     console.log('Aggressively showing retirement option');
-       } else {
-           retirementOption.style.display = 'none';
-           console.log('Hiding retirement option');
+   } else {
+    retirementOption.style.display = 'none';
+    retirementOption.style.visibility = 'hidden';
+    retirementOption.classList.add('hidden');
+    retirementOption.setAttribute('hidden', 'true');
+    console.log('Aggressively hiding retirement option');
            
            // Safely uncheck the retirement gift option if it exists
            const retirementCheckbox = document.getElementById('spouseRetirementGift');
