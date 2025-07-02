@@ -617,3 +617,23 @@ input[type="radio"] {
     line-height: 1.4 !important;
     display: block !important;
 }
+/* Remove gaps from hidden elements */
+.checkbox-item.hidden,
+.checkbox-item[hidden],
+.checkbox-item[style*="display: none"] {
+    display: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    height: 0 !important;
+    overflow: hidden !important;
+}
+
+.form-section.hidden,
+.form-section[hidden],
+.form-section[style*="display: none"] {
+    display: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    height: 0 !important;
+    overflow: hidden !important;
+}
