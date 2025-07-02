@@ -7,15 +7,15 @@ function toggleRetirementGiftOption() {
     const hasRetirement = document.querySelector('input[name="spouseHasRetirementPre"]:checked')?.value;
     const retirementOption = document.getElementById('spouseRetirementGiftOption');
     
-    console.log('toggleRetirementGiftOption called, hasRetirement:', hasRetirement); // Debug line
+    console.log('toggleRetirementGiftOption called, hasRetirement:', hasRetirement);
     
     if (retirementOption) {
         if (hasRetirement === 'yes') {
             retirementOption.style.display = 'block';
-            console.log('Showing retirement option'); // Debug line
+            console.log('Showing retirement option');
         } else {
             retirementOption.style.display = 'none';
-            console.log('Hiding retirement option'); // Debug line
+            console.log('Hiding retirement option');
             
             // Safely uncheck the retirement gift option if it exists
             const retirementCheckbox = document.getElementById('spouseRetirementGift');
@@ -30,7 +30,7 @@ function toggleRetirementGiftOption() {
             }
         }
     } else {
-        console.log('retirementOption element not found'); // Debug line
+        console.log('retirementOption element not found');
     }
 }
 
@@ -85,6 +85,12 @@ function addSpecificGift() {
     specificGiftCount++;
     const giftsList = document.getElementById('specificGiftsList');
     
+    // Check if user is married to determine if survival condition should be shown
+    const urlParams = new URLSearchParams(window.location.search);
+    const maritalStatus = urlParams.get('maritalStatus');
+    const isMarried = maritalStatus === 'married';
+    const survivalConditionClass = isMarried ? '' : 'hidden';
+    
     const newGiftEntry = document.createElement('div');
     newGiftEntry.className = 'specific-gift-entry';
     newGiftEntry.innerHTML = `
@@ -101,7 +107,7 @@ function addSpecificGift() {
             <label for="specificGift${specificGiftCount}Relationship">Relationship to You</label>
             <input type="text" id="specificGift${specificGiftCount}Relationship" name="specificGiftRelationship[]" placeholder="e.g., my daughter, my nephew, my friend">
         </div>
-        <div class="form-group hidden" id="giftSurvivalCondition${specificGiftCount}">
+        <div class="form-group ${survivalConditionClass}" id="giftSurvivalCondition${specificGiftCount}">
             <label>Should this gift be made if your spouse survives you? *</label>
             <div class="radio-group">
                 <div class="radio-item">
@@ -124,6 +130,12 @@ function addCharitableGift() {
     charitableGiftCount++;
     const giftsList = document.getElementById('charitableGiftsList');
     
+    // Check if user is married to determine if survival condition should be shown
+    const urlParams = new URLSearchParams(window.location.search);
+    const maritalStatus = urlParams.get('maritalStatus');
+    const isMarried = maritalStatus === 'married';
+    const survivalConditionClass = isMarried ? '' : 'hidden';
+    
     const newGiftEntry = document.createElement('div');
     newGiftEntry.className = 'charitable-gift-entry';
     newGiftEntry.innerHTML = `
@@ -136,7 +148,7 @@ function addCharitableGift() {
             <label for="charitableGift${charitableGiftCount}Recipient">Charity Name *</label>
             <input type="text" id="charitableGift${charitableGiftCount}Recipient" name="charitableGiftRecipient[]" placeholder="Full legal name of charity">
         </div>
-        <div class="form-group hidden" id="charitySurvivalCondition${charitableGiftCount}">
+        <div class="form-group ${survivalConditionClass}" id="charitySurvivalCondition${charitableGiftCount}">
             <label>Should this charitable gift be made if your spouse survives you? *</label>
             <div class="radio-group">
                 <div class="radio-item">
@@ -178,7 +190,7 @@ function closeHelp() {
     helpPopups.forEach(popup => popup.style.display = 'none');
 }
 
-// Form submission - FIXED FOR ALL SCENARIOS
+// FIXED Form submission
 document.getElementById('giftsForm').addEventListener('submit', async function(e) {
     e.preventDefault();
     
@@ -187,7 +199,6 @@ document.getElementById('giftsForm').addEventListener('submit', async function(e
     const loadingMessage = document.getElementById('loadingMessage');
     const successMessage = document.getElementById('successMessage');
     const errorMessage = document.getElementById('errorMessage');
-    
     
     // Hide all messages initially
     loadingMessage.style.display = 'none';
@@ -209,19 +220,29 @@ document.getElementById('giftsForm').addEventListener('submit', async function(e
     const charitableGiftDescriptions = formData.getAll('charitableGiftDescription[]').filter(desc => desc.trim());
     const charitableGiftRecipients = formData.getAll('charitableGiftRecipient[]').filter(recipient => recipient.trim());
     
-    // Build gift arrays
-    data.specificGifts = specificGiftDescriptions.map((desc, index) => ({
-        description: desc,
-        recipient: specificGiftRecipients[index] || '',
-        relationship: specificGiftRelationships[index] || '',
-        survivalCondition: data[`giftIfSpouseSurvives${index + 1}`] || 'no'
-    }));
+    // FIXED: Build gift arrays with proper survival condition collection
+    data.specificGifts = specificGiftDescriptions.map((desc, index) => {
+        const giftNumber = index + 1;
+        const survivalCondition = formData.get(`giftIfSpouseSurvives${giftNumber}`) || 'no';
+        
+        return {
+            description: desc,
+            recipient: specificGiftRecipients[index] || '',
+            relationship: specificGiftRelationships[index] || '',
+            survivalCondition: survivalCondition
+        };
+    });
     
-    data.charitableGifts = charitableGiftDescriptions.map((desc, index) => ({
-        description: desc,
-        recipient: charitableGiftRecipients[index] || '',
-        survivalCondition: data[`charityIfSpouseSurvives${index + 1}`] || 'no'
-    }));
+    data.charitableGifts = charitableGiftDescriptions.map((desc, index) => {
+        const giftNumber = index + 1;
+        const survivalCondition = formData.get(`charityIfSpouseSurvives${giftNumber}`) || 'no';
+        
+        return {
+            description: desc,
+            recipient: charitableGiftRecipients[index] || '',
+            survivalCondition: survivalCondition
+        };
+    });
     
     // Get selected gift types
     data.selectedGiftTypes = selectedGiftTypes;
@@ -279,32 +300,27 @@ document.addEventListener('DOMContentLoaded', function() {
         document.getElementById('clientEmail').value = decodeURIComponent(email);
     }
     
-// Show/hide prior children trust option
-if (hasPriorChildren === 'yes') {
-    const priorChildrenOption = document.getElementById('priorChildrenTrustOption');
-    if (priorChildrenOption) {
-        priorChildrenOption.style.display = 'block';
-    }
-    
-    // Auto-populate prior children trust information if available
-    const priorChildrenNamesParam = urlParams.get('priorChildrenNames');
-    if (priorChildrenNamesParam) {
-        const priorChildrenNamesField = document.getElementById('priorChildrenNames');
-        if (priorChildrenNamesField) {
-            priorChildrenNamesField.value = decodeURIComponent(priorChildrenNamesParam);
+    // Show/hide prior children trust option
+    if (hasPriorChildren === 'yes') {
+        const priorChildrenOption = document.getElementById('priorChildrenTrustOption');
+        if (priorChildrenOption) {
+            priorChildrenOption.style.display = 'block';
+        }
+        
+        // Auto-populate prior children trust information if available
+        const priorChildrenNamesParam = urlParams.get('priorChildrenNames');
+        if (priorChildrenNamesParam) {
+            const priorChildrenNamesField = document.getElementById('priorChildrenNames');
+            if (priorChildrenNamesField) {
+                priorChildrenNamesField.value = decodeURIComponent(priorChildrenNamesParam);
+            }
         }
     }
-}
 
-// Handle spouse-related sections for married users
-if (maritalStatus === 'married') {
-    // Show the spouse retirement pre-check section
-    document.getElementById('spouseRetirementPreCheck').style.display = 'block';
-    
-    // Remove required attribute initially - will be added back when section is visible
-    document.querySelectorAll('input[name="spouseHasRetirementPre"]').forEach(radio => {
-        radio.required = false;
-    });
+    // Handle spouse-related sections for married users
+    if (maritalStatus === 'married') {
+        // Show the spouse retirement pre-check section
+        document.getElementById('spouseRetirementPreCheck').style.display = 'block';
         
         // Auto-show survival condition fields since we know they're married
         document.querySelectorAll('[id^="giftSurvivalCondition"]').forEach(section => {
