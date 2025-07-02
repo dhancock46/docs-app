@@ -364,14 +364,20 @@ document.getElementById('giftsForm').addEventListener('submit', async function(e
 
 // Initialize form
 document.addEventListener('DOMContentLoaded', function() {
-   // Auto-populate testator name if coming from previous section
-   const urlParams = new URLSearchParams(window.location.search);
-   const testatorName = urlParams.get('testatorName');
-   const email = urlParams.get('email');
-   const maritalStatus = urlParams.get('maritalStatus');
-   const hasChildren = urlParams.get('hasChildren');
-   const hasPriorChildren = urlParams.get('hasPriorChildren');
-   
+    // Auto-populate testator name if coming from previous section
+    const urlParams = new URLSearchParams(window.location.search);
+    const testatorName = urlParams.get('testatorName');
+    const email = urlParams.get('email');
+    const maritalStatus = urlParams.get('maritalStatus');
+    const hasChildren = urlParams.get('hasChildren');
+    const hasPriorChildren = urlParams.get('hasPriorChildren');
+    
+    // DEBUG: Check what parameters we're actually getting
+    console.log('DEBUG - URL Parameters:');
+    console.log('maritalStatus:', maritalStatus);
+    console.log('hasPriorChildren:', hasPriorChildren);
+    console.log('testatorName:', testatorName);
+    console.log('email:', email); 
    if (testatorName) {
        document.getElementById('testatorName').value = decodeURIComponent(testatorName);
    }
