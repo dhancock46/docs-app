@@ -454,12 +454,20 @@ if (maritalStatus !== 'married') {
         }
     }
    
-   // Prevent Enter key submission in text fields
-   document.querySelectorAll('input[type="text"], input[type="email"], textarea').forEach(input => {
-       input.addEventListener('keypress', function(e) {
-           if (e.key === 'Enter') {
-               e.preventDefault();
-           }
-       });
-   });
+  // Prevent Enter key submission in text fields
+document.querySelectorAll('input[type="text"], input[type="email"], textarea').forEach(input => {
+    input.addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') {
+            e.preventDefault();
+        }
+    });
+});
+
+// FINAL FORCE HIDE - Run at the very end to override any other logic
+if (maritalStatus !== 'married') {
+    console.log('FINAL HIDE: Forcing spouse-related elements hidden for non-married user');
+    document.getElementById('spouseRetirementPreCheck').style.display = 'none';
+    document.getElementById('spouseRetirementGiftOption').style.display = 'none';
+    document.getElementById('priorChildrenTrustOption').style.display = 'none';
+}
 });
