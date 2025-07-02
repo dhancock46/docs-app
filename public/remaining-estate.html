@@ -1,1 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Will Remaining Estate - Legal Document Preparation</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Last Will and Testament - Remaining Estate Distribution</h1>
+            <p>How should the remainder of your estate be distributed?</p>
+        </div>
+        
+        <div class="form-container" style="display: block;">
+            <button class="back-btn" onclick="window.location.href='gifts.html'">← Back to Specific Gifts</button>
 
+            <form id="remainingEstateForm">
+                <input type="hidden" id="testatorName" name="testatorName">
+                <input type="hidden" id="clientEmail" name="clientEmail">
+                
+                <!-- Progress Indicator -->
+                <div class="form-section">
+                    <h3>Section Progress</h3>
+                    <p>✅ Personal & Family Information Complete</p>
+                    <p>✅ Specific Gifts Complete</p>
+                    <p>🔄 <strong>Current: Remaining Estate Distribution</strong></p>
+                    <p>⏳ Executors & Final Review (Next)</p>
+                </div>
+
+                <!-- Married Users - Spouse Distribution -->
+                <div class="form-section" id="spouseDistributionSection" style="display: none;">
+                    <h3>Distribution to Your Spouse</h3>
+                    <div class="form-group">
+                        <label>How much of your remaining estate should go to your spouse? *</label>
+                        <div class="radio-group">
+                            <div class="radio-item">
+                                <input type="radio" id="spouseAll" name="spouseDistribution" value="all" onchange="toggleChildrenDistribution()">
+                                <label for="spouseAll">All of my remaining estate (100%)</label>
+                            </div>
+                            <div class="radio-item">
+                                <input type="radio" id="spousePartial" name="spouseDistribution" value="partial" onchange="toggleChildrenDistribution()">
+                                <label for="spousePartial">Part of my remaining estate (specify percentage)</label>
+                            </div>
+                            <div class="radio-item">
+                                <input type="radio" id="spouseNone" name="spouseDistribution" value="none" onchange="toggleChildrenDistribution()">
+                                <label for="spouseNone">None - distribute to others instead</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group" id="spousePercentageGroup" style="display: none;">
+                        <label for="spousePercentage">Percentage to Spouse *</label>
+                        <input type="number" id="spousePercentage" name="spousePercentage" min="1" max="100" placeholder="50">
+                        <small>Enter a number between 1 and 100</small>
+                    </div>
+                </div>
+
+                <!-- Children Distribution -->
+                <div class="form-section" id="childrenDistributionSection" style="display: none;">
+                    <h3>Distribution to Your Children</h3>
+                    <div class="form-group">
+                        <label>How should your children receive their share? *</label>
+                        <div class="radio-group">
+                            <div class="radio-item">
+                                <input type="radio" id="childrenEqual" name="childrenDistribution" value="equal">
+                                <label for="childrenEqual">Divide equally among all my children</label>
+                            </div>
+                            <div class="radio-item">
+                                <input type="radio" id="childrenCustom" name="childrenDistribution" value="custom" onchange="toggleCustomChildrenShares()">
+                                <label for="childrenCustom">Specify different amounts for each child</label>
+                            </div>
+                            <div class="radio-item">
+                                <input type="radio" id="childrenNone" name="childrenDistribution" value="none">
+                                <label for="childrenNone">My children should not receive any of the remaining estate</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group" id="customChildrenSharesGroup" style="display: none;">
+                        <label>Specify shares for each child:</label>
+                        <div id="childrenSharesList">
+                            <!-- Dynamic child shares will be populated here -->
+                        </div>
+                        <small>Percentages must add up to 100%</small>
+                    </div>
+                </div>
+
+                <!-- Alternative Beneficiaries -->
+                <div class="form-section" id="alternativeBeneficiariesSection" style="display: none;">
+                    <h3>Alternative Beneficiaries</h3>
+                    <p>If your primary beneficiaries (spouse/children) cannot inherit, who should receive your estate instead?</p>
+                    
+                    <div class="form-group">
+                        <label>Alternative Beneficiaries *</label>
+                        <div class="radio-group">
+                            <div class="radio-item">
+                                <input type="radio" id="altParents" name="alternativeBeneficiaries" value="parents">
+                                <label for="altParents">My parents (or surviving parent)</label>
+                            </div>
+                            <div class="radio-item">
+                                <input type="radio" id="altSiblings" name="alternativeBeneficiaries" value="siblings">
+                                <label for="altSiblings">My siblings equally</label>
+                            </div>
+                            <div class="radio-item">
+                                <input type="radio" id="altCharity" name="alternativeBeneficiaries" value="charity" onchange="toggleCharityDetails()">
+                                <label for="altCharity">Charitable organization(s)</label>
+                            </div>
+                            <div class="radio-item">
+                                <input type="radio" id="altCustom" name="alternativeBeneficiaries" value="custom" onchange="toggleCustomAlternatives()">
+                                <label for="altCustom">Other person(s) - specify</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group" id="charityDetailsGroup" style="display: none;">
+                        <label for="charityName">Charity Name *</label>
+                        <input type="text" id="charityName" name="charityName" placeholder="Full legal name of charity">
+                    </div>
+
+                    <div class="form-group" id="customAlternativesGroup" style="display: none;">
+                        <label for="customAlternatives">Custom Alternative Beneficiaries *</label>
+                        <textarea id="customAlternatives" name="customAlternatives" rows="3" placeholder="Describe who should receive your estate (e.g., 'My nephew John Smith and my niece Jane Doe, equally')"></textarea>
+                    </div>
+                </div>
+
+                <!-- Summary Section -->
+                <div class="form-section" id="distributionSummary" style="display: none;">
+                    <h3>Distribution Summary</h3>
+                    <div id="summaryContent">
+                        <!-- Summary will be populated by JavaScript -->
+                    </div>
+                </div>
+
+                <!-- Navigation -->
+                <div class="form-navigation">
+                    <button type="submit" class="submit-btn">Save & Continue to Executors →</button>
+                </div>
+            </form>
+
+            <!-- Loading and Success Messages -->
+            <div id="loadingMessage" class="message loading-message" style="display: none;">
+                <p>Saving your estate distribution preferences...</p>
+            </div>
+
+            <div id="successMessage" class="message success-message" style="display: none;">
+                <p>✅ Estate distribution saved successfully!</p>
+                <a href="executors.html" class="continue-btn">Continue to Executors & Witnesses →</a>
+            </div>
+
+            <div id="errorMessage" class="message error-message" style="display: none;">
+                <p>❌ There was an error saving your information. Please try again.</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/remaining-estate.js"></script>
+</body>
+</html>
