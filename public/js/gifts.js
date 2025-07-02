@@ -379,39 +379,57 @@ document.addEventListener('DOMContentLoaded', function() {
        document.getElementById('clientEmail').value = decodeURIComponent(email);
    }
    
-   // Show/hide prior children trust option
-   if (hasPriorChildren === 'yes') {
-       const priorChildrenOption = document.getElementById('priorChildrenTrustOption');
-       if (priorChildrenOption) {
-           priorChildrenOption.style.display = 'block';
-       }
-       
-       // Auto-populate prior children trust information if available
-       const priorChildrenNamesParam = urlParams.get('priorChildrenNames');
-       if (priorChildrenNamesParam) {
-           const priorChildrenNamesField = document.getElementById('priorChildrenNames');
-           if (priorChildrenNamesField) {
-               priorChildrenNamesField.value = decodeURIComponent(priorChildrenNamesParam);
-           }
-       }
-   }
+  // Show/hide prior children trust option - ONLY for married users with prior children
+    if (maritalStatus === 'married' && hasPriorChildren === 'yes') {
+        const priorChildrenOption = document.getElementById('priorChildrenTrustOption');
+        if (priorChildrenOption) {
+            priorChildrenOption.style.display = 'block';
+        }
+        
+        // Auto-populate prior children trust information if available
+        const priorChildrenNamesParam = urlParams.get('priorChildrenNames');
+        if (priorChildrenNamesParam) {
+            const priorChildrenNamesField = document.getElementById('priorChildrenNames');
+            if (priorChildrenNamesField) {
+                priorChildrenNamesField.value = decodeURIComponent(priorChildrenNamesParam);
+            }
+        }
+    } else {
+        // Hide prior children trust option for everyone else
+        const priorChildrenOption = document.getElementById('priorChildrenTrustOption');
+        if (priorChildrenOption) {
+            priorChildrenOption.style.display = 'none';
+        }
+    }
 
-   // Handle spouse-related sections for married users
-   if (maritalStatus === 'married') {
-       // Show the spouse retirement pre-check section
-       document.getElementById('spouseRetirementPreCheck').style.display = 'block';
-       
-       // Auto-show survival condition fields since we know they're married
-       document.querySelectorAll('[id^="giftSurvivalCondition"]').forEach(section => {
-           section.classList.remove('hidden');
-       });
-       document.querySelectorAll('[id^="charitySurvivalCondition"]').forEach(section => {
-           section.classList.remove('hidden');
-       });
-   } else {
-       // Hide spouse retirement section entirely for non-married users
-       document.getElementById('spouseRetirementPreCheck').style.display = 'none';
-   }
+    // Handle spouse-related sections ONLY for married users
+    if (maritalStatus === 'married') {
+        // Show the spouse retirement pre-check section
+        const spouseRetirementPreCheck = document.getElementById('spouseRetirementPreCheck');
+        if (spouseRetirementPreCheck) {
+            spouseRetirementPreCheck.style.display = 'block';
+        }
+        
+        // Auto-show survival condition fields since we know they're married
+        document.querySelectorAll('[id^="giftSurvivalCondition"]').forEach(section => {
+            section.classList.remove('hidden');
+        });
+        document.querySelectorAll('[id^="charitySurvivalCondition"]').forEach(section => {
+            section.classList.remove('hidden');
+        });
+    } else {
+        // Hide ALL spouse-related sections for non-married users
+        const spouseRetirementPreCheck = document.getElementById('spouseRetirementPreCheck');
+        if (spouseRetirementPreCheck) {
+            spouseRetirementPreCheck.style.display = 'none';
+        }
+        
+        // Hide spouse retirement gift option entirely
+        const spouseRetirementGiftOption = document.getElementById('spouseRetirementGiftOption');
+        if (spouseRetirementGiftOption) {
+            spouseRetirementGiftOption.style.display = 'none';
+        }
+    }
    
    // Prevent Enter key submission in text fields
    document.querySelectorAll('input[type="text"], input[type="email"], textarea').forEach(input => {
