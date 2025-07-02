@@ -535,7 +535,27 @@ if (maritalStatus === 'married') {
             }
         });
     }
-// ADD THE SPOUSE RETIREMENT HIDING HERE:
+// ALWAYS hide spouse retirement gift by default for married users
+    console.log('Hiding spouse retirement gift by default');
+    const spouseRetirementGiftOption = document.getElementById('spouseRetirementGiftOption');
+    if (spouseRetirementGiftOption) {
+        spouseRetirementGiftOption.style.display = 'none';
+        spouseRetirementGiftOption.style.visibility = 'hidden';
+        spouseRetirementGiftOption.classList.add('hidden');
+        console.log('Aggressively hid spouse retirement gift option by default');
+    }
+    
+    const spouseRetirementCheckbox = document.querySelector('input[value="spouseRetirement"]');
+    if (spouseRetirementCheckbox) {
+        const parentDiv = spouseRetirementCheckbox.closest('.checkbox-item');
+        if (parentDiv) {
+            parentDiv.style.display = 'none';
+            console.log('Hid spouse retirement checkbox container by default');
+        }
+    }
+}
+});
+   // ADD THE SPOUSE RETIREMENT HIDING HERE:
     // Hide spouse retirement gift if no retirement accounts
     const spouseHasRetirement = document.querySelector('input[name="spouseHasRetirementPre"]:checked')?.value;
     console.log('spouseHasRetirement value:', spouseHasRetirement);
