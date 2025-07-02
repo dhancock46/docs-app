@@ -10,9 +10,12 @@ function toggleRetirementGiftOption() {
    console.log('toggleRetirementGiftOption called, hasRetirement:', hasRetirement);
    
    if (retirementOption) {
-       if (hasRetirement === 'yes') {
-           retirementOption.style.display = 'block';
-           console.log('Showing retirement option');
+      if (hasRetirement === 'yes') {
+    retirementOption.style.display = 'block';
+    retirementOption.style.visibility = 'visible';
+    retirementOption.classList.remove('hidden');
+    retirementOption.removeAttribute('hidden');
+    console.log('Aggressively showing retirement option');
        } else {
            retirementOption.style.display = 'none';
            console.log('Hiding retirement option');
