@@ -378,12 +378,22 @@ document.addEventListener('DOMContentLoaded', function() {
     console.log('hasPriorChildren:', hasPriorChildren);
     console.log('testatorName:', testatorName);
     console.log('email:', email); 
-   // FORCE HIDE all spouse/marriage-related elements for single users
+ // FORCE HIDE all spouse/marriage-related elements for single users
 if (maritalStatus !== 'married') {
     console.log('DEBUG: Hiding spouse-related elements for non-married user');
-    document.getElementById('spouseRetirementPreCheck').style.display = 'none';
-    document.getElementById('spouseRetirementGiftOption').style.display = 'none';
-    document.getElementById('priorChildrenTrustOption').style.display = 'none';
+    
+    // CHECK if elements exist before hiding
+    const spouseRetirementPreCheck = document.getElementById('spouseRetirementPreCheck');
+    const spouseRetirementGiftOption = document.getElementById('spouseRetirementGiftOption');
+    const priorChildrenTrustOption = document.getElementById('priorChildrenTrustOption');
+    
+    console.log('spouseRetirementPreCheck found:', !!spouseRetirementPreCheck);
+    console.log('spouseRetirementGiftOption found:', !!spouseRetirementGiftOption);
+    console.log('priorChildrenTrustOption found:', !!priorChildrenTrustOption);
+    
+    if (spouseRetirementPreCheck) spouseRetirementPreCheck.style.display = 'none';
+    if (spouseRetirementGiftOption) spouseRetirementGiftOption.style.display = 'none';
+    if (priorChildrenTrustOption) priorChildrenTrustOption.style.display = 'none';
 }
    if (testatorName) {
        document.getElementById('testatorName').value = decodeURIComponent(testatorName);
