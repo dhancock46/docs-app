@@ -500,21 +500,40 @@ if (maritalStatus === 'married') {
     
     // Hide prior children trust if no prior children
     if (hasPriorChildren !== 'yes') {
+        console.log('Should hide prior children trust - hasPriorChildren is:', hasPriorChildren);
+        
+        // Try multiple ways to find and hide prior children elements
         const priorChildrenOption = document.getElementById('priorChildrenTrustOption');
+        console.log('priorChildrenOption found:', !!priorChildrenOption);
         if (priorChildrenOption) {
             priorChildrenOption.style.display = 'none';
-            console.log('Hid prior children trust - no prior children');
+            priorChildrenOption.style.visibility = 'hidden';
+            priorChildrenOption.classList.add('hidden');
+            console.log('Aggressively hid priorChildrenTrustOption');
         }
         
-        // Hide the checkbox too
+        // Find and hide the checkbox
         const priorChildrenCheckbox = document.querySelector('input[value="priorChildrenTrust"]');
+        console.log('priorChildrenCheckbox found:', !!priorChildrenCheckbox);
         if (priorChildrenCheckbox) {
             const parentDiv = priorChildrenCheckbox.closest('.checkbox-item');
+            console.log('parentDiv found:', !!parentDiv);
             if (parentDiv) {
                 parentDiv.style.display = 'none';
-                console.log('Hid prior children trust checkbox container');
+                parentDiv.style.visibility = 'hidden';
+                parentDiv.classList.add('hidden');
+                console.log('Aggressively hid prior children checkbox container');
             }
         }
+        
+        // Also try to find by text content
+        const allCheckboxItems = document.querySelectorAll('.checkbox-item');
+        allCheckboxItems.forEach((item, index) => {
+            if (item.textContent.includes('Trust for My Child/Children from a Prior Relationship')) {
+                item.style.display = 'none';
+                console.log(`Hid checkbox item ${index} by text content`);
+            }
+        });
     }
 }
 });
