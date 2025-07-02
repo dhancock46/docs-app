@@ -466,8 +466,30 @@ document.querySelectorAll('input[type="text"], input[type="email"], textarea').f
 // FINAL FORCE HIDE - Run at the very end to override any other logic
 if (maritalStatus !== 'married') {
     console.log('FINAL HIDE: Forcing spouse-related elements hidden for non-married user');
-    document.getElementById('spouseRetirementPreCheck').style.display = 'none';
-    document.getElementById('spouseRetirementGiftOption').style.display = 'none';
-    document.getElementById('priorChildrenTrustOption').style.display = 'none';
+    
+    // AGGRESSIVE HIDING - try multiple methods
+    const elements = ['spouseRetirementPreCheck', 'spouseRetirementGiftOption', 'priorChildrenTrustOption'];
+    
+    elements.forEach(elementId => {
+        const element = document.getElementById(elementId);
+        if (element) {
+            element.style.display = 'none';
+            element.style.visibility = 'hidden';
+            element.classList.add('hidden');
+            element.setAttribute('hidden', 'true');
+            console.log(`Aggressively hid: ${elementId}`);
+        }
+    });
+    
+    // ALSO hide any parent containers that might contain these questions
+    const giftTypeCheckboxes = document.querySelectorAll('input[name="giftTypes"]');
+    giftTypeCheckboxes.forEach(checkbox => {
+        if (checkbox.value === 'spouseRetirement' || checkbox.value === 'priorChildrenTrust') {
+            const parentDiv = checkbox.closest('.checkbox-item');
+            if (parentDiv) {
+                parentDiv.style.display = 'none';
+                console.log(`Hid parent container for: ${checkbox.value}`);
+            }
+        }
+    });
 }
-});
