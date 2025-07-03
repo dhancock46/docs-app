@@ -1,9 +1,13 @@
 const express = require('express');
 const router = express.Router();
 
+// Add debugging
+console.log('Remaining estate route file loaded successfully');
+
 // Handle remaining estate form submission
-router.post('/submit/remaining-estate', (req, res) => {
+router.post('/remaining-estate', (req, res) => {
     try {
+        console.log('Remaining estate route hit!');
         console.log('Remaining estate form submission received:', req.body);
         
         const {
@@ -11,7 +15,7 @@ router.post('/submit/remaining-estate', (req, res) => {
             clientEmail,
             spouseDistribution,
             spousePercentage,
-            childrenDistribution,
+            primaryDistribution,
             customChildShares,
             alternativeBeneficiaries,
             charityName,
@@ -28,13 +32,13 @@ router.post('/submit/remaining-estate', (req, res) => {
             });
         }
         
-        // Store the data (you can modify this to save to your database)
+        // Store the data
         const remainingEstateData = {
             testatorName,
             clientEmail,
             spouseDistribution,
             spousePercentage: spousePercentage ? parseInt(spousePercentage) : null,
-            childrenDistribution,
+            primaryDistribution,
             customChildShares,
             alternativeBeneficiaries,
             charityName,
@@ -44,8 +48,6 @@ router.post('/submit/remaining-estate', (req, res) => {
             timestamp: new Date().toISOString()
         };
         
-        // Here you would typically save to a database
-        // For now, we'll just log it and return success
         console.log('Processed remaining estate data:', remainingEstateData);
         
         res.json({
@@ -62,5 +64,7 @@ router.post('/submit/remaining-estate', (req, res) => {
         });
     }
 });
+
+console.log('Remaining estate route registered');
 
 module.exports = router;
