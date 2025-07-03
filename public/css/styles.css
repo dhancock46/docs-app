@@ -655,3 +655,19 @@ input[type="radio"] {
     cursor: pointer !important;
     line-height: 1.2 !important;
 }
+/* Force hide alternative options when hidden by JavaScript */
+.radio-item[style*="display: none"] {
+    display: none !important;
+    visibility: hidden !important;
+    height: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow: hidden !important;
+}
+
+#altParentsOption[style*="display: none"],
+#altSiblingsOption[style*="display: none"],
+#altCharityOption[style*="display: none"],
+#altOtherPersonsOption[style*="display: none"] {
+    display: none !important;
+}
