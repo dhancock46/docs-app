@@ -250,19 +250,12 @@ function updateAlternativeOptions() {
     const primarySelection = document.querySelector('input[name="primaryBeneficiaries"]:checked')?.value;
     const altSection = document.getElementById('alternativeBeneficiariesSection');
     
-    console.log('updateAlternativeOptions called');
-    console.log('primarySelection:', primarySelection);
-    
     // Show alternatives section for single users with no children
     const urlParams = new URLSearchParams(window.location.search);
     const maritalStatus = urlParams.get('maritalStatus');
     const hasChildren = urlParams.get('hasChildren');
     
-    console.log('maritalStatus:', maritalStatus);
-    console.log('hasChildren:', hasChildren);
-    
     if (maritalStatus === 'single' && hasChildren === 'no' && primarySelection) {
-        console.log('Showing alternatives section');
         altSection.style.display = 'block';
         
         // Check if elements exist
@@ -270,11 +263,6 @@ function updateAlternativeOptions() {
         const altSiblings = document.getElementById('altSiblingsOption');
         const altCharity = document.getElementById('altCharityOption');
         const altOtherPersons = document.getElementById('altOtherPersonsOption');
-        
-        console.log('altParentsOption found:', !!altParents);
-        console.log('altSiblingsOption found:', !!altSiblings);
-        console.log('altCharityOption found:', !!altCharity);
-        console.log('altOtherPersonsOption found:', !!altOtherPersons);
         
         // Reset all options to visible first
         if (altParents) altParents.style.display = 'block';
@@ -284,16 +272,12 @@ function updateAlternativeOptions() {
         
         // Then hide the option that was selected as primary
         if (primarySelection === 'parents' && altParents) {
-            console.log('Hiding parents option');
             altParents.style.display = 'none';
         } else if (primarySelection === 'siblings' && altSiblings) {
-            console.log('Hiding siblings option');
             altSiblings.style.display = 'none';
         } else if (primarySelection === 'charity' && altCharity) {
-            console.log('Hiding charity option');
             altCharity.style.display = 'none';
         } else if (primarySelection === 'otherPersons' && altOtherPersons) {
-            console.log('Hiding other persons option');
             altOtherPersons.style.display = 'none';
         }
     }
