@@ -150,7 +150,134 @@ function toggleCustomAlternatives() {
         customAlternativesGroup.style.display = 'none';
     }
 }
+// Counter variables
+let charityCount = 1;
+let otherPersonCount = 1;
 
+// Toggle primary charity details
+function togglePrimaryCharityDetails() {
+    const primaryCharity = document.getElementById('primaryCharity').checked;
+    const charityDetailsGroup = document.getElementById('primaryCharityDetailsGroup');
+    
+    if (primaryCharity) {
+        charityDetailsGroup.style.display = 'block';
+    } else {
+        charityDetailsGroup.style.display = 'none';
+    }
+}
+
+// Toggle other persons details
+function toggleOtherPersonsDetails() {
+    const otherPersons = document.getElementById('primaryOtherPersons').checked;
+    const otherPersonsGroup = document.getElementById('otherPersonsDetailsGroup');
+    
+    if (otherPersons) {
+        otherPersonsGroup.style.display = 'block';
+    } else {
+        otherPersonsGroup.style.display = 'none';
+    }
+}
+
+// Add another charity
+function addCharity() {
+    charityCount++;
+    const charitiesList = document.getElementById('charitiesList');
+    
+    const newCharityEntry = document.createElement('div');
+    newCharityEntry.className = 'charity-entry';
+    newCharityEntry.innerHTML = `
+        <h4>Charity #${charityCount}</h4>
+        <div class="form-group">
+            <label for="charity${charityCount}Name">Charity Name *</label>
+            <input type="text" id="charity${charityCount}Name" name="charityName[]" placeholder="Full legal name of charity">
+        </div>
+        <div class="form-group">
+            <label for="charity${charityCount}Percentage">Percentage *</label>
+            <input type="number" id="charity${charityCount}Percentage" name="charityPercentage[]" min="1" max="100" placeholder="25" step="1">
+            <span>%</span>
+        </div>
+        <button type="button" class="remove-btn" onclick="removeCharity(this)">Remove This Charity</button>
+    `;
+    charitiesList.appendChild(newCharityEntry);
+}
+
+// Add another other person
+function addOtherPerson() {
+    otherPersonCount++;
+    const otherPersonsList = document.getElementById('otherPersonsList');
+    
+    const newPersonEntry = document.createElement('div');
+    newPersonEntry.className = 'other-person-entry';
+    newPersonEntry.innerHTML = `
+        <h4>Person #${otherPersonCount}</h4>
+        <div class="form-group">
+            <label for="otherPerson${otherPersonCount}Name">Full Name *</label>
+            <input type="text" id="otherPerson${otherPersonCount}Name" name="otherPersonName[]" placeholder="Full legal name">
+        </div>
+        <div class="form-group">
+            <label for="otherPerson${otherPersonCount}Percentage">Percentage *</label>
+            <input type="number" id="otherPerson${otherPersonCount}Percentage" name="otherPersonPercentage[]" min="1" max="100" placeholder="25" step="1">
+            <span>%</span>
+        </div>
+        <div class="form-group">
+            <label for="otherPerson${otherPersonCount}Alternate">If this person doesn't survive me, give their share to:</label>
+            <input type="text" id="otherPerson${otherPersonCount}Alternate" name="otherPersonAlternate[]" placeholder="Name of alternate beneficiary (optional)">
+        </div>
+        <button type="button" class="remove-btn" onclick="removeOtherPerson(this)">Remove This Person</button>
+    `;
+    otherPersonsList.appendChild(newPersonEntry);
+}
+
+// Remove functions
+function removeCharity(button) {
+    button.parentElement.remove();
+}
+
+function removeOtherPerson(button) {
+    button.parentElement.remove();
+}
+
+// Update alternative options based on primary selection
+function updateAlternativeOptions() {
+    const primarySelection = document.querySelector('input[name="primaryBeneficiaries"]:checked')?.value;
+    const altSection = document.getElementById('alternativeBeneficiariesSection');
+    
+    // Show alternatives section for single users with no children
+    const urlParams = new URLSearchParams(window.location.search);
+    const maritalStatus = urlParams.get('maritalStatus');
+    const hasChildren = urlParams.get('hasChildren');
+    
+    if (maritalStatus === 'single' && hasChildren === 'no') {
+        altSection.style.display = 'block';
+        
+        // Hide the option that was selected as primary
+        document.getElementById('altParentsOption').style.display = primarySelection === 'parents' ? 'none' : 'block';
+        document.getElementById('altSiblingsOption').style.display = primarySelection === 'siblings' ? 'none' : 'block';
+        document.getElementById('altCharityOption').style.display = primarySelection === 'charity' ? 'none' : 'block';
+        document.getElementById('altOtherPersonsOption').style.display = primarySelection === 'otherPersons' ? 'none' : 'block';
+    }
+}
+
+// Alternative details toggles
+function toggleAlternativeCharityDetails() {
+    const altCharity = document.getElementById('altCharity').checked;
+    const altCharityGroup = document.getElementById('alternativeCharityDetailsGroup');
+    if (altCharity) {
+        altCharityGroup.style.display = 'block';
+    } else {
+        altCharityGroup.style.display = 'none';
+    }
+}
+
+function toggleAlternativeOtherPersonsDetails() {
+    const altOtherPersons = document.getElementById('altOtherPersons').checked;
+    const altOtherPersonsGroup = document.getElementById('alternativeOtherPersonsDetailsGroup');
+    if (altOtherPersons) {
+        altOtherPersonsGroup.style.display = 'block';
+    } else {
+        altOtherPersonsGroup.style.display = 'none';
+    }
+}
 // Update distribution summary
 function updateDistributionSummary() {
     const summarySection = document.getElementById('distributionSummary');
