@@ -7,6 +7,11 @@ document.addEventListener('DOMContentLoaded', function() {
     const maritalStatus = urlParams.get('maritalStatus');
     const hasChildren = urlParams.get('hasChildren');
     const childrenNames = urlParams.get('childrenNames');
+    // ADD THESE 4 DEBUGGING LINES:
+    console.log('Current URL:', window.location.href);
+    console.log('URL Parameters:', urlParams.toString());
+    console.log('testatorName from URL:', urlParams.get('testatorName'));
+    console.log('email from URL:', urlParams.get('email'));
     
     if (testatorName) {
         document.getElementById('testatorName').value = decodeURIComponent(testatorName);
