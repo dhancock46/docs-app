@@ -34,6 +34,7 @@ const medicalPoaRoutes = require('./routes/medical-poa');
 const directiveToPhysiciansRoutes = require('./routes/directive-to-physicians');
 const willRoutes = require('./routes/will');
 const giftsRoutes = require('./routes/gifts');
+const remainingEstateRoutes = require('./routes/remaining-estate');
 
 // Legacy route handler for backward compatibility
 app.post('/submit', async (req, res) => {
@@ -71,6 +72,7 @@ app.use('/submit', medicalPoaRoutes);
 app.use('/submit', directiveToPhysiciansRoutes);
 app.use('/submit', willRoutes);
 app.use('/submit', giftsRoutes);
+app.use('/submit', remainingEstateRoutes);
 
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
