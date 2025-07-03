@@ -34,8 +34,16 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
     
-    // Always show alternative beneficiaries section
+  // Show primary beneficiaries for single users with no children
+  if (maritalStatus === 'single' && hasChildren === 'no') {
+    document.getElementById('primaryBeneficiariesSection').style.display = 'block';
+    // Don't show alternatives yet - will be shown when primary is selected
+  } else {
+    // Hide primary beneficiaries for other users
+    document.getElementById('primaryBeneficiariesSection').style.display = 'none';
+    // Show alternative beneficiaries for married users or users with children
     document.getElementById('alternativeBeneficiariesSection').style.display = 'block';
+  }
     
     // Update summary when form changes
     updateDistributionSummary();
