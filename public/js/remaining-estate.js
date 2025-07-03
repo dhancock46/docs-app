@@ -255,14 +255,25 @@ function updateAlternativeOptions() {
     const maritalStatus = urlParams.get('maritalStatus');
     const hasChildren = urlParams.get('hasChildren');
     
-    if (maritalStatus === 'single' && hasChildren === 'no') {
+    if (maritalStatus === 'single' && hasChildren === 'no' && primarySelection) {
         altSection.style.display = 'block';
         
-        // Hide the option that was selected as primary
-        document.getElementById('altParentsOption').style.display = primarySelection === 'parents' ? 'none' : 'block';
-        document.getElementById('altSiblingsOption').style.display = primarySelection === 'siblings' ? 'none' : 'block';
-        document.getElementById('altCharityOption').style.display = primarySelection === 'charity' ? 'none' : 'block';
-        document.getElementById('altOtherPersonsOption').style.display = primarySelection === 'otherPersons' ? 'none' : 'block';
+        // Reset all options to visible first
+        document.getElementById('altParentsOption').style.display = 'block';
+        document.getElementById('altSiblingsOption').style.display = 'block';
+        document.getElementById('altCharityOption').style.display = 'block';
+        document.getElementById('altOtherPersonsOption').style.display = 'block';
+        
+        // Then hide the option that was selected as primary
+        if (primarySelection === 'parents') {
+            document.getElementById('altParentsOption').style.display = 'none';
+        } else if (primarySelection === 'siblings') {
+            document.getElementById('altSiblingsOption').style.display = 'none';
+        } else if (primarySelection === 'charity') {
+            document.getElementById('altCharityOption').style.display = 'none';
+        } else if (primarySelection === 'otherPersons') {
+            document.getElementById('altOtherPersonsOption').style.display = 'none';
+        }
     }
 }
 
