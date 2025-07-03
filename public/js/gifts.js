@@ -561,4 +561,8 @@ if (maritalStatus === 'married') {
     }
 }
 });
-   
+  // Function to continue to remaining estate with URL parameters - OUTSIDE the DOMContentLoaded
+function continueToRemainingEstate() {
+    const urlParams = new URLSearchParams(window.location.search);
+    window.location.href = `remaining-estate.html?${urlParams.toString()}`;
+} 
