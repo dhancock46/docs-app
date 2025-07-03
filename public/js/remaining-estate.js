@@ -278,6 +278,7 @@ function toggleAlternativeOtherPersonsDetails() {
         altOtherPersonsGroup.style.display = 'none';
     }
 }
+
 // Update distribution summary
 function updateDistributionSummary() {
     const summarySection = document.getElementById('distributionSummary');
