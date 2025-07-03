@@ -16,12 +16,22 @@ router.post('/remaining-estate', (req, res) => {
             spouseDistribution,
             spousePercentage,
             primaryDistribution,
+            distributionType,
+            trustStructure,
+            singleTrustAge,
+            separateTrustAge,
+            commonTrustAge,
             customChildShares,
+            charities,
+            otherPersons,
+            primaryBeneficiaries,
             alternativeBeneficiaries,
-            charityName,
-            customAlternatives,
+            alternativeCharityName,
+            alternativeOtherPersonsText,
             documentType,
-            section
+            section,
+            childCount,
+            childrenNames
         } = req.body;
         
         // Validate required fields
@@ -39,12 +49,22 @@ router.post('/remaining-estate', (req, res) => {
             spouseDistribution,
             spousePercentage: spousePercentage ? parseInt(spousePercentage) : null,
             primaryDistribution,
+            distributionType,
+            trustStructure,
+            singleTrustAge: singleTrustAge ? parseInt(singleTrustAge) : null,
+            separateTrustAge: separateTrustAge ? parseInt(separateTrustAge) : null,
+            commonTrustAge: commonTrustAge ? parseInt(commonTrustAge) : null,
             customChildShares,
+            charities,
+            otherPersons,
+            primaryBeneficiaries,
             alternativeBeneficiaries,
-            charityName,
-            customAlternatives,
+            alternativeCharityName,
+            alternativeOtherPersonsText,
             documentType,
             section,
+            childCount: childCount || 0,
+            childrenNames: childrenNames || [],
             timestamp: new Date().toISOString()
         };
         
