@@ -199,8 +199,11 @@ function toggleCustomAlternatives() {
 
 // Show primary distributees section for users with children
 function showPrimaryDistributeesForChildren(childCount, childrenNames) {
-    // Hide the old primary beneficiaries section first
-    document.getElementById('primaryBeneficiariesSection').style.display = 'none';
+   // Remove the old primary beneficiaries section completely
+const oldSection = document.getElementById('primaryBeneficiariesSection');
+if (oldSection) {
+    oldSection.remove();
+}
     console.log('After hiding primaryBeneficiariesSection...');
     const testRadio = document.getElementById('primaryCharity');
     console.log('Which primaryCharity radio is found now?', testRadio);
