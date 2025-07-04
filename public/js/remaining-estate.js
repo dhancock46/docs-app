@@ -197,12 +197,38 @@ function showPrimaryDistributeesForChildren(childCount, childrenNames) {
     // Update heading
     primaryTitle.textContent = 'Primary Beneficiaries';
     
-    // Get the radio group container
+// Get the radio group container
     const radioGroup = document.querySelector('#primaryDistributeesSection .radio-group');
+    console.log('Found radio group:', radioGroup);
     
     // Clear existing options
     radioGroup.innerHTML = '';
-    
+    console.log('Cleared radio group, now adding new options for childCount:', childCount);
+
+    // Create child distribution options based on count
+    if (childCount === 1) {
+        // Single child option
+        radioGroup.innerHTML = `
+            <div class="radio-item">
+                <input type="radio" id="primaryAllToChild" name="primaryDistribution" value="allToChild" onchange="showTrustOptions()">
+                <label for="primaryAllToChild">All to my child</label>
+            </div>
+            <div class="radio-item">
+                <input type="radio" id="primaryCharity" name="primaryDistribution" value="charity" onchange="showPrimaryCharityDetails(); hideTrustOptions()">
+                <label for="primaryCharity">Charitable organization(s)</label>
+            </div>
+            <div class="radio-item">
+                <input type="radio" id="primaryOtherPersons" name="primaryDistribution" value="otherPersons" onchange="showPrimaryOtherPersonsDetails(); hideTrustOptions()">
+                <label for="primaryOtherPersons">Other person(s)</label>
+            </div>
+        `;
+
+        console.log('Set new radio group HTML, checking result...');
+        const newCharityRadio = document.getElementById('primaryCharity');
+        console.log('New primaryCharity radio:', newCharityRadio);
+        if (newCharityRadio) {
+            console.log('New onchange:', newCharityRadio.getAttribute('onchange'));
+        } 
     // Create child distribution options based on count
     if (childCount === 1) {
         // Single child option
