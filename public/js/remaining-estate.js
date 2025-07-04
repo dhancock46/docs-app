@@ -654,10 +654,10 @@ function validateForm() {
     if (!alternativeBeneficiaries) {
         errors.push('Please select alternative beneficiaries');
     } else if (alternativeBeneficiaries.value === 'charity') {
-        const charityName = document.getElementById('charityName').value.trim();
-        if (!charityName) {
-            errors.push('Please enter the charity name');
-        }
+    const altCharityName = document.getElementById('alternativeCharityName').value.trim();
+    if (!altCharityName) {
+        errors.push('Please enter the charity name');
+    }
     } else if (alternativeBeneficiaries.value === 'custom') {
         const customAlternatives = document.getElementById('customAlternatives').value.trim();
         if (!customAlternatives) {
