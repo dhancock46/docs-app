@@ -310,8 +310,11 @@ if (oldSection) {
     // Show the section
     primarySection.style.display = 'block';
     
-    // Show alternative beneficiaries section
-    document.getElementById('alternativeBeneficiariesSection').style.display = 'block';
+  // Show alternative beneficiaries section
+    const altSection = document.getElementById('alternativeBeneficiariesSection');
+    if (altSection) {
+        altSection.style.display = 'block';
+    }
 }
 
 // Counter variables
