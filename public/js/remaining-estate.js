@@ -197,11 +197,11 @@ function showPrimaryDistributeesForChildren(childCount, childrenNames) {
                 <label for="primaryAllToChild">All to my child</label>
             </div>
             <div class="radio-item">
-                <input type="radio" id="primaryCharity" name="primaryDistribution" value="charity" onchange="togglePrimaryCharityDetails(); hideTrustOptions()">
+               <input type="radio" id="primaryCharity" name="primaryDistribution" value="charity" onchange="showPrimaryCharityDetails(); hideTrustOptions()">
                 <label for="primaryCharity">Charitable organization(s)</label>
             </div>
             <div class="radio-item">
-                <input type="radio" id="primaryOtherPersons" name="primaryDistribution" value="otherPersons" onchange="toggleOtherPersonsDetails(); hideTrustOptions()">
+               <input type="radio" id="primaryOtherPersons" name="primaryDistribution" value="otherPersons" onchange="showPrimaryOtherPersonsDetails(); hideTrustOptions()">
                 <label for="primaryOtherPersons">Other person(s)</label>
             </div>
         `;
