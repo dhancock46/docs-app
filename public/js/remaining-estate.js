@@ -461,6 +461,15 @@ function showCustomChildShares() {
         customSharesGroup.style.display = 'block';
     }
 }
+// Show primary charity details for users with children
+function showPrimaryCharityDetails() {
+    document.getElementById('primaryCharityDetailsGroup').style.display = 'block';
+}
+
+// Show primary other persons details for users with children  
+function showPrimaryOtherPersonsDetails() {
+    document.getElementById('otherPersonsDetailsGroup').style.display = 'block';
+}
 // Update alternative options based on primary selection
 function updateAlternativeOptions() {
     const primarySelection = document.querySelector('input[name="primaryBeneficiaries"]:checked')?.value;
