@@ -1,4 +1,3 @@
-// Initialize form when page loads
 document.addEventListener('DOMContentLoaded', function() {
     // Auto-populate data from previous sections
     const urlParams = new URLSearchParams(window.location.search);
@@ -7,6 +6,21 @@ document.addEventListener('DOMContentLoaded', function() {
     const maritalStatus = urlParams.get('maritalStatus');
     const hasChildren = urlParams.get('hasChildren');
     const childrenNames = urlParams.get('childrenNames');
+    
+    // ADD THIS DEBUGGING BLOCK:
+    console.log('=== DEBUGGING SECTION DISPLAY ===');
+    console.log('testatorName:', testatorName);
+    console.log('email:', email);
+    console.log('maritalStatus:', maritalStatus);
+    console.log('hasChildren:', hasChildren);
+    console.log('childrenNames:', childrenNames);
+    
+    // Check if sections exist
+    console.log('spouseDistributionSection exists:', !!document.getElementById('spouseDistributionSection'));
+    console.log('primaryDistributeesSection exists:', !!document.getElementById('primaryDistributeesSection'));
+    console.log('primaryBeneficiariesSection exists:', !!document.getElementById('primaryBeneficiariesSection'));
+    console.log('alternativeBeneficiariesSection exists:', !!document.getElementById('alternativeBeneficiariesSection'));
+
     // ADD THESE 4 DEBUGGING LINES:
     console.log('Current URL:', window.location.href);
     console.log('URL Parameters:', urlParams.toString());
@@ -20,30 +34,32 @@ document.addEventListener('DOMContentLoaded', function() {
         document.getElementById('clientEmail').value = decodeURIComponent(email);
     }
     
+    // Count children and get their names
+    let childCount = 0;
+    let childrenNamesArray = [];
+    if (hasChildren === 'yes' && childrenNames) {
+        childrenNamesArray = decodeURIComponent(childrenNames).split(',').map(name => name.trim()).filter(name => name.length > 0);
+        childCount = childrenNamesArray.length;
+    }
+    
+    console.log('Child count:', childCount);
+    console.log('Children names:', childrenNamesArray);
+    
     // Show appropriate sections based on user's situation
     if (maritalStatus === 'married') {
         document.getElementById('spouseDistributionSection').style.display = 'block';
     }
     
-    if (hasChildren === 'yes') {
-        document.getElementById('childrenDistributionSection').style.display = 'block';
-        
-        // Populate children names for custom shares if available
-        if (childrenNames) {
-            populateChildrenShares(decodeURIComponent(childrenNames));
-        }
+    if (hasChildren === 'yes' && childCount > 0) {
+        // Show primary distributees section for users with children
+        showPrimaryDistributeesForChildren(childCount, childrenNamesArray);
+    } else if (maritalStatus === 'single' && hasChildren === 'no') {
+        // Show primary beneficiaries for single users with no children
+        document.getElementById('primaryBeneficiariesSection').style.display = 'block';
+    } else {
+        // Show alternative beneficiaries for other cases
+        document.getElementById('alternativeBeneficiariesSection').style.display = 'block';
     }
-    
-  // Show primary beneficiaries for single users with no children
-  if (maritalStatus === 'single' && hasChildren === 'no') {
-    document.getElementById('primaryBeneficiariesSection').style.display = 'block';
-    // Don't show alternatives yet - will be shown when primary is selected
-  } else {
-    // Hide primary beneficiaries for other users
-    document.getElementById('primaryBeneficiariesSection').style.display = 'none';
-    // Show alternative beneficiaries for married users or users with children
-    document.getElementById('alternativeBeneficiariesSection').style.display = 'block';
-  }
     
     // Update summary when form changes
     updateDistributionSummary();
