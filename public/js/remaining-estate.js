@@ -174,6 +174,69 @@ function toggleCustomAlternatives() {
         customAlternativesGroup.style.display = 'none';
     }
 }
+// Show primary distributees section for users with children
+function showPrimaryDistributeesForChildren(childCount, childrenNames) {
+    const primarySection = document.getElementById('primaryDistributeesSection');
+    const primaryTitle = document.querySelector('#primaryDistributeesSection h3');
+    
+    // Update heading
+    primaryTitle.textContent = 'Primary Beneficiaries';
+    
+    // Get the radio group container
+    const radioGroup = document.querySelector('#primaryDistributeesSection .radio-group');
+    
+    // Clear existing options
+    radioGroup.innerHTML = '';
+    
+    // Create child distribution options based on count
+    if (childCount === 1) {
+        // Single child option
+        radioGroup.innerHTML = `
+            <div class="radio-item">
+                <input type="radio" id="primaryAllToChild" name="primaryDistribution" value="allToChild" onchange="showTrustOptions()">
+                <label for="primaryAllToChild">All to my child</label>
+            </div>
+            <div class="radio-item">
+                <input type="radio" id="primaryCharity" name="primaryDistribution" value="charity" onchange="togglePrimaryCharityDetails(); hideTrustOptions()">
+                <label for="primaryCharity">Charitable organization(s)</label>
+            </div>
+            <div class="radio-item">
+                <input type="radio" id="primaryOtherPersons" name="primaryDistribution" value="otherPersons" onchange="toggleOtherPersonsDetails(); hideTrustOptions()">
+                <label for="primaryOtherPersons">Other person(s)</label>
+            </div>
+        `;
+    } else {
+        // Multiple children options
+        radioGroup.innerHTML = `
+            <div class="radio-item">
+                <input type="radio" id="primaryEqualChildren" name="primaryDistribution" value="equalChildren" onchange="showTrustOptions()">
+                <label for="primaryEqualChildren">All to my children in equal shares</label>
+            </div>
+            <div class="radio-item">
+                <input type="radio" id="primaryCustomChildren" name="primaryDistribution" value="customChildren" onchange="showCustomChildShares(); showTrustOptions()">
+                <label for="primaryCustomChildren">All to my children with different amounts to each child</label>
+            </div>
+            <div class="radio-item">
+                <input type="radio" id="primaryCharity" name="primaryDistribution" value="charity" onchange="togglePrimaryCharityDetails(); hideTrustOptions()">
+                <label for="primaryCharity">Charitable organization(s)</label>
+            </div>
+            <div class="radio-item">
+                <input type="radio" id="primaryOtherPersons" name="primaryDistribution" value="otherPersons" onchange="toggleOtherPersonsDetails(); hideTrustOptions()">
+                <label for="primaryOtherPersons">Other person(s)</label>
+            </div>
+        `;
+    }
+    
+    // Store child count and names for later use
+    window.childCount = childCount;
+    window.childrenNames = childrenNames;
+    
+    // Show the section
+    primarySection.style.display = 'block';
+    
+    // Show alternative beneficiaries section
+    document.getElementById('alternativeBeneficiariesSection').style.display = 'block';
+}
 // Counter variables
 let charityCount = 1;
 let otherPersonCount = 1;
