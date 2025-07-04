@@ -48,6 +48,13 @@ document.addEventListener('DOMContentLoaded', function() {
     console.log('Testing if functions exist:');
     console.log('showPrimaryCharityDetails:', typeof showPrimaryCharityDetails);
     console.log('showPrimaryOtherPersonsDetails:', typeof showPrimaryOtherPersonsDetails);
+    // ADD THIS NEW DEBUGGING:
+console.log('Checking what radio buttons exist on page:');
+const charityRadio = document.getElementById('primaryCharity');
+console.log('primaryCharity radio button:', charityRadio);
+if (charityRadio) {
+    console.log('primaryCharity onchange:', charityRadio.getAttribute('onchange'));
+}
     
     // Show appropriate sections based on user's situation
     if (maritalStatus === 'married') {
