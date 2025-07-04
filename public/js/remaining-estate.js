@@ -199,11 +199,11 @@ function toggleCustomAlternatives() {
 
 // Show primary distributees section for users with children
 function showPrimaryDistributeesForChildren(childCount, childrenNames) {
-   // Remove the old primary beneficiaries section completely
-const oldSection = document.getElementById('primaryBeneficiariesSection');
-if (oldSection) {
-    oldSection.remove();
-}
+ // Remove only the conflicting radio buttons, not the whole section
+const oldCharityRadio = document.getElementById('primaryCharity');
+const oldOtherPersonsRadio = document.getElementById('primaryOtherPersons');
+if (oldCharityRadio) oldCharityRadio.remove();
+if (oldOtherPersonsRadio) oldOtherPersonsRadio.remove();
     console.log('After hiding primaryBeneficiariesSection...');
     const testRadio = document.getElementById('primaryCharity');
     console.log('Which primaryCharity radio is found now?', testRadio);
