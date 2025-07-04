@@ -661,7 +661,7 @@ if (summaryContent && summarySection) {
     summaryContent.innerHTML = summaryHTML;
     summarySection.style.display = 'block';
 }
-
+}
 // Get text for alternative beneficiary selection
 function getAlternativeBeneficiaryText(value) {
     switch(value) {
