@@ -656,6 +656,8 @@ function updateDistributionSummary() {
         summaryHTML += `<p><strong>If primary beneficiaries cannot inherit:</strong> ${getAlternativeBeneficiaryText(alternativeBeneficiaries)}</p>`;
     }
     
+   // Add null checks
+if (summaryContent && summarySection) {
     summaryContent.innerHTML = summaryHTML;
     summarySection.style.display = 'block';
 }
