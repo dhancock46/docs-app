@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const email = urlParams.get('email');
     const maritalStatus = urlParams.get('maritalStatus');
     const hasChildren = urlParams.get('hasChildren');
-    const childrenNames = urlParams.get('childrenNames');
+   const childrenNames = urlParams.get('childrenNames') || urlParams.get('priorChildrenNames');
     
     // ADD THIS DEBUGGING BLOCK:
     console.log('=== DEBUGGING SECTION DISPLAY ===');
