@@ -593,13 +593,13 @@ function validateForm() {
     }
     
     // Check children distribution
-    const childrenDistribution = document.querySelector('input[name="childrenDistribution"]:checked');
-    if (document.getElementById('childrenDistributionSection').style.display !== 'none' && !childrenDistribution) {
+    const primaryDistribution = document.querySelector('input[name="primaryDistribution"]:checked');
+    if (document.getElementById('primaryDistributeesSection') && document.getElementById('primaryDistributeesSection').style.display !== 'none' && !primaryDistribution) {
         errors.push('Please select how your children should receive their share');
     }
     
     // Check custom children shares
-    if (childrenDistribution?.value === 'custom') {
+    if (primaryDistribution?.value === 'customChildren') {
         const childShares = document.querySelectorAll('input[name="childShare[]"]');
         let totalShares = 0;
         let hasEmptyShares = false;
