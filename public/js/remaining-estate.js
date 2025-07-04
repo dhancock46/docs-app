@@ -48,24 +48,24 @@ document.addEventListener('DOMContentLoaded', function() {
     console.log('Testing if functions exist:');
     console.log('showPrimaryCharityDetails:', typeof showPrimaryCharityDetails);
     console.log('showPrimaryOtherPersonsDetails:', typeof showPrimaryOtherPersonsDetails);
-    // ADD THIS NEW DEBUGGING:
-console.log('Checking what radio buttons exist on page:');
-const charityRadio = document.getElementById('primaryCharity');
-console.log('primaryCharity radio button:', charityRadio);
-if (charityRadio) {
-    console.log('primaryCharity onchange:', charityRadio.getAttribute('onchange'));
-}
     
 // Show appropriate sections based on user's situation
 if (maritalStatus === 'married') {
     document.getElementById('spouseDistributionSection').style.display = 'block';
 }
 
-if (hasChildren === 'yes' && childCount > 0) {
+javascriptif (hasChildren === 'yes' && childCount > 0) {
     // Show primary distributees section for users with children
     console.log('About to call showPrimaryDistributeesForChildren with:', childCount, childrenNamesArray);
     showPrimaryDistributeesForChildren(childCount, childrenNamesArray);
     console.log('Finished calling showPrimaryDistributeesForChildren');
+    // Add the debugging AFTER creating new radio buttons:
+    console.log('Checking what radio buttons exist on page AFTER creating new ones:');
+    const charityRadio = document.getElementById('primaryCharity');
+    console.log('primaryCharity radio button:', charityRadio);
+    if (charityRadio) {
+        console.log('primaryCharity onchange:', charityRadio.getAttribute('onchange'));
+    }
 } else if (maritalStatus === 'single' && hasChildren === 'no') {
     console.log('Showing primary beneficiaries for single with no children');
     // Show primary beneficiaries for single users with no children
