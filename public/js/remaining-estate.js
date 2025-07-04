@@ -464,11 +464,15 @@ function showCustomChildShares() {
 }
 // Show primary charity details for users with children
 function showPrimaryCharityDetails() {
+    console.log('showPrimaryCharityDetails called!');
+    console.log('Looking for element:', document.getElementById('primaryCharityDetailsGroup'));
     document.getElementById('primaryCharityDetailsGroup').style.display = 'block';
 }
 
 // Show primary other persons details for users with children  
 function showPrimaryOtherPersonsDetails() {
+    console.log('showPrimaryOtherPersonsDetails called!');
+    console.log('Looking for element:', document.getElementById('otherPersonsDetailsGroup'));
     document.getElementById('otherPersonsDetailsGroup').style.display = 'block';
 }
 // Update alternative options based on primary selection
