@@ -56,21 +56,25 @@ if (charityRadio) {
     console.log('primaryCharity onchange:', charityRadio.getAttribute('onchange'));
 }
     
-    // Show appropriate sections based on user's situation
-    if (maritalStatus === 'married') {
-        document.getElementById('spouseDistributionSection').style.display = 'block';
-    }
-    
-    if (hasChildren === 'yes' && childCount > 0) {
-        // Show primary distributees section for users with children
-        showPrimaryDistributeesForChildren(childCount, childrenNamesArray);
-    } else if (maritalStatus === 'single' && hasChildren === 'no') {
-        // Show primary beneficiaries for single users with no children
-        document.getElementById('primaryBeneficiariesSection').style.display = 'block';
-    } else {
-        // Show alternative beneficiaries for other cases
-        document.getElementById('alternativeBeneficiariesSection').style.display = 'block';
-    }
+// Show appropriate sections based on user's situation
+if (maritalStatus === 'married') {
+    document.getElementById('spouseDistributionSection').style.display = 'block';
+}
+
+if (hasChildren === 'yes' && childCount > 0) {
+    // Show primary distributees section for users with children
+    console.log('About to call showPrimaryDistributeesForChildren with:', childCount, childrenNamesArray);
+    showPrimaryDistributeesForChildren(childCount, childrenNamesArray);
+    console.log('Finished calling showPrimaryDistributeesForChildren');
+} else if (maritalStatus === 'single' && hasChildren === 'no') {
+    console.log('Showing primary beneficiaries for single with no children');
+    // Show primary beneficiaries for single users with no children
+    document.getElementById('primaryBeneficiariesSection').style.display = 'block';
+} else {
+    console.log('Showing alternative beneficiaries for other cases');
+    // Show alternative beneficiaries for other cases
+    document.getElementById('alternativeBeneficiariesSection').style.display = 'block';
+}
     
     // Update summary when form changes
     updateDistributionSummary();
