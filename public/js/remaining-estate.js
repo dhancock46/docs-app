@@ -236,12 +236,27 @@ function showPrimaryDistributeesForChildren(childCount, childrenNames) {
             </div>
         `;
 
-        console.log('Set new radio group HTML, checking result...');
+ console.log('Set new radio group HTML, checking result...');
         const newCharityRadio = document.getElementById('primaryCharity');
         console.log('New primaryCharity radio:', newCharityRadio);
         if (newCharityRadio) {
             console.log('New onchange:', newCharityRadio.getAttribute('onchange'));
-        } 
+            
+            // ADD THIS CODE - Force the event listener:
+            newCharityRadio.addEventListener('change', function() {
+                console.log('Charity radio clicked via event listener!');
+                showPrimaryCharityDetails();
+            });
+        }
+        
+        // ADD THIS CODE TOO - For other persons radio:
+        const newOtherPersonsRadio = document.getElementById('primaryOtherPersons');
+        if (newOtherPersonsRadio) {
+            newOtherPersonsRadio.addEventListener('change', function() {
+                console.log('Other persons radio clicked via event listener!');
+                showPrimaryOtherPersonsDetails();
+            });
+        }
     } else {
         // Multiple children options
         radioGroup.innerHTML = `
