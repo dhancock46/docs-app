@@ -60,10 +60,6 @@ if (charityRadio) {
 if (maritalStatus === 'married') {
     document.getElementById('spouseDistributionSection').style.display = 'block';
 }
-// Show appropriate sections based on user's situation
-if (maritalStatus === 'married') {
-    document.getElementById('spouseDistributionSection').style.display = 'block';
-}
 
 if (hasChildren === 'yes' && childCount > 0) {
     // Show primary distributees section for users with children
@@ -200,20 +196,18 @@ function toggleCustomAlternatives() {
         customAlternativesGroup.style.display = 'none';
     }
 }
+
 // Show primary distributees section for users with children
 function showPrimaryDistributeesForChildren(childCount, childrenNames) {
     // Hide the old primary beneficiaries section first
     document.getElementById('primaryBeneficiariesSection').style.display = 'none';
-        console.log('After hiding primaryBeneficiariesSection...');
+    console.log('After hiding primaryBeneficiariesSection...');
     const testRadio = document.getElementById('primaryCharity');
     console.log('Which primaryCharity radio is found now?', testRadio);
     if (testRadio) {
         console.log('Its onchange attribute:', testRadio.getAttribute('onchange'));
         console.log('Its parent section:', testRadio.closest('.form-section').id);
     }
-    
-    const primarySection = document.getElementById('primaryDistributeesSection');
-    const primaryTitle = document.querySelector('#primaryDistributeesSection h3');
     const primarySection = document.getElementById('primaryDistributeesSection');
     const primaryTitle = document.querySelector('#primaryDistributeesSection h3');
     
@@ -246,7 +240,7 @@ function showPrimaryDistributeesForChildren(childCount, childrenNames) {
             </div>
         `;
 
- console.log('Set new radio group HTML, checking result...');
+        console.log('Set new radio group HTML, checking result...');
         const newCharityRadio = document.getElementById('primaryCharity');
         console.log('New primaryCharity radio:', newCharityRadio);
         if (newCharityRadio) {
@@ -287,6 +281,23 @@ function showPrimaryDistributeesForChildren(childCount, childrenNames) {
                 <label for="primaryOtherPersons">Other person(s)</label>
             </div>
         `;
+        
+        // ADD EVENT LISTENERS FOR MULTIPLE CHILDREN TOO:
+        const newCharityRadio = document.getElementById('primaryCharity');
+        if (newCharityRadio) {
+            newCharityRadio.addEventListener('change', function() {
+                console.log('Charity radio clicked via event listener!');
+                showPrimaryCharityDetails();
+            });
+        }
+        
+        const newOtherPersonsRadio = document.getElementById('primaryOtherPersons');
+        if (newOtherPersonsRadio) {
+            newOtherPersonsRadio.addEventListener('change', function() {
+                console.log('Other persons radio clicked via event listener!');
+                showPrimaryOtherPersonsDetails();
+            });
+        }
     }
     
     // Store child count and names for later use
@@ -299,6 +310,7 @@ function showPrimaryDistributeesForChildren(childCount, childrenNames) {
     // Show alternative beneficiaries section
     document.getElementById('alternativeBeneficiariesSection').style.display = 'block';
 }
+
 // Counter variables
 let charityCount = 1;
 let otherPersonCount = 1;
@@ -385,6 +397,7 @@ function removeCharity(button) {
 function removeOtherPerson(button) {
     button.parentElement.remove();
 }
+
 // Show trust options when children are selected
 function showTrustOptions() {
     let trustOptionsGroup = document.getElementById('trustOptionsGroup');
@@ -523,6 +536,7 @@ function showCustomChildShares() {
         customSharesGroup.style.display = 'block';
     }
 }
+
 // Show primary charity details for users with children
 function showPrimaryCharityDetails() {
     console.log('showPrimaryCharityDetails called!');
@@ -536,6 +550,7 @@ function showPrimaryOtherPersonsDetails() {
     console.log('Looking for element:', document.getElementById('otherPersonsDetailsGroup'));
     document.getElementById('otherPersonsDetailsGroup').style.display = 'block';
 }
+
 // Update alternative options based on primary selection
 function updateAlternativeOptions() {
     const primarySelection = document.querySelector('input[name="primaryBeneficiaries"]:checked')?.value;
@@ -657,143 +672,143 @@ function validateForm() {
     // Check spouse distribution for married users
     const spouseDistribution = document.querySelector('input[name="spouseDistribution"]:checked');
     if (document.getElementById('spouseDistributionSection').style.display !== 'none') {
-        if (!spouseDistribution) {
-            errors.push('Please select how much of your estate should go to your spouse');
-        } else if (spouseDistribution.value === 'partial') {
-            const spousePercentage = document.getElementById('spousePercentage').value;
-            if (!spousePercentage || spousePercentage < 1 || spousePercentage > 100) {
-                errors.push('Please enter a valid percentage for your spouse (1-100)');
-            }
-        }
-    }
-    
-    // Check children distribution
-    const primaryDistribution = document.querySelector('input[name="primaryDistribution"]:checked');
-    if (document.getElementById('primaryDistributeesSection') && document.getElementById('primaryDistributeesSection').style.display !== 'none' && !primaryDistribution) {
-        errors.push('Please select how your children should receive their share');
-    }
-    
-    // Check custom children shares
-    if (primaryDistribution?.value === 'customChildren') {
-        const childShares = document.querySelectorAll('input[name="childShare[]"]');
-        let totalShares = 0;
-        let hasEmptyShares = false;
-        
-        childShares.forEach(share => {
-            const value = parseInt(share.value);
-            if (!value || value < 0) {
-                hasEmptyShares = true;
-            } else {
-                totalShares += value;
-            }
-        });
-        
-        if (hasEmptyShares) {
-            errors.push('Please specify percentages for all children');
-        } else if (totalShares !== 100) {
-            errors.push('Children\'s percentages must add up to 100%');
-        }
-    }
-    
-    // Check alternative beneficiaries
-    const alternativeBeneficiaries = document.querySelector('input[name="alternativeBeneficiaries"]:checked');
-    if (!alternativeBeneficiaries) {
-        errors.push('Please select alternative beneficiaries');
-    } else if (alternativeBeneficiaries.value === 'charity') {
-    const altCharityName = document.getElementById('alternativeCharityName').value.trim();
-    if (!altCharityName) {
-        errors.push('Please enter the charity name');
-    }
-    } else if (alternativeBeneficiaries.value === 'custom') {
-        const customAlternatives = document.getElementById('customAlternatives').value.trim();
-        if (!customAlternatives) {
-            errors.push('Please specify your custom alternative beneficiaries');
-        }
-    }
-    
-    return { isValid: errors.length === 0, errors };
+          if (!spouseDistribution) {
+           errors.push('Please select how much of your estate should go to your spouse');
+       } else if (spouseDistribution.value === 'partial') {
+           const spousePercentage = document.getElementById('spousePercentage').value;
+           if (!spousePercentage || spousePercentage < 1 || spousePercentage > 100) {
+               errors.push('Please enter a valid percentage for your spouse (1-100)');
+           }
+       }
+   }
+   
+   // Check children distribution
+   const primaryDistribution = document.querySelector('input[name="primaryDistribution"]:checked');
+   if (document.getElementById('primaryDistributeesSection') && document.getElementById('primaryDistributeesSection').style.display !== 'none' && !primaryDistribution) {
+       errors.push('Please select how your children should receive their share');
+   }
+   
+   // Check custom children shares
+   if (primaryDistribution?.value === 'customChildren') {
+       const childShares = document.querySelectorAll('input[name="childShare[]"]');
+       let totalShares = 0;
+       let hasEmptyShares = false;
+       
+       childShares.forEach(share => {
+           const value = parseInt(share.value);
+           if (!value || value < 0) {
+               hasEmptyShares = true;
+           } else {
+               totalShares += value;
+           }
+       });
+       
+       if (hasEmptyShares) {
+           errors.push('Please specify percentages for all children');
+       } else if (totalShares !== 100) {
+           errors.push('Children\'s percentages must add up to 100%');
+       }
+   }
+   
+   // Check alternative beneficiaries
+   const alternativeBeneficiaries = document.querySelector('input[name="alternativeBeneficiaries"]:checked');
+   if (!alternativeBeneficiaries) {
+       errors.push('Please select alternative beneficiaries');
+   } else if (alternativeBeneficiaries.value === 'charity') {
+       const altCharityName = document.getElementById('alternativeCharityName').value.trim();
+       if (!altCharityName) {
+           errors.push('Please enter the charity name');
+       }
+   } else if (alternativeBeneficiaries.value === 'custom') {
+       const customAlternatives = document.getElementById('customAlternatives').value.trim();
+       if (!customAlternatives) {
+           errors.push('Please specify your custom alternative beneficiaries');
+       }
+   }
+   
+   return { isValid: errors.length === 0, errors };
 }
 
 // Form submission
 document.getElementById('remainingEstateForm').addEventListener('submit', async function(e) {
-    e.preventDefault();
-    
-    // Validate form
-    const validation = validateForm();
-    if (!validation.isValid) {
-        const errorMessage = document.getElementById('errorMessage');
-        const errorP = errorMessage.querySelector('p');
-        errorP.textContent = 'Please fix the following issues:\n' + validation.errors.join('\n');
-        errorMessage.style.display = 'block';
-        errorMessage.scrollIntoView({ behavior: 'smooth' });
-        return;
-    }
-    
-    const loadingMessage = document.getElementById('loadingMessage');
-    const successMessage = document.getElementById('successMessage');
-    const errorMessage = document.getElementById('errorMessage');
-    
-    // Hide all messages initially
-    loadingMessage.style.display = 'none';
-    successMessage.style.display = 'none';
-    errorMessage.style.display = 'none';
-    
-    // Show loading message
-    loadingMessage.style.display = 'block';
-    
-    // Collect form data
-    const formData = new FormData(this);
-    const data = Object.fromEntries(formData.entries());
-    
-    // Handle arrays for custom child shares
-    if (data.childShare) {
-        const childShares = formData.getAll('childShare[]');
-        const childNames = formData.getAll('childName[]');
-        
-        data.customChildShares = childShares.map((share, index) => ({
-            name: childNames[index],
-            percentage: parseInt(share)
-        }));
-    }
-    
-    // Add document type and section
-    data.documentType = 'will';
-    data.section = 'remainingEstate';
-    
-    try {
-        const response = await fetch('/submit/remaining-estate', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(data)
-        });
-        
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        
-        const result = await response.json();
-        
-        loadingMessage.style.display = 'none';
-        
-        if (result.success) {
-            successMessage.style.display = 'block';
-            successMessage.scrollIntoView({ behavior: 'smooth' });
-        } else {
-            errorMessage.style.display = 'block';
-            errorMessage.scrollIntoView({ behavior: 'smooth' });
-        }
-    } catch (error) {
-        console.error('Remaining estate submission error:', error);
-        loadingMessage.style.display = 'none';
-        errorMessage.style.display = 'block';
-        errorMessage.scrollIntoView({ behavior: 'smooth' });
-    }
-    });
-   // Function to continue to executors with URL parameters
-function continueToExecutors() {
-    const urlParams = new URLSearchParams(window.location.search);
-    window.location.href = `executors.html?${urlParams.toString()}`;
-}
+   e.preventDefault();
+   
+   // Validate form
+   const validation = validateForm();
+   if (!validation.isValid) {
+       const errorMessage = document.getElementById('errorMessage');
+       const errorP = errorMessage.querySelector('p');
+       errorP.textContent = 'Please fix the following issues:\n' + validation.errors.join('\n');
+       errorMessage.style.display = 'block';
+       errorMessage.scrollIntoView({ behavior: 'smooth' });
+       return;
+   }
+   
+   const loadingMessage = document.getElementById('loadingMessage');
+   const successMessage = document.getElementById('successMessage');
+   const errorMessage = document.getElementById('errorMessage');
+   
+   // Hide all messages initially
+   loadingMessage.style.display = 'none';
+   successMessage.style.display = 'none';
+   errorMessage.style.display = 'none';
+   
+   // Show loading message
+   loadingMessage.style.display = 'block';
+   
+   // Collect form data
+   const formData = new FormData(this);
+   const data = Object.fromEntries(formData.entries());
+   
+   // Handle arrays for custom child shares
+   if (data.childShare) {
+       const childShares = formData.getAll('childShare[]');
+       const childNames = formData.getAll('childName[]');
+       
+       data.customChildShares = childShares.map((share, index) => ({
+           name: childNames[index],
+           percentage: parseInt(share)
+       }));
+   }
+   
+   // Add document type and section
+   data.documentType = 'will';
+   data.section = 'remainingEstate';
+   
+   try {
+       const response = await fetch('/submit/remaining-estate', {
+           method: 'POST',
+           headers: {
+               'Content-Type': 'application/json',
+           },
+           body: JSON.stringify(data)
+       });
+       
+       if (!response.ok) {
+           throw new Error(`HTTP error! status: ${response.status}`);
+       }
+       
+       const result = await response.json();
+       
+       loadingMessage.style.display = 'none';
+       
+       if (result.success) {
+           successMessage.style.display = 'block';
+           successMessage.scrollIntoView({ behavior: 'smooth' });
+       } else {
+           errorMessage.style.display = 'block';
+           errorMessage.scrollIntoView({ behavior: 'smooth' });
+       }
+   } catch (error) {
+       console.error('Remaining estate submission error:', error);
+       loadingMessage.style.display = 'none';
+       errorMessage.style.display = 'block';
+       errorMessage.scrollIntoView({ behavior: 'smooth' });
+   }
+});
 
+// Function to continue to executors with URL parameters
+function continueToExecutors() {
+   const urlParams = new URLSearchParams(window.location.search);
+   window.location.href = `executors.html?${urlParams.toString()}`;
+}
