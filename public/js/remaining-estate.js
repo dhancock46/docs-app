@@ -316,6 +316,11 @@ console.log('Looking for alternativeBeneficiariesSection:', altSection);
 if (altSection) {
     console.log('Found alternative section, showing it...');
     altSection.style.display = 'block';
+   // ADD THIS DEBUGGING HERE:
+    console.log('Alternative section HTML:', altSection.outerHTML);
+    console.log('Alternative section position:', altSection.getBoundingClientRect());
+    console.log('Alternative section children:', altSection.children.length);
+    console.log('Alternative section content:', altSection.innerHTML.substring(0, 200));
 } else {
     console.log('alternativeBeneficiariesSection not found in DOM!');
 }
