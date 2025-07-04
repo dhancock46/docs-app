@@ -204,6 +204,16 @@ function toggleCustomAlternatives() {
 function showPrimaryDistributeesForChildren(childCount, childrenNames) {
     // Hide the old primary beneficiaries section first
     document.getElementById('primaryBeneficiariesSection').style.display = 'none';
+        console.log('After hiding primaryBeneficiariesSection...');
+    const testRadio = document.getElementById('primaryCharity');
+    console.log('Which primaryCharity radio is found now?', testRadio);
+    if (testRadio) {
+        console.log('Its onchange attribute:', testRadio.getAttribute('onchange'));
+        console.log('Its parent section:', testRadio.closest('.form-section').id);
+    }
+    
+    const primarySection = document.getElementById('primaryDistributeesSection');
+    const primaryTitle = document.querySelector('#primaryDistributeesSection h3');
     const primarySection = document.getElementById('primaryDistributeesSection');
     const primaryTitle = document.querySelector('#primaryDistributeesSection h3');
     
