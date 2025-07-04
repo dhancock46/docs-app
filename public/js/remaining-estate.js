@@ -191,6 +191,8 @@ function toggleCustomAlternatives() {
 }
 // Show primary distributees section for users with children
 function showPrimaryDistributeesForChildren(childCount, childrenNames) {
+    // Hide the old primary beneficiaries section first
+    document.getElementById('primaryBeneficiariesSection').style.display = 'none';
     const primarySection = document.getElementById('primaryDistributeesSection');
     const primaryTitle = document.querySelector('#primaryDistributeesSection h3');
     
