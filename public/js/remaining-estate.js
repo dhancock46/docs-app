@@ -323,7 +323,144 @@ function removeCharity(button) {
 function removeOtherPerson(button) {
     button.parentElement.remove();
 }
+// Show trust options when children are selected
+function showTrustOptions() {
+    let trustOptionsGroup = document.getElementById('trustOptionsGroup');
+    
+    // Create trust options if they don't exist
+    if (!trustOptionsGroup) {
+        const primarySection = document.getElementById('primaryDistributeesSection');
+        const trustOptionsHTML = `
+            <div class="form-group" id="trustOptionsGroup">
+                <label>How should your child${window.childCount > 1 ? 'ren' : ''} receive the inheritance? *</label>
+                <div class="radio-group">
+                    <div class="radio-item">
+                        <input type="radio" id="distributionOutright" name="distributionType" value="outright" onchange="hideTrustDetails()">
+                        <label for="distributionOutright">Outright distribution (no trust)</label>
+                    </div>
+                    <div class="radio-item">
+                        <input type="radio" id="distributionTrust" name="distributionType" value="trust" onchange="showTrustDetails()">
+                        <label for="distributionTrust">In trust</label>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="form-group" id="trustDetailsGroup" style="display: none;">
+                ${window.childCount === 1 ? 
+                    `<div class="form-group">
+                        <label for="singleTrustAge">At what age should the trust end? *</label>
+                        <input type="number" id="singleTrustAge" name="singleTrustAge" min="18" max="50" placeholder="25">
+                        <small>Enter age between 18 and 50</small>
+                    </div>` 
+                    : 
+                    `<div class="form-group">
+                        <label>Trust structure for multiple children *</label>
+                        <div class="radio-group">
+                            <div class="radio-item">
+                                <input type="radio" id="separateTrusts" name="trustStructure" value="separate" onchange="showSeparateTrustAge()">
+                                <label for="separateTrusts">Separate trust for each child</label>
+                            </div>
+                            <div class="radio-item">
+                                <input type="radio" id="commonTrust" name="trustStructure" value="common" onchange="showCommonTrustAge()">
+                                <label for="commonTrust">One common trust for all children</label>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group" id="separateTrustAgeGroup" style="display: none;">
+                        <label for="separateTrustAge">At what age should each child's trust end? *</label>
+                        <input type="number" id="separateTrustAge" name="separateTrustAge" min="18" max="50" placeholder="25">
+                        <small>Enter age between 18 and 50</small>
+                    </div>
+                    
+                    <div class="form-group" id="commonTrustAgeGroup" style="display: none;">
+                        <label for="commonTrustAge">At what age of the youngest child should the common trust end? *</label>
+                        <input type="number" id="commonTrustAge" name="commonTrustAge" min="18" max="50" placeholder="25">
+                        <small>Enter age between 18 and 50</small>
+                    </div>`
+                }
+            </div>
+        `;
+        
+        primarySection.insertAdjacentHTML('beforeend', trustOptionsHTML);
+    } else {
+        trustOptionsGroup.style.display = 'block';
+    }
+}
 
+// Hide trust options
+function hideTrustOptions() {
+    const trustOptionsGroup = document.getElementById('trustOptionsGroup');
+    if (trustOptionsGroup) {
+        trustOptionsGroup.style.display = 'none';
+    }
+    hideTrustDetails();
+}
+
+// Show trust details
+function showTrustDetails() {
+    const trustDetailsGroup = document.getElementById('trustDetailsGroup');
+    if (trustDetailsGroup) {
+        trustDetailsGroup.style.display = 'block';
+    }
+}
+
+// Hide trust details
+function hideTrustDetails() {
+    const trustDetailsGroup = document.getElementById('trustDetailsGroup');
+    if (trustDetailsGroup) {
+        trustDetailsGroup.style.display = 'none';
+    }
+    
+    // Also hide specific trust age groups
+    const separateTrustAgeGroup = document.getElementById('separateTrustAgeGroup');
+    const commonTrustAgeGroup = document.getElementById('commonTrustAgeGroup');
+    if (separateTrustAgeGroup) separateTrustAgeGroup.style.display = 'none';
+    if (commonTrustAgeGroup) commonTrustAgeGroup.style.display = 'none';
+}
+
+// Show separate trust age input
+function showSeparateTrustAge() {
+    document.getElementById('separateTrustAgeGroup').style.display = 'block';
+    document.getElementById('commonTrustAgeGroup').style.display = 'none';
+}
+
+// Show common trust age input
+function showCommonTrustAge() {
+    document.getElementById('commonTrustAgeGroup').style.display = 'block';
+    document.getElementById('separateTrustAgeGroup').style.display = 'none';
+}
+
+// Show custom child shares
+function showCustomChildShares() {
+    let customSharesGroup = document.getElementById('customChildSharesGroup');
+    
+    if (!customSharesGroup) {
+        const primarySection = document.getElementById('primaryDistributeesSection');
+        const customSharesHTML = `
+            <div class="form-group" id="customChildSharesGroup">
+                <label>Specify percentage for each child:</label>
+                <div id="childSharesList">
+                    ${window.childrenNames.map((name, index) => `
+                        <div class="form-group">
+                            <label for="child${index + 1}Share">${name}</label>
+                            <div style="display: flex; align-items: center; gap: 10px;">
+                                <input type="number" id="child${index + 1}Share" name="childShare[]" min="0" max="100" placeholder="50" style="width: 80px;" step="1">
+                                <span>%</span>
+                                <input type="hidden" name="childName[]" value="${name}">
+                            </div>
+                        </div>
+                    `).join('')}
+                </div>
+                <small>Percentages must add up to 100%</small>
+            </div>
+        `;
+        
+        primarySection.insertAdjacentHTML('beforeend', customSharesHTML);
+    } else {
+        customSharesGroup.style.display = 'block';
+    }
+}
 // Update alternative options based on primary selection
 function updateAlternativeOptions() {
     const primarySelection = document.querySelector('input[name="primaryBeneficiaries"]:checked')?.value;
