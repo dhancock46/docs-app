@@ -198,6 +198,7 @@ function showPrimaryDistributeesForChildren(childCount, childrenNames) {
             </div>
             <div class="radio-item">
                <input type="radio" id="primaryCharity" name="primaryDistribution" value="charity" onchange="showPrimaryCharityDetails(); hideTrustOptions()">
+
                 <label for="primaryCharity">Charitable organization(s)</label>
             </div>
             <div class="radio-item">
@@ -205,26 +206,26 @@ function showPrimaryDistributeesForChildren(childCount, childrenNames) {
                 <label for="primaryOtherPersons">Other person(s)</label>
             </div>
         `;
-    } else {
-        // Multiple children options
-        radioGroup.innerHTML = `
-            <div class="radio-item">
-                <input type="radio" id="primaryEqualChildren" name="primaryDistribution" value="equalChildren" onchange="showTrustOptions()">
-                <label for="primaryEqualChildren">All to my children in equal shares</label>
-            </div>
-            <div class="radio-item">
-                <input type="radio" id="primaryCustomChildren" name="primaryDistribution" value="customChildren" onchange="showCustomChildShares(); showTrustOptions()">
-                <label for="primaryCustomChildren">All to my children with different amounts to each child</label>
-            </div>
-            <div class="radio-item">
-                <input type="radio" id="primaryCharity" name="primaryDistribution" value="charity" onchange="togglePrimaryCharityDetails(); hideTrustOptions()">
-                <label for="primaryCharity">Charitable organization(s)</label>
-            </div>
-            <div class="radio-item">
-                <input type="radio" id="primaryOtherPersons" name="primaryDistribution" value="otherPersons" onchange="toggleOtherPersonsDetails(); hideTrustOptions()">
-                <label for="primaryOtherPersons">Other person(s)</label>
-            </div>
-        `;
+  } else {
+    // Multiple children options
+    radioGroup.innerHTML = `
+        <div class="radio-item">
+            <input type="radio" id="primaryEqualChildren" name="primaryDistribution" value="equalChildren" onchange="showTrustOptions()">
+            <label for="primaryEqualChildren">All to my children in equal shares</label>
+        </div>
+        <div class="radio-item">
+            <input type="radio" id="primaryCustomChildren" name="primaryDistribution" value="customChildren" onchange="showCustomChildShares(); showTrustOptions()">
+            <label for="primaryCustomChildren">All to my children with different amounts to each child</label>
+        </div>
+        <div class="radio-item">
+            <input type="radio" id="primaryCharity" name="primaryDistribution" value="charity" onchange="showPrimaryCharityDetails(); hideTrustOptions()">
+            <label for="primaryCharity">Charitable organization(s)</label>
+        </div>
+        <div class="radio-item">
+            <input type="radio" id="primaryOtherPersons" name="primaryDistribution" value="otherPersons" onchange="showPrimaryOtherPersonsDetails(); hideTrustOptions()">
+            <label for="primaryOtherPersons">Other person(s)</label>
+        </div>
+    `;
     }
     
     // Store child count and names for later use
