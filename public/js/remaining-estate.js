@@ -44,6 +44,10 @@ document.addEventListener('DOMContentLoaded', function() {
     
     console.log('Child count:', childCount);
     console.log('Children names:', childrenNamesArray);
+    // ADD THIS DEBUG TEST:
+    console.log('Testing if functions exist:');
+    console.log('showPrimaryCharityDetails:', typeof showPrimaryCharityDetails);
+    console.log('showPrimaryOtherPersonsDetails:', typeof showPrimaryOtherPersonsDetails);
     
     // Show appropriate sections based on user's situation
     if (maritalStatus === 'married') {
