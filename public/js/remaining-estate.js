@@ -310,11 +310,15 @@ if (oldSection) {
     // Show the section
     primarySection.style.display = 'block';
     
-  // Show alternative beneficiaries section
-    const altSection = document.getElementById('alternativeBeneficiariesSection');
-    if (altSection) {
-        altSection.style.display = 'block';
-    }
+// Show alternative beneficiaries section
+const altSection = document.getElementById('alternativeBeneficiariesSection');
+console.log('Looking for alternativeBeneficiariesSection:', altSection);
+if (altSection) {
+    console.log('Found alternative section, showing it...');
+    altSection.style.display = 'block';
+} else {
+    console.log('alternativeBeneficiariesSection not found in DOM!');
+}
 }
 
 // Counter variables
