@@ -105,6 +105,9 @@ function setupPrimaryDistributeesForChildren(childCount, childrenNames) {
 // Counter variables
 let charityCount = 1;
 let otherPersonCount = 1;
+// Counter variables for alternative section
+let altCharityCount = 1;
+let altOtherPersonCount = 1;
 
 // Show primary charity details (copied exactly from gifts.js pattern)
 function showPrimaryCharityDetails() {
@@ -218,7 +221,84 @@ function addOtherPerson() {
     `;
     otherPersonsList.appendChild(newPersonEntry);
 }
+// Add another other person (copied from gifts.js pattern)
+function addOtherPerson() {
+    otherPersonCount++;
+    const otherPersonsList = document.getElementById('otherPersonsList');
+    
+    const newPersonEntry = document.createElement('div');
+    newPersonEntry.className = 'other-person-entry';
+    newPersonEntry.innerHTML = `
+        <h4>Person #${otherPersonCount}</h4>
+        <div class="form-group">
+            <label for="otherPerson${otherPersonCount}Name">Full Name *</label>
+            <input type="text" id="otherPerson${otherPersonCount}Name" name="otherPersonName[]" placeholder="Full legal name">
+        </div>
+        <div class="form-group">
+            <label for="otherPerson${otherPersonCount}Percentage">Percentage *</label>
+            <input type="number" id="otherPerson${otherPersonCount}Percentage" name="otherPersonPercentage[]" min="1" max="100" placeholder="25" step="1">
+            <span>%</span>
+        </div>
+        <div class="form-group">
+            <label for="otherPerson${otherPersonCount}Alternate">If this person doesn't survive me, give their share to:</label>
+            <input type="text" id="otherPerson${otherPersonCount}Alternate" name="otherPersonAlternate[]" placeholder="Name of alternate beneficiary (optional)">
+        </div>
+        <button type="button" class="remove-btn" onclick="removeOtherPerson(this)">Remove This Person</button>
+    `;
+    otherPersonsList.appendChild(newPersonEntry);
+}
 
+// ADD THE NEW FUNCTIONS HERE:
+
+// Add another alternative charity
+function addAlternativeCharity() {
+    altCharityCount++;
+    const charitiesList = document.getElementById('alternativeCharitiesList');
+    
+    const newCharityEntry = document.createElement('div');
+    newCharityEntry.className = 'charity-entry';
+    newCharityEntry.innerHTML = `
+        <h4>Alternative Charity #${altCharityCount}</h4>
+        <div class="form-group">
+            <label for="altCharity${altCharityCount}Name">Charity Name *</label>
+            <input type="text" id="altCharity${altCharityCount}Name" name="altCharityName[]" placeholder="Full legal name of charity">
+        </div>
+        <div class="form-group">
+            <label for="altCharity${altCharityCount}Percentage">Percentage of Remaining Estate *</label>
+            <input type="number" id="altCharity${altCharityCount}Percentage" name="altCharityPercentage[]" min="1" max="100" placeholder="25" step="1">
+            <span>%</span>
+        </div>
+        <button type="button" class="remove-btn" onclick="removeAlternativeCharity(this)">Remove This Charity</button>
+    `;
+    charitiesList.appendChild(newCharityEntry);
+}
+
+// Add another alternative other person
+function addAlternativeOtherPerson() {
+    altOtherPersonCount++;
+    const otherPersonsList = document.getElementById('alternativeOtherPersonsList');
+    
+    const newPersonEntry = document.createElement('div');
+    newPersonEntry.className = 'other-person-entry';
+    newPersonEntry.innerHTML = `
+        <h4>Alternative Person #${altOtherPersonCount}</h4>
+        <div class="form-group">
+            <label for="altOtherPerson${altOtherPersonCount}Name">Full Name *</label>
+            <input type="text" id="altOtherPerson${altOtherPersonCount}Name" name="altOtherPersonName[]" placeholder="Full legal name">
+        </div>
+        <div class="form-group">
+            <label for="altOtherPerson${altOtherPersonCount}Percentage">Percentage of Remaining Estate *</label>
+            <input type="number" id="altOtherPerson${altOtherPersonCount}Percentage" name="altOtherPersonPercentage[]" min="1" max="100" placeholder="25" step="1">
+            <span>%</span>
+        </div>
+        <div class="form-group">
+            <label for="altOtherPerson${altOtherPersonCount}Alternate">If this person doesn't survive me, give their share to:</label>
+            <input type="text" id="altOtherPerson${altOtherPersonCount}Alternate" name="altOtherPersonAlternate[]" placeholder="Name of alternate beneficiary (optional)">
+        </div>
+        <button type="button" class="remove-btn" onclick="removeAlternativeOtherPerson(this)">Remove This Person</button>
+    `;
+    otherPersonsList.appendChild(newPersonEntry);
+}
 // Remove functions (copied from gifts.js)
 function removeCharity(button) {
     button.parentElement.remove();
@@ -228,6 +308,14 @@ function removeOtherPerson(button) {
     button.parentElement.remove();
 }
 
+// Remove functions for alternative section
+function removeAlternativeCharity(button) {
+    button.parentElement.remove();
+}
+
+function removeAlternativeOtherPerson(button) {
+    button.parentElement.remove();
+}
 // Show trust options when children are selected
 function showTrustOptions() {
     let trustOptionsGroup = document.getElementById('trustOptionsGroup');
@@ -403,6 +491,12 @@ function toggleAlternativeCharityDetails() {
     const altCharityGroup = document.getElementById('alternativeCharityDetailsGroup');
     if (altCharity && altCharityGroup) {
         altCharityGroup.style.display = 'block';
+        
+        // Make sure the charity list is visible
+        const altCharitiesList = document.getElementById('alternativeCharitiesList');
+        if (altCharitiesList) {
+            altCharitiesList.style.display = 'block';
+        }
     } else if (altCharityGroup) {
         altCharityGroup.style.display = 'none';
     }
@@ -413,6 +507,12 @@ function toggleAlternativeOtherPersonsDetails() {
     const altOtherPersonsGroup = document.getElementById('alternativeOtherPersonsDetailsGroup');
     if (altOtherPersons && altOtherPersonsGroup) {
         altOtherPersonsGroup.style.display = 'block';
+        
+        // Make sure the other persons list is visible
+        const altOtherPersonsList = document.getElementById('alternativeOtherPersonsList');
+        if (altOtherPersonsList) {
+            altOtherPersonsList.style.display = 'block';
+        }
     } else if (altOtherPersonsGroup) {
         altOtherPersonsGroup.style.display = 'none';
     }
