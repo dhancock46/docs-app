@@ -195,19 +195,51 @@
                         </div>
                     </div>
 
-                    <!-- Alternative Charity Details -->
-                    <div class="form-group" id="alternativeCharityDetailsGroup" style="display: none;">
-                        <label for="alternativeCharityName">Charity Name *</label>
-                        <input type="text" id="alternativeCharityName" name="alternativeCharityName" placeholder="Full legal name of charity">
-                    </div>
+                   <!-- Alternative Charity Details -->
+<div class="form-group" id="alternativeCharityDetailsGroup" style="display: none;">
+    <label>Alternative Charitable Organizations:</label>
+    <div id="alternativeCharitiesList" style="display: block;">
+        <div class="charity-entry">
+            <h4>Alternative Charity #1</h4>
+            <div class="form-group">
+                <label for="altCharity1Name">Charity Name *</label>
+                <input type="text" id="altCharity1Name" name="altCharityName[]" placeholder="Full legal name of charity">
+            </div>
+            <div class="form-group">
+                <label for="altCharity1Percentage">Percentage of Remaining Estate *</label>
+                <input type="number" id="altCharity1Percentage" name="altCharityPercentage[]" min="1" max="100" placeholder="50" step="1">
+                <span>%</span>
+            </div>
+        </div>
+    </div>
+    <button type="button" onclick="addAlternativeCharity()" class="add-btn">Add Another Charity</button>
+    <small>Percentages must add up to 100%</small>
+</div>
 
-                    <!-- Alternative Other Persons Details -->
-                    <div class="form-group" id="alternativeOtherPersonsDetailsGroup" style="display: none;">
-                        <label for="alternativeOtherPersonsText">Other Alternative Beneficiaries *</label>
-                        <textarea id="alternativeOtherPersonsText" name="alternativeOtherPersonsText" rows="3" placeholder="Describe who should receive your estate"></textarea>
-                    </div>
-                </div>
-
+<!-- Alternative Other Persons Details -->
+<div class="form-group" id="alternativeOtherPersonsDetailsGroup" style="display: none;">
+    <label>Alternative Other Persons Distribution:</label>
+    <div id="alternativeOtherPersonsList" style="display: block;">
+        <div class="other-person-entry">
+            <h4>Alternative Person #1</h4>
+            <div class="form-group">
+                <label for="altOtherPerson1Name">Full Name *</label>
+                <input type="text" id="altOtherPerson1Name" name="altOtherPersonName[]" placeholder="Full legal name">
+            </div>
+            <div class="form-group">
+                <label for="altOtherPerson1Percentage">Percentage of Remaining Estate *</label>
+                <input type="number" id="altOtherPerson1Percentage" name="altOtherPersonPercentage[]" min="1" max="100" placeholder="50" step="1">
+                <span>%</span>
+            </div>
+            <div class="form-group">
+                <label for="altOtherPerson1Alternate">If this person doesn't survive me, give their share to:</label>
+                <input type="text" id="altOtherPerson1Alternate" name="altOtherPersonAlternate[]" placeholder="Name of alternate beneficiary (optional)">
+            </div>
+        </div>
+    </div>
+    <button type="button" onclick="addAlternativeOtherPerson()" class="add-btn">Add Another Person</button>
+    <small>Percentages must add up to 100%</small>
+</div>
                 <!-- Summary Section -->
                 <div class="form-section" id="distributionSummary" style="display: none;">
                     <h3>Distribution Summary</h3>
