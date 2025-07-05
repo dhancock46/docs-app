@@ -48,7 +48,13 @@ document.addEventListener('DOMContentLoaded', function() {
         // Show primary beneficiaries for single users with no children
         document.getElementById('primaryBeneficiariesSection').style.display = 'block';
     }
-    
+      // Show spouse options for married users
+    document.getElementById('primarySpouseAllOption').style.display = 'block';
+    document.getElementById('primarySpousePartialOption').style.display = 'block';
+    } else if (maritalStatus === 'single' && hasChildren === 'no') {
+        // Show primary beneficiaries for single users with no children
+        document.getElementById('primaryBeneficiariesSection').style.display = 'block';
+    }
     // ALWAYS show alternative beneficiaries section
     document.getElementById('alternativeBeneficiariesSection').style.display = 'block';
     
