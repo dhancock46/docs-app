@@ -216,7 +216,7 @@ function addCharity() {
             <span>%</span>
         </div>
         <div class="form-group">
-            <label for="otherPerson${otherPersonCount}Alternate">If this person doesn't survive me, give their share to:</label>
+            <label for="otherPerson${otherPersonCount}Alternate">If this person does not survive me, give their share to:</label>
             <input type="text" id="otherPerson${otherPersonCount}Alternate" name="otherPersonAlternate[]" placeholder="Name of alternate beneficiary (optional)">
         </div>
         <button type="button" class="remove-btn" onclick="removeOtherPerson(this)">Remove This Person</button>
@@ -294,7 +294,7 @@ function addAlternativeOtherPerson() {
             <span>%</span>
         </div>
         <div class="form-group">
-            <label for="altOtherPerson${altOtherPersonCount}Alternate">If this person doesn't survive me, give their share to:</label>
+            <label for="altOtherPerson${altOtherPersonCount}Alternate">If this person does not survive me, give their share to:</label>
             <input type="text" id="altOtherPerson${altOtherPersonCount}Alternate" name="altOtherPersonAlternate[]" placeholder="Name of alternate beneficiary (optional)">
         </div>
         <button type="button" class="remove-btn" onclick="removeAlternativeOtherPerson(this)">Remove This Person</button>
@@ -322,7 +322,7 @@ function removeAlternativeOtherPerson(button) {
 function showTrustOptions() {
     let trustOptionsGroup = document.getElementById('trustOptionsGroup');
     
-    // Create trust options if they don't exist
+    // Create trust options if they do not exist
     if (!trustOptionsGroup) {
         const primarySection = document.getElementById('primaryDistributeesSection');
         const trustOptionsHTML = `
