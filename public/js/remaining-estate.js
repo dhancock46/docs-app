@@ -106,13 +106,19 @@ function setupPrimaryDistributeesForChildren(childCount, childrenNames) {
 let charityCount = 1;
 let otherPersonCount = 1;
 
-// Show primary charity details (simplified like gifts.js)
+// Show primary charity details (copied exactly from gifts.js pattern)
 function showPrimaryCharityDetails() {
     console.log('showPrimaryCharityDetails called!');
     const charitySection = document.getElementById('primaryCharityDetailsGroup');
     if (charitySection) {
         charitySection.style.display = 'block';
         console.log('Primary charity section shown');
+        
+        // Make sure the charity list is visible (copied from gifts.js)
+        const charitiesList = document.getElementById('charitiesList');
+        if (charitiesList) {
+            charitiesList.style.display = 'block';
+        }
     } else {
         console.log('primaryCharityDetailsGroup not found!');
     }
@@ -120,13 +126,19 @@ function showPrimaryCharityDetails() {
     updateAlternativeOptions();
 }
 
-// Show primary other persons details (simplified like gifts.js)  
+// Show primary other persons details (copied exactly from gifts.js pattern)
 function showPrimaryOtherPersonsDetails() {
     console.log('showPrimaryOtherPersonsDetails called!');
     const otherPersonsSection = document.getElementById('otherPersonsDetailsGroup');
     if (otherPersonsSection) {
         otherPersonsSection.style.display = 'block';
         console.log('Primary other persons section shown');
+        
+        // Make sure the other persons list is visible (copied from gifts.js)
+        const otherPersonsList = document.getElementById('otherPersonsList');
+        if (otherPersonsList) {
+            otherPersonsList.style.display = 'block';
+        }
     } else {
         console.log('otherPersonsDetailsGroup not found!');
     }
