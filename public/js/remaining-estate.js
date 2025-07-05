@@ -691,7 +691,7 @@ document.getElementById('remainingEstateForm').addEventListener('submit', async 
         errorMessage.scrollIntoView({ behavior: 'smooth' });
     }
 });
-
+});
 // Function to continue to executors with URL parameters
 function continueToExecutors() {
     const urlParams = new URLSearchParams(window.location.search);
