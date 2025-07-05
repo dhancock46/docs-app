@@ -31,6 +31,23 @@ document.addEventListener('DOMContentLoaded', function() {
         // Show primary distributees section for users with children
         setupPrimaryDistributeesForChildren(childCount, childrenNamesArray);
         document.getElementById('primaryDistributeesSection').style.display = 'block';
+} else if (maritalStatus === 'married' && hasChildren === 'no') {
+    console.log('Showing primary beneficiaries for married with no children');
+    // Show primary beneficiaries for married users with no children
+    document.getElementById('primaryBeneficiariesSection').style.display = 'block';
+    
+    // Show spouse options for married users
+    document.getElementById('primarySpouseAllOption').style.display = 'block';
+    document.getElementById('primarySpousePartialOption').style.display = 'block';
+    
+} else if (maritalStatus === 'single' && hasChildren === 'no') {
+    console.log('Showing primary beneficiaries for single with no children');
+    // Show primary beneficiaries for single users with no children
+    document.getElementById('primaryBeneficiariesSection').style.display = 'block';
+}  
+    // Show spouse options for married users
+    document.getElementById('primarySpouseAllOption').style.display = 'block';
+    document.getElementById('primarySpousePartialOption').style.display = 'block';
     } else if (maritalStatus === 'single' && hasChildren === 'no') {
         // Show primary beneficiaries for single users with no children
         document.getElementById('primaryBeneficiariesSection').style.display = 'block';
@@ -558,7 +575,21 @@ function toggleSpousePercentage() {
         percentageGroup.style.display = 'none';
     }
 }
-
+// Toggle spouse percentage input for primary beneficiaries
+function togglePrimarySpouseOptions() {
+    const spousePartial = document.getElementById('primarySpousePartial').checked;
+    const percentageGroup = document.getElementById('primarySpousePercentageGroup');
+    
+    // Hide all other detail sections when switching primary beneficiaries
+    document.getElementById('primaryCharityDetailsForSingle').style.display = 'none';
+    document.getElementById('primaryOtherPersonsDetailsForSingle').style.display = 'none';
+    
+    if (spousePartial) {
+        percentageGroup.style.display = 'block';
+    } else {
+        percentageGroup.style.display = 'none';
+    }
+}
 // Form validation (simplified)
 function validateForm() {
     const errors = [];
