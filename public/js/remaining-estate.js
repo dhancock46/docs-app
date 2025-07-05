@@ -64,7 +64,6 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     });
-});
 
 // Setup primary distributees section for users with children (simplified)
 function setupPrimaryDistributeesForChildren(childCount, childrenNames) {
