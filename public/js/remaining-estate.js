@@ -23,10 +23,6 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     // Simple section display logic - show what's needed from the start
-    if (maritalStatus === 'married') {
-        document.getElementById('spouseDistributionSection').style.display = 'block';
-    }
-
     if (hasChildren === 'yes' && childCount > 0) {
         // Show primary distributees section for users with children
         setupPrimaryDistributeesForChildren(childCount, childrenNamesArray);
@@ -83,7 +79,7 @@ function setupPrimaryDistributeesForChildren(childCount, childrenNames) {
                 <label for="primaryCharity">Charitable organization(s)</label>
             </div>
             <div class="radio-item">
-                <input type="radio" id="primaryOtherPersons" name="primaryDistribution" value="otherPersons" onchange="showPrimaryOtherPersonsDetails()">
+               <input type="radio" id="primaryOtherPersons" name="primaryDistribution" value="otherPersons" onchange="showPrimaryOtherPersonsDetails()">
                 <label for="primaryOtherPersons">Other person(s)</label>
             </div>
         `;
