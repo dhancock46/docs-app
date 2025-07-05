@@ -133,7 +133,30 @@ function showPrimaryOtherPersonsDetails() {
     hideTrustOptions();
     updateAlternativeOptions();
 }
+// Functions for single users without children
+function togglePrimaryCharityDetails() {
+    const primaryCharity = document.getElementById('primaryCharity').checked;
+    const charityDetailsGroup = document.getElementById('primaryCharityDetailsForSingle');
+    
+    if (primaryCharity && charityDetailsGroup) {
+        charityDetailsGroup.style.display = 'block';
+    } else if (charityDetailsGroup) {
+        charityDetailsGroup.style.display = 'none';
+    }
+    updateAlternativeOptions();
+}
 
+function toggleOtherPersonsDetails() {
+    const otherPersons = document.getElementById('primaryOtherPersons').checked;
+    const otherPersonsGroup = document.getElementById('primaryOtherPersonsDetailsForSingle');
+    
+    if (otherPersons && otherPersonsGroup) {
+        otherPersonsGroup.style.display = 'block';
+    } else if (otherPersonsGroup) {
+        otherPersonsGroup.style.display = 'none';
+    }
+    updateAlternativeOptions();
+}
 // Add another charity (copied from gifts.js pattern)
 function addCharity() {
     charityCount++;
