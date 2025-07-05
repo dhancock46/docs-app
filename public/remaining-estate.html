@@ -66,57 +66,58 @@
                             <!-- Options will be dynamically populated by JavaScript based on child count -->
                         </div>
                     </div>
+                    
                     <!-- Multiple Charities Section -->
-    <div class="form-group" id="primaryCharityDetailsGroup" style="display: none;">
-        <label>Charitable Organizations:</label>
-        <div id="charitiesList">
-            <div class="charity-entry">
-                <h4>Charity #1</h4>
-                <div class="form-group">
-                    <label for="charity1Name">Charity Name *</label>
-                    <input type="text" id="charity1Name" name="charityName[]" placeholder="Full legal name of charity">
-                </div>
-                <div class="form-group">
-                    <label for="charity1Percentage">Percentage *</label>
-                    <input type="number" id="charity1Percentage" name="charityPercentage[]" min="1" max="100" placeholder="50" step="1">
-                    <span>%</span>
-                </div>
-            </div>
-        </div>
-        <button type="button" onclick="addCharity()" class="add-btn">Add Another Charity</button>
-        <small>Percentages must add up to 100%</small>
-    </div>
+                    <div class="form-group" id="primaryCharityDetailsGroup" style="display: none;">
+                        <label>Charitable Organizations:</label>
+                        <div id="charitiesList">
+                            <div class="charity-entry">
+                                <h4>Charity #1</h4>
+                                <div class="form-group">
+                                    <label for="charity1Name">Charity Name *</label>
+                                    <input type="text" id="charity1Name" name="charityName[]" placeholder="Full legal name of charity">
+                                </div>
+                                <div class="form-group">
+                                    <label for="charity1Percentage">Percentage *</label>
+                                    <input type="number" id="charity1Percentage" name="charityPercentage[]" min="1" max="100" placeholder="50" step="1">
+                                    <span>%</span>
+                                </div>
+                            </div>
+                        </div>
+                        <button type="button" onclick="addCharity()" class="add-btn">Add Another Charity</button>
+                        <small>Percentages must add up to 100%</small>
+                    </div>
 
-    <!-- Multiple Other Persons Section -->
-    <div class="form-group" id="otherPersonsDetailsGroup" style="display: none;">
-        <label>Other Persons Distribution:</label>
-        <div id="otherPersonsList">
-            <div class="other-person-entry">
-                <h4>Person #1</h4>
-                <div class="form-group">
-                    <label for="otherPerson1Name">Full Name *</label>
-                    <input type="text" id="otherPerson1Name" name="otherPersonName[]" placeholder="Full legal name">
+                    <!-- Multiple Other Persons Section -->
+                    <div class="form-group" id="otherPersonsDetailsGroup" style="display: none;">
+                        <label>Other Persons Distribution:</label>
+                        <div id="otherPersonsList">
+                            <div class="other-person-entry">
+                                <h4>Person #1</h4>
+                                <div class="form-group">
+                                    <label for="otherPerson1Name">Full Name *</label>
+                                    <input type="text" id="otherPerson1Name" name="otherPersonName[]" placeholder="Full legal name">
+                                </div>
+                                <div class="form-group">
+                                    <label for="otherPerson1Percentage">Percentage *</label>
+                                    <input type="number" id="otherPerson1Percentage" name="otherPersonPercentage[]" min="1" max="100" placeholder="50" step="1">
+                                    <span>%</span>
+                                </div>
+                                <div class="form-group">
+                                    <label for="otherPerson1Alternate">If this person doesn't survive me, give their share to:</label>
+                                    <input type="text" id="otherPerson1Alternate" name="otherPersonAlternate[]" placeholder="Name of alternate beneficiary (optional)">
+                                </div>
+                            </div>
+                        </div>
+                        <button type="button" onclick="addOtherPerson()" class="add-btn">Add Another Person</button>
+                        <small>Percentages must add up to 100%</small>
+                    </div>
+                    
+                    <!-- Dynamic sections will be inserted here by JavaScript:
+                         - Trust options (if children selected)
+                         - Custom child shares (if custom distribution selected)
+                    -->
                 </div>
-                <div class="form-group">
-                    <label for="otherPerson1Percentage">Percentage *</label>
-                    <input type="number" id="otherPerson1Percentage" name="otherPersonPercentage[]" min="1" max="100" placeholder="50" step="1">
-                    <span>%</span>
-                </div>
-                <div class="form-group">
-                    <label for="otherPerson1Alternate">If this person doesn't survive me, give their share to:</label>
-                    <input type="text" id="otherPerson1Alternate" name="otherPersonAlternate[]" placeholder="Name of alternate beneficiary (optional)">
-                </div>
-            </div>
-        </div>
-        <button type="button" onclick="addOtherPerson()" class="add-btn">Add Another Person</button>
-        <small>Percentages must add up to 100%</small>
-    </div>
-    
-    <!-- Dynamic sections will be inserted here by JavaScript:
-         - Trust options (if children selected)
-         - Custom child shares (if custom distribution selected)
-    -->
-</div>
                     
                 <!-- Primary Beneficiaries Section (for single users with no children) -->
                 <div class="form-section" id="primaryBeneficiariesSection" style="display: none;">
@@ -135,15 +136,28 @@
                                 <label for="primarySiblings">My siblings equally</label>
                             </div>
                             <div class="radio-item" id="primaryCharityOption">
-                                <input type="radio" id="primaryCharity" name="primaryBeneficiaries" value="charity" onchange="togglePrimaryCharityDetails(); updateAlternativeOptions()">
+                                <input type="radio" id="primaryCharity" name="primaryBeneficiaries" value="charity" onchange="updateAlternativeOptions()">
                                 <label for="primaryCharity">Charitable organization(s)</label>
                             </div>
                             <div class="radio-item">
-                                <input type="radio" id="primaryOtherPersons" name="primaryBeneficiaries" value="otherPersons" onchange="toggleOtherPersonsDetails(); updateAlternativeOptions()">
+                                <input type="radio" id="primaryOtherPersons" name="primaryBeneficiaries" value="otherPersons" onchange="updateAlternativeOptions()">
                                 <label for="primaryOtherPersons">Other person(s)</label>
                             </div>
                         </div>
                     </div>
+
+                    <!-- Primary Charity Details for single users -->
+                    <div class="form-group" id="primaryCharityDetailsForSingle" style="display: none;">
+                        <label for="primaryCharityName">Charity Name *</label>
+                        <input type="text" id="primaryCharityName" name="primaryCharityName" placeholder="Full legal name of charity">
+                    </div>
+
+                    <!-- Primary Other Persons Details for single users -->
+                    <div class="form-group" id="primaryOtherPersonsDetailsForSingle" style="display: none;">
+                        <label for="primaryOtherPersonsName">Other Beneficiaries *</label>
+                        <textarea id="primaryOtherPersonsText" name="primaryOtherPersonsText" rows="3" placeholder="Describe who should receive your estate"></textarea>
+                    </div>
+                </div>
 
                 <!-- Alternative Beneficiaries Section -->
                 <div class="form-section" id="alternativeBeneficiariesSection" style="display: none;">
@@ -180,7 +194,7 @@
 
                     <!-- Alternative Other Persons Details -->
                     <div class="form-group" id="alternativeOtherPersonsDetailsGroup" style="display: none;">
-                        <label for="alternativeOtherPersons">Other Alternative Beneficiaries *</label>
+                        <label for="alternativeOtherPersonsText">Other Alternative Beneficiaries *</label>
                         <textarea id="alternativeOtherPersonsText" name="alternativeOtherPersonsText" rows="3" placeholder="Describe who should receive your estate"></textarea>
                     </div>
                 </div>
