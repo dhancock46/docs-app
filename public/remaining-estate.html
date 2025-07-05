@@ -123,26 +123,23 @@
                    <div class="form-group">
     <label>Primary Beneficiaries *</label>
     <div class="radio-group">
-    <!-- Spouse options (hidden by default, shown for married users) -->
-    <div class="radio-item" id="primarySpouseAllOption" style="display: none;">
-        <input type="radio" id="primarySpouseAll" name="primaryBeneficiaries" value="spouseAll" onchange="updateAlternativeOptions()">
-        <label for="primarySpouseAll">All of my remaining estate (100%) to my Spouse</label>
+        <div class="radio-item" id="primaryParentsOption">
+            <input type="radio" id="primaryParents" name="primaryBeneficiaries" value="parents" onchange="updateAlternativeOptions()">
+            <label for="primaryParents">My parents (or surviving parent)</label>
+        </div>
+        <div class="radio-item" id="primarySiblingsOption">
+            <input type="radio" id="primarySiblings" name="primaryBeneficiaries" value="siblings" onchange="updateAlternativeOptions()">
+            <label for="primarySiblings">My siblings equally</label>
+        </div>
+        <div class="radio-item" id="primaryCharityOption">
+            <input type="radio" id="primaryCharity" name="primaryBeneficiaries" value="charity" onchange="togglePrimaryCharityDetails(); updateAlternativeOptions()">
+            <label for="primaryCharity">Charitable organization(s)</label>
+        </div>
+        <div class="radio-item">
+            <input type="radio" id="primaryOtherPersons" name="primaryBeneficiaries" value="otherPersons" onchange="toggleOtherPersonsDetails(); updateAlternativeOptions()">
+            <label for="primaryOtherPersons">Other person(s)</label>
+        </div>
     </div>
-    <div class="radio-item" id="primarySpousePartialOption" style="display: none;">
-       <input type="radio" id="primarySpousePartial" name="primaryBeneficiaries" value="spousePartial" onchange="togglePrimarySpouseOptions(); updateAlternativeOptions()">
-        <label for="primarySpousePartial">Part of my remaining estate (specify percentage) to my Spouse</label>
-    </div>
-    
-    <!-- Standard options for all users -->
-    <div class="radio-item" id="primaryCharityOption">
-        <input type="radio" id="primaryCharity" name="primaryBeneficiaries" value="charity" onchange="showPrimaryCharityDetails(); updateAlternativeOptions()">
-        <label for="primaryCharity">Charitable organization(s)</label>
-    </div>
-    <div class="radio-item">
-       <input type="radio" id="primaryOtherPersons" name="primaryBeneficiaries" value="otherPersons" onchange="showPrimaryOtherPersonsDetails(); updateAlternativeOptions()">
-        <label for="primaryOtherPersons">Other person(s)</label>
-    </div>
-</div>
 </div>
 
                     <!-- Primary Charity Details for single users -->
@@ -155,54 +152,6 @@
                     <div class="form-group" id="primaryOtherPersonsDetailsForSingle" style="display: none;">
                         <label for="primaryOtherPersonsName">Other Beneficiaries *</label>
                         <textarea id="primaryOtherPersonsText" name="primaryOtherPersonsText" rows="3" placeholder="Describe who should receive your estate"></textarea>
-                    </div>
-                    <!-- Multiple Charities Section (for users without children) -->
-<div class="form-group" id="primaryCharityDetailsGroup" style="display: none;">
-    <label>Charitable Organizations:</label>
-    <div id="charitiesList" style="display: block;">
-        <div class="charity-entry">
-            <h4>Charity #1</h4>
-            <div class="form-group">
-                <label for="charity1Name">Charity Name *</label>
-                <input type="text" id="charity1Name" name="charityName[]" placeholder="Full legal name of charity">
-            </div>
-            <div class="form-group">
-                <label for="charity1Percentage">Percentage of Remaining Estate *</label>
-                <input type="number" id="charity1Percentage" name="charityPercentage[]" min="1" max="100" placeholder="50" step="1">
-                <span>%</span>
-            </div>
-        </div>
-    </div>
-    <button type="button" onclick="addCharity()" class="add-btn">Add Another Charity</button>
-    <small>Percentages must add up to 100%</small>
-</div>
-
-<!-- Multiple Other Persons Section (for users without children) -->
-<div class="form-group" id="otherPersonsDetailsGroup" style="display: none;">
-    <label>Other Persons Distribution:</label>
-    <div id="otherPersonsList" style="display: block;">
-        <div class="other-person-entry">
-            <h4>Person #1</h4>
-            <div class="form-group">
-                <label for="otherPerson1Name">Full Name *</label>
-                <input type="text" id="otherPerson1Name" name="otherPersonName[]" placeholder="Full legal name">
-            </div>
-            <div class="form-group">
-                <label for="otherPerson1Percentage">Percentage of Remaining Estate *</label>
-                <input type="number" id="otherPerson1Percentage" name="otherPersonPercentage[]" min="1" max="100" placeholder="50" step="1">
-                <span>%</span>
-            </div>
-        </div>
-    </div>
-    <button type="button" onclick="addOtherPerson()" class="add-btn">Add Another Person</button>
-    <small>Percentages must add up to 100%</small>
-</div>
-                    <!-- Primary Spouse Percentage input -->
-                    <div class="form-group" id="primarySpousePercentageGroup" style="display: none;">
-                        <label for="primarySpousePercentage">Percentage to Spouse *</label>
-                        <input type="number" id="primarySpousePercentage" name="primarySpousePercentage" min="1" max="99" placeholder="50">
-                        <span>%</span>
-                        <small>Enter a number between 1 and 99</small>
                     </div>
                 </div>
 
