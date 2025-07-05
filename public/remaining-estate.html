@@ -124,27 +124,27 @@
                     <h3 id="primaryBeneficiariesTitle">Primary Beneficiaries</h3>
                     <p id="primaryBeneficiariesDescription">Who should receive your remaining estate?</p>
                     
-                    <div class="form-group">
-                        <label>Primary Beneficiaries *</label>
-                        <div class="radio-group">
-                            <div class="radio-item" id="primaryParentsOption">
-                                <input type="radio" id="primaryParents" name="primaryBeneficiaries" value="parents" onchange="updateAlternativeOptions()">
-                                <label for="primaryParents">My parents (or surviving parent)</label>
-                            </div>
-                            <div class="radio-item" id="primarySiblingsOption">
-                                <input type="radio" id="primarySiblings" name="primaryBeneficiaries" value="siblings" onchange="updateAlternativeOptions()">
-                                <label for="primarySiblings">My siblings equally</label>
-                            </div>
-                            <div class="radio-item" id="primaryCharityOption">
-                                <input type="radio" id="primaryCharity" name="primaryBeneficiaries" value="charity" onchange="updateAlternativeOptions()">
-                                <label for="primaryCharity">Charitable organization(s)</label>
-                            </div>
-                            <div class="radio-item">
-                                <input type="radio" id="primaryOtherPersons" name="primaryBeneficiaries" value="otherPersons" onchange="updateAlternativeOptions()">
-                                <label for="primaryOtherPersons">Other person(s)</label>
-                            </div>
-                        </div>
-                    </div>
+                   <div class="form-group">
+    <label>Primary Beneficiaries *</label>
+    <div class="radio-group">
+        <div class="radio-item" id="primaryParentsOption">
+            <input type="radio" id="primaryParents" name="primaryBeneficiaries" value="parents" onchange="updateAlternativeOptions()">
+            <label for="primaryParents">My parents (or surviving parent)</label>
+        </div>
+        <div class="radio-item" id="primarySiblingsOption">
+            <input type="radio" id="primarySiblings" name="primaryBeneficiaries" value="siblings" onchange="updateAlternativeOptions()">
+            <label for="primarySiblings">My siblings equally</label>
+        </div>
+        <div class="radio-item" id="primaryCharityOption">
+            <input type="radio" id="primaryCharity" name="primaryBeneficiaries" value="charity" onchange="togglePrimaryCharityDetails(); updateAlternativeOptions()">
+            <label for="primaryCharity">Charitable organization(s)</label>
+        </div>
+        <div class="radio-item">
+            <input type="radio" id="primaryOtherPersons" name="primaryBeneficiaries" value="otherPersons" onchange="toggleOtherPersonsDetails(); updateAlternativeOptions()">
+            <label for="primaryOtherPersons">Other person(s)</label>
+        </div>
+    </div>
+</div>
 
                     <!-- Primary Charity Details for single users -->
                     <div class="form-group" id="primaryCharityDetailsForSingle" style="display: none;">
