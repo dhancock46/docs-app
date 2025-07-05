@@ -135,11 +135,11 @@
     
     <!-- Standard options for all users -->
     <div class="radio-item" id="primaryCharityOption">
-        <input type="radio" id="primaryCharity" name="primaryBeneficiaries" value="charity" onchange="togglePrimaryCharityDetails(); updateAlternativeOptions()">
+        <input type="radio" id="primaryCharity" name="primaryBeneficiaries" value="charity" onchange="showPrimaryCharityDetails(); updateAlternativeOptions()">
         <label for="primaryCharity">Charitable organization(s)</label>
     </div>
     <div class="radio-item">
-        <input type="radio" id="primaryOtherPersons" name="primaryBeneficiaries" value="otherPersons" onchange="toggleOtherPersonsDetails(); updateAlternativeOptions()">
+       <input type="radio" id="primaryOtherPersons" name="primaryBeneficiaries" value="otherPersons" onchange="showPrimaryOtherPersonsDetails(); updateAlternativeOptions()">
         <label for="primaryOtherPersons">Other person(s)</label>
     </div>
 </div>
