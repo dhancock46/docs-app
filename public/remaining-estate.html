@@ -88,21 +88,30 @@
                         <small>Percentages must add up to 100%</small>
                     </div>
 
-                    <!-- Multiple Other Persons Section -->
-                    <div class="form-group" id="otherPersonsDetailsGroup" style="display: none;">
-                        <label>Other Persons Distribution:</label>
-                        <div id="otherPersonsList">
-                            <div class="other-person-entry">
-                                <h4>Person #1</h4>
-                                <div class="form-group">
-                                    <label for="otherPerson1Name">Full Name *</label>
-                                    <input type="text" id="otherPerson1Name" name="otherPersonName[]" placeholder="Full legal name">
-                                </div>
-                                <div class="form-group">
-                                    <label for="otherPerson1Percentage">Percentage *</label>
-                                    <input type="number" id="otherPerson1Percentage" name="otherPersonPercentage[]" min="1" max="100" placeholder="50" step="1">
-                                    <span>%</span>
-                                </div>
+            <!-- Multiple Other Persons Section (copied from gifts.js pattern) -->
+<div class="form-group" id="otherPersonsDetailsGroup" style="display: none;">
+    <label>Other Persons Distribution:</label>
+    <div id="otherPersonsList" style="display: block;">
+        <div class="other-person-entry">
+            <h4>Person #1</h4>
+            <div class="form-group">
+                <label for="otherPerson1Name">Full Name *</label>
+                <input type="text" id="otherPerson1Name" name="otherPersonName[]" placeholder="Full legal name">
+            </div>
+            <div class="form-group">
+                <label for="otherPerson1Percentage">Percentage of Remaining Estate *</label>
+                <input type="number" id="otherPerson1Percentage" name="otherPersonPercentage[]" min="1" max="100" placeholder="50" step="1">
+                <span>%</span>
+            </div>
+            <div class="form-group">
+                <label for="otherPerson1Alternate">If this person doesn't survive me, give their share to:</label>
+                <input type="text" id="otherPerson1Alternate" name="otherPersonAlternate[]" placeholder="Name of alternate beneficiary (optional)">
+            </div>
+        </div>
+    </div>
+    <button type="button" onclick="addOtherPerson()" class="add-btn">Add Another Person</button>
+    <small>Percentages must add up to 100%</small>
+</div>
                                 <div class="form-group">
                                     <label for="otherPerson1Alternate">If this person doesn't survive me, give their share to:</label>
                                     <input type="text" id="otherPerson1Alternate" name="otherPersonAlternate[]" placeholder="Name of alternate beneficiary (optional)">
