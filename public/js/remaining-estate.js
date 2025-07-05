@@ -489,6 +489,8 @@ function updateAlternativeOptions() {
 function toggleAlternativeCharityDetails() {
     const altCharity = document.getElementById('altCharity').checked;
     const altCharityGroup = document.getElementById('alternativeCharityDetailsGroup');
+    const altOtherPersonsGroup = document.getElementById('alternativeOtherPersonsDetailsGroup');
+    
     if (altCharity && altCharityGroup) {
         altCharityGroup.style.display = 'block';
         
@@ -496,6 +498,11 @@ function toggleAlternativeCharityDetails() {
         const altCharitiesList = document.getElementById('alternativeCharitiesList');
         if (altCharitiesList) {
             altCharitiesList.style.display = 'block';
+        }
+        
+        // Hide other persons section
+        if (altOtherPersonsGroup) {
+            altOtherPersonsGroup.style.display = 'none';
         }
     } else if (altCharityGroup) {
         altCharityGroup.style.display = 'none';
@@ -505,6 +512,8 @@ function toggleAlternativeCharityDetails() {
 function toggleAlternativeOtherPersonsDetails() {
     const altOtherPersons = document.getElementById('altOtherPersons').checked;
     const altOtherPersonsGroup = document.getElementById('alternativeOtherPersonsDetailsGroup');
+    const altCharityGroup = document.getElementById('alternativeCharityDetailsGroup');
+    
     if (altOtherPersons && altOtherPersonsGroup) {
         altOtherPersonsGroup.style.display = 'block';
         
@@ -512,6 +521,11 @@ function toggleAlternativeOtherPersonsDetails() {
         const altOtherPersonsList = document.getElementById('alternativeOtherPersonsList');
         if (altOtherPersonsList) {
             altOtherPersonsList.style.display = 'block';
+        }
+        
+        // Hide charity section
+        if (altCharityGroup) {
+            altCharityGroup.style.display = 'none';
         }
     } else if (altOtherPersonsGroup) {
         altOtherPersonsGroup.style.display = 'none';
