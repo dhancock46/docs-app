@@ -36,10 +36,6 @@ document.addEventListener('DOMContentLoaded', function() {
     // Show primary beneficiaries for married users with no children
     document.getElementById('primaryBeneficiariesSection').style.display = 'block';
     
-    // Show spouse options for married users
-    document.getElementById('primarySpouseAllOption').style.display = 'block';
-    document.getElementById('primarySpousePartialOption').style.display = 'block';
-    
 } else if (maritalStatus === 'single' && hasChildren === 'no') {
     console.log('Showing primary beneficiaries for single with no children');
     // Show primary beneficiaries for single users with no children
