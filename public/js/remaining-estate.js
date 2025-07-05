@@ -201,13 +201,7 @@ function addCharity() {
         <button type="button" class="remove-btn" onclick="removeCharity(this)">Remove This Charity</button>
     `;
     charitiesList.appendChild(newCharityEntry);
-}
-
-// Add another other person (copied from gifts.js pattern)
-function addOtherPerson() {
-    otherPersonCount++;
-    const otherPersonsList = document.getElementById('otherPersonsList');
-    
+}    
     const newPersonEntry = document.createElement('div');
     newPersonEntry.className = 'other-person-entry';
     newPersonEntry.innerHTML = `
@@ -688,6 +682,7 @@ document.getElementById('remainingEstateForm').addEventListener('submit', async 
     }
 });
 });
+
 // Function to continue to executors with URL parameters
 function continueToExecutors() {
     const urlParams = new URLSearchParams(window.location.search);
