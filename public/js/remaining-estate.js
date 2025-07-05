@@ -202,27 +202,7 @@ function addCharity() {
     `;
     charitiesList.appendChild(newCharityEntry);
 }    
-    const newPersonEntry = document.createElement('div');
-    newPersonEntry.className = 'other-person-entry';
-    newPersonEntry.innerHTML = `
-        <h4>Person #${otherPersonCount}</h4>
-        <div class="form-group">
-            <label for="otherPerson${otherPersonCount}Name">Full Name *</label>
-            <input type="text" id="otherPerson${otherPersonCount}Name" name="otherPersonName[]" placeholder="Full legal name">
-        </div>
-        <div class="form-group">
-            <label for="otherPerson${otherPersonCount}Percentage">Percentage *</label>
-            <input type="number" id="otherPerson${otherPersonCount}Percentage" name="otherPersonPercentage[]" min="1" max="100" placeholder="25" step="1">
-            <span>%</span>
-        </div>
-        <div class="form-group">
-            <label for="otherPerson${otherPersonCount}Alternate">If this person does not survive me, give their share to:</label>
-            <input type="text" id="otherPerson${otherPersonCount}Alternate" name="otherPersonAlternate[]" placeholder="Name of alternate beneficiary (optional)">
-        </div>
-        <button type="button" class="remove-btn" onclick="removeOtherPerson(this)">Remove This Person</button>
-    `;
-    otherPersonsList.appendChild(newPersonEntry);
-}
+  
 // Add another other person (copied from gifts.js pattern)
 function addOtherPerson() {
     otherPersonCount++;
@@ -247,9 +227,8 @@ function addOtherPerson() {
         </div>
         <button type="button" class="remove-btn" onclick="removeOtherPerson(this)">Remove This Person</button>
     `;
-    otherPersonsList.appendChild(newPersonEntry);
+    otherPersonsList.appendChild(newPersonEntry);  // ← ADD THIS LINE
 }
-
 // ADD THE NEW FUNCTIONS HERE:
 
 // Add another alternative charity
