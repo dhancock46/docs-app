@@ -36,64 +36,79 @@
                     
                     <div class="form-group">
                         <label>Primary Beneficiaries *</label>
-                        <div class="radio-group">
-                            <!-- Spouse options (hidden by default, shown for married users) -->
-                            <div class="radio-item" id="primarySpouseAllOption" style="display: none;">
-                                <input type="radio" id="primarySpouseAll" name="primaryBeneficiaries" value="spouseAll" onchange="handlePrimaryBeneficiaryChange(); hidePrimaryCharityAndPersonSections(); updateAlternativeOptions()">
-                                <label for="primarySpouseAll">All of my remaining estate (100%) to my Spouse</label>
-                            </div>
-                            <div class="radio-item" id="primarySpousePartialOption" style="display: none;">
-                                <input type="radio" id="primarySpousePartial" name="primaryBeneficiaries" value="spousePartial" onchange="handlePrimaryBeneficiaryChange(); togglePrimarySpouseOptions(); updateAlternativeOptions()">
-                                <label for="primarySpousePartial">Part of my remaining estate (specify percentage) to my Spouse</label>
-                            </div>
-                            
-                            <!-- Children options (hidden by default, shown for users with children) -->
-                            <div class="radio-item" id="primaryChildrenEqualOption" style="display: none;">
-                                <input type="radio" id="primaryChildrenEqual" name="primaryBeneficiaries" value="childrenEqual" onchange="handlePrimaryBeneficiaryChange(); hidePrimaryCharityAndPersonSections(); updateAlternativeOptions()">
-                                <label for="primaryChildrenEqual">To my children in equal shares</label>
-                                <div class="percentage-input" id="childrenPercentageGroup" style="display: none; margin-top: 10px;">
-                                    <label for="childrenPercentage">Percentage:</label>
-                                    <input type="number" id="childrenPercentage" name="childrenPercentage" min="1" max="100" step="1" placeholder="25" onchange="calculateRemainingPercentage()">
-                                    <span>%</span>
-                                </div>
-                            </div>
-                            
-                            <!-- Standard options for all users -->
-                            <div class="radio-item" id="primaryCharityOption">
-                                <input type="radio" id="primaryCharity" name="primaryBeneficiaries" value="charity" onchange="handlePrimaryBeneficiaryChange(); showPrimaryCharityDetails(); updateAlternativeOptions()">
-                                <label for="primaryCharity">Charitable organization(s)</label>
-                            </div>
-                            <div class="radio-item">
-                                <input type="radio" id="primaryOtherPersons" name="primaryBeneficiaries" value="otherPersons" onchange="handlePrimaryBeneficiaryChange(); showPrimaryOtherPersonsDetails(); updateAlternativeOptions()">
-                                <label for="primaryOtherPersons">Other person(s)</label>
-                            </div>
+                        <div class="radio-group" id="primaryBeneficiariesRadioGroup">
+                            <!-- Options will be populated by JavaScript based on user situation -->
                         </div>
                     </div>
 
-                    <!-- Primary Spouse Percentage input -->
-                    <div class="form-group" id="primarySpousePercentageGroup" style="display: none;">
-                        <label for="primarySpousePercentage">Percentage to Spouse *</label>
-                        <input type="number" id="primarySpousePercentage" name="primarySpousePercentage" min="1" max="99" placeholder="50" onchange="calculateRemainingPercentage()">
+                    <!-- Spouse Percentage Input (for partial distribution) -->
+                    <div class="form-group" id="spousePercentageGroup" style="display: none;">
+                        <label for="spousePercentage">Percentage to Spouse *</label>
+                        <input type="number" id="spousePercentage" name="spousePercentage" min="1" max="99" placeholder="75" onchange="calculateRemainingPercentage()">
                         <span>%</span>
                         <small>Enter a number between 1 and 99</small>
                     </div>
 
-                    <!-- Remaining Percentage Display -->
-                    <div id="remainingPercentageDisplay" style="display: none; margin-top: 15px; padding: 10px; background-color: #f5f5f5; border-radius: 5px;">
-                        <strong>Remaining Estate to Allocate: <span id="remainingPercentage">100</span>%</strong>
-                        <div id="allocationSummary" style="margin-top: 10px; font-size: 14px;">
-                            <div id="spouseAllocation" style="display: none;">Spouse: <span id="spousePercentageDisplay">0</span>%</div>
-                            <div id="childrenAllocation" style="display: none;">Children: <span id="childrenPercentageDisplay">0</span>%</div>
-                            <div id="charityAllocation" style="display: none;">Charity: <span id="charityPercentageDisplay">0</span>%</div>
-                            <div id="otherPersonsAllocation" style="display: none;">Other Persons: <span id="otherPersonsPercentageDisplay">0</span>%</div>
+                    <!-- Remaining Percentage Distribution -->
+                    <div class="form-group" id="remainingPercentageGroup" style="display: none;">
+                        <h4 id="remainingPercentageTitle">You have <span id="remainingAmount">25</span>% remaining. How would you like to distribute it?</h4>
+                        <div class="radio-group" id="remainingDistributionRadioGroup">
+                            <!-- Options will be populated by JavaScript -->
                         </div>
-                        <div id="validationMessage" style="margin-top: 10px; color: red; display: none;"></div>
                     </div>
 
-                    <!-- Multiple Charities Section -->
-                    <div class="form-group" id="primaryCharityDetailsGroup" style="display: none;">
-                        <label>Charitable Organizations:</label>
-                        <div id="charitiesList" style="display: block;">
+                    <!-- Children Details -->
+                    <div class="form-group" id="childrenDetailsGroup" style="display: none;">
+                        <h4>Children Distribution Details</h4>
+                        <div class="radio-group">
+                            <div class="radio-item">
+                                <input type="radio" id="childrenEqual" name="childrenDistribution" value="equal" onchange="hideCustomChildShares()">
+                                <label for="childrenEqual">Equal shares to all children</label>
+                            </div>
+                            <div class="radio-item" id="childrenCustomOption" style="display: none;">
+                                <input type="radio" id="childrenCustom" name="childrenDistribution" value="custom" onchange="showCustomChildShares()">
+                                <label for="childrenCustom">Different amounts to each child</label>
+                            </div>
+                        </div>
+
+                        <!-- Custom Child Shares -->
+                        <div id="customChildSharesGroup" style="display: none; margin-top: 15px;">
+                            <label>Specify percentage for each child:</label>
+                            <div id="childSharesList">
+                                <!-- Will be populated by JavaScript -->
+                            </div>
+                            <small>Child percentages must total the remaining amount</small>
+                        </div>
+
+                        <!-- Trust Options -->
+                        <div id="trustOptionsGroup" style="margin-top: 15px;">
+                            <label>How should your children receive their inheritance? *</label>
+                            <div class="radio-group">
+                                <div class="radio-item">
+                                    <input type="radio" id="distributionOutright" name="distributionType" value="outright" onchange="hideTrustDetails()">
+                                    <label for="distributionOutright">Outright distribution (no trust)</label>
+                                </div>
+                                <div class="radio-item">
+                                    <input type="radio" id="distributionTrust" name="distributionType" value="trust" onchange="showTrustDetails()">
+                                    <label for="distributionTrust">In trust</label>
+                                </div>
+                            </div>
+
+                            <!-- Trust Details -->
+                            <div id="trustDetailsGroup" style="display: none; margin-top: 10px;">
+                                <div class="form-group">
+                                    <label for="trustAge">At what age should the trust end? *</label>
+                                    <input type="number" id="trustAge" name="trustAge" min="18" max="50" placeholder="25">
+                                    <small>Enter age between 18 and 50</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Charity Details -->
+                    <div class="form-group" id="charityDetailsGroup" style="display: none;">
+                        <h4>Charitable Organizations</h4>
+                        <div id="charitiesList">
                             <div class="charity-entry">
                                 <h4>Charity #1</h4>
                                 <div class="form-group">
@@ -101,20 +116,20 @@
                                     <input type="text" id="charity1Name" name="charityName[]" placeholder="Full legal name of charity">
                                 </div>
                                 <div class="form-group">
-                                    <label for="charity1Percentage">Percentage of Remaining Estate *</label>
-                                    <input type="number" id="charity1Percentage" name="charityPercentage[]" min="1" max="100" placeholder="50" step="1" onchange="calculateRemainingPercentage()">
+                                    <label for="charity1Percentage">Percentage *</label>
+                                    <input type="number" id="charity1Percentage" name="charityPercentage[]" min="1" max="100" placeholder="50" step="1" onchange="validateCharityPercentages()">
                                     <span>%</span>
                                 </div>
                             </div>
                         </div>
                         <button type="button" onclick="addCharity()" class="add-btn">Add Another Charity</button>
-                        <small>Percentages must add up to 100%</small>
+                        <small>Charity percentages must add up to 100% (or the remaining amount if partial spouse)</small>
                     </div>
 
-                    <!-- Multiple Other Persons Section -->
+                    <!-- Other Persons Details -->
                     <div class="form-group" id="otherPersonsDetailsGroup" style="display: none;">
-                        <label>Other Persons Distribution:</label>
-                        <div id="otherPersonsList" style="display: block;">
+                        <h4>Other Persons</h4>
+                        <div id="otherPersonsList">
                             <div class="other-person-entry">
                                 <h4>Person #1</h4>
                                 <div class="form-group">
@@ -122,14 +137,67 @@
                                     <input type="text" id="otherPerson1Name" name="otherPersonName[]" placeholder="Full legal name">
                                 </div>
                                 <div class="form-group">
-                                    <label for="otherPerson1Percentage">Percentage of Remaining Estate *</label>
-                                    <input type="number" id="otherPerson1Percentage" name="otherPersonPercentage[]" min="1" max="100" placeholder="50" step="1" onchange="calculateRemainingPercentage()">
+                                    <label for="otherPerson1Percentage">Percentage *</label>
+                                    <input type="number" id="otherPerson1Percentage" name="otherPersonPercentage[]" min="1" max="100" placeholder="50" step="1" onchange="validateOtherPersonsPercentages()">
                                     <span>%</span>
+                                </div>
+                                <div class="form-group">
+                                    <label for="otherPerson1Alternate">If this person doesn't survive me, give their share to:</label>
+                                    <input type="text" id="otherPerson1Alternate" name="otherPersonAlternate[]" placeholder="Name of alternate beneficiary (optional)">
                                 </div>
                             </div>
                         </div>
                         <button type="button" onclick="addOtherPerson()" class="add-btn">Add Another Person</button>
-                        <small>Percentages must add up to 100%</small>
+                        <small>Person percentages must add up to 100% (or the remaining amount if partial spouse)</small>
+                    </div>
+
+                    <!-- Multiple Distribution Details -->
+                    <div class="form-group" id="multipleDistributionGroup" style="display: none;">
+                        <h4>Multiple Distribution Details</h4>
+                        <p>Specify how the <span id="multipleRemainingAmount">25</span>% should be split:</p>
+                        
+                        <div id="multipleDistributionOptions">
+                            <!-- Children Option -->
+                            <div class="form-group" id="multipleChildrenOption" style="display: none;">
+                                <label>
+                                    <input type="checkbox" id="multipleChildren" name="multipleDistribution" value="children" onchange="toggleMultipleChildrenDetails()">
+                                    Children
+                                </label>
+                                <div id="multipleChildrenPercentage" style="display: none; margin-left: 25px; margin-top: 5px;">
+                                    <label for="childrenMultiplePercent">Percentage to children:</label>
+                                    <input type="number" id="childrenMultiplePercent" name="childrenMultiplePercent" min="1" max="100" placeholder="15" onchange="validateMultipleDistribution()">
+                                    <span>%</span>
+                                </div>
+                            </div>
+
+                            <!-- Charity Option -->
+                            <div class="form-group">
+                                <label>
+                                    <input type="checkbox" id="multipleCharity" name="multipleDistribution" value="charity" onchange="toggleMultipleCharityDetails()">
+                                    Charitable organizations
+                                </label>
+                                <div id="multipleCharityPercentage" style="display: none; margin-left: 25px; margin-top: 5px;">
+                                    <label for="charityMultiplePercent">Percentage to charities:</label>
+                                    <input type="number" id="charityMultiplePercent" name="charityMultiplePercent" min="1" max="100" placeholder="10" onchange="validateMultipleDistribution()">
+                                    <span>%</span>
+                                </div>
+                            </div>
+
+                            <!-- Other Persons Option -->
+                            <div class="form-group">
+                                <label>
+                                    <input type="checkbox" id="multipleOtherPersons" name="multipleDistribution" value="otherPersons" onchange="toggleMultipleOtherPersonsDetails()">
+                                    Other persons
+                                </label>
+                                <div id="multipleOtherPersonsPercentage" style="display: none; margin-left: 25px; margin-top: 5px;">
+                                    <label for="otherPersonsMultiplePercent">Percentage to other persons:</label>
+                                    <input type="number" id="otherPersonsMultiplePercent" name="otherPersonsMultiplePercent" min="1" max="100" placeholder="5" onchange="validateMultipleDistribution()">
+                                    <span>%</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="multipleDistributionValidation" style="margin-top: 10px; color: red; display: none;"></div>
                     </div>
                 </div>
 
@@ -141,29 +209,14 @@
                     <div class="form-group">
                         <label>Alternative Beneficiaries *</label>
                         <div class="radio-group" id="alternativeOptionsGroup">
-                            <div class="radio-item" id="altParentsOption">
-                                <input type="radio" id="altParents" name="alternativeBeneficiaries" value="parents" onchange="hideAlternativeCharityAndPersonSections()">
-                                <label for="altParents">My parents (or surviving parent)</label>
-                            </div>
-                            <div class="radio-item" id="altSiblingsOption">
-                                <input type="radio" id="altSiblings" name="alternativeBeneficiaries" value="siblings" onchange="hideAlternativeCharityAndPersonSections()">
-                                <label for="altSiblings">My siblings equally</label>
-                            </div>
-                            <div class="radio-item" id="altCharityOption">
-                                <input type="radio" id="altCharity" name="alternativeBeneficiaries" value="charity" onchange="toggleAlternativeCharityDetails()">
-                                <label for="altCharity">Charitable organization(s)</label>
-                            </div>
-                            <div class="radio-item" id="altOtherPersonsOption">
-                                <input type="radio" id="altOtherPersons" name="alternativeBeneficiaries" value="otherPersons" onchange="toggleAlternativeOtherPersonsDetails()">
-                                <label for="altOtherPersons">Other person(s)</label>
-                            </div>
+                            <!-- Options will be populated by JavaScript -->
                         </div>
                     </div>
 
                     <!-- Alternative Charity Details -->
                     <div class="form-group" id="alternativeCharityDetailsGroup" style="display: none;">
                         <label>Alternative Charitable Organizations:</label>
-                        <div id="alternativeCharitiesList" style="display: block;">
+                        <div id="alternativeCharitiesList">
                             <div class="charity-entry">
                                 <h4>Alternative Charity #1</h4>
                                 <div class="form-group">
@@ -171,7 +224,7 @@
                                     <input type="text" id="altCharity1Name" name="altCharityName[]" placeholder="Full legal name of charity">
                                 </div>
                                 <div class="form-group">
-                                    <label for="altCharity1Percentage">Percentage of Remaining Estate *</label>
+                                    <label for="altCharity1Percentage">Percentage *</label>
                                     <input type="number" id="altCharity1Percentage" name="altCharityPercentage[]" min="1" max="100" placeholder="50" step="1">
                                     <span>%</span>
                                 </div>
@@ -183,8 +236,8 @@
 
                     <!-- Alternative Other Persons Details -->
                     <div class="form-group" id="alternativeOtherPersonsDetailsGroup" style="display: none;">
-                        <label>Alternative Other Persons Distribution:</label>
-                        <div id="alternativeOtherPersonsList" style="display: block;">
+                        <label>Alternative Other Persons:</label>
+                        <div id="alternativeOtherPersonsList">
                             <div class="other-person-entry">
                                 <h4>Alternative Person #1</h4>
                                 <div class="form-group">
@@ -192,7 +245,7 @@
                                     <input type="text" id="altOtherPerson1Name" name="altOtherPersonName[]" placeholder="Full legal name">
                                 </div>
                                 <div class="form-group">
-                                    <label for="altOtherPerson1Percentage">Percentage of Remaining Estate *</label>
+                                    <label for="altOtherPerson1Percentage">Percentage *</label>
                                     <input type="number" id="altOtherPerson1Percentage" name="altOtherPersonPercentage[]" min="1" max="100" placeholder="50" step="1">
                                     <span>%</span>
                                 </div>
