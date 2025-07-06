@@ -120,55 +120,43 @@ let altOtherPersonCount = 1;
 let primaryCharityCount = 1;
 let primaryOtherPersonCount = 1;
 
-// Show primary charity details (copied from working alternative pattern)
+// Show primary charity details (use simple form for married users with no children)
 function showPrimaryCharityDetails() {
     console.log('showPrimaryCharityDetails called!');
-    const primaryCharityGroup = document.getElementById('primaryCharityDetailsGroup');
-    const primaryOtherPersonsGroup = document.getElementById('otherPersonsDetailsGroup');
+    const primaryCharityGroup = document.getElementById('primaryCharityDetailsForSingle');
+    const primaryOtherPersonsGroup = document.getElementById('primaryOtherPersonsDetailsForSingle');
     
     if (primaryCharityGroup) {
         primaryCharityGroup.style.display = 'block';
         console.log('Primary charity section shown');
-        
-        // Make sure the charity list is visible
-        const primaryCharitiesList = document.getElementById('primaryCharitiesList');
-        if (primaryCharitiesList) {
-            primaryCharitiesList.style.display = 'block';
-        }
         
         // Hide other persons section
         if (primaryOtherPersonsGroup) {
             primaryOtherPersonsGroup.style.display = 'none';
         }
     } else {
-        console.log('primaryCharityDetailsGroup not found!');
+        console.log('primaryCharityDetailsForSingle not found!');
     }
     hideTrustOptions();
     updateAlternativeOptions();
 }
 
-// Show primary other persons details (copied from working alternative pattern)
+// Show primary other persons details (use simple form for married users with no children)
 function showPrimaryOtherPersonsDetails() {
     console.log('showPrimaryOtherPersonsDetails called!');
-    const primaryOtherPersonsGroup = document.getElementById('otherPersonsDetailsGroup');
-    const primaryCharityGroup = document.getElementById('primaryCharityDetailsGroup');
+    const primaryOtherPersonsGroup = document.getElementById('primaryOtherPersonsDetailsForSingle');
+    const primaryCharityGroup = document.getElementById('primaryCharityDetailsForSingle');
     
     if (primaryOtherPersonsGroup) {
         primaryOtherPersonsGroup.style.display = 'block';
         console.log('Primary other persons section shown');
-        
-        // Make sure the other persons list is visible
-        const primaryOtherPersonsList = document.getElementById('primaryOtherPersonsList');
-        if (primaryOtherPersonsList) {
-            primaryOtherPersonsList.style.display = 'block';
-        }
         
         // Hide charity section
         if (primaryCharityGroup) {
             primaryCharityGroup.style.display = 'none';
         }
     } else {
-        console.log('otherPersonsDetailsGroup not found!');
+        console.log('primaryOtherPersonsDetailsForSingle not found!');
     }
     hideTrustOptions();
     updateAlternativeOptions();
