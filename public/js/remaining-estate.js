@@ -564,7 +564,7 @@ function updateDistributionSummary() {
    if (spouseAll) {
        summaryHTML += '<p><strong>Spouse:</strong> 100% of remaining estate</p>';
    } else if (spousePartial && spousePercentage) {
-       summaryHTML += `<p><strong>Spouse:</strong> ${spousePercentage}% of remaining estate</p>';
+      summaryHTML += `<p><strong>Spouse:</strong> ${spousePercentage}% of remaining estate</p>`;
        
        // Add other allocations if any
        const childrenPercentage = document.getElementById('childrenPercentage')?.value;
