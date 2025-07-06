@@ -91,7 +91,22 @@
       <input type="radio" id="primarySpousePartial" name="primaryBeneficiaries" value="spousePartial" onchange="hidePrimaryCharityAndPersonSections(); togglePrimarySpouseOptions(); updateAlternativeOptions()">
         <label for="primarySpousePartial">Part of my remaining estate (specify percentage) to my Spouse</label>
     </div>
+    <!-- Children options (hidden by default, shown for users with children) -->
+    <div class="radio-item" id="primaryChildrenEqualOption" style="display: none;">
+        <input type="radio" id="primaryChildrenEqual" name="primaryBeneficiaries" value="childrenEqual" onchange="hidePrimaryCharityAndPersonSections(); updateAlternativeOptions()">
+        <label for="primaryChildrenEqual">To my children in equal shares</label>
+    </div>
     
+    <!-- Standard options for all users -->
+    <div class="radio-item" id="primaryCharityOption">
+        <input type="radio" id="primaryCharity" name="primaryBeneficiaries" value="charity" onchange="showPrimaryCharityDetails(); updateAlternativeOptions()">
+        <label for="primaryCharity">Charitable organization(s)</label>
+    </div>
+    <div class="radio-item">
+       <input type="radio" id="primaryOtherPersons" name="primaryBeneficiaries" value="otherPersons" onchange="showPrimaryOtherPersonsDetails(); updateAlternativeOptions()">
+        <label for="primaryOtherPersons">Other person(s)</label>
+    </div>
+</div>
     <!-- Standard options for all users -->
     <div class="radio-item" id="primaryCharityOption">
         <input type="radio" id="primaryCharity" name="primaryBeneficiaries" value="charity" onchange="showPrimaryCharityDetails(); updateAlternativeOptions()">
