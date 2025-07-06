@@ -33,7 +33,7 @@ if (maritalStatus === 'married') {
     document.getElementById('primarySpousePartialOption').style.display = 'block';
     
     // Show children option if they have children
-    if (hasChildren === 'yes' && childCount > 0) {
+    if (hasChildren === 'yes') {
         document.getElementById('primaryChildrenEqualOption').style.display = 'block';
     }
 } else if (maritalStatus === 'single' && hasChildren === 'no') {
