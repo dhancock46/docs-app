@@ -300,6 +300,61 @@ function removeAlternativeCharity(button) {
 function removeAlternativeOtherPerson(button) {
     button.parentElement.remove();
 }
+
+// Add primary charity function (copied from alternative pattern)
+function addPrimaryCharity() {
+    primaryCharityCount++;
+    const charitiesList = document.getElementById('primaryCharitiesList');
+    
+    const newCharityEntry = document.createElement('div');
+    newCharityEntry.className = 'charity-entry';
+    newCharityEntry.innerHTML = `
+        <h4>Primary Charity #${primaryCharityCount}</h4>
+        <div class="form-group">
+            <label for="primaryCharity${primaryCharityCount}Name">Charity Name *</label>
+            <input type="text" id="primaryCharity${primaryCharityCount}Name" name="primaryCharityName[]" placeholder="Full legal name of charity">
+        </div>
+        <div class="form-group">
+            <label for="primaryCharity${primaryCharityCount}Percentage">Percentage of Remaining Estate *</label>
+            <input type="number" id="primaryCharity${primaryCharityCount}Percentage" name="primaryCharityPercentage[]" min="1" max="100" placeholder="25" step="1">
+            <span>%</span>
+        </div>
+        <button type="button" class="remove-btn" onclick="removePrimaryCharity(this)">Remove This Charity</button>
+    `;
+    charitiesList.appendChild(newCharityEntry);
+}
+
+// Add primary other person function
+function addPrimaryOtherPerson() {
+    primaryOtherPersonCount++;
+    const otherPersonsList = document.getElementById('primaryOtherPersonsList');
+    
+    const newPersonEntry = document.createElement('div');
+    newPersonEntry.className = 'other-person-entry';
+    newPersonEntry.innerHTML = `
+        <h4>Primary Person #${primaryOtherPersonCount}</h4>
+        <div class="form-group">
+            <label for="primaryOtherPerson${primaryOtherPersonCount}Name">Full Name *</label>
+            <input type="text" id="primaryOtherPerson${primaryOtherPersonCount}Name" name="primaryOtherPersonName[]" placeholder="Full legal name">
+        </div>
+        <div class="form-group">
+            <label for="primaryOtherPerson${primaryOtherPersonCount}Percentage">Percentage of Remaining Estate *</label>
+            <input type="number" id="primaryOtherPerson${primaryOtherPersonCount}Percentage" name="primaryOtherPersonPercentage[]" min="1" max="100" placeholder="25" step="1">
+            <span>%</span>
+        </div>
+        <button type="button" class="remove-btn" onclick="removePrimaryOtherPerson(this)">Remove This Person</button>
+    `;
+    otherPersonsList.appendChild(newPersonEntry);
+}
+
+// Remove functions for primary section
+function removePrimaryCharity(button) {
+    button.parentElement.remove();
+}
+
+function removePrimaryOtherPerson(button) {
+    button.parentElement.remove();
+}
 // Show trust options when children are selected
 function showTrustOptions() {
     let trustOptionsGroup = document.getElementById('trustOptionsGroup');
