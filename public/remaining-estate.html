@@ -67,47 +67,6 @@
                             <!-- Options will be dynamically populated by JavaScript based on child count -->
                         </div>
                     </div>
-                    <!-- Multiple Charities Section (for primary beneficiaries) -->
-<div class="form-group" id="primaryCharityDetailsGroup" style="display: none;">
-    <label>Charitable Organizations:</label>
-    <div id="primaryCharitiesList" style="display: block;">
-        <div class="charity-entry">
-            <h4>Primary Charity #1</h4>
-            <div class="form-group">
-                <label for="primaryCharity1Name">Charity Name *</label>
-                <input type="text" id="primaryCharity1Name" name="primaryCharityName[]" placeholder="Full legal name of charity">
-            </div>
-            <div class="form-group">
-                <label for="primaryCharity1Percentage">Percentage of Remaining Estate *</label>
-                <input type="number" id="primaryCharity1Percentage" name="primaryCharityPercentage[]" min="1" max="100" placeholder="50" step="1">
-                <span>%</span>
-            </div>
-        </div>
-    </div>
-    <button type="button" onclick="addPrimaryCharity()" class="add-btn">Add Another Charity</button>
-    <small>Percentages must add up to 100%</small>
-</div>
-
-<!-- Multiple Other Persons Section (for primary beneficiaries) -->
-<div class="form-group" id="otherPersonsDetailsGroup" style="display: none;">
-    <label>Other Persons Distribution:</label>
-    <div id="primaryOtherPersonsList" style="display: block;">
-        <div class="other-person-entry">
-            <h4>Primary Person #1</h4>
-            <div class="form-group">
-                <label for="primaryOtherPerson1Name">Full Name *</label>
-                <input type="text" id="primaryOtherPerson1Name" name="primaryOtherPersonName[]" placeholder="Full legal name">
-            </div>
-            <div class="form-group">
-                <label for="primaryOtherPerson1Percentage">Percentage of Remaining Estate *</label>
-                <input type="number" id="primaryOtherPerson1Percentage" name="primaryOtherPersonPercentage[]" min="1" max="100" placeholder="50" step="1">
-                <span>%</span>
-            </div>
-        </div>
-    </div>
-    <button type="button" onclick="addPrimaryOtherPerson()" class="add-btn">Add Another Person</button>
-    <small>Percentages must add up to 100%</small>
-</div>
                     
                     <!-- Dynamic sections will be inserted here by JavaScript:
                          - Trust options (if children selected)
