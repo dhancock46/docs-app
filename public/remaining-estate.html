@@ -84,11 +84,11 @@
     <div class="radio-group">
     <!-- Spouse options (hidden by default, shown for married users) -->
     <div class="radio-item" id="primarySpouseAllOption" style="display: none;">
-        <input type="radio" id="primarySpouseAll" name="primaryBeneficiaries" value="spouseAll" onchange="updateAlternativeOptions()">
+       <input type="radio" id="primarySpouseAll" name="primaryBeneficiaries" value="spouseAll" onchange="hidePrimaryCharityAndPersonSections(); updateAlternativeOptions()">
         <label for="primarySpouseAll">All of my remaining estate (100%) to my Spouse</label>
     </div>
     <div class="radio-item" id="primarySpousePartialOption" style="display: none;">
-       <input type="radio" id="primarySpousePartial" name="primaryBeneficiaries" value="spousePartial" onchange="togglePrimarySpouseOptions(); updateAlternativeOptions()">
+      <input type="radio" id="primarySpousePartial" name="primaryBeneficiaries" value="spousePartial" onchange="hidePrimaryCharityAndPersonSections(); togglePrimarySpouseOptions(); updateAlternativeOptions()">
         <label for="primarySpousePartial">Part of my remaining estate (specify percentage) to my Spouse</label>
     </div>
     
@@ -174,11 +174,11 @@
                         <label>Alternative Beneficiaries *</label>
                         <div class="radio-group" id="alternativeOptionsGroup">
                             <div class="radio-item" id="altParentsOption">
-                                <input type="radio" id="altParents" name="alternativeBeneficiaries" value="parents">
+                                <input type="radio" id="altParents" name="alternativeBeneficiaries" value="parents" onchange="hideAlternativeCharityAndPersonSections()">
                                 <label for="altParents">My parents (or surviving parent)</label>
                             </div>
                             <div class="radio-item" id="altSiblingsOption">
-                                <input type="radio" id="altSiblings" name="alternativeBeneficiaries" value="siblings">
+                                <input type="radio" id="altSiblings" name="alternativeBeneficiaries" value="siblings" onchange="hideAlternativeCharityAndPersonSections()">
                                 <label for="altSiblings">My siblings equally</label>
                             </div>
                             <div class="radio-item" id="altCharityOption">
