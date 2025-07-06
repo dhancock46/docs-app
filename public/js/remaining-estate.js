@@ -22,21 +22,25 @@
         childCount = childrenNamesArray.length;
     }
     
-    // Simple section display logic - show what's needed from the start
-    if (hasChildren === 'yes' && childCount > 0) {
-        // Show primary distributees section for users with children
-        setupPrimaryDistributeesForChildren(childCount, childrenNamesArray);
-        document.getElementById('primaryDistributeesSection').style.display = 'block';
-} else if (maritalStatus === 'married' && hasChildren === 'no') {
-    console.log('Showing primary beneficiaries for married with no children');
-    // Show primary beneficiaries for married users with no children
+ // Simple section display logic - show what's needed from the start
+if (maritalStatus === 'married') {
+    console.log('Showing primary beneficiaries for married users');
+    // Show primary beneficiaries for ALL married users (with or without children)
     document.getElementById('primaryBeneficiariesSection').style.display = 'block';
     
+    // Show spouse options for married users
+    document.getElementById('primarySpouseAllOption').style.display = 'block';
+    document.getElementById('primarySpousePartialOption').style.display = 'block';
+    
+    // Show children option if they have children
+    if (hasChildren === 'yes' && childCount > 0) {
+        document.getElementById('primaryChildrenEqualOption').style.display = 'block';
+    }
 } else if (maritalStatus === 'single' && hasChildren === 'no') {
     console.log('Showing primary beneficiaries for single with no children');
     // Show primary beneficiaries for single users with no children
     document.getElementById('primaryBeneficiariesSection').style.display = 'block';
-}  
+}
     // Show spouse options for married users
     document.getElementById('primarySpouseAllOption').style.display = 'block';
     document.getElementById('primarySpousePartialOption').style.display = 'block';
