@@ -116,6 +116,9 @@ let otherPersonCount = 1;
 // Counter variables for alternative section
 let altCharityCount = 1;
 let altOtherPersonCount = 1;
+// Counter variables for primary section - ADD THESE TWO LINES:
+let primaryCharityCount = 1;
+let primaryOtherPersonCount = 1;
 
 // Show primary charity details (copied exactly from gifts.js pattern)
 function showPrimaryCharityDetails() {
