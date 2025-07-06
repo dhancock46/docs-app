@@ -160,6 +160,18 @@ function hidePrimaryCharityAndPersonSections() {
         primaryOtherPersonsGroup.style.display = 'none';
     }
 }
+// ADD THE ALTERNATIVE HIDE FUNCTION RIGHT HERE:
+function hideAlternativeCharityAndPersonSections() {
+    const altCharityGroup = document.getElementById('alternativeCharityDetailsGroup');
+    const altOtherPersonsGroup = document.getElementById('alternativeOtherPersonsDetailsGroup');
+    
+    if (altCharityGroup) {
+        altCharityGroup.style.display = 'none';
+    }
+    if (altOtherPersonsGroup) {
+        altOtherPersonsGroup.style.display = 'none';
+    }
+}
 // Show primary other persons details (use complex form for married users with no children)
 function showPrimaryOtherPersonsDetails() {
     console.log('showPrimaryOtherPersonsDetails called!');
