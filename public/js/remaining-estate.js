@@ -120,7 +120,7 @@ let altOtherPersonCount = 1;
 let primaryCharityCount = 1;
 let primaryOtherPersonCount = 1;
 
-// Show primary charity details (for married users with no children)
+// Show primary charity details (copied from working alternative pattern)
 function showPrimaryCharityDetails() {
     console.log('showPrimaryCharityDetails called!');
     const primaryCharityGroup = document.getElementById('primaryCharityDetailsGroup');
@@ -130,10 +130,10 @@ function showPrimaryCharityDetails() {
         primaryCharityGroup.style.display = 'block';
         console.log('Primary charity section shown');
         
-        // Use the correct ID that exists in primaryBeneficiariesSection
-        const charitiesList = document.getElementById('charitiesList');
-        if (charitiesList) {
-            charitiesList.style.display = 'block';
+        // Make sure the charity list is visible
+        const primaryCharitiesList = document.getElementById('primaryCharitiesList');
+        if (primaryCharitiesList) {
+            primaryCharitiesList.style.display = 'block';
         }
         
         // Hide other persons section
@@ -147,7 +147,7 @@ function showPrimaryCharityDetails() {
     updateAlternativeOptions();
 }
 
-// Show primary other persons details (for married users with no children)
+// Show primary other persons details (copied from working alternative pattern)
 function showPrimaryOtherPersonsDetails() {
     console.log('showPrimaryOtherPersonsDetails called!');
     const primaryOtherPersonsGroup = document.getElementById('otherPersonsDetailsGroup');
@@ -157,10 +157,10 @@ function showPrimaryOtherPersonsDetails() {
         primaryOtherPersonsGroup.style.display = 'block';
         console.log('Primary other persons section shown');
         
-        // Use the correct ID that exists in primaryBeneficiariesSection
-        const otherPersonsList = document.getElementById('otherPersonsList');
-        if (otherPersonsList) {
-            otherPersonsList.style.display = 'block';
+        // Make sure the other persons list is visible
+        const primaryOtherPersonsList = document.getElementById('primaryOtherPersonsList');
+        if (primaryOtherPersonsList) {
+            primaryOtherPersonsList.style.display = 'block';
         }
         
         // Hide charity section
