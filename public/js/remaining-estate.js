@@ -1,8 +1,9 @@
-// Counter variables for dynamic entries
+// Global variables
 let charityCount = 1;
 let otherPersonCount = 1;
 let altCharityCount = 1;
 let altOtherPersonCount = 1;
+let currentUserData = {};
 
 document.addEventListener('DOMContentLoaded', function() {
     // Auto-populate data from previous sections
@@ -12,6 +13,15 @@ document.addEventListener('DOMContentLoaded', function() {
     const maritalStatus = urlParams.get('maritalStatus');
     const hasChildren = urlParams.get('hasChildren');
     const childrenNames = urlParams.get('childrenNames') || urlParams.get('priorChildrenNames');
+    
+    // Store user data globally
+    currentUserData = {
+        testatorName,
+        email,
+        maritalStatus,
+        hasChildren,
+        childrenNames
+    };
     
     // Populate hidden fields
     if (testatorName) {
@@ -29,28 +39,14 @@ document.addEventListener('DOMContentLoaded', function() {
         childCount = childrenNamesArray.length;
     }
     
-    // Simple section display logic - show what's needed from the start
-    if (maritalStatus === 'married') {
-        console.log('Showing primary beneficiaries for married users');
-        // Show primary beneficiaries for ALL married users (with or without children)
-        document.getElementById('primaryBeneficiariesSection').style.display = 'block';
-        
-        // Show spouse options for married users
-        document.getElementById('primarySpouseAllOption').style.display = 'block';
-        document.getElementById('primarySpousePartialOption').style.display = 'block';
-        
-        // Show children option if they have children
-        if (hasChildren === 'yes') {
-            document.getElementById('primaryChildrenEqualOption').style.display = 'block';
-        }
-    } else if (maritalStatus === 'single' && hasChildren === 'no') {
-        console.log('Showing primary beneficiaries for single with no children');
-        // Show primary beneficiaries for single users with no children
-        document.getElementById('primaryBeneficiariesSection').style.display = 'block';
-    }
+    currentUserData.childCount = childCount;
+    currentUserData.childrenNamesArray = childrenNamesArray;
     
-    // Always show alternative beneficiaries section
-    document.getElementById('alternativeBeneficiariesSection').style.display = 'block';
+    // Initialize the form based on user situation
+    initializePrimaryBeneficiariesSection();
+    
+    // Initialize alternative beneficiaries
+    initializeAlternativeBeneficiariesSection();
     
     // Update summary when form changes
     updateDistributionSummary();
@@ -68,313 +64,482 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
-// Percentage allocation management functions
-function handlePrimaryBeneficiaryChange() {
-    const spousePartial = document.getElementById('primarySpousePartial');
-    const remainingDisplay = document.getElementById('remainingPercentageDisplay');
+function initializePrimaryBeneficiariesSection() {
+    const primarySection = document.getElementById('primaryBeneficiariesSection');
+    const radioGroup = document.getElementById('primaryBeneficiariesRadioGroup');
     
-    if (spousePartial && spousePartial.checked) {
-        // Show percentage tracking when partial spouse is selected
-        remainingDisplay.style.display = 'block';
-        enableMultipleSelections();
-        showPercentageFields();
-    } else {
-        // Hide percentage tracking for other selections
-        remainingDisplay.style.display = 'none';
-        disableMultipleSelections();
-        hidePercentageFields();
+    // Clear existing options
+    radioGroup.innerHTML = '';
+    
+    // Build options based on user situation
+    let options = [];
+    
+    // Add spouse options for married users
+    if (currentUserData.maritalStatus === 'married') {
+        options.push({
+            id: 'primarySpouseAll',
+            value: 'spouseAll',
+            label: 'All of my remaining estate (100%) to my Spouse',
+            onchange: 'selectSpouseAll()'
+        });
+        options.push({
+            id: 'primarySpousePartial',
+            value: 'spousePartial',
+            label: 'Part of my remaining estate (specify percentage) to my Spouse',
+            onchange: 'selectSpousePartial()'
+        });
     }
-    calculateRemainingPercentage();
+    
+    // Add children option if user has children
+    if (currentUserData.hasChildren === 'yes' && currentUserData.childCount > 0) {
+        const childLabel = currentUserData.childCount === 1 ? 'All to my child' : 'All to my children';
+        options.push({
+            id: 'primaryChildren',
+            value: 'children',
+            label: childLabel,
+            onchange: 'selectChildren()'
+        });
+    }
+    
+    // Add standard options for all users
+    options.push({
+        id: 'primaryCharity',
+        value: 'charity',
+        label: 'Charitable organization(s)',
+        onchange: 'selectCharity()'
+    });
+    options.push({
+        id: 'primaryOtherPersons',
+        value: 'otherPersons',
+        label: 'Other person(s)',
+        onchange: 'selectOtherPersons()'
+    });
+    
+    // Generate HTML for options
+    options.forEach(option => {
+        radioGroup.innerHTML += `
+            <div class="radio-item">
+                <input type="radio" id="${option.id}" name="primaryBeneficiaries" value="${option.value}" onchange="${option.onchange}">
+                <label for="${option.id}">${option.label}</label>
+            </div>
+        `;
+    });
+    
+    // Show the section
+    primarySection.style.display = 'block';
 }
 
-function enableMultipleSelections() {
-    // Allow multiple beneficiary types when partial spouse is selected
-    const beneficiaryInputs = document.querySelectorAll('input[name="primaryBeneficiaries"]');
-    beneficiaryInputs.forEach(input => {
-        if (input.id !== 'primarySpousePartial' && input.id !== 'primarySpouseAll') {
-            input.type = 'checkbox';
-            input.name = 'primaryBeneficiariesMultiple';
+function initializeAlternativeBeneficiariesSection() {
+    const altSection = document.getElementById('alternativeBeneficiariesSection');
+    const radioGroup = document.getElementById('alternativeOptionsGroup');
+    
+    // Clear existing options
+    radioGroup.innerHTML = '';
+    
+    // Standard alternative options
+    const altOptions = [
+        { id: 'altParents', value: 'parents', label: 'My parents (or surviving parent)' },
+        { id: 'altSiblings', value: 'siblings', label: 'My siblings equally' },
+        { id: 'altCharity', value: 'charity', label: 'Charitable organization(s)', onchange: 'toggleAlternativeCharityDetails()' },
+        { id: 'altOtherPersons', value: 'otherPersons', label: 'Other person(s)', onchange: 'toggleAlternativeOtherPersonsDetails()' }
+    ];
+    
+    altOptions.forEach(option => {
+        const onchangeAttr = option.onchange ? ` onchange="${option.onchange}"` : '';
+        radioGroup.innerHTML += `
+            <div class="radio-item" id="${option.id}Option">
+                <input type="radio" id="${option.id}" name="alternativeBeneficiaries" value="${option.value}"${onchangeAttr}>
+                <label for="${option.id}">${option.label}</label>
+            </div>
+        `;
+    });
+    
+    // Show the section
+    altSection.style.display = 'block';
+}
+
+// Primary selection handlers
+function selectSpouseAll() {
+    hideAllDetailGroups();
+    // No additional details needed for spouse all
+}
+
+function selectSpousePartial() {
+    hideAllDetailGroups();
+    document.getElementById('spousePercentageGroup').style.display = 'block';
+}
+
+function selectChildren() {
+    hideAllDetailGroups();
+    document.getElementById('childrenDetailsGroup').style.display = 'block';
+    
+    // Show custom option only if multiple children
+    if (currentUserData.childCount > 1) {
+        document.getElementById('childrenCustomOption').style.display = 'block';
+    }
+}
+
+function selectCharity() {
+    hideAllDetailGroups();
+    document.getElementById('charityDetailsGroup').style.display = 'block';
+}
+
+function selectOtherPersons() {
+    hideAllDetailGroups();
+    document.getElementById('otherPersonsDetailsGroup').style.display = 'block';
+}
+
+function hideAllDetailGroups() {
+    const detailGroups = [
+        'spousePercentageGroup',
+        'remainingPercentageGroup',
+        'childrenDetailsGroup',
+        'charityDetailsGroup',
+        'otherPersonsDetailsGroup',
+        'multipleDistributionGroup'
+    ];
+    
+    detailGroups.forEach(groupId => {
+        const group = document.getElementById(groupId);
+        if (group) {
+            group.style.display = 'none';
         }
     });
 }
 
-function disableMultipleSelections() {
-    // Return to single selection mode
-    const beneficiaryInputs = document.querySelectorAll('input[name="primaryBeneficiariesMultiple"]');
-    beneficiaryInputs.forEach(input => {
-        input.type = 'radio';
-        input.name = 'primaryBeneficiaries';
-        input.checked = false;
-    });
-    hidePercentageFields();
-}
-
-function showPercentageFields() {
-    // Show percentage inputs for children option
-    const childrenPercentageGroup = document.getElementById('childrenPercentageGroup');
-    if (childrenPercentageGroup) {
-        childrenPercentageGroup.style.display = 'block';
-    }
-}
-
-function hidePercentageFields() {
-    // Hide percentage inputs
-    const childrenPercentageGroup = document.getElementById('childrenPercentageGroup');
-    if (childrenPercentageGroup) {
-        childrenPercentageGroup.style.display = 'none';
-    }
-    
-    // Clear percentage values
-    const childrenPercentage = document.getElementById('childrenPercentage');
-    if (childrenPercentage) {
-        childrenPercentage.value = '';
-    }
-}
-
+// Spouse percentage calculation
 function calculateRemainingPercentage() {
-    let totalAllocated = 0;
-    let allocations = {};
+    const spousePercentage = parseInt(document.getElementById('spousePercentage').value) || 0;
+    const remaining = 100 - spousePercentage;
     
-    // Get spouse percentage
-    const spousePercentage = document.getElementById('primarySpousePercentage');
-    const spousePartial = document.getElementById('primarySpousePartial');
-    
-    if (spousePartial && spousePartial.checked && spousePercentage && spousePercentage.value) {
-        const spouseValue = parseInt(spousePercentage.value) || 0;
-        totalAllocated += spouseValue;
-        allocations.spouse = spouseValue;
+    if (remaining > 0 && remaining < 100) {
+        // Show remaining distribution options
+        document.getElementById('remainingPercentageGroup').style.display = 'block';
+        document.getElementById('remainingAmount').textContent = remaining;
         
-        // Show spouse allocation
-        document.getElementById('spouseAllocation').style.display = 'block';
-        document.getElementById('spousePercentageDisplay').textContent = spouseValue;
+        // Populate remaining distribution options
+        populateRemainingDistributionOptions(remaining);
     } else {
-        document.getElementById('spouseAllocation').style.display = 'none';
-    }
-    
-    // Get children percentage
-    const childrenCheckbox = document.getElementById('primaryChildrenEqual');
-    const childrenPercentage = document.getElementById('childrenPercentage');
-    
-    if (childrenCheckbox && childrenCheckbox.checked && childrenPercentage && childrenPercentage.value) {
-        const childrenValue = parseInt(childrenPercentage.value) || 0;
-        totalAllocated += childrenValue;
-        allocations.children = childrenValue;
-        
-        // Show children allocation
-        document.getElementById('childrenAllocation').style.display = 'block';
-        document.getElementById('childrenPercentageDisplay').textContent = childrenValue;
-    } else {
-        document.getElementById('childrenAllocation').style.display = 'none';
-    }
-    
-    // Get charity percentages
-    const charityCheckbox = document.getElementById('primaryCharity');
-    if (charityCheckbox && charityCheckbox.checked) {
-        const charityTotal = calculateCharityTotal();
-        if (charityTotal > 0) {
-            totalAllocated += charityTotal;
-            allocations.charity = charityTotal;
-            
-            // Show charity allocation
-            document.getElementById('charityAllocation').style.display = 'block';
-            document.getElementById('charityPercentageDisplay').textContent = charityTotal;
-        } else {
-            document.getElementById('charityAllocation').style.display = 'none';
-        }
-    } else {
-        document.getElementById('charityAllocation').style.display = 'none';
-    }
-    
-    // Get other persons percentages
-    const otherPersonsCheckbox = document.getElementById('primaryOtherPersons');
-    if (otherPersonsCheckbox && otherPersonsCheckbox.checked) {
-        const otherPersonsTotal = calculateOtherPersonsTotal();
-        if (otherPersonsTotal > 0) {
-            totalAllocated += otherPersonsTotal;
-            allocations.otherPersons = otherPersonsTotal;
-            
-            // Show other persons allocation
-            document.getElementById('otherPersonsAllocation').style.display = 'block';
-            document.getElementById('otherPersonsPercentageDisplay').textContent = otherPersonsTotal;
-        } else {
-            document.getElementById('otherPersonsAllocation').style.display = 'none';
-        }
-    } else {
-        document.getElementById('otherPersonsAllocation').style.display = 'none';
-    }
-    
-    // Calculate and display remaining percentage
-    const remaining = 100 - totalAllocated;
-    const remainingSpan = document.getElementById('remainingPercentage');
-    const validationMessage = document.getElementById('validationMessage');
-    
-    if (remainingSpan) {
-        remainingSpan.textContent = remaining;
-        
-        // Color coding for remaining percentage
-        if (remaining === 0) {
-            remainingSpan.style.color = 'green';
-            validationMessage.style.display = 'none';
-        } else if (remaining > 0) {
-            remainingSpan.style.color = 'orange';
-            validationMessage.textContent = `You need to allocate the remaining ${remaining}%`;
-            validationMessage.style.display = 'block';
-        } else {
-            remainingSpan.style.color = 'red';
-            validationMessage.textContent = `You have over-allocated by ${Math.abs(remaining)}%. Total cannot exceed 100%.`;
-            validationMessage.style.display = 'block';
-        }
+        document.getElementById('remainingPercentageGroup').style.display = 'none';
     }
 }
 
-function calculateCharityTotal() {
-    let total = 0;
-    const charityPercentages = document.querySelectorAll('input[name="charityPercentage[]"]');
-    charityPercentages.forEach(input => {
-        if (input.value) {
-            total += parseInt(input.value) || 0;
+function populateRemainingDistributionOptions(remainingPercent) {
+    const radioGroup = document.getElementById('remainingDistributionRadioGroup');
+    radioGroup.innerHTML = '';
+    
+    let options = [];
+    
+    // Add children option if user has children
+    if (currentUserData.hasChildren === 'yes' && currentUserData.childCount > 0) {
+        const childLabel = currentUserData.childCount === 1 ? 'To my child' : 'To my children';
+        options.push({
+            id: 'remainingChildren',
+            value: 'children',
+            label: childLabel,
+            onchange: 'selectRemainingChildren()'
+        });
+    }
+    
+    options.push({
+        id: 'remainingCharity',
+        value: 'charity',
+        label: 'To charitable organization(s)',
+        onchange: 'selectRemainingCharity()'
+    });
+    options.push({
+        id: 'remainingOtherPersons',
+        value: 'otherPersons',
+        label: 'To other person(s)',
+        onchange: 'selectRemainingOtherPersons()'
+    });
+    options.push({
+        id: 'remainingMultiple',
+        value: 'multiple',
+        label: 'Split among multiple options',
+        onchange: 'selectRemainingMultiple()'
+    });
+    
+    options.forEach(option => {
+        radioGroup.innerHTML += `
+            <div class="radio-item">
+                <input type="radio" id="${option.id}" name="remainingDistribution" value="${option.value}" onchange="${option.onchange}">
+                <label for="${option.id}">${option.label}</label>
+            </div>
+        `;
+    });
+}
+
+// Remaining distribution handlers
+function selectRemainingChildren() {
+    hideRemainingDetailGroups();
+    document.getElementById('childrenDetailsGroup').style.display = 'block';
+    
+    // Show custom option only if multiple children
+    if (currentUserData.childCount > 1) {
+        document.getElementById('childrenCustomOption').style.display = 'block';
+    }
+}
+
+function selectRemainingCharity() {
+    hideRemainingDetailGroups();
+    document.getElementById('charityDetailsGroup').style.display = 'block';
+}
+
+function selectRemainingOtherPersons() {
+    hideRemainingDetailGroups();
+    document.getElementById('otherPersonsDetailsGroup').style.display = 'block';
+}
+
+function selectRemainingMultiple() {
+    hideRemainingDetailGroups();
+    document.getElementById('multipleDistributionGroup').style.display = 'block';
+    
+    const remainingAmount = parseInt(document.getElementById('remainingAmount').textContent);
+    document.getElementById('multipleRemainingAmount').textContent = remainingAmount;
+    
+    // Show children option if user has children
+    if (currentUserData.hasChildren === 'yes' && currentUserData.childCount > 0) {
+        document.getElementById('multipleChildrenOption').style.display = 'block';
+    }
+}
+
+function hideRemainingDetailGroups() {
+    const detailGroups = [
+        'childrenDetailsGroup',
+        'charityDetailsGroup',
+        'otherPersonsDetailsGroup',
+        'multipleDistributionGroup'
+    ];
+    
+    detailGroups.forEach(groupId => {
+        const group = document.getElementById(groupId);
+        if (group) {
+            group.style.display = 'none';
         }
     });
-    return total;
 }
 
-function calculateOtherPersonsTotal() {
-    let total = 0;
-    const otherPersonPercentages = document.querySelectorAll('input[name="otherPersonPercentage[]"]');
-    otherPersonPercentages.forEach(input => {
-        if (input.value) {
-            total += parseInt(input.value) || 0;
-        }
+// Children detail functions
+function showCustomChildShares() {
+    const customSharesGroup = document.getElementById('customChildSharesGroup');
+    const childSharesList = document.getElementById('childSharesList');
+    
+    // Clear existing shares
+    childSharesList.innerHTML = '';
+    
+    // Add input for each child
+    currentUserData.childrenNamesArray.forEach((name, index) => {
+        childSharesList.innerHTML += `
+            <div class="form-group">
+                <label for="child${index + 1}Share">${name}</label>
+                <div style="display: flex; align-items: center; gap: 10px;">
+                    <input type="number" id="child${index + 1}Share" name="childShare[]" min="0" max="100" placeholder="50" style="width: 80px;" step="1" onchange="validateCustomChildShares()">
+                    <span>%</span>
+                    <input type="hidden" name="childName[]" value="${name}">
+                </div>
+            </div>
+        `;
     });
-    return total;
+    
+    customSharesGroup.style.display = 'block';
 }
 
-// Show primary charity details (use complex form for married users with no children)
-function showPrimaryCharityDetails() {
-    console.log('showPrimaryCharityDetails called!');
-    const primaryCharityGroup = document.getElementById('primaryCharityDetailsGroup');
-    const primaryOtherPersonsGroup = document.getElementById('otherPersonsDetailsGroup');
-    
-    if (primaryCharityGroup) {
-        primaryCharityGroup.style.display = 'block';
-        console.log('Primary charity section shown');
-        
-        // Target the charity list that exists in primaryBeneficiariesSection
-        const charitiesList = document.getElementById('charitiesList');
-        if (charitiesList) {
-            charitiesList.style.display = 'block';
-            console.log('Charities list shown');
-        }
-        
-        // Only hide other persons if not in multi-selection mode
-        const spousePartial = document.getElementById('primarySpousePartial');
-        if (!spousePartial || !spousePartial.checked) {
-            if (primaryOtherPersonsGroup) {
-                primaryOtherPersonsGroup.style.display = 'none';
-            }
-        }
-    }
-    
-    // Calculate percentages if in multi-selection mode
-    calculateRemainingPercentage();
-    updateAlternativeOptions();
+function hideCustomChildShares() {
+    document.getElementById('customChildSharesGroup').style.display = 'none';
 }
 
-// Show primary other persons details (use complex form for married users with no children)
-function showPrimaryOtherPersonsDetails() {
-    console.log('showPrimaryOtherPersonsDetails called!');
-    const primaryOtherPersonsGroup = document.getElementById('otherPersonsDetailsGroup');
-    const primaryCharityGroup = document.getElementById('primaryCharityDetailsGroup');
+function validateCustomChildShares() {
+    const childShares = document.querySelectorAll('input[name="childShare[]"]');
+    let total = 0;
     
-    if (primaryOtherPersonsGroup) {
-        primaryOtherPersonsGroup.style.display = 'block';
-        console.log('Primary other persons section shown');
-        
-        // Target the other persons list that exists in primaryBeneficiariesSection
-        const otherPersonsList = document.getElementById('otherPersonsList');
-        if (otherPersonsList) {
-            otherPersonsList.style.display = 'block';
-            console.log('Other persons list shown');
-        }
-        
-        // Only hide charity if not in multi-selection mode
-        const spousePartial = document.getElementById('primarySpousePartial');
-        if (!spousePartial || !spousePartial.checked) {
-            if (primaryCharityGroup) {
-                primaryCharityGroup.style.display = 'none';
-            }
-        }
-    }
+    childShares.forEach(share => {
+        const value = parseInt(share.value) || 0;
+        total += value;
+    });
     
-    // Calculate percentages if in multi-selection mode
-    calculateRemainingPercentage();
-    updateAlternativeOptions();
+    const targetTotal = getTargetPercentage();
+    
+    // Visual feedback for total
+    const customSharesGroup = document.getElementById('customChildSharesGroup');
+    const existingTotal = customSharesGroup.querySelector('.total-display');
+    if (existingTotal) existingTotal.remove();
+    
+    const totalDisplay = document.createElement('div');
+    totalDisplay.className = 'total-display';
+    totalDisplay.style.marginTop = '10px';
+    totalDisplay.style.fontWeight =
+         totalDisplay.style.fontWeight = 'bold';
+   
+   if (total === targetTotal) {
+       totalDisplay.style.color = 'green';
+       totalDisplay.textContent = `✓ Total: ${total}% (matches required ${targetTotal}%)`;
+   } else if (total > targetTotal) {
+       totalDisplay.style.color = 'red';
+       totalDisplay.textContent = `✗ Total: ${total}% (exceeds required ${targetTotal}% by ${total - targetTotal}%)`;
+   } else {
+       totalDisplay.style.color = 'orange';
+       totalDisplay.textContent = `⚠ Total: ${total}% (need ${targetTotal - total}% more to reach ${targetTotal}%)`;
+   }
+   
+   customSharesGroup.appendChild(totalDisplay);
 }
 
-// Hide charity and person sections when other options are selected
-function hidePrimaryCharityAndPersonSections() {
-    const primaryCharityGroup = document.getElementById('primaryCharityDetailsGroup');
-    const primaryOtherPersonsGroup = document.getElementById('otherPersonsDetailsGroup');
-    
-    if (primaryCharityGroup) {
-        primaryCharityGroup.style.display = 'none';
-    }
-    if (primaryOtherPersonsGroup) {
-        primaryOtherPersonsGroup.style.display = 'none';
-    }
+function getTargetPercentage() {
+   // If spouse partial, target is remaining percentage
+   const spousePartial = document.getElementById('primarySpousePartial');
+   if (spousePartial && spousePartial.checked) {
+       const remaining = parseInt(document.getElementById('remainingAmount').textContent) || 100;
+       return remaining;
+   }
+   
+   // Otherwise target is 100%
+   return 100;
 }
 
-function hideAlternativeCharityAndPersonSections() {
-    const altCharityGroup = document.getElementById('alternativeCharityDetailsGroup');
-    const altOtherPersonsGroup = document.getElementById('alternativeOtherPersonsDetailsGroup');
-    
-    if (altCharityGroup) {
-        altCharityGroup.style.display = 'none';
-    }
-    if (altOtherPersonsGroup) {
-        altOtherPersonsGroup.style.display = 'none';
-    }
+// Trust functions
+function showTrustDetails() {
+   document.getElementById('trustDetailsGroup').style.display = 'block';
 }
 
-// Toggle primary spouse percentage input
-function togglePrimarySpouseOptions() {
-    const spousePartial = document.getElementById('primarySpousePartial');
-    const percentageGroup = document.getElementById('primarySpousePercentageGroup');
-    
-    if (spousePartial && spousePartial.checked) {
-        percentageGroup.style.display = 'block';
-    } else {
-        percentageGroup.style.display = 'none';
-    }
+function hideTrustDetails() {
+   document.getElementById('trustDetailsGroup').style.display = 'none';
 }
 
-// Add charity functions (following gifts.js pattern)
+// Multiple distribution functions
+function toggleMultipleChildrenDetails() {
+   const checkbox = document.getElementById('multipleChildren');
+   const percentageDiv = document.getElementById('multipleChildrenPercentage');
+   
+   if (checkbox.checked) {
+       percentageDiv.style.display = 'block';
+   } else {
+       percentageDiv.style.display = 'none';
+       document.getElementById('childrenMultiplePercent').value = '';
+   }
+   
+   validateMultipleDistribution();
+}
+
+function toggleMultipleCharityDetails() {
+   const checkbox = document.getElementById('multipleCharity');
+   const percentageDiv = document.getElementById('multipleCharityPercentage');
+   
+   if (checkbox.checked) {
+       percentageDiv.style.display = 'block';
+   } else {
+       percentageDiv.style.display = 'none';
+       document.getElementById('charityMultiplePercent').value = '';
+   }
+   
+   validateMultipleDistribution();
+}
+
+function toggleMultipleOtherPersonsDetails() {
+   const checkbox = document.getElementById('multipleOtherPersons');
+   const percentageDiv = document.getElementById('multipleOtherPersonsPercentage');
+   
+   if (checkbox.checked) {
+       percentageDiv.style.display = 'block';
+   } else {
+       percentageDiv.style.display = 'none';
+       document.getElementById('otherPersonsMultiplePercent').value = '';
+   }
+   
+   validateMultipleDistribution();
+}
+
+function validateMultipleDistribution() {
+   const childrenPercent = parseInt(document.getElementById('childrenMultiplePercent').value) || 0;
+   const charityPercent = parseInt(document.getElementById('charityMultiplePercent').value) || 0;
+   const otherPersonsPercent = parseInt(document.getElementById('otherPersonsMultiplePercent').value) || 0;
+   
+   const total = childrenPercent + charityPercent + otherPersonsPercent;
+   const target = parseInt(document.getElementById('multipleRemainingAmount').textContent);
+   
+   const validationDiv = document.getElementById('multipleDistributionValidation');
+   
+   if (total === target) {
+       validationDiv.style.color = 'green';
+       validationDiv.textContent = `✓ Total: ${total}% (matches required ${target}%)`;
+       validationDiv.style.display = 'block';
+   } else if (total > target) {
+       validationDiv.style.color = 'red';
+       validationDiv.textContent = `✗ Total: ${total}% (exceeds required ${target}% by ${total - target}%)`;
+       validationDiv.style.display = 'block';
+   } else if (total > 0) {
+       validationDiv.style.color = 'orange';
+       validationDiv.textContent = `⚠ Total: ${total}% (need ${target - total}% more to reach ${target}%)`;
+       validationDiv.style.display = 'block';
+   } else {
+       validationDiv.style.display = 'none';
+   }
+}
+
+// Charity functions
 function addCharity() {
-    charityCount++;
-    const charitiesList = document.getElementById('charitiesList');
-    
-    const newCharityEntry = document.createElement('div');
-    newCharityEntry.className = 'charity-entry';
-    newCharityEntry.innerHTML = `
-        <h4>Charity #${charityCount}</h4>
-        <div class="form-group">
-            <label for="charity${charityCount}Name">Charity Name *</label>
-            <input type="text" id="charity${charityCount}Name" name="charityName[]" placeholder="Full legal name of charity">
-        </div>
-        <div class="form-group">
-            <label for="charity${charityCount}Percentage">Percentage of Remaining Estate *</label>
-            <input type="number" id="charity${charityCount}Percentage" name="charity
-             <div class="form-group">
-           <label for="charity${charityCount}Percentage">Percentage of Remaining Estate *</label>
-           <input type="number" id="charity${charityCount}Percentage" name="charityPercentage[]" min="1" max="100" placeholder="50" step="1" onchange="calculateRemainingPercentage()">
+   charityCount++;
+   const charitiesList = document.getElementById('charitiesList');
+   
+   const newCharityEntry = document.createElement('div');
+   newCharityEntry.className = 'charity-entry';
+   newCharityEntry.innerHTML = `
+       <h4>Charity #${charityCount}</h4>
+       <div class="form-group">
+           <label for="charity${charityCount}Name">Charity Name *</label>
+           <input type="text" id="charity${charityCount}Name" name="charityName[]" placeholder="Full legal name of charity">
+       </div>
+       <div class="form-group">
+           <label for="charity${charityCount}Percentage">Percentage *</label>
+           <input type="number" id="charity${charityCount}Percentage" name="charityPercentage[]" min="1" max="100" placeholder="25" step="1" onchange="validateCharityPercentages()">
            <span>%</span>
        </div>
        <button type="button" class="remove-btn" onclick="removeCharity(this)">Remove This Charity</button>
    `;
    charitiesList.appendChild(newCharityEntry);
-   calculateRemainingPercentage();
 }
 
+function removeCharity(button) {
+   button.parentElement.remove();
+   validateCharityPercentages();
+}
+
+function validateCharityPercentages() {
+   const charityPercentages = document.querySelectorAll('input[name="charityPercentage[]"]');
+   let total = 0;
+   
+   charityPercentages.forEach(input => {
+       const value = parseInt(input.value) || 0;
+       total += value;
+   });
+   
+   const targetTotal = getTargetPercentage();
+   
+   // Visual feedback
+   const charityGroup = document.getElementById('charityDetailsGroup');
+   const existingTotal = charityGroup.querySelector('.charity-total-display');
+   if (existingTotal) existingTotal.remove();
+   
+   const totalDisplay = document.createElement('div');
+   totalDisplay.className = 'charity-total-display';
+   totalDisplay.style.marginTop = '10px';
+   totalDisplay.style.fontWeight = 'bold';
+   
+   if (total === targetTotal) {
+       totalDisplay.style.color = 'green';
+       totalDisplay.textContent = `✓ Total: ${total}% (matches required ${targetTotal}%)`;
+   } else if (total > targetTotal) {
+       totalDisplay.style.color = 'red';
+       totalDisplay.textContent = `✗ Total: ${total}% (exceeds required ${targetTotal}% by ${total - targetTotal}%)`;
+   } else {
+       totalDisplay.style.color = 'orange';
+       totalDisplay.textContent = `⚠ Total: ${total}% (need ${targetTotal - total}% more to reach ${targetTotal}%)`;
+   }
+   
+   charityGroup.appendChild(totalDisplay);
+}
+
+// Other persons functions
 function addOtherPerson() {
    otherPersonCount++;
    const otherPersonsList = document.getElementById('otherPersonsList');
@@ -388,17 +553,86 @@ function addOtherPerson() {
            <input type="text" id="otherPerson${otherPersonCount}Name" name="otherPersonName[]" placeholder="Full legal name">
        </div>
        <div class="form-group">
-           <label for="otherPerson${otherPersonCount}Percentage">Percentage of Remaining Estate *</label>
-           <input type="number" id="otherPerson${otherPersonCount}Percentage" name="otherPersonPercentage[]" min="1" max="100" placeholder="50" step="1" onchange="calculateRemainingPercentage()">
+           <label for="otherPerson${otherPersonCount}Percentage">Percentage *</label>
+           <input type="number" id="otherPerson${otherPersonCount}Percentage" name="otherPersonPercentage[]" min="1" max="100" placeholder="25" step="1" onchange="validateOtherPersonsPercentages()">
            <span>%</span>
+       </div>
+       <div class="form-group">
+           <label for="otherPerson${otherPersonCount}Alternate">If this person doesn't survive me, give their share to:</label>
+           <input type="text" id="otherPerson${otherPersonCount}Alternate" name="otherPersonAlternate[]" placeholder="Name of alternate beneficiary (optional)">
        </div>
        <button type="button" class="remove-btn" onclick="removeOtherPerson(this)">Remove This Person</button>
    `;
    otherPersonsList.appendChild(newPersonEntry);
-   calculateRemainingPercentage();
 }
 
-// Alternative charity and person functions
+function removeOtherPerson(button) {
+   button.parentElement.remove();
+   validateOtherPersonsPercentages();
+}
+
+function validateOtherPersonsPercentages() {
+   const otherPersonPercentages = document.querySelectorAll('input[name="otherPersonPercentage[]"]');
+   let total = 0;
+   
+   otherPersonPercentages.forEach(input => {
+       const value = parseInt(input.value) || 0;
+       total += value;
+   });
+   
+   const targetTotal = getTargetPercentage();
+   
+   // Visual feedback
+   const otherPersonsGroup = document.getElementById('otherPersonsDetailsGroup');
+   const existingTotal = otherPersonsGroup.querySelector('.other-persons-total-display');
+   if (existingTotal) existingTotal.remove();
+   
+   const totalDisplay = document.createElement('div');
+   totalDisplay.className = 'other-persons-total-display';
+   totalDisplay.style.marginTop = '10px';
+   totalDisplay.style.fontWeight = 'bold';
+   
+   if (total === targetTotal) {
+       totalDisplay.style.color = 'green';
+       totalDisplay.textContent = `✓ Total: ${total}% (matches required ${targetTotal}%)`;
+   } else if (total > targetTotal) {
+       totalDisplay.style.color = 'red';
+       totalDisplay.textContent = `✗ Total: ${total}% (exceeds required ${targetTotal}% by ${total - targetTotal}%)`;
+   } else {
+       totalDisplay.style.color = 'orange';
+       totalDisplay.textContent = `⚠ Total: ${total}% (need ${targetTotal - total}% more to reach ${targetTotal}%)`;
+   }
+   
+   otherPersonsGroup.appendChild(totalDisplay);
+}
+
+// Alternative beneficiaries functions
+function toggleAlternativeCharityDetails() {
+   const altCharity = document.getElementById('altCharity').checked;
+   const altCharityGroup = document.getElementById('alternativeCharityDetailsGroup');
+   const altOtherPersonsGroup = document.getElementById('alternativeOtherPersonsDetailsGroup');
+   
+   if (altCharity) {
+       altCharityGroup.style.display = 'block';
+       altOtherPersonsGroup.style.display = 'none';
+   } else {
+       altCharityGroup.style.display = 'none';
+   }
+}
+
+function toggleAlternativeOtherPersonsDetails() {
+   const altOtherPersons = document.getElementById('altOtherPersons').checked;
+   const altOtherPersonsGroup = document.getElementById('alternativeOtherPersonsDetailsGroup');
+   const altCharityGroup = document.getElementById('alternativeCharityDetailsGroup');
+   
+   if (altOtherPersons) {
+       altOtherPersonsGroup.style.display = 'block';
+       altCharityGroup.style.display = 'none';
+   } else {
+       altOtherPersonsGroup.style.display = 'none';
+   }
+}
+
 function addAlternativeCharity() {
    altCharityCount++;
    const charitiesList = document.getElementById('alternativeCharitiesList');
@@ -412,13 +646,17 @@ function addAlternativeCharity() {
            <input type="text" id="altCharity${altCharityCount}Name" name="altCharityName[]" placeholder="Full legal name of charity">
        </div>
        <div class="form-group">
-           <label for="altCharity${altCharityCount}Percentage">Percentage of Remaining Estate *</label>
+           <label for="altCharity${altCharityCount}Percentage">Percentage *</label>
            <input type="number" id="altCharity${altCharityCount}Percentage" name="altCharityPercentage[]" min="1" max="100" placeholder="50" step="1">
            <span>%</span>
        </div>
        <button type="button" class="remove-btn" onclick="removeAlternativeCharity(this)">Remove This Charity</button>
    `;
    charitiesList.appendChild(newCharityEntry);
+}
+
+function removeAlternativeCharity(button) {
+   button.parentElement.remove();
 }
 
 function addAlternativeOtherPerson() {
@@ -434,7 +672,7 @@ function addAlternativeOtherPerson() {
            <input type="text" id="altOtherPerson${altOtherPersonCount}Name" name="altOtherPersonName[]" placeholder="Full legal name">
        </div>
        <div class="form-group">
-           <label for="altOtherPerson${altOtherPersonCount}Percentage">Percentage of Remaining Estate *</label>
+           <label for="altOtherPerson${altOtherPersonCount}Percentage">Percentage *</label>
            <input type="number" id="altOtherPerson${altOtherPersonCount}Percentage" name="altOtherPersonPercentage[]" min="1" max="100" placeholder="50" step="1">
            <span>%</span>
        </div>
@@ -447,203 +685,154 @@ function addAlternativeOtherPerson() {
    otherPersonsList.appendChild(newPersonEntry);
 }
 
-// Remove functions
-function removeCharity(button) {
-   button.parentElement.remove();
-   calculateRemainingPercentage();
-}
-
-function removeOtherPerson(button) {
-   button.parentElement.remove();
-   calculateRemainingPercentage();
-}
-
-function removeAlternativeCharity(button) {
-   button.parentElement.remove();
-}
-
 function removeAlternativeOtherPerson(button) {
    button.parentElement.remove();
 }
 
-// Alternative details toggles (simplified like gifts.js)
-function toggleAlternativeCharityDetails() {
-   const altCharity = document.getElementById('altCharity').checked;
-   const altCharityGroup = document.getElementById('alternativeCharityDetailsGroup');
-   const altOtherPersonsGroup = document.getElementById('alternativeOtherPersonsDetailsGroup');
-
-   if (altCharity && altCharityGroup) {
-       altCharityGroup.style.display = 'block';
-
-       // Make sure the charity list is visible
-       const altCharitiesList = document.getElementById('alternativeCharitiesList');
-       if (altCharitiesList) {
-           altCharitiesList.style.display = 'block';
-       }
-
-       // Hide other persons section
-       if (altOtherPersonsGroup) {
-           altOtherPersonsGroup.style.display = 'none';
-       }
-   } else if (altCharityGroup) {
-       altCharityGroup.style.display = 'none';
-   }
-}
-
-function toggleAlternativeOtherPersonsDetails() {
-   const altOtherPersons = document.getElementById('altOtherPersons').checked;
-   const altOtherPersonsGroup = document.getElementById('alternativeOtherPersonsDetailsGroup');
-   const altCharityGroup = document.getElementById('alternativeCharityDetailsGroup');
-
-   if (altOtherPersons && altOtherPersonsGroup) {
-       altOtherPersonsGroup.style.display = 'block';
-
-       // Make sure the other persons list is visible
-       const altOtherPersonsList = document.getElementById('alternativeOtherPersonsList');
-       if (altOtherPersonsList) {
-           altOtherPersonsList.style.display = 'block';
-       }
-
-       // Hide charity section
-       if (altCharityGroup) {
-           altCharityGroup.style.display = 'none';
-       }
-   } else if (altOtherPersonsGroup) {
-       altOtherPersonsGroup.style.display = 'none';
-   }
-}
-
-// Update alternative options based on primary selection
-function updateAlternativeOptions() {
-   const primarySelection = document.querySelector('input[name="primaryBeneficiaries"]:checked')?.value;
-   const altSection = document.getElementById('alternativeBeneficiariesSection');
-   
-   const urlParams = new URLSearchParams(window.location.search);
-   const maritalStatus = urlParams.get('maritalStatus');
-   const hasChildren = urlParams.get('hasChildren');
-   
-   if (maritalStatus === 'single' && hasChildren === 'no' && primarySelection) {
-       altSection.style.display = 'block';
-       
-       const altParents = document.getElementById('altParentsOption');
-       const altSiblings = document.getElementById('altSiblingsOption');
-       const altCharity = document.getElementById('altCharityOption');
-       const altOtherPersons = document.getElementById('altOtherPersonsOption');
-       
-       // Reset all options to visible first
-       if (altParents) altParents.style.display = 'block';
-       if (altSiblings) altSiblings.style.display = 'block';
-       if (altCharity) altCharity.style.display = 'block';
-       if (altOtherPersons) altOtherPersons.style.display = 'block';
-       
-       // Hide the option that was selected as primary
-       if (primarySelection === 'parents' && altParents) {
-           altParents.style.display = 'none';
-       } else if (primarySelection === 'siblings' && altSiblings) {
-           altSiblings.style.display = 'none';
-       } else if (primarySelection === 'charity' && altCharity) {
-           altCharity.style.display = 'none';
-       } else if (primarySelection === 'otherPersons' && altOtherPersons) {
-           altOtherPersons.style.display = 'none';
-       }
-   }
-}
-
-// Summary and validation functions
+// Summary functions
 function updateDistributionSummary() {
    const summarySection = document.getElementById('distributionSummary');
    const summaryContent = document.getElementById('summaryContent');
    
-   const spouseAll = document.getElementById('primarySpouseAll')?.checked;
-   const spousePartial = document.getElementById('primarySpousePartial')?.checked;
-   const spousePercentage = document.getElementById('primarySpousePercentage')?.value;
-   const alternativeBeneficiaries = document.querySelector('input[name="alternativeBeneficiaries"]:checked')?.value;
+   const primarySelection = document.querySelector('input[name="primaryBeneficiaries"]:checked')?.value;
+   const spousePercentage = document.getElementById('spousePercentage')?.value;
+   const remainingSelection = document.querySelector('input[name="remainingDistribution"]:checked')?.value;
+   const alternativeSelection = document.querySelector('input[name="alternativeBeneficiaries"]:checked')?.value;
    
    let summaryHTML = '<h4>Your Estate Distribution Plan:</h4>';
    
-   if (spouseAll) {
+   // Primary distribution
+   if (primarySelection === 'spouseAll') {
        summaryHTML += '<p><strong>Spouse:</strong> 100% of remaining estate</p>';
-   } else if (spousePartial && spousePercentage) {
-      summaryHTML += `<p><strong>Spouse:</strong> ${spousePercentage}% of remaining estate</p>`;
+   } else if (primarySelection === 'spousePartial' && spousePercentage) {
+       summaryHTML += `<p><strong>Spouse:</strong> ${spousePercentage}% of remaining estate</p>`;
        
-       // Add other allocations if any
-       const childrenPercentage = document.getElementById('childrenPercentage')?.value;
-       if (childrenPercentage) {
-           summaryHTML += `<p><strong>Children:</strong> ${childrenPercentage}% of remaining estate</p>`;
+       if (remainingSelection) {
+           const remaining = 100 - parseInt(spousePercentage);
+           summaryHTML += `<p><strong>Remaining ${remaining}%:</strong> ${getRemainingDistributionText(remainingSelection)}</p>`;
        }
-       
-       const charityTotal = calculateCharityTotal();
-       if (charityTotal > 0) {
-           summaryHTML += `<p><strong>Charities:</strong> ${charityTotal}% of remaining estate</p>`;
-       }
-       
-       const otherPersonsTotal = calculateOtherPersonsTotal();
-       if (otherPersonsTotal > 0) {
-           summaryHTML += `<p><strong>Other Persons:</strong> ${otherPersonsTotal}% of remaining estate</p>`;
-       }
+   } else if (primarySelection === 'children') {
+       const childLabel = currentUserData.childCount === 1 ? 'child' : 'children';
+       summaryHTML += `<p><strong>All to ${childLabel}:</strong> 100% of remaining estate</p>`;
+   } else if (primarySelection === 'charity') {
+       summaryHTML += '<p><strong>Charity:</strong> 100% of remaining estate</p>';
+   } else if (primarySelection === 'otherPersons') {
+       summaryHTML += '<p><strong>Other persons:</strong> 100% of remaining estate</p>';
    }
    
-   if (alternativeBeneficiaries) {
-       summaryHTML += `<p><strong>If primary beneficiaries cannot inherit:</strong> ${getAlternativeBeneficiaryText(alternativeBeneficiaries)}</p>`;
+   // Alternative beneficiaries
+   if (alternativeSelection) {
+       summaryHTML += `<p><strong>If primary beneficiaries cannot inherit:</strong> ${getAlternativeText(alternativeSelection)}</p>`;
    }
    
    summaryContent.innerHTML = summaryHTML;
    summarySection.style.display = 'block';
 }
 
-function getAlternativeBeneficiaryText(value) {
-   switch(value) {
+function getRemainingDistributionText(selection) {
+   switch(selection) {
+       case 'children': 
+           return currentUserData.childCount === 1 ? 'To child' : 'To children equally';
+       case 'charity': 
+           return 'To charitable organizations';
+       case 'otherPersons': 
+           return 'To other persons';
+       case 'multiple': 
+           return 'Split among multiple beneficiaries';
+       default: 
+           return '';
+   }
+}
+
+function getAlternativeText(selection) {
+   switch(selection) {
        case 'parents': return 'Parents (or surviving parent)';
        case 'siblings': return 'Siblings equally';
-       case 'charity': return 'Charitable organization';
-       case 'otherPersons': return 'Other persons as specified';
+       case 'charity': return 'Charitable organizations';
+       case 'otherPersons': return 'Other persons';
        default: return '';
    }
 }
 
+// Form validation
 function validateForm() {
    const errors = [];
    
-   // Check if partial spouse allocation adds up to 100%
-   const spousePartial = document.getElementById('primarySpousePartial');
-   if (spousePartial && spousePartial.checked) {
-       const remaining = 100 - calculateTotalAllocation();
-       if (remaining !== 0) {
-           errors.push(`Estate allocation must equal 100%. Currently ${remaining}% ${remaining > 0 ? 'unallocated' : 'over-allocated'}.`);
+   // Check primary beneficiaries selection
+   const primarySelection = document.querySelector('input[name="primaryBeneficiaries"]:checked');
+   if (!primarySelection) {
+       errors.push('Please select primary beneficiaries');
+       return { isValid: false, errors };
+   }
+   
+   // Validate spouse partial distribution
+   if (primarySelection.value === 'spousePartial') {
+       const spousePercentage = document.getElementById('spousePercentage').value;
+       if (!spousePercentage || spousePercentage < 1 || spousePercentage > 99) {
+           errors.push('Please enter a valid percentage for your spouse (1-99)');
+       } else {
+           const remainingSelection = document.querySelector('input[name="remainingDistribution"]:checked');
+           if (!remainingSelection) {
+               errors.push('Please select how to distribute the remaining percentage');
+           } else {
+               // Validate remaining distribution details
+               if (remainingSelection.value === 'multiple') {
+                   const targetTotal = 100 - parseInt(spousePercentage);
+                   const childrenPercent = parseInt(document.getElementById('childrenMultiplePercent').value) || 0;
+                   const charityPercent = parseInt(document.getElementById('charityMultiplePercent').value) || 0;
+                   const otherPersonsPercent = parseInt(document.getElementById('otherPersonsMultiplePercent').value) || 0;
+                   const actualTotal = childrenPercent + charityPercent + otherPersonsPercent;
+                   
+                   if (actualTotal !== targetTotal) {
+                       errors.push(`Multiple distribution percentages must add up to ${targetTotal}% (currently ${actualTotal}%)`);
+                   }
+               }
+           }
+       }
+   }
+   
+   // Validate children distribution if selected
+   const childrenDistribution = document.querySelector('input[name="childrenDistribution"]:checked');
+   if (childrenDistribution?.value === 'custom') {
+       const childShares = document.querySelectorAll('input[name="childShare[]"]');
+       let totalShares = 0;
+       let hasEmptyShares = false;
+       
+       childShares.forEach(share => {
+           const value = parseInt(share.value);
+           if (!value || value < 0) {
+               hasEmptyShares = true;
+           } else {
+               totalShares += value;
+           }
+       });
+       
+       if (hasEmptyShares) {
+           errors.push('Please specify percentages for all children');
+       } else {
+           const targetTotal = getTargetPercentage();
+           if (totalShares !== targetTotal) {
+               errors.push(`Children's percentages must add up to ${targetTotal}% (currently ${totalShares}%)`);
+           }
+       }
+   }
+   
+   // Validate trust details if trust is selected
+   const trustDistribution = document.getElementById('distributionTrust');
+   if (trustDistribution?.checked) {
+       const trustAge = document.getElementById('trustAge').value;
+       if (!trustAge || trustAge < 18 || trustAge > 50) {
+           errors.push('Please enter a valid trust age (18-50)');
        }
    }
    
    // Check alternative beneficiaries
-   const alternativeBeneficiaries = document.querySelector('input[name="alternativeBeneficiaries"]:checked');
-   if (!alternativeBeneficiaries) {
+   const alternativeSelection = document.querySelector('input[name="alternativeBeneficiaries"]:checked');
+   if (!alternativeSelection) {
        errors.push('Please select alternative beneficiaries');
    }
    
    return { isValid: errors.length === 0, errors };
-}
-
-function calculateTotalAllocation() {
-   let total = 0;
-   
-   // Spouse percentage
-   const spousePercentage = document.getElementById('primarySpousePercentage');
-   if (spousePercentage && spousePercentage.value) {
-       total += parseInt(spousePercentage.value) || 0;
-   }
-   
-   // Children percentage
-   const childrenPercentage = document.getElementById('childrenPercentage');
-   if (childrenPercentage && childrenPercentage.value) {
-       total += parseInt(childrenPercentage.value) || 0;
-   }
-   
-   // Charity total
-   total += calculateCharityTotal();
-   
-   // Other persons total
-   total += calculateOtherPersonsTotal();
-   
-   return total;
 }
 
 // Form submission
@@ -679,6 +868,7 @@ document.getElementById('remainingEstateForm').addEventListener('submit', async 
    
    const otherPersonNames = formData.getAll('otherPersonName[]').filter(name => name.trim());
    const otherPersonPercentages = formData.getAll('otherPersonPercentage[]').filter(pct => pct.trim());
+   const otherPersonAlternates = formData.getAll('otherPersonAlternate[]');
    
    const altCharityNames = formData.getAll('altCharityName[]').filter(name => name.trim());
    const altCharityPercentages = formData.getAll('altCharityPercentage[]').filter(pct => pct.trim());
@@ -687,7 +877,11 @@ document.getElementById('remainingEstateForm').addEventListener('submit', async 
    const altOtherPersonPercentages = formData.getAll('altOtherPersonPercentage[]').filter(pct => pct.trim());
    const altOtherPersonAlternates = formData.getAll('altOtherPersonAlternate[]');
    
-   // Build arrays
+   // Handle custom child shares
+   const childShares = formData.getAll('childShare[]');
+   const childNames = formData.getAll('childName[]');
+   
+   // Build data object
    data.charities = charityNames.map((name, index) => ({
        name: name,
        percentage: parseInt(charityPercentages[index]) || 0
@@ -695,7 +889,8 @@ document.getElementById('remainingEstateForm').addEventListener('submit', async 
    
    data.otherPersons = otherPersonNames.map((name, index) => ({
        name: name,
-       percentage: parseInt(otherPersonPercentages[index]) || 0
+       percentage: parseInt(otherPersonPercentages[index]) || 0,
+       alternate: otherPersonAlternates[index] || ''
    }));
    
    data.alternativeCharities = altCharityNames.map((name, index) => ({
@@ -707,6 +902,11 @@ document.getElementById('remainingEstateForm').addEventListener('submit', async 
        name: name,
        percentage: parseInt(altOtherPersonPercentages[index]) || 0,
        alternate: altOtherPersonAlternates[index] || ''
+   }));
+   
+   data.customChildShares = childShares.map((share, index) => ({
+       name: childNames[index],
+       percentage: parseInt(share) || 0
    }));
    
    data.documentType = 'will';
