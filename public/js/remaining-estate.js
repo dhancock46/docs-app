@@ -148,7 +148,18 @@ function showPrimaryCharityDetails() {
     }
     updateAlternativeOptions();
 }
-
+// Hide charity and person sections when other options are selected
+function hidePrimaryCharityAndPersonSections() {
+    const primaryCharityGroup = document.getElementById('primaryCharityDetailsGroup');
+    const primaryOtherPersonsGroup = document.getElementById('otherPersonsDetailsGroup');
+    
+    if (primaryCharityGroup) {
+        primaryCharityGroup.style.display = 'none';
+    }
+    if (primaryOtherPersonsGroup) {
+        primaryOtherPersonsGroup.style.display = 'none';
+    }
+}
 // Show primary other persons details (use complex form for married users with no children)
 function showPrimaryOtherPersonsDetails() {
     console.log('showPrimaryOtherPersonsDetails called!');
@@ -177,6 +188,7 @@ function showPrimaryOtherPersonsDetails() {
     }
     updateAlternativeOptions();
 }
+
 // Functions for single users without children
 function togglePrimaryCharityDetails() {
     const primaryCharity = document.getElementById('primaryCharity').checked;
