@@ -107,19 +107,8 @@
         <label for="primaryOtherPersons">Other person(s)</label>
     </div>
 </div>
-    <!-- Standard options for all users -->
-    <div class="radio-item" id="primaryCharityOption">
-        <input type="radio" id="primaryCharity" name="primaryBeneficiaries" value="charity" onchange="showPrimaryCharityDetails(); updateAlternativeOptions()">
-        <label for="primaryCharity">Charitable organization(s)</label>
-    </div>
-    <div class="radio-item">
-       <input type="radio" id="primaryOtherPersons" name="primaryBeneficiaries" value="otherPersons" onchange="showPrimaryOtherPersonsDetails(); updateAlternativeOptions()">
-        <label for="primaryOtherPersons">Other person(s)</label>
-    </div>
-</div>
-</div>
 
-                    <!-- Primary Charity Details for single users -->
+                       <!-- Primary Charity Details for single users -->
                     <div class="form-group" id="primaryCharityDetailsForSingle" style="display: none;">
                         <label for="primaryCharityName">Charity Name *</label>
                         <input type="text" id="primaryCharityName" name="primaryCharityName" placeholder="Full legal name of charity">
