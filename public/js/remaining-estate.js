@@ -120,18 +120,25 @@ let altOtherPersonCount = 1;
 let primaryCharityCount = 1;
 let primaryOtherPersonCount = 1;
 
-// Show primary charity details (copied exactly from gifts.js pattern)
+// Show primary charity details (copied from working alternative pattern)
 function showPrimaryCharityDetails() {
     console.log('showPrimaryCharityDetails called!');
-    const charitySection = document.getElementById('primaryCharityDetailsGroup');
-    if (charitySection) {
-        charitySection.style.display = 'block';
+    const primaryCharityGroup = document.getElementById('primaryCharityDetailsGroup');
+    const primaryOtherPersonsGroup = document.getElementById('otherPersonsDetailsGroup');
+    
+    if (primaryCharityGroup) {
+        primaryCharityGroup.style.display = 'block';
         console.log('Primary charity section shown');
         
-        // Make sure the charity list is visible (copied from gifts.js)
-        const charitiesList = document.getElementById('charitiesList');
-        if (charitiesList) {
-            charitiesList.style.display = 'block';
+        // Make sure the charity list is visible
+        const primaryCharitiesList = document.getElementById('primaryCharitiesList');
+        if (primaryCharitiesList) {
+            primaryCharitiesList.style.display = 'block';
+        }
+        
+        // Hide other persons section
+        if (primaryOtherPersonsGroup) {
+            primaryOtherPersonsGroup.style.display = 'none';
         }
     } else {
         console.log('primaryCharityDetailsGroup not found!');
@@ -140,18 +147,25 @@ function showPrimaryCharityDetails() {
     updateAlternativeOptions();
 }
 
-// Show primary other persons details (copied exactly from gifts.js pattern)
+// Show primary other persons details (copied from working alternative pattern)
 function showPrimaryOtherPersonsDetails() {
     console.log('showPrimaryOtherPersonsDetails called!');
-    const otherPersonsSection = document.getElementById('otherPersonsDetailsGroup');
-    if (otherPersonsSection) {
-        otherPersonsSection.style.display = 'block';
+    const primaryOtherPersonsGroup = document.getElementById('otherPersonsDetailsGroup');
+    const primaryCharityGroup = document.getElementById('primaryCharityDetailsGroup');
+    
+    if (primaryOtherPersonsGroup) {
+        primaryOtherPersonsGroup.style.display = 'block';
         console.log('Primary other persons section shown');
         
-        // Make sure the other persons list is visible (copied from gifts.js)
-        const otherPersonsList = document.getElementById('otherPersonsList');
-        if (otherPersonsList) {
-            otherPersonsList.style.display = 'block';
+        // Make sure the other persons list is visible
+        const primaryOtherPersonsList = document.getElementById('primaryOtherPersonsList');
+        if (primaryOtherPersonsList) {
+            primaryOtherPersonsList.style.display = 'block';
+        }
+        
+        // Hide charity section
+        if (primaryCharityGroup) {
+            primaryCharityGroup.style.display = 'none';
         }
     } else {
         console.log('otherPersonsDetailsGroup not found!');
