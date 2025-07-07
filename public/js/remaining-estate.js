@@ -107,7 +107,7 @@ function initializePrimaryBeneficiariesSection() {
     }
     
     // Add children option if user has children
-    if (currentUserData.hasChildren === 'yes' && currentUserData.childCount > 0) {
+    if (currentUserData.hasChildren === 'yes') {
         console.log('Adding children option for user with', currentUserData.childCount, 'children');
         const childLabel = currentUserData.childCount === 1 ? 'All to my child' : 'All to my children';
         options.push({
