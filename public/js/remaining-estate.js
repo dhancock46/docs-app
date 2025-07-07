@@ -811,8 +811,8 @@ if (!validation.isValid) {
    const remainingOtherPersonPercentages = formData.getAll('remainingOtherPersonPercentage[]').filter(pct => pct.trim());
    const remainingOtherPersonAlternates = formData.getAll('remainingOtherPersonAlternate[]');
     
-   const disinheritedPersonNames = formData.getAll('disinheritedPersonName[]').filter(name => name.trim());
-   const disinheritedPersonRelationships = formData.getAll('disinheritedPersonRelationship[]');
+ //  const disinheritedPersonNames = formData.getAll('disinheritedPersonName[]').filter(name => name.trim());
+ //  const disinheritedPersonRelationships = formData.getAll('disinheritedPersonRelationship[]');
     
    const altCharityNames = formData.getAll('altCharityName[]').filter(name => name.trim());
    const altCharityPercentages = formData.getAll('altCharityPercentage[]').filter(pct => pct.trim());
@@ -861,10 +861,10 @@ if (!validation.isValid) {
        alternate: altOtherPersonAlternates[index] || ''
    }));
     
-   data.disinheritedPersons = disinheritedPersonNames.map((name, index) => ({
-    name: name,
-    relationship: disinheritedPersonRelationships[index] || ''
-   }));
+  // data.disinheritedPersons = disinheritedPersonNames.map((name, index) => ({
+    //name: name,
+    //relationship: disinheritedPersonRelationships[index] || ''
+   //}));
     
    data.customChildShares = childShares.map((share, index) => ({
        name: childNames[index],
