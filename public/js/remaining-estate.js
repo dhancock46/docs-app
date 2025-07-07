@@ -729,16 +729,14 @@ document.getElementById('remainingEstateForm').addEventListener('submit', async 
     e.preventDefault();
     
     const validation = validateForm();
-    if (!validation.isValid) {
-        const errorMessage = document.getElementById('const validation = validateForm();
-   if (!validation.isValid) {
-       const errorMessage = document.getElementById('errorMessage');
-       const errorP = errorMessage.querySelector('p');
-       errorP.textContent = 'Please fix the following issues:\n' + validation.errors.join('\n');
-       errorMessage.style.display = 'block';
-       errorMessage.scrollIntoView({ behavior: 'smooth' });
-       return;
-   }
+if (!validation.isValid) {
+    const errorMessage = document.getElementById('errorMessage');
+    const errorP = errorMessage.querySelector('p');
+    errorP.textContent = 'Please fix the following issues:\n' + validation.errors.join('\n');
+    errorMessage.style.display = 'block';
+    errorMessage.scrollIntoView({ behavior: 'smooth' });
+    return;
+}
    
    const loadingMessage = document.getElementById('loadingMessage');
    const successMessage = document.getElementById('successMessage');
