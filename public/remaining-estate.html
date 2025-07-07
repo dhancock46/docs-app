@@ -320,26 +320,30 @@
                     <p>If your primary beneficiaries cannot inherit, who should receive your estate instead?</p>
                     
                     <div class="form-group">
-                        <label>Alternative Beneficiaries *</label>
-                        <div class="radio-group" id="alternativeOptionsGroup">
-                            <div class="radio-item">
-                                <input type="radio" id="altParents" name="alternativeBeneficiaries" value="parents">
-                                <label for="altParents">My parents (or surviving parent)</label>
-                            </div>
-                            <div class="radio-item">
-                                <input type="radio" id="altSiblings" name="alternativeBeneficiaries" value="siblings">
-                                <label for="altSiblings">My siblings equally</label>
-                            </div>
-                            <div class="radio-item">
-                                <input type="radio" id="altCharity" name="alternativeBeneficiaries" value="charity" onchange="toggleAlternativeCharityDetails()">
-                                <label for="altCharity">Charitable organization(s)</label>
-                            </div>
-                            <div class="radio-item">
-                                <input type="radio" id="altOtherPersons" name="alternativeBeneficiaries" value="otherPersons" onchange="toggleAlternativeOtherPersonsDetails()">
-                                <label for="altOtherPersons">Other person(s)</label>
-                            </div>
-                        </div>
-                    </div>
+    <label>Alternative Beneficiaries *</label>
+    <div class="radio-group" id="alternativeOptionsGroup">
+        <div class="radio-item" id="altParentsOption">
+            <input type="radio" id="altParents" name="alternativeBeneficiaries" value="parents">
+            <label for="altParents">My parents (or surviving parent)</label>
+        </div>
+        <div class="radio-item" id="altSiblingsOption">
+            <input type="radio" id="altSiblings" name="alternativeBeneficiaries" value="siblings">
+            <label for="altSiblings">My siblings equally</label>
+        </div>
+        <div class="radio-item" id="altChildrenOption" style="display: none;">
+            <input type="radio" id="altChildren" name="alternativeBeneficiaries" value="children">
+            <label for="altChildren">My children equally</label>
+        </div>
+        <div class="radio-item" id="altCharityOption">
+            <input type="radio" id="altCharity" name="alternativeBeneficiaries" value="charity" onchange="toggleAlternativeCharityDetails()">
+            <label for="altCharity">Charitable organization(s)</label>
+        </div>
+        <div class="radio-item" id="altOtherPersonsOption">
+            <input type="radio" id="altOtherPersons" name="alternativeBeneficiaries" value="otherPersons" onchange="toggleAlternativeOtherPersonsDetails()">
+            <label for="altOtherPersons">Other person(s)</label>
+        </div>
+    </div>
+</div>
 
                     <!-- Alternative Charity Details -->
                     <div class="form-group" id="alternativeCharityDetailsGroup" style="display: none;">
