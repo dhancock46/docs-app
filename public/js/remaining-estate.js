@@ -732,7 +732,7 @@ document.getElementById('remainingEstateForm').addEventListener('submit', async 
 if (!validation.isValid) {
     const errorMessage = document.getElementById('errorMessage');
     const errorP = errorMessage.querySelector('p');
-    errorP.textContent = 'Please fix the following issues:\n' + validation.errors.join('\n');
+    errorP.textContent = 'Please fix the following issues: ' + validation.errors.join(', ');
     errorMessage.style.display = 'block';
     errorMessage.scrollIntoView({ behavior: 'smooth' });
     return;
