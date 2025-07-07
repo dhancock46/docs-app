@@ -5,6 +5,7 @@ let altCharityCount = 1;
 let altOtherPersonCount = 1;
 let remainingCharityCount = 1;
 let remainingOtherPersonCount = 1;
+let disinheritedPersonCount = 1;
 let currentUserData = {};
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -522,7 +523,51 @@ function addRemainingOtherPerson() {
 function removeRemainingOtherPerson(button) {
     button.parentElement.remove();
 }
+// Toggle disinheritance details section
+function toggleDisinheritanceDetails() {
+    const wantToDisinherit = document.querySelector('input[name="wantToDisinherit"]:checked')?.value;
+    const disinheritanceGroup = document.getElementById('disinheritanceDetailsGroup');
+    
+    if (wantToDisinherit === 'yes') {
+        disinheritanceGroup.style.display = 'block';
+    } else {
+        disinheritanceGroup.style.display = 'none';
+        // Clear any entered data when hiding
+        document.querySelectorAll('input[name="disinheritedPersonName[]"]').forEach(input => {
+            input.value = '';
+        });
+        document.querySelectorAll('input[name="disinheritedPersonRelationship[]"]').forEach(input => {
+            input.value = '';
+        });
+    }
+}
 
+// Add another disinherited person entry
+function addDisinheritedPerson() {
+    disinheritedPersonCount++;
+    const personsList = document.getElementById('disinheritedPersonsList');
+    
+    const newPersonEntry = document.createElement('div');
+    newPersonEntry.className = 'disinherited-person-entry';
+    newPersonEntry.innerHTML = `
+        <h4>Person #${disinheritedPersonCount} to Disinherit</h4>
+        <div class="form-group">
+            <label for="disinheritedPerson${disinheritedPersonCount}Name">Full Name *</label>
+            <input type="text" id="disinheritedPerson${disinheritedPersonCount}Name" name="disinheritedPersonName[]" placeholder="Full legal name of person to disinherit">
+        </div>
+        <div class="form-group">
+            <label for="disinheritedPerson${disinheritedPersonCount}Relationship">Relationship to You</label>
+            <input type="text" id="disinheritedPerson${disinheritedPersonCount}Relationship" name="disinheritedPersonRelationship[]" placeholder="e.g., my son, my sister, my former spouse">
+        </div>
+        <button type="button" class="remove-btn" onclick="removeDisinheritedPerson(this)">Remove This Person</button>
+    `;
+    personsList.appendChild(newPersonEntry);
+}
+
+// Remove disinherited person entry
+function removeDisinheritedPerson(button) {
+    button.parentElement.remove();
+}
 // Alternative beneficiaries functions
 function toggleAlternativeCharityDetails() {
     const altCharity = document.getElementById('altCharity').checked;
@@ -765,7 +810,10 @@ if (!validation.isValid) {
    const remainingOtherPersonNames = formData.getAll('remainingOtherPersonName[]').filter(name => name.trim());
    const remainingOtherPersonPercentages = formData.getAll('remainingOtherPersonPercentage[]').filter(pct => pct.trim());
    const remainingOtherPersonAlternates = formData.getAll('remainingOtherPersonAlternate[]');
-   
+    
+   const disinheritedPersonNames = formData.getAll('disinheritedPersonName[]').filter(name => name.trim());
+   const disinheritedPersonRelationships = formData.getAll('disinheritedPersonRelationship[]');
+    
    const altCharityNames = formData.getAll('altCharityName[]').filter(name => name.trim());
    const altCharityPercentages = formData.getAll('altCharityPercentage[]').filter(pct => pct.trim());
    
@@ -812,7 +860,12 @@ if (!validation.isValid) {
        percentage: parseInt(altOtherPersonPercentages[index]) || 0,
        alternate: altOtherPersonAlternates[index] || ''
    }));
-   
+    
+   data.disinheritedPersons = disinheritedPersonNames.map((name, index) => ({
+    name: name,
+    relationship: disinheritedPersonRelationships[index] || ''
+   }));
+    
    data.customChildShares = childShares.map((share, index) => ({
        name: childNames[index],
        percentage: parseInt(share) || 0
