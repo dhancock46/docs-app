@@ -145,6 +145,7 @@ function initializePrimaryBeneficiariesSection() {
     });
     
     console.log('Primary beneficiaries section populated');
+    updateAlternativeOptions();
 }
 
 // Primary selection handlers
@@ -522,6 +523,41 @@ function addRemainingOtherPerson() {
 
 function removeRemainingOtherPerson(button) {
     button.parentElement.remove();
+}
+
+function updateAlternativeOptions() {
+    const primarySelection = document.querySelector('input[name="primaryBeneficiaries"]:checked')?.value;
+    
+    // Get all alternative option containers
+    const altParents = document.getElementById('altParentsOption');
+    const altSiblings = document.getElementById('altSiblingsOption');
+    const altChildren = document.getElementById('altChildrenOption');
+    const altCharity = document.getElementById('altCharityOption');
+    const altOtherPersons = document.getElementById('altOtherPersonsOption');
+    
+    // Show all options first
+    if (altParents) altParents.style.display = 'block';
+    if (altSiblings) altSiblings.style.display = 'block';
+    if (altCharity) altCharity.style.display = 'block';
+    if (altOtherPersons) altOtherPersons.style.display = 'block';
+    
+    // Show children option only if user has children
+    if (altChildren) {
+        if (currentUserData.hasChildren === 'yes') {
+            altChildren.style.display = 'block';
+        } else {
+            altChildren.style.display = 'none';
+        }
+    }
+    
+    // Hide the option that was selected as primary
+    if (primarySelection === 'children' && altChildren) {
+        altChildren.style.display = 'none';
+    } else if (primarySelection === 'charity' && altCharity) {
+        altCharity.style.display = 'none';
+    } else if (primarySelection === 'otherPersons' && altOtherPersons) {
+        altOtherPersons.style.display = 'none';
+    }
 }
 // Toggle disinheritance details section
 function toggleDisinheritanceDetails() {
