@@ -155,6 +155,7 @@ function selectSpouseAll() {
     hideStandardPrimaryOptions();
     hideSpousePercentageGroup();
     hideRemainingDistribution();
+    updateAlternativeOptions();
 }
 
 function selectSpousePartial() {
@@ -162,7 +163,7 @@ function selectSpousePartial() {
     hideAllDetailGroups();
     hideStandardPrimaryOptions();
     showSpousePercentageGroup();
-    // Remaining distribution will be shown when percentage is entered
+    updateAlternativeOptions();
 }
 
 function selectChildren() {
@@ -177,6 +178,7 @@ function selectChildren() {
     if (currentUserData.childCount > 1) {
         document.getElementById('childrenCustomOption').style.display = 'block';
     }
+    updateAlternativeOptions();
 }
 
 function selectCharity() {
@@ -186,6 +188,7 @@ function selectCharity() {
     showStandardPrimaryOptions();
     hideAllDetailGroups();
     document.getElementById('charityDetailsGroup').style.display = 'block';
+    updateAlternativeOptions();
 }
 
 function selectOtherPersons() {
@@ -195,6 +198,7 @@ function selectOtherPersons() {
     showStandardPrimaryOptions();
     hideAllDetailGroups();
     document.getElementById('otherPersonsDetailsGroup').style.display = 'block';
+    updateAlternativeOptions();
 }
 
 function hideAllDetailGroups() {
