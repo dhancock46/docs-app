@@ -75,6 +75,7 @@ app.use('/submit', directiveToPhysiciansRoutes);
 app.use('/submit', willRoutes);
 app.use('/submit', giftsRoutes);
 app.use('/submit', remainingEstateRoutes);
+app.use('/submit', perRepRoutes);
 
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
