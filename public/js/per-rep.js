@@ -55,12 +55,10 @@ function toggleExecutorType() {
         primaryGroup.style.display = 'block';
         coExecutorGroup.style.display = 'block';
         alternateGroup.style.display = 'block';
-        bondSection.style.display = 'block';
     } else {
         primaryGroup.style.display = 'none';
         coExecutorGroup.style.display = 'none';
         alternateGroup.style.display = 'none';
-        bondSection.style.display = 'none';
     }
     
     updateExecutorSummary();
