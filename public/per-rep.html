@@ -84,7 +84,21 @@
                             <textarea id="coExecutorAddress" name="coExecutorAddress" rows="3" placeholder="Full address including city, state, ZIP"></textarea>
                         </div>
                     </div>
-
+<!-- Ask about alternate executors -->
+<div class="form-group" id="askAlternatesGroup" style="display: none;">
+    <h4>Alternate Executors</h4>
+    <p>If your primary executor(s) cannot serve, would you like to name alternate executors?</p>
+    <div class="radio-group">
+        <div class="radio-item">
+            <input type="radio" id="wantAlternatesYes" name="wantAlternates" value="yes" onchange="toggleAlternateExecutors()">
+            <label for="wantAlternatesYes">Yes, I want to name alternate executors</label>
+        </div>
+        <div class="radio-item">
+            <input type="radio" id="wantAlternatesNo" name="wantAlternates" value="no" onchange="toggleAlternateExecutors()">
+            <label for="wantAlternatesNo">No, I don't want to name alternates</label>
+        </div>
+    </div>
+</div>
                     <!-- Alternate Executors -->
                     <div class="form-group" id="alternateExecutorsGroup" style="display: none;">
                         <h4>Alternate Executor(s)</h4>
