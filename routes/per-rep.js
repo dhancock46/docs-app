@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
-router.post('/', (req, res) => {
+router.post('/per-rep', (req, res) => {
     try {
         console.log('Personal Representatives submission received:', req.body);
         
