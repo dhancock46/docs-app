@@ -277,6 +277,40 @@ document.getElementById('personalRepForm').addEventListener('submit', async func
 });
 
 function continueToReview() {
+    // Calculate if there are minor children
     const urlParams = new URLSearchParams(window.location.search);
-    window.location.href = `final-review.html?${urlParams.toString()}`;
+    const hasMinorChildren = checkForMinorChildren(urlParams);
+    
+    if (hasMinorChildren) {
+        // Go to guardian section
+        window.location.href = `guardians.html?${urlParams.toString()}`;
+    } else {
+        // Skip to final review
+        window.location.href = `final-review.html?${urlParams.toString()}`;
+    }
+}
+
+function checkForMinorChildren(urlParams) {
+    // Get children data from URL parameters
+    const childrenData = urlParams.get('childrenData');
+    if (!childrenData) return false;
+    
+    try {
+        const children = JSON.parse(decodeURIComponent(childrenData));
+        const currentDate = new Date();
+        
+        for (let child of children) {
+            if (child.birthdate) {
+                const birthDate = new Date(child.birthdate);
+                const age = Math.floor((currentDate - birthDate) / (365.25 * 24 * 60 * 60 * 1000));
+                if (age < 18) {
+                    return true;
+                }
+            }
+        }
+    } catch (error) {
+        console.error('Error parsing children data:', error);
+    }
+    
+    return false;
 }
