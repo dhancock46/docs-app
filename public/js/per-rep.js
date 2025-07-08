@@ -41,13 +41,11 @@ function toggleExecutorType() {
     const primaryGroup = document.getElementById('primaryExecutorGroup');
     const coExecutorGroup = document.getElementById('coExecutorGroup');
     const alternateGroup = document.getElementById('alternateExecutorsGroup');
-    const bondSection = document.getElementById('bondWaiverSection');
     
     if (executorType === 'single') {
         primaryGroup.style.display = 'block';
         coExecutorGroup.style.display = 'none';
         alternateGroup.style.display = 'block';
-        bondSection.style.display = 'block';
         
         // Clear co-executor fields
         document.getElementById('coExecutorName').value = '';
@@ -109,7 +107,6 @@ function updateExecutorSummary() {
     const executor1Name = document.getElementById('executor1Name')?.value;
     const coExecutorName = document.getElementById('coExecutorName')?.value;
     const executor2Name = document.getElementById('executor2Name')?.value;
-    const waiveBond = document.querySelector('input[name="waiveBond"]:checked')?.value;
     
     let summaryHTML = '<h4>Your Personal Representatives:</h4>';
     
@@ -123,10 +120,6 @@ function updateExecutorSummary() {
         if (executor2Name) {
             summaryHTML += `<p><strong>First Alternate:</strong> ${executor2Name}</p>`;
         }
-    }
-    
-    if (waiveBond) {
-        summaryHTML += `<p><strong>Bond Requirement:</strong> ${waiveBond === 'yes' ? 'Waived' : 'Required'}</p>`;
     }
     
     summaryContent.innerHTML = summaryHTML;
@@ -195,12 +188,6 @@ function validateForm() {
     }
     if (!executor2Address) {
         errors.push('Please enter the first alternate executor\'s address');
-    }
-    
-    // Check bond waiver
-    const waiveBond = document.querySelector('input[name="waiveBond"]:checked');
-    if (!waiveBond) {
-        errors.push('Please select whether to waive the bond requirement');
     }
     
     return { isValid: errors.length === 0, errors };
