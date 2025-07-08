@@ -223,7 +223,8 @@ document.getElementById('personalRepForm').addEventListener('submit', async func
     // Add document type and section
     data.documentType = 'will';
     data.section = 'personalRepresentatives';
-    
+    // Default to waiving bond
+    data.waiveBond = 'yes';
     try {
        const response = await fetch('/submit/per-rep', {
             method: 'POST',
