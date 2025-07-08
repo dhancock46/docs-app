@@ -191,7 +191,9 @@ function validateForm() {
         }
     }
     
-    // Check first alternate executor
+  // Check first alternate executor (only if user wants alternates)
+const wantAlternates = document.querySelector('input[name="wantAlternates"]:checked');
+if (wantAlternates && wantAlternates.value === 'yes') {
     const executor2Name = document.getElementById('executor2Name').value.trim();
     const executor2Relationship = document.getElementById('executor2Relationship').value.trim();
     const executor2Address = document.getElementById('executor2Address').value.trim();
@@ -205,6 +207,7 @@ function validateForm() {
     if (!executor2Address) {
         errors.push('Please enter the first alternate executor\'s address');
     }
+}
     
     return { isValid: errors.length === 0, errors };
 }
