@@ -45,7 +45,7 @@ function toggleExecutorType() {
     if (executorType === 'single') {
         primaryGroup.style.display = 'block';
         coExecutorGroup.style.display = 'none';
-        alternateGroup.style.display = 'block';
+        document.getElementById('askAlternatesGroup').style.display = 'block';
         
         // Clear co-executor fields
         document.getElementById('coExecutorName').value = '';
@@ -54,11 +54,29 @@ function toggleExecutorType() {
     } else if (executorType === 'co') {
         primaryGroup.style.display = 'block';
         coExecutorGroup.style.display = 'block';
-        alternateGroup.style.display = 'block';
+        document.getElementById('askAlternatesGroup').style.display = 'block';
     } else {
         primaryGroup.style.display = 'none';
         coExecutorGroup.style.display = 'none';
+        document.getElementById('askAlternatesGroup').style.display = 'none';
+    }
+    
+    updateExecutorSummary();
+}
+
+// Toggle alternate executors section
+function toggleAlternateExecutors() {
+    const wantAlternates = document.querySelector('input[name="wantAlternates"]:checked')?.value;
+    const alternateGroup = document.getElementById('alternateExecutorsGroup');
+    
+    if (wantAlternates === 'yes') {
+        alternateGroup.style.display = 'block';
+    } else {
         alternateGroup.style.display = 'none';
+        // Clear alternate executor fields when hidden
+        document.getElementById('executor2Name').value = '';
+        document.getElementById('executor2Relationship').value = '';
+        document.getElementById('executor2Address').value = '';
     }
     
     updateExecutorSummary();
