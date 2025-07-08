@@ -952,6 +952,6 @@ if (!validation.isValid) {
 });
 
 function continueToExecutors() {
-   const urlParams = new URLSearchParams(window.location.search);
-   window.location.href = `executors.html?${urlParams.toString()}`;
+    const urlParams = new URLSearchParams(window.location.search);
+    window.location.href = `per-rep.html?${urlParams.toString()}`;
 }
