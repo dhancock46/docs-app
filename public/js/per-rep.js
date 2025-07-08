@@ -238,7 +238,7 @@ document.getElementById('personalRepForm').addEventListener('submit', async func
     data.section = 'personalRepresentatives';
     
     try {
-        const response = await fetch('/submit/per-rep', {
+        const response = await fetch('/submit', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
