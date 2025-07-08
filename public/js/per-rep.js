@@ -261,13 +261,21 @@ document.getElementById('personalRepForm').addEventListener('submit', async func
         
         loadingMessage.style.display = 'none';
         
-        if (result.success) {
-            successMessage.style.display = 'block';
-            successMessage.scrollIntoView({ behavior: 'smooth' });
-        } else {
-            errorMessage.style.display = 'block';
-            errorMessage.scrollIntoView({ behavior: 'smooth' });
-        }
+      if (result.success) {
+    // Check if we need guardians section
+    const urlParams = new URLSearchParams(window.location.search);
+    const hasMinorChildren = checkForMinorChildren(urlParams);
+    
+    const successBtn = successMessage.querySelector('.continue-btn');
+    if (hasMinorChildren) {
+        successBtn.textContent = 'Continue to Guardian Nominations →';
+    } else {
+        successBtn.textContent = 'Continue to Final Review →';
+    }
+    
+    successMessage.style.display = 'block';
+    successMessage.scrollIntoView({ behavior: 'smooth' });
+}
     } catch (error) {
         console.error('Personal representatives submission error:', error);
         loadingMessage.style.display = 'none';
