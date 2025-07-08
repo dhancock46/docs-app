@@ -1,1 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personal Representatives - Legal Document Preparation</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Last Will and Testament - Personal Representatives</h1>
+            <p>Who should serve as your executor(s) and handle your estate?</p>
+        </div>
+        
+        <div class="form-container" style="display: block;">
+            <button class="back-btn" onclick="window.location.href='remaining-estate.html'">← Back to Estate Distribution</button>
 
+            <form id="personalRepForm">
+                <input type="hidden" id="testatorName" name="testatorName">
+                <input type="hidden" id="clientEmail" name="clientEmail">
+                
+                <!-- Progress Indicator -->
+                <div class="form-section">
+                    <h3>Section Progress</h3>
+                    <p>✅ Personal & Family Information Complete</p>
+                    <p>✅ Specific Gifts Complete</p>
+                    <p>✅ Estate Distribution Complete</p>
+                    <p>🔄 <strong>Current: Personal Representatives</strong></p>
+                    <p>⏳ Final Review (Next)</p>
+                </div>
+
+                <!-- Executor Selection -->
+                <div class="form-section">
+                    <h3>Executor Nominations</h3>
+                    <p class="section-description">
+                        An executor is the person who will manage your estate, pay debts, and distribute assets according to your will. Choose someone you trust who is organized and responsible.
+                    </p>
+
+                    <div class="form-group">
+                        <label>How many primary executors do you want? *</label>
+                        <div class="radio-group">
+                            <div class="radio-item">
+                                <input type="radio" id="singleExecutor" name="executorType" value="single" onchange="toggleExecutorType()">
+                                <label for="singleExecutor">One executor</label>
+                            </div>
+                            <div class="radio-item">
+                                <input type="radio" id="coExecutors" name="executorType" value="co" onchange="toggleExecutorType()">
+                                <label for="coExecutors">Two co-executors (serve together)</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Primary Executor -->
+                    <div class="form-group" id="primaryExecutorGroup" style="display: none;">
+                        <h4>Primary Executor</h4>
+                        <div class="form-group">
+                            <label for="executor1Name">Full Name *</label>
+                            <input type="text" id="executor1Name" name="executor1Name" placeholder="Full legal name">
+                        </div>
+                        <div class="form-group">
+                            <label for="executor1Relationship">Relationship to You *</label>
+                            <input type="text" id="executor1Relationship" name="executor1Relationship" placeholder="e.g., my spouse, my daughter, my brother">
+                        </div>
+                        <div class="form-group">
+                            <label for="executor1Address">Address *</label>
+                            <textarea id="executor1Address" name="executor1Address" rows="3" placeholder="Full address including city, state, ZIP"></textarea>
+                        </div>
+                    </div>
+
+                    <!-- Co-Executor (only shown if co-executors selected) -->
+                    <div class="form-group" id="coExecutorGroup" style="display: none;">
+                        <h4>Co-Executor</h4>
+                        <div class="form-group">
+                            <label for="coExecutorName">Full Name *</label>
+                            <input type="text" id="coExecutorName" name="coExecutorName" placeholder="Full legal name">
+                        </div>
+                        <div class="form-group">
+                            <label for="coExecutorRelationship">Relationship to You *</label>
+                            <input type="text" id="coExecutorRelationship" name="coExecutorRelationship" placeholder="e.g., my spouse, my son, my friend">
+                        </div>
+                        <div class="form-group">
+                            <label for="coExecutorAddress">Address *</label>
+                            <textarea id="coExecutorAddress" name="coExecutorAddress" rows="3" placeholder="Full address including city, state, ZIP"></textarea>
+                        </div>
+                    </div>
+
+                    <!-- Alternate Executors -->
+                    <div class="form-group" id="alternateExecutorsGroup" style="display: none;">
+                        <h4>Alternate Executor(s)</h4>
+                        <p>If your primary executor(s) cannot serve, who should serve instead?</p>
+                        
+                        <div id="alternateExecutorsList">
+                            <div class="executor-entry">
+                                <h4>First Alternate Executor</h4>
+                                <div class="form-group">
+                                    <label for="executor2Name">Full Name *</label>
+                                    <input type="text" id="executor2Name" name="executor2Name" placeholder="Full legal name">
+                                </div>
+                                <div class="form-group">
+                                    <label for="executor2Relationship">Relationship to You *</label>
+                                    <input type="text" id="executor2Relationship" name="executor2Relationship" placeholder="e.g., my sister, my friend, my attorney">
+                                </div>
+                                <div class="form-group">
+                                    <label for="executor2Address">Address *</label>
+                                    <textarea id="executor2Address" name="executor2Address" rows="3" placeholder="Full address including city, state, ZIP"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <button type="button" onclick="addAlternateExecutor()" class="add-btn">Add Another Alternate Executor</button>
+                        <small>Alternates will serve in the order listed if previous executors cannot serve</small>
+                    </div>
+                </div>
+
+                <!-- Bond Waiver -->
+                <div class="form-section" id="bondWaiverSection" style="display: none;">
+                    <h3>Bond Requirements</h3>
+                    <div class="form-group">
+                        <label>Do you want to waive the bond requirement for your executor(s)? *</label>
+                        <div class="radio-group">
+                            <div class="radio-item">
+                                <input type="radio" id="waiveBondYes" name="waiveBond" value="yes">
+                                <label for="waiveBondYes">Yes, waive bond requirement (recommended for trusted family members)</label>
+                            </div>
+                            <div class="radio-item">
+                                <input type="radio" id="waiveBondNo" name="waiveBond" value="no">
+                                <label for="waiveBondNo">No, require bond (additional protection but increases costs)</label>
+                            </div>
+                        </div>
+                        <small>A bond is like insurance that protects your estate if the executor mismanages funds. Most people waive this requirement when appointing trusted family members.</small>
+                    </div>
+                </div>
+
+                <!-- Summary Section -->
+                <div class="form-section" id="executorSummary" style="display: none;">
+                    <h3>Executor Summary</h3>
+                    <div id="summaryContent">
+                        <!-- Summary will be populated by JavaScript -->
+                    </div>
+                </div>
+
+                <!-- Navigation -->
+                <div class="form-navigation">
+                    <button type="submit" class="submit-btn">Save & Continue to Final Review →</button>
+                </div>
+            </form>
+
+            <!-- Messages -->
+            <div id="loadingMessage" class="message loading-message" style="display: none;">
+                <p>Saving your personal representative selections...</p>
+            </div>
+
+            <div id="successMessage" class="message success-message" style="display: none;">
+                <p>✅ Personal representatives saved successfully!</p>
+                <button onclick="continueToReview()" class="continue-btn">Continue to Final Review →</button>
+            </div>
+
+            <div id="errorMessage" class="message error-message" style="display: none;">
+                <p>❌ There was an error saving your information. Please try again.</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/per-rep.js"></script>
+</body>
+</html>
