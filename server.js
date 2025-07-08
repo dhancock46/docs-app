@@ -2,9 +2,6 @@ const express = require('express');
 const nodemailer = require('nodemailer');
 const rateLimit = require('express-rate-limit');
 const path = require('path');
-const giftsRoutes = require('./routes/gifts');
-const remainingEstateRoutes = require('./routes/remaining-estate');
-const perRepRoutes = require('./routes/per-rep');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
@@ -37,6 +34,7 @@ const directiveToPhysiciansRoutes = require('./routes/directive-to-physicians');
 const willRoutes = require('./routes/will');
 const giftsRoutes = require('./routes/gifts');
 const remainingEstateRoutes = require('./routes/remaining-estate');
+const perRepRoutes = require('./routes/per-rep');
 
 // Legacy route handler for backward compatibility
 app.post('/submit', async (req, res) => {
