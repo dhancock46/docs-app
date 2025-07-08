@@ -300,26 +300,8 @@ return;
 }
 
 function checkForMinorChildren(urlParams) {
-    // Get children data from URL parameters
-    const childrenData = urlParams.get('childrenData');
-    if (!childrenData) return false;
-    
-    try {
-        const children = JSON.parse(decodeURIComponent(childrenData));
-        const currentDate = new Date();
-        
-        for (let child of children) {
-            if (child.birthdate) {
-                const birthDate = new Date(child.birthdate);
-                const age = Math.floor((currentDate - birthDate) / (365.25 * 24 * 60 * 60 * 1000));
-                if (age < 18) {
-                    return true;
-                }
-            }
-        }
-    } catch (error) {
-        console.error('Error parsing children data:', error);
-    }
-    
-    return false;
+    // For now, if they have children, assume they might be minors
+    // TODO: Get actual child birthdates from the personal info section
+    const hasChildren = urlParams.get('hasChildren');
+    return hasChildren === 'yes';
 }
