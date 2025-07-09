@@ -538,24 +538,58 @@ function validateForm() {
             }
         }
         
-        // Validate alternates if selected
-        const wantAlternates = document.querySelector('input[name="wantAlternatesDiff"]:checked');
-        if (wantAlternates && wantAlternates.value === 'yes') {
-            const firstAlternateName = document.getElementById('alternateDiff1Name').value.trim();
-            const firstAlternateRelationship = document.getElementById('alternateDiff1Relationship').value.trim();
-            const firstAlternateAddress = document.getElementById('alternateDiff1Address').value.trim();
-            
-            if (!firstAlternateName) {
-                errors.push('Please enter the first alternate guardian\'s full name');
-            }
-            if (!firstAlternateRelationship) {
-                errors.push('Please enter the first alternate guardian\'s relationship to you');
-            }
-            if (!firstAlternateAddress) {
-                errors.push('Please enter the first alternate guardian\'s address');
-            }
+      // Validate alternates if selected
+const wantAlternates = document.querySelector('input[name="wantAlternatesDiff"]:checked');
+if (wantAlternates && wantAlternates.value === 'yes') {
+    const alternatesStructure = document.querySelector('input[name="alternatesStructure"]:checked');
+    if (!alternatesStructure) {
+        errors.push('Please select how you want to structure alternate guardians');
+    } else if (alternatesStructure.value === 'same') {
+        const firstAlternateName = document.getElementById('alternateDiff1Name');
+        const firstAlternateRelationship = document.getElementById('alternateDiff1Relationship');
+        const firstAlternateAddress = document.getElementById('alternateDiff1Address');
+        
+        if (firstAlternateName && !firstAlternateName.value.trim()) {
+            errors.push('Please enter the first alternate guardian\'s full name');
+        }
+        if (firstAlternateRelationship && !firstAlternateRelationship.value.trim()) {
+            errors.push('Please enter the first alternate guardian\'s relationship to you');
+        }
+        if (firstAlternateAddress && !firstAlternateAddress.value.trim()) {
+            errors.push('Please enter the first alternate guardian\'s address');
+        }
+    } else if (alternatesStructure.value === 'different') {
+        // Validate person alternates
+        const firstPersonName = document.getElementById('alternatePersonDiff1Name');
+        const firstPersonRelationship = document.getElementById('alternatePersonDiff1Relationship');
+        const firstPersonAddress = document.getElementById('alternatePersonDiff1Address');
+        
+        if (firstPersonName && !firstPersonName.value.trim()) {
+            errors.push('Please enter the first alternate guardian of person\'s full name');
+        }
+        if (firstPersonRelationship && !firstPersonRelationship.value.trim()) {
+            errors.push('Please enter the first alternate guardian of person\'s relationship to you');
+        }
+        if (firstPersonAddress && !firstPersonAddress.value.trim()) {
+            errors.push('Please enter the first alternate guardian of person\'s address');
+        }
+        
+        // Validate estate alternates
+        const firstEstateName = document.getElementById('alternateEstateDiff1Name');
+        const firstEstateRelationship = document.getElementById('alternateEstateDiff1Relationship');
+        const firstEstateAddress = document.getElementById('alternateEstateDiff1Address');
+        
+        if (firstEstateName && !firstEstateName.value.trim()) {
+            errors.push('Please enter the first alternate guardian of estate\'s full name');
+        }
+        if (firstEstateRelationship && !firstEstateRelationship.value.trim()) {
+            errors.push('Please enter the first alternate guardian of estate\'s relationship to you');
+        }
+        if (firstEstateAddress && !firstEstateAddress.value.trim()) {
+            errors.push('Please enter the first alternate guardian of estate\'s address');
         }
     }
+}
     
     return { isValid: errors.length === 0, errors };
 }
@@ -626,35 +660,118 @@ async function handleFormSubmission(event) {
         errorMessage.scrollIntoView({ behavior: 'smooth' });
     }
 }
-   // Toggle alternates structure for different guardians
-function toggleAlternatesStructure() {
-    const structure = document.querySelector('input[name="alternatesStructure"]:checked')?.value;
-    const sameStructureGroup = document.getElementById('alternatesSameStructureGroup');
-    const diffStructureGroup = document.getElementById('alternatesDiffStructureGroup');
+  // Add alternate guardian for person
+function addAlternateGuardianPerson() {
+    const alternatesPersonList = document.getElementById('alternatesPersonList');
+    const existingAlternates = alternatesPersonList.querySelectorAll('.alternate-guardian');
+    const newId = existingAlternates.length + 1;
     
-    if (structure === 'same') {
-        sameStructureGroup.style.display = 'block';
-        diffStructureGroup.style.display = 'none';
-        // Clear different structure fields
-        if (document.getElementById('alternatePersonDiff1Name')) {
-            clearAlternatePersonFields();
-        }
-        if (document.getElementById('alternateEstateDiff1Name')) {
-            clearAlternateEstateFields();
-        }
-    } else if (structure === 'different') {
-        sameStructureGroup.style.display = 'none';
-        diffStructureGroup.style.display = 'block';
-        // Clear same structure fields
-        if (document.getElementById('alternateDiff1Name')) {
-            clearAlternateFieldsDiff();
-        }
-    } else {
-        sameStructureGroup.style.display = 'none';
-        diffStructureGroup.style.display = 'none';
-    }
+    const alternateDiv = document.createElement('div');
+    alternateDiv.className = 'alternate-guardian';
+    alternateDiv.id = `alternatePersonDiff${newId}`;
     
+    alternateDiv.innerHTML = `
+        <h6>Alternate Guardian of Person ${newId}</h6>
+        <div class="form-group">
+            <label for="alternatePersonDiff${newId}Name">Full Name *</label>
+            <input type="text" id="alternatePersonDiff${newId}Name" name="alternatePersonDiff${newId}Name" placeholder="Full legal name">
+        </div>
+        <div class="form-group">
+            <label for="alternatePersonDiff${newId}Relationship">Relationship to You *</label>
+            <input type="text" id="alternatePersonDiff${newId}Relationship" name="alternatePersonDiff${newId}Relationship" placeholder="e.g., my cousin, my friend">
+        </div>
+        <div class="form-group">
+            <label for="alternatePersonDiff${newId}Address">Address *</label>
+            <textarea id="alternatePersonDiff${newId}Address" name="alternatePersonDiff${newId}Address" rows="3" placeholder="Full address including city, state, ZIP"></textarea>
+        </div>
+        <button type="button" class="btn-remove" onclick="removeAlternateGuardianPerson(${newId})">Remove This Alternate</button>
+    `;
+    
+    alternatesPersonList.appendChild(alternateDiv);
     updateSummary();
+}
+
+// Add alternate guardian for estate
+function addAlternateGuardianEstate() {
+    const alternatesEstateList = document.getElementById('alternatesEstateList');
+    const existingAlternates = alternatesEstateList.querySelectorAll('.alternate-guardian');
+    const newId = existingAlternates.length + 1;
+    
+    const alternateDiv = document.createElement('div');
+    alternateDiv.className = 'alternate-guardian';
+    alternateDiv.id = `alternateEstateDiff${newId}`;
+    
+    alternateDiv.innerHTML = `
+        <h6>Alternate Guardian of Estate ${newId}</h6>
+        <div class="form-group">
+            <label for="alternateEstateDiff${newId}Name">Full Name *</label>
+            <input type="text" id="alternateEstateDiff${newId}Name" name="alternateEstateDiff${newId}Name" placeholder="Full legal name">
+        </div>
+        <div class="form-group">
+            <label for="alternateEstateDiff${newId}Relationship">Relationship to You *</label>
+            <input type="text" id="alternateEstateDiff${newId}Relationship" name="alternateEstateDiff${newId}Relationship" placeholder="e.g., my accountant, my brother">
+        </div>
+        <div class="form-group">
+            <label for="alternateEstateDiff${newId}Address">Address *</label>
+            <textarea id="alternateEstateDiff${newId}Address" name="alternateEstateDiff${newId}Address" rows="3" placeholder="Full address including city, state, ZIP"></textarea>
+        </div>
+        <button type="button" class="btn-remove" onclick="removeAlternateGuardianEstate(${newId})">Remove This Alternate</button>
+    `;
+    
+    alternatesEstateList.appendChild(alternateDiv);
+    updateSummary();
+}
+
+// Remove alternate guardian functions
+function removeAlternateGuardianPerson(id) {
+    const alternate = document.getElementById(`alternatePersonDiff${id}`);
+    if (alternate) {
+        alternate.remove();
+        updateSummary();
+    }
+}
+
+function removeAlternateGuardianEstate(id) {
+    const alternate = document.getElementById(`alternateEstateDiff${id}`);
+    if (alternate) {
+        alternate.remove();
+        updateSummary();
+    }
+}
+
+// Clear functions for new structure
+function clearAlternatePersonFields() {
+    const alternatesPersonList = document.getElementById('alternatesPersonList');
+    if (alternatesPersonList) {
+        const additionalAlternates = alternatesPersonList.querySelectorAll('.alternate-guardian:not(#alternatePersonDiff1)');
+        additionalAlternates.forEach(alt => alt.remove());
+        
+        // Clear first alternate fields
+        const nameField = document.getElementById('alternatePersonDiff1Name');
+        const relationshipField = document.getElementById('alternatePersonDiff1Relationship');
+        const addressField = document.getElementById('alternatePersonDiff1Address');
+        
+        if (nameField) nameField.value = '';
+        if (relationshipField) relationshipField.value = '';
+        if (addressField) addressField.value = '';
+    }
+}
+
+function clearAlternateEstateFields() {
+    const alternatesEstateList = document.getElementById('alternatesEstateList');
+    if (alternatesEstateList) {
+        const additionalAlternates = alternatesEstateList.querySelectorAll('.alternate-guardian:not(#alternateEstateDiff1)');
+        additionalAlternates.forEach(alt => alt.remove());
+        
+        // Clear first alternate fields
+        const nameField = document.getElementById('alternateEstateDiff1Name');
+        const relationshipField = document.getElementById('alternateEstateDiff1Relationship');
+        const addressField = document.getElementById('alternateEstateDiff1Address');
+        
+        if (nameField) nameField.value = '';
+        if (relationshipField) relationshipField.value = '';
+        if (addressField) addressField.value = '';
+    }
 }
 
 // Add alternate guardian for person
