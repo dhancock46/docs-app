@@ -35,6 +35,7 @@ const willRoutes = require('./routes/will');
 const giftsRoutes = require('./routes/gifts');
 const remainingEstateRoutes = require('./routes/remaining-estate');
 const perRepRoutes = require('./routes/per-rep');
+const guardiansRoutes = require('./routes/guardians');
 
 // Legacy route handler for backward compatibility
 app.post('/submit', async (req, res) => {
@@ -74,6 +75,7 @@ app.use('/submit', willRoutes);
 app.use('/submit', giftsRoutes);
 app.use('/submit', remainingEstateRoutes);
 app.use('/submit', perRepRoutes);
+app.use('/submit', guardiansRoutes);
 
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
