@@ -241,30 +241,93 @@
                         </div>
                     </div>
 
-                    <div id="alternatesDiffGroup" style="display: none;">
-                        <p><strong>Note:</strong> Alternates will serve as guardians of both person and estate</p>
-                        <div id="alternatesListDiff">
-                            <!-- First alternate -->
-                            <div class="alternate-guardian" id="alternateDiff1">
-                                <h5>First Alternate Guardian</h5>
-                                <div class="form-group">
-                                    <label for="alternateDiff1Name">Full Name *</label>
-                                    <input type="text" id="alternateDiff1Name" name="alternateDiff1Name" placeholder="Full legal name">
-                                </div>
-                                <div class="form-group">
-                                    <label for="alternateDiff1Relationship">Relationship to You *</label>
-                                    <input type="text" id="alternateDiff1Relationship" name="alternateDiff1Relationship" placeholder="e.g., my cousin, my friend">
-                                </div>
-                                <div class="form-group">
-                                    <label for="alternateDiff1Address">Address *</label>
-                                    <textarea id="alternateDiff1Address" name="alternateDiff1Address" rows="3" placeholder="Full address including city, state, ZIP"></textarea>
-                                </div>
-                            </div>
-                        </div>
-                        <button type="button" class="btn-secondary" onclick="addAlternateGuardianDiff()">Add Another Alternate</button>
+                  <div id="alternatesDiffGroup" style="display: none;">
+    <div class="form-group">
+        <label>How do you want to structure alternate guardians?</label>
+        <div class="radio-group">
+            <div class="radio-item">
+                <input type="radio" id="alternatesSameStructure" name="alternatesStructure" value="same" onchange="toggleAlternatesStructure()">
+                <label for="alternatesSameStructure">Same alternates for both person and estate</label>
+            </div>
+            <div class="radio-item">
+                <input type="radio" id="alternatesDiffStructure" name="alternatesStructure" value="different" onchange="toggleAlternatesStructure()">
+                <label for="alternatesDiffStructure">Different alternates for person and estate</label>
+            </div>
+        </div>
+    </div>
+
+    <!-- Same alternates structure -->
+    <div id="alternatesSameStructureGroup" style="display: none;">
+        <p><strong>Note:</strong> These alternates will serve as guardians of both person and estate</p>
+        <div id="alternatesListDiff">
+            <div class="alternate-guardian" id="alternateDiff1">
+                <h5>First Alternate Guardian</h5>
+                <div class="form-group">
+                    <label for="alternateDiff1Name">Full Name *</label>
+                    <input type="text" id="alternateDiff1Name" name="alternateDiff1Name" placeholder="Full legal name">
+                </div>
+                <div class="form-group">
+                    <label for="alternateDiff1Relationship">Relationship to You *</label>
+                    <input type="text" id="alternateDiff1Relationship" name="alternateDiff1Relationship" placeholder="e.g., my cousin, my friend">
+                </div>
+                <div class="form-group">
+                    <label for="alternateDiff1Address">Address *</label>
+                    <textarea id="alternateDiff1Address" name="alternateDiff1Address" rows="3" placeholder="Full address including city, state, ZIP"></textarea>
+                </div>
+            </div>
+        </div>
+        <button type="button" class="btn-secondary" onclick="addAlternateGuardianDiff()">Add Another Alternate</button>
+    </div>
+
+    <!-- Different alternates structure -->
+    <div id="alternatesDiffStructureGroup" style="display: none;">
+        <!-- Alternate guardians of person -->
+        <div class="form-section">
+            <h5>Alternate Guardians of Person</h5>
+            <div id="alternatesPersonList">
+                <div class="alternate-guardian" id="alternatePersonDiff1">
+                    <h6>First Alternate Guardian of Person</h6>
+                    <div class="form-group">
+                        <label for="alternatePersonDiff1Name">Full Name *</label>
+                        <input type="text" id="alternatePersonDiff1Name" name="alternatePersonDiff1Name" placeholder="Full legal name">
+                    </div>
+                    <div class="form-group">
+                        <label for="alternatePersonDiff1Relationship">Relationship to You *</label>
+                        <input type="text" id="alternatePersonDiff1Relationship" name="alternatePersonDiff1Relationship" placeholder="e.g., my cousin, my friend">
+                    </div>
+                    <div class="form-group">
+                        <label for="alternatePersonDiff1Address">Address *</label>
+                        <textarea id="alternatePersonDiff1Address" name="alternatePersonDiff1Address" rows="3" placeholder="Full address including city, state, ZIP"></textarea>
                     </div>
                 </div>
             </div>
+            <button type="button" class="btn-secondary" onclick="addAlternateGuardianPerson()">Add Another Alternate Person Guardian</button>
+        </div>
+
+        <!-- Alternate guardians of estate -->
+        <div class="form-section">
+            <h5>Alternate Guardians of Estate</h5>
+            <div id="alternatesEstateList">
+                <div class="alternate-guardian" id="alternateEstateDiff1">
+                    <h6>First Alternate Guardian of Estate</h6>
+                    <div class="form-group">
+                        <label for="alternateEstateDiff1Name">Full Name *</label>
+                        <input type="text" id="alternateEstateDiff1Name" name="alternateEstateDiff1Name" placeholder="Full legal name">
+                    </div>
+                    <div class="form-group">
+                        <label for="alternateEstateDiff1Relationship">Relationship to You *</label>
+                        <input type="text" id="alternateEstateDiff1Relationship" name="alternateEstateDiff1Relationship" placeholder="e.g., my accountant, my brother">
+                    </div>
+                    <div class="form-group">
+                        <label for="alternateEstateDiff1Address">Address *</label>
+                        <textarea id="alternateEstateDiff1Address" name="alternateEstateDiff1Address" rows="3" placeholder="Full address including city, state, ZIP"></textarea>
+                    </div>
+                </div>
+            </div>
+            <button type="button" class="btn-secondary" onclick="addAlternateGuardianEstate()">Add Another Alternate Estate Guardian</button>
+        </div>
+    </div>
+</div>
 
             <!-- Summary Section -->
             <div class="form-section">
