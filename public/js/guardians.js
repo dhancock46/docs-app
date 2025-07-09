@@ -361,23 +361,51 @@ function updateSummary() {
             summaryHTML += `<p><strong>Co-Guardians of Estate:</strong> ${estateName} and ${coEstateName}</p>`;
         }
         
-        // Add alternates summary
-        const wantAlternates = document.querySelector('input[name="wantAlternatesDiff"]:checked')?.value;
-        if (wantAlternates === 'yes') {
-            const alternates = document.querySelectorAll('#alternatesListDiff .alternate-guardian');
-            const alternateNames = [];
-            alternates.forEach(alt => {
-                const nameInput = alt.querySelector('input[name*="Name"]');
-                if (nameInput && nameInput.value) {
-                    alternateNames.push(nameInput.value);
-                }
-            });
-            if (alternateNames.length > 0) {
-                summaryHTML += `<p><strong>Alternate Guardians:</strong> ${alternateNames.join(', ')}</p>`;
+       // Add alternates summary for different guardians
+const wantAlternates = document.querySelector('input[name="wantAlternatesDiff"]:checked')?.value;
+if (wantAlternates === 'yes') {
+    const alternatesStructure = document.querySelector('input[name="alternatesStructure"]:checked')?.value;
+    
+    if (alternatesStructure === 'same') {
+        // Same alternates for both person and estate
+        const alternates = document.querySelectorAll('#alternatesListDiff .alternate-guardian');
+        const alternateNames = [];
+        alternates.forEach(alt => {
+            const nameInput = alt.querySelector('input[name*="Name"]');
+            if (nameInput && nameInput.value) {
+                alternateNames.push(nameInput.value);
             }
+        });
+        if (alternateNames.length > 0) {
+            summaryHTML += `<p><strong>Alternate Guardians (Person & Estate):</strong> ${alternateNames.join(', ')}</p>`;
+        }
+    } else if (alternatesStructure === 'different') {
+        // Different alternates for person and estate
+        const personAlternates = document.querySelectorAll('#alternatesPersonList .alternate-guardian');
+        const personNames = [];
+        personAlternates.forEach(alt => {
+            const nameInput = alt.querySelector('input[name*="Name"]');
+            if (nameInput && nameInput.value) {
+                personNames.push(nameInput.value);
+            }
+        });
+        if (personNames.length > 0) {
+            summaryHTML += `<p><strong>Alternate Guardians of Person:</strong> ${personNames.join(', ')}</p>`;
+        }
+        
+        const estateAlternates = document.querySelectorAll('#alternatesEstateList .alternate-guardian');
+        const estateNames = [];
+        estateAlternates.forEach(alt => {
+            const nameInput = alt.querySelector('input[name*="Name"]');
+            if (nameInput && nameInput.value) {
+                estateNames.push(nameInput.value);
+            }
+        });
+        if (estateNames.length > 0) {
+            summaryHTML += `<p><strong>Alternate Guardians of Estate:</strong> ${estateNames.join(', ')}</p>`;
         }
     }
-    
+}
     summaryDiv.innerHTML = summaryHTML;
     summaryDiv.style.display = 'block';
 }
