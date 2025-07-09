@@ -626,7 +626,7 @@ async function handleFormSubmission(event) {
         errorMessage.scrollIntoView({ behavior: 'smooth' });
     }
 }
-    // Toggle alternates structure for different guardians
+   // Toggle alternates structure for different guardians
 function toggleAlternatesStructure() {
     const structure = document.querySelector('input[name="alternatesStructure"]:checked')?.value;
     const sameStructureGroup = document.getElementById('alternatesSameStructureGroup');
@@ -636,13 +636,19 @@ function toggleAlternatesStructure() {
         sameStructureGroup.style.display = 'block';
         diffStructureGroup.style.display = 'none';
         // Clear different structure fields
-        clearAlternatePersonFields();
-        clearAlternateEstateFields();
+        if (document.getElementById('alternatePersonDiff1Name')) {
+            clearAlternatePersonFields();
+        }
+        if (document.getElementById('alternateEstateDiff1Name')) {
+            clearAlternateEstateFields();
+        }
     } else if (structure === 'different') {
         sameStructureGroup.style.display = 'none';
         diffStructureGroup.style.display = 'block';
         // Clear same structure fields
-        clearAlternateFieldsDiff();
+        if (document.getElementById('alternateDiff1Name')) {
+            clearAlternateFieldsDiff();
+        }
     } else {
         sameStructureGroup.style.display = 'none';
         diffStructureGroup.style.display = 'none';
