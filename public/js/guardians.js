@@ -28,7 +28,7 @@ function toggleGuardianStructure() {
         // Clear different section data
         clearDifferentSectionData();
     } else if (structure === 'different') {
-        sameSection.style.display = 'block';
+        sameSection.style.display = 'none';
         diffSection.style.display = 'block';
         // Clear same section data
         clearSameSectionData();
