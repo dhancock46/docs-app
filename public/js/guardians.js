@@ -773,110 +773,28 @@ function clearAlternateEstateFields() {
         if (addressField) addressField.value = '';
     }
 }
-
-// Add alternate guardian for person
-function addAlternateGuardianPerson() {
-    const alternatesPersonList = document.getElementById('alternatesPersonList');
-    const existingAlternates = alternatesPersonList.querySelectorAll('.alternate-guardian');
-    const newId = existingAlternates.length + 1;
+javascript// Toggle alternates structure for different guardians
+function toggleAlternatesStructure() {
+    const structure = document.querySelector('input[name="alternatesStructure"]:checked')?.value;
+    const sameStructureGroup = document.getElementById('alternatesSameStructureGroup');
+    const diffStructureGroup = document.getElementById('alternatesDiffStructureGroup');
     
-    const alternateDiv = document.createElement('div');
-    alternateDiv.className = 'alternate-guardian';
-    alternateDiv.id = `alternatePersonDiff${newId}`;
+    if (structure === 'same') {
+        if (sameStructureGroup) sameStructureGroup.style.display = 'block';
+        if (diffStructureGroup) diffStructureGroup.style.display = 'none';
+        clearAlternatePersonFields();
+        clearAlternateEstateFields();
+    } else if (structure === 'different') {
+        if (sameStructureGroup) sameStructureGroup.style.display = 'none';
+        if (diffStructureGroup) diffStructureGroup.style.display = 'block';
+        clearAlternateFieldsDiff();
+    } else {
+        if (sameStructureGroup) sameStructureGroup.style.display = 'none';
+        if (diffStructureGroup) diffStructureGroup.style.display = 'none';
+    }
     
-    alternateDiv.innerHTML = `
-        <h6>Alternate Guardian of Person ${newId}</h6>
-        <div class="form-group">
-            <label for="alternatePersonDiff${newId}Name">Full Name *</label>
-            <input type="text" id="alternatePersonDiff${newId}Name" name="alternatePersonDiff${newId}Name" placeholder="Full legal name">
-        </div>
-        <div class="form-group">
-            <label for="alternatePersonDiff${newId}Relationship">Relationship to You *</label>
-            <input type="text" id="alternatePersonDiff${newId}Relationship" name="alternatePersonDiff${newId}Relationship" placeholder="e.g., my cousin, my friend">
-        </div>
-        <div class="form-group">
-            <label for="alternatePersonDiff${newId}Address">Address *</label>
-            <textarea id="alternatePersonDiff${newId}Address" name="alternatePersonDiff${newId}Address" rows="3" placeholder="Full address including city, state, ZIP"></textarea>
-        </div>
-        <button type="button" class="btn-remove" onclick="removeAlternateGuardianPerson(${newId})">Remove This Alternate</button>
-    `;
-    
-    alternatesPersonList.appendChild(alternateDiv);
     updateSummary();
 }
-
-// Add alternate guardian for estate
-function addAlternateGuardianEstate() {
-    const alternatesEstateList = document.getElementById('alternatesEstateList');
-    const existingAlternates = alternatesEstateList.querySelectorAll('.alternate-guardian');
-    const newId = existingAlternates.length + 1;
-    
-    const alternateDiv = document.createElement('div');
-    alternateDiv.className = 'alternate-guardian';
-    alternateDiv.id = `alternateEstateDiff${newId}`;
-    
-    alternateDiv.innerHTML = `
-        <h6>Alternate Guardian of Estate ${newId}</h6>
-        <div class="form-group">
-            <label for="alternateEstateDiff${newId}Name">Full Name *</label>
-            <input type="text" id="alternateEstateDiff${newId}Name" name="alternateEstateDiff${newId}Name" placeholder="Full legal name">
-        </div>
-        <div class="form-group">
-            <label for="alternateEstateDiff${newId}Relationship">Relationship to You *</label>
-            <input type="text" id="alternateEstateDiff${newId}Relationship" name="alternateEstateDiff${newId}Relationship" placeholder="e.g., my accountant, my brother">
-        </div>
-        <div class="form-group">
-            <label for="alternateEstateDiff${newId}Address">Address *</label>
-            <textarea id="alternateEstateDiff${newId}Address" name="alternateEstateDiff${newId}Address" rows="3" placeholder="Full address including city, state, ZIP"></textarea>
-        </div>
-        <button type="button" class="btn-remove" onclick="removeAlternateGuardianEstate(${newId})">Remove This Alternate</button>
-    `;
-    
-    alternatesEstateList.appendChild(alternateDiv);
-    updateSummary();
-}
-
-// Remove alternate guardian functions
-function removeAlternateGuardianPerson(id) {
-    const alternate = document.getElementById(`alternatePersonDiff${id}`);
-    if (alternate) {
-        alternate.remove();
-        updateSummary();
-    }
-}
-
-function removeAlternateGuardianEstate(id) {
-    const alternate = document.getElementById(`alternateEstateDiff${id}`);
-    if (alternate) {
-        alternate.remove();
-        updateSummary();
-    }
-}
-
-// Clear functions for new structure
-function clearAlternatePersonFields() {
-    const alternatesPersonList = document.getElementById('alternatesPersonList');
-    const additionalAlternates = alternatesPersonList.querySelectorAll('.alternate-guardian:not(#alternatePersonDiff1)');
-    additionalAlternates.forEach(alt => alt.remove());
-    
-    // Clear first alternate fields
-    document.getElementById('alternatePersonDiff1Name').value = '';
-    document.getElementById('alternatePersonDiff1Relationship').value = '';
-    document.getElementById('alternatePersonDiff1Address').value = '';
-}
-
-function clearAlternateEstateFields() {
-    const alternatesEstateList = document.getElementById('alternatesEstateList');
-    const additionalAlternates = alternatesEstateList.querySelectorAll('.alternate-guardian:not(#alternateEstateDiff1)');
-    additionalAlternates.forEach(alt => alt.remove());
-    
-    // Clear first alternate fields
-    document.getElementById('alternateEstateDiff1Name').value = '';
-    document.getElementById('alternateEstateDiff1Relationship').value = '';
-    document.getElementById('alternateEstateDiff1Address').value = '';
-}
-
-
 // Continue to next section
 function continueToReview() {
     const urlParams = new URLSearchParams(window.location.search);
