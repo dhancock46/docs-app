@@ -1,1 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guardian Nominations - Estate Planning</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Guardian Nominations for Minor Children</h1>
+            <p>Nominating guardians to care for your minor children if you are unable to do so.</p>
+        </div>
 
+        <form id="guardiansForm">
+            <!-- Guardian Type Selection -->
+            <div class="form-section">
+                <h3>Guardian Nominations</h3>
+                <div class="form-group">
+                    <label>How would you like to structure the guardianship? *</label>
+                    <div class="radio-group">
+                        <div class="radio-item">
+                            <input type="radio" id="sameGuardian" name="guardianStructure" value="same" onchange="toggleGuardianStructure()">
+                            <label for="sameGuardian">Same person(s) for both person and estate</label>
+                        </div>
+                        <div class="radio-item">
+                            <input type="radio" id="differentGuardians" name="guardianStructure" value="different" onchange="toggleGuardianStructure()">
+                            <label for="differentGuardians">Different guardians for person and estate</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Same Guardian Section -->
+            <div id="sameGuardianSection" style="display: none;">
+                <div class="form-section">
+                    <h4>Guardian of Person and Estate</h4>
+                    
+                    <!-- Co-guardian selection -->
+                    <div class="form-group">
+                        <label>Guardian type *</label>
+                        <div class="radio-group">
+                            <div class="radio-item">
+                                <input type="radio" id="singleGuardianSame" name="guardianTypeSame" value="single" onchange="toggleGuardianTypeSame()">
+                                <label for="singleGuardianSame">Single guardian</label>
+                            </div>
+                            <div class="radio-item">
+                                <input type="radio" id="coGuardiansSame" name="guardianTypeSame" value="co" onchange="toggleGuardianTypeSame()">
+                                <label for="coGuardiansSame">Co-guardians (must be married)</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Primary Guardian -->
+                    <div class="form-group" id="primaryGuardianSameGroup" style="display: none;">
+                        <h5>Primary Guardian</h5>
+                        <div class="form-group">
+                            <label for="guardianSameName">Full Name *</label>
+                            <input type="text" id="guardianSameName" name="guardianSameName" placeholder="Full legal name">
+                        </div>
+                        <div class="form-group">
+                            <label for="guardianSameRelationship">Relationship to You *</label>
+                            <input type="text" id="guardianSameRelationship" name="guardianSameRelationship" placeholder="e.g., my sister, my brother, my friend">
+                        </div>
+                        <div class="form-group">
+                            <label for="guardianSameAddress">Address *</label>
+                            <textarea id="guardianSameAddress" name="guardianSameAddress" rows="3" placeholder="Full address including city, state, ZIP"></textarea>
+                        </div>
+                    </div>
+
+                    <!-- Co-Guardian -->
+                    <div class="form-group" id="coGuardianSameGroup" style="display: none;">
+                        <h5>Co-Guardian (spouse of primary guardian)</h5>
+                        <div class="form-group">
+                            <label for="coGuardianSameName">Full Name *</label>
+                            <input type="text" id="coGuardianSameName" name="coGuardianSameName" placeholder="Full legal name">
+                        </div>
+                        <div class="form-group">
+                            <label for="coGuardianSameRelationship">Relationship to You *</label>
+                            <input type="text" id="coGuardianSameRelationship" name="coGuardianSameRelationship" placeholder="e.g., my brother-in-law, my sister-in-law">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Alternate Guardians for Same -->
+                <div class="form-section">
+                    <h4>Alternate Guardians</h4>
+                    <div class="form-group">
+                        <label>Would you like to name alternate guardians?</label>
+                        <div class="radio-group">
+                            <div class="radio-item">
+                                <input type="radio" id="wantAlternatesSameYes" name="wantAlternatesSame" value="yes" onchange="toggleAlternatesSame()">
+                                <label for="wantAlternatesSameYes">Yes, name alternates</label>
+                            </div>
+                            <div class="radio-item">
+                                <input type="radio" id="wantAlternatesSameNo" name="wantAlternatesSame" value="no" onchange="toggleAlternatesSame()">
+                                <label for="wantAlternatesSameNo">No alternates needed</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="alternatesSameGroup" style="display: none;">
+                        <div id="alternatesList">
+                            <!-- First alternate -->
+                            <div class="alternate-guardian" id="alternate1">
+                                <h5>First Alternate Guardian</h5>
+                                <div class="form-group">
+                                    <label for="alternate1Name">Full Name *</label>
+                                    <input type="text" id="alternate1Name" name="alternate1Name" placeholder="Full legal name">
+                                </div>
+                                <div class="form-group">
+                                    <label for="alternate1Relationship">Relationship to You *</label>
+                                    <input type="text" id="alternate1Relationship" name="alternate1Relationship" placeholder="e.g., my cousin, my friend">
+                                </div>
+                                <div class="form-group">
+                                    <label for="alternate1Address">Address *</label>
+                                    <textarea id="alternate1Address" name="alternate1Address" rows="3" placeholder="Full address including city, state, ZIP"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <button type="button" class="btn-secondary" onclick="addAlternateGuardian()">Add Another Alternate</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Different Guardians Section -->
+            <div id="differentGuardiansSection" style="display: none;">
+                <!-- Guardian of Person -->
+                <div class="form-section">
+                    <h4>Guardian of the Person</h4>
+                    
+                    <div class="form-group">
+                        <label>Guardian type *</label>
+                        <div class="radio-group">
+                            <div class="radio-item">
+                                <input type="radio" id="singleGuardianPerson" name="guardianTypePerson" value="single" onchange="toggleGuardianTypePerson()">
+                                <label for="singleGuardianPerson">Single guardian</label>
+                            </div>
+                            <div class="radio-item">
+                                <input type="radio" id="coGuardiansPerson" name="guardianTypePerson" value="co" onchange="toggleGuardianTypePerson()">
+                                <label for="coGuardiansPerson">Co-guardians (must be married)</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Primary Guardian of Person -->
+                    <div class="form-group" id="primaryGuardianPersonGroup" style="display: none;">
+                        <h5>Primary Guardian of Person</h5>
+                        <div class="form-group">
+                            <label for="guardianPersonName">Full Name *</label>
+                            <input type="text" id="guardianPersonName" name="guardianPersonName" placeholder="Full legal name">
+                        </div>
+                        <div class="form-group">
+                            <label for="guardianPersonRelationship">Relationship to You *</label>
+                            <input type="text" id="guardianPersonRelationship" name="guardianPersonRelationship" placeholder="e.g., my sister, my brother">
+                        </div>
+                        <div class="form-group">
+                            <label for="guardianPersonAddress">Address *</label>
+                            <textarea id="guardianPersonAddress" name="guardianPersonAddress" rows="3" placeholder="Full address including city, state, ZIP"></textarea>
+                        </div>
+                    </div>
+
+                    <!-- Co-Guardian of Person -->
+                    <div class="form-group" id="coGuardianPersonGroup" style="display: none;">
+                        <h5>Co-Guardian of Person</h5>
+                        <div class="form-group">
+                            <label for="coGuardianPersonName">Full Name *</label>
+                            <input type="text" id="coGuardianPersonName" name="coGuardianPersonName" placeholder="Full legal name">
+                        </div>
+                        <div class="form-group">
+                            <label for="coGuardianPersonRelationship">Relationship to You *</label>
+                            <input type="text" id="coGuardianPersonRelationship" name="coGuardianPersonRelationship" placeholder="e.g., my brother-in-law">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Guardian of Estate -->
+                <div class="form-section">
+                    <h4>Guardian of the Estate</h4>
+                    
+                    <div class="form-group">
+                        <label>Guardian type *</label>
+                        <div class="radio-group">
+                            <div class="radio-item">
+                                <input type="radio" id="singleGuardianEstate" name="guardianTypeEstate" value="single" onchange="toggleGuardianTypeEstate()">
+                                <label for="singleGuardianEstate">Single guardian</label>
+                            </div>
+                            <div class="radio-item">
+                                <input type="radio" id="coGuardiansEstate" name="guardianTypeEstate" value="co" onchange="toggleGuardianTypeEstate()">
+                                <label for="coGuardiansEstate">Co-guardians (must be married)</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Primary Guardian of Estate -->
+                    <div class="form-group" id="primaryGuardianEstateGroup" style="display: none;">
+                        <h5>Primary Guardian of Estate</h5>
+                        <div class="form-group">
+                            <label for="guardianEstateName">Full Name *</label>
+                            <input type="text" id="guardianEstateName" name="guardianEstateName" placeholder="Full legal name">
+                        </div>
+                        <div class="form-group">
+                            <label for="guardianEstateRelationship">Relationship to You *</label>
+                            <input type="text" id="guardianEstateRelationship" name="guardianEstateRelationship" placeholder="e.g., my accountant, my brother">
+                        </div>
+                        <div class="form-group">
+                            <label for="guardianEstateAddress">Address *</label>
+                            <textarea id="guardianEstateAddress" name="guardianEstateAddress" rows="3" placeholder="Full address including city, state, ZIP"></textarea>
+                        </div>
+                    </div>
+
+                    <!-- Co-Guardian of Estate -->
+                    <div class="form-group" id="coGuardianEstateGroup" style="display: none;">
+                        <h5>Co-Guardian of Estate</h5>
+                        <div class="form-group">
+                            <label for="coGuardianEstateName">Full Name *</label>
+                            <input type="text" id="coGuardianEstateName" name="coGuardianEstateName" placeholder="Full legal name">
+                        </div>
+                        <div class="form-group">
+                            <label for="coGuardianEstateRelationship">Relationship to You *</label>
+                            <input type="text" id="coGuardianEstateRelationship" name="coGuardianEstateRelationship" placeholder="e.g., my sister-in-law">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Alternate Guardians for Different -->
+                <div class="form-section">
+                    <h4>Alternate Guardians</h4>
+                    <div class="form-group">
+                        <label>Would you like to name alternate guardians?</label>
+                        <div class="radio-group">
+                            <div class="radio-item">
+                                <input type="radio" id="wantAlternatesDiffYes" name="wantAlternatesDiff" value="yes" onchange="toggleAlternatesDiff()">
+                                <label for="wantAlternatesDiffYes">Yes, name alternates</label>
+                            </div>
+                            <div class="radio-item">
+                                <input type="radio" id="wantAlternatesDiffNo" name="wantAlternatesDiff" value="no" onchange="toggleAlternatesDiff()">
+                                <label for="wantAlternatesDiffNo">No alternates needed</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="alternatesDiffGroup" style="display: none;">
+                        <p><strong>Note:</strong> Alternates will serve as guardians of both person and estate</p>
+                        <div id="alternatesListDiff">
+                            <!-- First alternate -->
+                            <div class="alternate-guardian" id="alternateDiff1">
+                                <h5>First Alternate Guardian</h5>
+                                <div class="form-group">
+                                    <label for="alternateDiff1Name">Full Name *</label>
+                                    <input type="text" id="alternateDiff1Name" name="alternateDiff1Name" placeholder="Full legal name">
+                                </div>
+                                <div class="form-group">
+                                    <label for="alternateDiff1Relationship">Relationship to You *</label>
+                                    <input type="text" id="alternateDiff1Relationship" name="alternateDiff1Relationship" placeholder="e.g., my cousin, my friend">
+                                </div>
+                                <div class="form-group">
+                                    <label for="alternateDiff1Address">Address *</label>
+                                    <textarea id="alternateDiff1Address" name="alternateDiff1Address" rows="3" placeholder="Full address including city, state, ZIP"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <button type="button" class="btn-secondary" onclick="addAlternateGuardianDiff()">Add Another Alternate</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Summary Section -->
+            <div class="form-section">
+                <h3>Summary</h3>
+                <div id="guardianSummary" class="summary-box" style="display: none;">
+                    <!-- Summary will be populated by JavaScript -->
+                </div>
+            </div>
+
+            <!-- Submit Section -->
+            <div class="form-section">
+                <button type="submit" class="btn-primary">Save Guardian Nominations</button>
+            </div>
+
+            <!-- Messages -->
+            <div id="loadingMessage" class="message loading" style="display: none;">
+                <p>Saving guardian nominations...</p>
+            </div>
+
+            <div id="errorMessage" class="message error" style="display: none;">
+                <p>There was an error saving your guardian nominations. Please try again.</p>
+            </div>
+
+            <div id="successMessage" class="message success" style="display: none;">
+                <p>Guardian nominations saved successfully!</p>
+                <button type="button" class="continue-btn" onclick="continueToReview()">Continue to Final Review →</button>
+            </div>
+        </form>
+    </div>
+
+    <script src="js/guardians.js"></script>
+</body>
+</html>
