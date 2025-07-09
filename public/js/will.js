@@ -378,7 +378,16 @@ if (result.success) {
         }
     }
     
-    window.location.href = `gifts.html?testatorName=${testatorName}&email=${email}&maritalStatus=${maritalStatus}&hasChildren=${hasChildren}&hasPriorChildren=${hasPriorChildren}&priorChildrenNames=${priorChildrenNames}`;
+  // Collect all children with birthdates for age calculation
+const allChildren = [];
+if (data.singleChildren) allChildren.push(...data.singleChildren);
+if (data.currentMarriageChildren) allChildren.push(...data.currentMarriageChildren);
+if (data.priorChildren) allChildren.push(...data.priorChildren);
+if (data.spousePriorChildren) allChildren.push(...data.spousePriorChildren);
+
+const childrenData = encodeURIComponent(JSON.stringify(allChildren));
+
+window.location.href = `gifts.html?testatorName=${testatorName}&email=${email}&maritalStatus=${maritalStatus}&hasChildren=${hasChildren}&hasPriorChildren=${hasPriorChildren}&priorChildrenNames=${priorChildrenNames}&childrenData=${childrenData}`;
 } else {
     errorMessage.style.display = 'block';
     errorMessage.scrollIntoView({ behavior: 'smooth' });
