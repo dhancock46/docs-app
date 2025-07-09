@@ -622,9 +622,10 @@ async function handleFormSubmission(event) {
     } catch (error) {
         console.error('Guardian submission error:', error);
         loadingMessage.style.display = 'none';
-        errorMessage.style.display = 'block';
+       errorMessage.style.display = 'block';
         errorMessage.scrollIntoView({ behavior: 'smooth' });
     }
+}
     // Toggle alternates structure for different guardians
 function toggleAlternatesStructure() {
     const structure = document.querySelector('input[name="alternatesStructure"]:checked')?.value;
