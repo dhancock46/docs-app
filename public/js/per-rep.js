@@ -294,8 +294,7 @@ function continueToReview() {
         window.location.href = `guardians.html?${urlParams.toString()}`;
     } else {
         // Skip to final review
-        alert('Success! No minor children - would normally go to final review');
-return;
+    window.location.href = `final-review.html?${urlParams.toString()}`;
     }
 }
 
