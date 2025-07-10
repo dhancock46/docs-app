@@ -778,6 +778,86 @@ function updateSummary() {
 
 summaryDiv.innerHTML = summaryHTML;
 summaryDiv.style.display = 'block';
+displayGuardianshipProvisions();
+}
+// Function to get minor children count and determine singular/plural
+function getMinorChildrenInfo() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const childrenData = urlParams.get('childrenData');
+    
+    if (!childrenData) return { count: 1, isPlural: false }; // Default to singular if no data
+    
+    try {
+        const children = JSON.parse(decodeURIComponent(childrenData));
+        const currentDate = new Date();
+        let minorChildrenCount = 0;
+        
+        for (let child of children) {
+            if (child.birthday) {
+                const birthDate = new Date(child.birthday);
+                const age = Math.floor((currentDate - birthDate) / (365.25 * 24 * 60 * 60 * 1000));
+                if (age < 18) {
+                    minorChildrenCount++;
+                }
+            }
+        }
+        
+        return {
+            count: minorChildrenCount,
+            isPlural: minorChildrenCount !== 1
+        };
+    } catch (error) {
+        console.error('Error parsing children data:', error);
+        return { count: 1, isPlural: false }; // Default to singular if error
+    }
+}
+
+// Function to generate and display guardianship provisions
+function displayGuardianshipProvisions() {
+    const childrenInfo = getMinorChildrenInfo();
+    const isPlural = childrenInfo.isPlural;
+    
+    const childText = isPlural ? 'children' : 'child';
+    const introText = isPlural 
+        ? 'I have given careful attention to the selection of guardians for my minor children. I believe the person or persons I have nominated will provide loving and thoughtful care to my children.'
+        : 'I have given careful attention to the selection of a guardian for my minor child. I believe the person or persons I have nominated will provide loving and thoughtful care to my child.';
+    
+    const ifText = isPlural
+        ? 'If the guardian I have nominated is appointed as guardian, in any capacity, of my minor children:'
+        : 'If the guardian I have nominated is appointed as guardian, in any capacity, of my minor child:';
+    
+    const discretionText = isPlural
+        ? '(a) I want the guardian to have as much discretion in dealing with the person and estate of my minor children as is permissible under applicable law; and'
+        : '(a) I want the guardian to have as much discretion in dealing with the person and estate of my minor child as is permissible under applicable law; and';
+    
+    let provisionsContainer = document.getElementById('guardianshipProvisions');
+    
+    if (!provisionsContainer) {
+        // Create the container after the summary section
+        const summarySection = document.getElementById('guardianSummary').parentElement;
+        const provisionsDiv = document.createElement('div');
+        provisionsDiv.id = 'guardianshipProvisions';
+        provisionsDiv.className = 'form-section';
+        summarySection.appendChild(provisionsDiv);
+        provisionsContainer = provisionsDiv;
+    }
+    
+    provisionsContainer.innerHTML = `
+        <h3>GUARDIANSHIP PROVISIONS</h3>
+        <div class="guardianship-text">
+            <p>${introText} I have made this choice based upon my belief of what is best for my ${childText} and I ask my family to honor my decision.</p>
+            
+            <p>${ifText}</p>
+            
+            <p>${discretionText}</p>
+            
+            <p>(b) Unless required by applicable law, no bond shall be required of such person.</p>
+            
+            <p>Co-guardians must both agree prior to taking any action, if they are both serving. If one co-guardian is unable or unwilling to serve or continue to serve, the other co-guardian shall serve or continue to serve as the sole guardian.</p>
+        </div>
+    `;
+    
+    provisionsContainer.style.display = 'block';
 }
 // Continue to next section
 function continueToReview() {
