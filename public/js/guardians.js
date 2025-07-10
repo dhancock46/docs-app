@@ -590,7 +590,7 @@ if (wantAlternates && wantAlternates.value === 'yes') {
         }
     }
 }
-    
+ 
     return { isValid: errors.length === 0, errors };
 }
 
@@ -656,7 +656,7 @@ async function handleFormSubmission(event) {
     } catch (error) {
         console.error('Guardian submission error:', error);
         loadingMessage.style.display = 'none';
-       errorMessage.style.display = 'block';
+        errorMessage.style.display = 'block';
         errorMessage.scrollIntoView({ behavior: 'smooth' });
     }
 }
