@@ -773,7 +773,7 @@ function clearAlternateEstateFields() {
         if (addressField) addressField.value = '';
     }
 }
-javascript// Toggle alternates structure for different guardians
+// Toggle alternates structure for different guardians
 function toggleAlternatesStructure() {
     const structure = document.querySelector('input[name="alternatesStructure"]:checked')?.value;
     const sameStructureGroup = document.getElementById('alternatesSameStructureGroup');
@@ -804,4 +804,4 @@ function continueToReview() {
 // Add event listeners for summary updates
 document.addEventListener('input', updateSummary);
 document.addEventListener('change', updateSummary);
-} 
+
