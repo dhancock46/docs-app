@@ -1,6 +1,9 @@
 // Global variables
 let alternateCount = 1;
 let alternateCountDiff = 1;
+
+  updateSummary();
+}
 // Validation function
 function validateForm() {
     const errors = [];
@@ -184,87 +187,7 @@ if (wantAlternates && wantAlternates.value === 'yes') {
  
     return { isValid: errors.length === 0, errors };
 }
-// Form submission handler
-async function handleFormSubmission(event) {
-    event.preventDefault();
-    
-    const loadingMessage = document.getElementById('loadingMessage');
-    const errorMessage = document.getElementById('errorMessage');
-    const successMessage = document.getElementById('successMessage');
-    
-    // Hide all messages
-    loadingMessage.style.display = 'none';
-    errorMessage.style.display = 'none';
-    successMessage.style.display = 'none';
-    
-    // Validate form
-    const validation = validateForm();
-    if (!validation.isValid) {
-        alert('Please correct the following errors:\n\n' + validation.errors.join('\n'));
-        return;
-    }
-    
-    // Show loading
-    loadingMessage.style.display = 'block';
-    loadingMessage.scrollIntoView({ behavior: 'smooth' });
-    
-    try {
-        // Collect form data
-        const formData = new FormData(this);
-        const data = Object.fromEntries(formData.entries());
-        
-        // Add document type and section
-        data.documentType = 'will';
-        data.section = 'guardians';
-        
-        // Add current URL parameters to preserve data flow
-        const urlParams = new URLSearchParams(window.location.search);
-        for (const [key, value] of urlParams) {
-            if (!data[key]) {
-                data[key] = value;
-            }
-        }
-        
-        const response = await fetch('/submit/guardians', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(data)
-        });
-        
-        const result = await response.json();
-        loadingMessage.style.display = 'none';
-        
-        if (result.success) {
-            successMessage.style.display = 'block';
-            successMessage.scrollIntoView({ behavior: 'smooth' });
-        } else {
-            errorMessage.style.display = 'block';
-            errorMessage.scrollIntoView({ behavior: 'smooth' });
-        }
-    } catch (error) {
-        console.error('Guardian submission error:', error);
-        loadingMessage.style.display = 'none';
-        errorMessage.style.display = 'block';
-        errorMessage.scrollIntoView({ behavior: 'smooth' });
-    }
-}
-
-document.addEventListener('DOMContentLoaded', function() {
-    // Auto-populate data from previous sections
-    const urlParams = new URLSearchParams(window.location.search);
-    const testatorName = urlParams.get('testatorName');
-    
-    if (testatorName) {
-        console.log('Testator name:', testatorName);
-    }
-    
-    // Set up form submission
-    const form = document.getElementById('guardiansForm');
-    form.addEventListener('submit', handleFormSubmission);
-});
-
+// Toggle alternates for same guardians
 // Toggle guardian structure (same vs different)
 function toggleGuardianStructure() {
     const structure = document.querySelector('input[name="guardianStructure"]:checked')?.value;
@@ -357,7 +280,191 @@ function toggleGuardianTypeEstate() {
     
     updateSummary();
 }
+// Validation function
+function validateForm() {
+    const errors = [];
+    
+    // Check guardian structure selection
+    const structure = document.querySelector('input[name="guardianStructure"]:checked');
+    if (!structure) {
+        errors.push('Please select how you want to structure the guardianship');
+        return { isValid: false, errors };
+    }
+    
+    if (structure.value === 'same') {
+        // Validate same guardian section
+        const guardianType = document.querySelector('input[name="guardianTypeSame"]:checked');
+        if (!guardianType) {
+            errors.push('Please select guardian type for person and estate');
+        } else {
+            // Validate primary guardian
+            const guardianName = document.getElementById('guardianSameName').value.trim();
+            const guardianRelationship = document.getElementById('guardianSameRelationship').value.trim();
+            const guardianAddress = document.getElementById('guardianSameAddress').value.trim();
+            
+            if (!guardianName) {
+                errors.push('Please enter the guardian\'s full name');
+            }
+            if (!guardianRelationship) {
+                errors.push('Please enter the guardian\'s relationship to you');
+            }
+            if (!guardianAddress) {
+                errors.push('Please enter the guardian\'s address');
+            }
+            
+            // Validate co-guardian if selected
+            if (guardianType.value === 'co') {
+                const coGuardianName = document.getElementById('coGuardianSameName').value.trim();
+                const coGuardianRelationship = document.getElementById('coGuardianSameRelationship').value.trim();
+                
+                if (!coGuardianName) {
+                    errors.push('Please enter the co-guardian\'s full name');
+                }
+                if (!coGuardianRelationship) {
+                    errors.push('Please enter the co-guardian\'s relationship to you');
+                }
+            }
+        }
+        
+        // Validate alternates if selected
+        const wantAlternates = document.querySelector('input[name="wantAlternatesSame"]:checked');
+        if (wantAlternates && wantAlternates.value === 'yes') {
+            const firstAlternateName = document.getElementById('alternate1Name').value.trim();
+            const firstAlternateRelationship = document.getElementById('alternate1Relationship').value.trim();
+            const firstAlternateAddress = document.getElementById('alternate1Address').value.trim();
+            
+            if (!firstAlternateName) {
+                errors.push('Please enter the first alternate guardian\'s full name');
+            }
+            if (!firstAlternateRelationship) {
+                errors.push('Please enter the first alternate guardian\'s relationship to you');
+            }
+            if (!firstAlternateAddress) {
+                errors.push('Please enter the first alternate guardian\'s address');
+            }
+        }
+    } else if (structure.value === 'different') {
+        // Validate person guardian
+        const personType = document.querySelector('input[name="guardianTypePerson"]:checked');
+        if (!personType) {
+            errors.push('Please select guardian type for person');
+        } else {
+            const personName = document.getElementById('guardianPersonName').value.trim();
+            const personRelationship = document.getElementById('guardianPersonRelationship').value.trim();
+            const personAddress = document.getElementById('guardianPersonAddress').value.trim();
+            
+            if (!personName) {
+                errors.push('Please enter the guardian of person\'s full name');
+            }
+            if (!personRelationship) {
+                errors.push('Please enter the guardian of person\'s relationship to you');
+            }
+            if (!personAddress) {
+                errors.push('Please enter the guardian of person\'s address');
+            }
+            
+            if (personType.value === 'co') {
+                const coPersonName = document.getElementById('coGuardianPersonName').value.trim();
+                const coPersonRelationship = document.getElementById('coGuardianPersonRelationship').value.trim();
+                
+                if (!coPersonName) {
+                    errors.push('Please enter the co-guardian of person\'s full name');
+                }
+                if (!coPersonRelationship) {
+                    errors.push('Please enter the co-guardian of person\'s relationship to you');
+                }
+            }
+        }
+        
+        // Validate estate guardian
+        const estateType = document.querySelector('input[name="guardianTypeEstate"]:checked');
+        if (!estateType) {
+            errors.push('Please select guardian type for estate');
+        } else {
+            const estateName = document.getElementById('guardianEstateName').value.trim();
+            const estateRelationship = document.getElementById('guardianEstateRelationship').value.trim();
+            const estateAddress = document.getElementById('guardianEstateAddress').value.trim();
+            
+            if (!estateName) {
+                errors.push('Please enter the guardian of estate\'s full name');
+            }
+            if (!estateRelationship) {
+                errors.push('Please enter the guardian of estate\'s relationship to you');
+            }
+            if (!estateAddress) {
+                errors.push('Please enter the guardian of estate\'s address');
+            }
+            
+            if (estateType.value === 'co') {
+                const coEstateName = document.getElementById('coGuardianEstateName').value.trim();
+                const coEstateRelationship = document.getElementById('coGuardianEstateRelationship').value.trim();
+                
+                if (!coEstateName) {
+                    errors.push('Please enter the co-guardian of estate\'s full name');
+                }
+                if (!coEstateRelationship) {
+                    errors.push('Please enter the co-guardian of estate\'s relationship to you');
+                }
+            }
+        }
+        
+      // Validate alternates if selected
+const wantAlternates = document.querySelector('input[name="wantAlternatesDiff"]:checked');
+if (wantAlternates && wantAlternates.value === 'yes') {
+    const alternatesStructure = document.querySelector('input[name="alternatesStructure"]:checked');
+    if (!alternatesStructure) {
+        errors.push('Please select how you want to structure alternate guardians');
+    } else if (alternatesStructure.value === 'same') {
+        const firstAlternateName = document.getElementById('alternateDiff1Name');
+        const firstAlternateRelationship = document.getElementById('alternateDiff1Relationship');
+        const firstAlternateAddress = document.getElementById('alternateDiff1Address');
+        
+        if (firstAlternateName && !firstAlternateName.value.trim()) {
+            errors.push('Please enter the first alternate guardian\'s full name');
+        }
+        if (firstAlternateRelationship && !firstAlternateRelationship.value.trim()) {
+            errors.push('Please enter the first alternate guardian\'s relationship to you');
+        }
+        if (firstAlternateAddress && !firstAlternateAddress.value.trim()) {
+            errors.push('Please enter the first alternate guardian\'s address');
+        }
+    } else if (alternatesStructure.value === 'different') {
+        // Validate person alternates
+        const firstPersonName = document.getElementById('alternatePersonDiff1Name');
+        const firstPersonRelationship = document.getElementById('alternatePersonDiff1Relationship');
+        const firstPersonAddress = document.getElementById('alternatePersonDiff1Address');
+        
+        if (firstPersonName && !firstPersonName.value.trim()) {
+            errors.push('Please enter the first alternate guardian of person\'s full name');
+        }
+        if (firstPersonRelationship && !firstPersonRelationship.value.trim()) {
+            errors.push('Please enter the first alternate guardian of person\'s relationship to you');
+        }
+        if (firstPersonAddress && !firstPersonAddress.value.trim()) {
+            errors.push('Please enter the first alternate guardian of person\'s address');
+        }
+        
+        // Validate estate alternates
+        const firstEstateName = document.getElementById('alternateEstateDiff1Name');
+        const firstEstateRelationship = document.getElementById('alternateEstateDiff1Relationship');
+        const firstEstateAddress = document.getElementById('alternateEstateDiff1Address');
+        
+        if (firstEstateName && !firstEstateName.value.trim()) {
+            errors.push('Please enter the first alternate guardian of estate\'s full name');
+        }
+        if (firstEstateRelationship && !firstEstateRelationship.value.trim()) {
+            errors.push('Please enter the first alternate guardian of estate\'s relationship to you');
+        }
+        if (firstEstateAddress && !firstEstateAddress.value.trim()) {
+            errors.push('Please enter the first alternate guardian of estate\'s address');
+        }
+    }
+}
+ 
+    return { isValid: errors.length === 0, errors };
+}
 
+    
 // Toggle alternates for same guardians
 function toggleAlternatesSame() {
     const wantAlternates = document.querySelector('input[name="wantAlternatesSame"]:checked')?.value;
