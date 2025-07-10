@@ -804,5 +804,5 @@ function continueToReview() {
 // Add event listeners for summary updates
 document.addEventListener('input', updateSummary);
 document.addEventListener('change', updateSummary);
-
+}
 }
