@@ -371,22 +371,6 @@ function toggleGuardianTypeEstate() {
     
     updateSummary();
 }
-    
-// Toggle alternates for same guardians
-function toggleAlternatesSame() {
-    const wantAlternates = document.querySelector('input[name="wantAlternatesSame"]:checked')?.value;
-    const alternatesGroup = document.getElementById('alternatesSameGroup');
-    
-    if (wantAlternates === 'yes') {
-        alternatesGroup.style.display = 'block';
-    } else {
-        alternatesGroup.style.display = 'none';
-        // Clear alternate fields
-        clearAlternateFields();
-    }
-    
-    updateSummary();
-}
 
 // Toggle alternates for different guardians
 function toggleAlternatesDiff() {
