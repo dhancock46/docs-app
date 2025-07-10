@@ -14,8 +14,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const form = document.getElementById('guardiansForm');
     form.addEventListener('submit', handleFormSubmission);
 });
-  updateSummary();
-}
+
 // Validation function
 function validateForm() {
     const errors = [];
