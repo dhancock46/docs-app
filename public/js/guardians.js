@@ -805,3 +805,4 @@ function continueToReview() {
 document.addEventListener('input', updateSummary);
 document.addEventListener('change', updateSummary);
 
+}
