@@ -1,19 +1,6 @@
 // Global variables
 let alternateCount = 1;
 let alternateCountDiff = 1;
-document.addEventListener('DOMContentLoaded', function() {
-    // Auto-populate data from previous sections
-    const urlParams = new URLSearchParams(window.location.search);
-    const testatorName = urlParams.get('testatorName');
-    
-    if (testatorName) {
-        console.log('Testator name:', testatorName);
-    }
-    
-    // Set up form submission
-    const form = document.getElementById('guardiansForm');
-    form.addEventListener('submit', handleFormSubmission);
-});
 
 // Validation function
 function validateForm() {
@@ -264,6 +251,19 @@ async function handleFormSubmission(event) {
         errorMessage.scrollIntoView({ behavior: 'smooth' });
     }
 }
+  document.addEventListener('DOMContentLoaded', function() {
+    // Auto-populate data from previous sections
+    const urlParams = new URLSearchParams(window.location.search);
+    const testatorName = urlParams.get('testatorName');
+    
+    if (testatorName) {
+        console.log('Testator name:', testatorName);
+    }
+    
+    // Set up form submission
+    const form = document.getElementById('guardiansForm');
+    form.addEventListener('submit', handleFormSubmission);
+});  
 // Toggle alternates for same guardians
 function toggleAlternatesSame() {
     const wantAlternates = document.querySelector('input[name="wantAlternatesSame"]:checked')?.value;
