@@ -760,3 +760,8 @@ function updateSummary() {
 summaryDiv.innerHTML = summaryHTML;
 summaryDiv.style.display = 'block';
 }
+// Continue to next section
+function continueToReview() {
+    const urlParams = new URLSearchParams(window.location.search);
+    window.location.href = `final-review.html?${urlParams.toString()}`;
+}
