@@ -671,9 +671,7 @@ function updateSummary() {
         
         if (guardianType === 'single' && guardianName) {
             summaryHTML += `<p><strong>Guardian of Person and Estate:</strong> ${guardianName}</p>`;
-        } else if (guardianType === 'co'RetryDHContinueEdit&& guardianName && coGuardianName) {
-summaryHTML += <p><strong>Co-Guardians of Person and Estate:</strong> ${guardianName} and ${coGuardianName}</p>;
-}
+       
     // Add alternates summary
     const wantAlternates = document.querySelector('input[name="wantAlternatesSame"]:checked')?.value;
     if (wantAlternates === 'yes') {
