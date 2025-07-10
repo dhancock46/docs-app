@@ -1,7 +1,19 @@
 // Global variables
 let alternateCount = 1;
 let alternateCountDiff = 1;
-
+document.addEventListener('DOMContentLoaded', function() {
+    // Auto-populate data from previous sections
+    const urlParams = new URLSearchParams(window.location.search);
+    const testatorName = urlParams.get('testatorName');
+    
+    if (testatorName) {
+        console.log('Testator name:', testatorName);
+    }
+    
+    // Set up form submission
+    const form = document.getElementById('guardiansForm');
+    form.addEventListener('submit', handleFormSubmission);
+});
   updateSummary();
 }
 // Validation function
