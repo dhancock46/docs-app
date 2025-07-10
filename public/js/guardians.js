@@ -187,7 +187,87 @@ if (wantAlternates && wantAlternates.value === 'yes') {
  
     return { isValid: errors.length === 0, errors };
 }
+  // Form submission handler
+async function handleFormSubmission(event) {
+    event.preventDefault();
+    
+    const loadingMessage = document.getElementById('loadingMessage');
+    const errorMessage = document.getElementById('errorMessage');
+    const successMessage = document.getElementById('successMessage');
+    
+    // Hide all messages
+    loadingMessage.style.display = 'none';
+    errorMessage.style.display = 'none';
+    successMessage.style.display = 'none';
+    
+    // Validate form
+    const validation = validateForm();
+    if (!validation.isValid) {
+        alert('Please correct the following errors:\n\n' + validation.errors.join('\n'));
+        return;
+    }
+    
+    // Show loading
+    loadingMessage.style.display = 'block';
+    loadingMessage.scrollIntoView({ behavior: 'smooth' });
+    
+    try {
+        // Collect form data
+        const formData = new FormData(this);
+        const data = Object.fromEntries(formData.entries());
+        
+        // Add document type and section
+        data.documentType = 'will';
+        data.section = 'guardians';
+        
+        // Add current URL parameters to preserve data flow
+        const urlParams = new URLSearchParams(window.location.search);
+        for (const [key, value] of urlParams) {
+            if (!data[key]) {
+                data[key] = value;
+            }
+        }
+        
+        const response = await fetch('/submit/guardians', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data)
+        });
+        
+        const result = await response.json();
+        loadingMessage.style.display = 'none';
+        
+        if (result.success) {
+            successMessage.style.display = 'block';
+            successMessage.scrollIntoView({ behavior: 'smooth' });
+        } else {
+            errorMessage.style.display = 'block';
+            errorMessage.scrollIntoView({ behavior: 'smooth' });
+        }
+    } catch (error) {
+        console.error('Guardian submission error:', error);
+        loadingMessage.style.display = 'none';
+        errorMessage.style.display = 'block';
+        errorMessage.scrollIntoView({ behavior: 'smooth' });
+    }
+}
 // Toggle alternates for same guardians
+function toggleAlternatesSame() {
+    const wantAlternates = document.querySelector('input[name="wantAlternatesSame"]:checked')?.value;
+    const alternatesGroup = document.getElementById('alternatesSameGroup');
+    
+    if (wantAlternates === 'yes') {
+        alternatesGroup.style.display = 'block';
+    } else {
+        alternatesGroup.style.display = 'none';
+        // Clear alternate fields
+        clearAlternateFields();
+    }
+    
+    updateSummary();
+}
 // Toggle guardian structure (same vs different)
 function toggleGuardianStructure() {
     const structure = document.querySelector('input[name="guardianStructure"]:checked')?.value;
