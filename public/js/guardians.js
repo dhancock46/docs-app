@@ -671,7 +671,26 @@ function updateSummary() {
         
         if (guardianType === 'single' && guardianName) {
             summaryHTML += `<p><strong>Guardian of Person and Estate:</strong> ${guardianName}</p>`;
-       
+        } else if (guardianType === 'co' && guardianName && coGuardianName) {
+            summaryHTML += `<p><strong>Co-Guardians of Person and Estate:</strong> ${guardianName} and ${coGuardianName}</p>`;
+        }
+        
+        // Add alternates summary
+        const wantAlternates = document.querySelector('input[name="wantAlternatesSame"]:checked')?.value;
+        if (wantAlternates === 'yes') {
+            const alternates = document.querySelectorAll('#alternatesList .alternate-guardian');
+            const alternateNames = [];
+            alternates.forEach(alt => {
+                const nameInput = alt.querySelector('input[name*="Name"]');
+                if (nameInput && nameInput.value) {
+                    alternateNames.push(nameInput.value);
+                }
+            });
+            if (alternateNames.length > 0) {
+                summaryHTML += `<p><strong>Alternate Guardians:</strong> ${alternateNames.join(', ')}</p>`;
+            }
+        }
+    } else if (structure === 'different') {
     // Add alternates summary
     const wantAlternates = document.querySelector('input[name="wantAlternatesSame"]:checked')?.value;
     if (wantAlternates === 'yes') {
