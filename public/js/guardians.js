@@ -853,7 +853,7 @@ function displayGuardianshipProvisions() {
             
             <p>(b) Unless required by applicable law, no bond shall be required of such person.</p>
             
-            <p>Co-guardians must both agree prior to taking any action, if they are both serving. If one co-guardian is unable or unwilling to serve or continue to serve, the other co-guardian shall serve or continue to serve as the sole guardian.</p>
+            <p>(c) Co-guardians must both agree prior to taking any action, if they are both serving. If one co-guardian is unable or unwilling to serve or continue to serve, the other co-guardian shall serve or continue to serve as the sole guardian.</p>
         </div>
     `;
     
