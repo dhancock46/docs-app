@@ -1,6 +1,8 @@
 // Global variables
 let alternateCount = 1;
 let alternateCountDiff = 1;
+let alternatePersonCount = 1;
+let alternateEstateCount = 1;
 
 // Validation function
 function validateForm() {
@@ -24,27 +26,17 @@ function validateForm() {
             const guardianRelationship = document.getElementById('guardianSameRelationship').value.trim();
             const guardianAddress = document.getElementById('guardianSameAddress').value.trim();
             
-            if (!guardianName) {
-                errors.push('Please enter the guardian\'s full name');
-            }
-            if (!guardianRelationship) {
-                errors.push('Please enter the guardian\'s relationship to you');
-            }
-            if (!guardianAddress) {
-                errors.push('Please enter the guardian\'s address');
-            }
+            if (!guardianName) errors.push('Please enter the guardian\'s full name');
+            if (!guardianRelationship) errors.push('Please enter the guardian\'s relationship to you');
+            if (!guardianAddress) errors.push('Please enter the guardian\'s address');
             
             // Validate co-guardian if selected
             if (guardianType.value === 'co') {
                 const coGuardianName = document.getElementById('coGuardianSameName').value.trim();
                 const coGuardianRelationship = document.getElementById('coGuardianSameRelationship').value.trim();
                 
-                if (!coGuardianName) {
-                    errors.push('Please enter the co-guardian\'s full name');
-                }
-                if (!coGuardianRelationship) {
-                    errors.push('Please enter the co-guardian\'s relationship to you');
-                }
+                if (!coGuardianName) errors.push('Please enter the co-guardian\'s full name');
+                if (!coGuardianRelationship) errors.push('Please enter the co-guardian\'s relationship to you');
             }
         }
         
@@ -55,15 +47,9 @@ function validateForm() {
             const firstAlternateRelationship = document.getElementById('alternate1Relationship').value.trim();
             const firstAlternateAddress = document.getElementById('alternate1Address').value.trim();
             
-            if (!firstAlternateName) {
-                errors.push('Please enter the first alternate guardian\'s full name');
-            }
-            if (!firstAlternateRelationship) {
-                errors.push('Please enter the first alternate guardian\'s relationship to you');
-            }
-            if (!firstAlternateAddress) {
-                errors.push('Please enter the first alternate guardian\'s address');
-            }
+            if (!firstAlternateName) errors.push('Please enter the first alternate guardian\'s full name');
+            if (!firstAlternateRelationship) errors.push('Please enter the first alternate guardian\'s relationship to you');
+            if (!firstAlternateAddress) errors.push('Please enter the first alternate guardian\'s address');
         }
     } else if (structure.value === 'different') {
         // Validate person guardian
@@ -75,26 +61,16 @@ function validateForm() {
             const personRelationship = document.getElementById('guardianPersonRelationship').value.trim();
             const personAddress = document.getElementById('guardianPersonAddress').value.trim();
             
-            if (!personName) {
-                errors.push('Please enter the guardian of person\'s full name');
-            }
-            if (!personRelationship) {
-                errors.push('Please enter the guardian of person\'s relationship to you');
-            }
-            if (!personAddress) {
-                errors.push('Please enter the guardian of person\'s address');
-            }
+            if (!personName) errors.push('Please enter the guardian of person\'s full name');
+            if (!personRelationship) errors.push('Please enter the guardian of person\'s relationship to you');
+            if (!personAddress) errors.push('Please enter the guardian of person\'s address');
             
             if (personType.value === 'co') {
                 const coPersonName = document.getElementById('coGuardianPersonName').value.trim();
                 const coPersonRelationship = document.getElementById('coGuardianPersonRelationship').value.trim();
                 
-                if (!coPersonName) {
-                    errors.push('Please enter the co-guardian of person\'s full name');
-                }
-                if (!coPersonRelationship) {
-                    errors.push('Please enter the co-guardian of person\'s relationship to you');
-                }
+                if (!coPersonName) errors.push('Please enter the co-guardian of person\'s full name');
+                if (!coPersonRelationship) errors.push('Please enter the co-guardian of person\'s relationship to you');
             }
         }
         
@@ -107,85 +83,77 @@ function validateForm() {
             const estateRelationship = document.getElementById('guardianEstateRelationship').value.trim();
             const estateAddress = document.getElementById('guardianEstateAddress').value.trim();
             
-            if (!estateName) {
-                errors.push('Please enter the guardian of estate\'s full name');
-            }
-            if (!estateRelationship) {
-                errors.push('Please enter the guardian of estate\'s relationship to you');
-            }
-            if (!estateAddress) {
-                errors.push('Please enter the guardian of estate\'s address');
-            }
+            if (!estateName) errors.push('Please enter the guardian of estate\'s full name');
+            if (!estateRelationship) errors.push('Please enter the guardian of estate\'s relationship to you');
+            if (!estateAddress) errors.push('Please enter the guardian of estate\'s address');
             
             if (estateType.value === 'co') {
                 const coEstateName = document.getElementById('coGuardianEstateName').value.trim();
                 const coEstateRelationship = document.getElementById('coGuardianEstateRelationship').value.trim();
                 
-                if (!coEstateName) {
-                    errors.push('Please enter the co-guardian of estate\'s full name');
-                }
-                if (!coEstateRelationship) {
-                    errors.push('Please enter the co-guardian of estate\'s relationship to you');
-                }
+                if (!coEstateName) errors.push('Please enter the co-guardian of estate\'s full name');
+                if (!coEstateRelationship) errors.push('Please enter the co-guardian of estate\'s relationship to you');
             }
         }
         
-      // Validate alternates if selected
-const wantAlternates = document.querySelector('input[name="wantAlternatesDiff"]:checked');
-if (wantAlternates && wantAlternates.value === 'yes') {
-    const alternatesStructure = document.querySelector('input[name="alternatesStructure"]:checked');
-    if (!alternatesStructure) {
-        errors.push('Please select how you want to structure alternate guardians');
-    } else if (alternatesStructure.value === 'same') {
-        const firstAlternateName = document.getElementById('alternateDiff1Name');
-        const firstAlternateRelationship = document.getElementById('alternateDiff1Relationship');
-        const firstAlternateAddress = document.getElementById('alternateDiff1Address');
-        
-        if (firstAlternateName && !firstAlternateName.value.trim()) {
-            errors.push('Please enter the first alternate guardian\'s full name');
-        }
-        if (firstAlternateRelationship && !firstAlternateRelationship.value.trim()) {
-            errors.push('Please enter the first alternate guardian\'s relationship to you');
-        }
-        if (firstAlternateAddress && !firstAlternateAddress.value.trim()) {
-            errors.push('Please enter the first alternate guardian\'s address');
-        }
-    } else if (alternatesStructure.value === 'different') {
-        // Validate person alternates
-        const firstPersonName = document.getElementById('alternatePersonDiff1Name');
-        const firstPersonRelationship = document.getElementById('alternatePersonDiff1Relationship');
-        const firstPersonAddress = document.getElementById('alternatePersonDiff1Address');
-        
-        if (firstPersonName && !firstPersonName.value.trim()) {
-            errors.push('Please enter the first alternate guardian of person\'s full name');
-        }
-        if (firstPersonRelationship && !firstPersonRelationship.value.trim()) {
-            errors.push('Please enter the first alternate guardian of person\'s relationship to you');
-        }
-        if (firstPersonAddress && !firstPersonAddress.value.trim()) {
-            errors.push('Please enter the first alternate guardian of person\'s address');
-        }
-        
-        // Validate estate alternates
-        const firstEstateName = document.getElementById('alternateEstateDiff1Name');
-        const firstEstateRelationship = document.getElementById('alternateEstateDiff1Relationship');
-        const firstEstateAddress = document.getElementById('alternateEstateDiff1Address');
-        
-        if (firstEstateName && !firstEstateName.value.trim()) {
-            errors.push('Please enter the first alternate guardian of estate\'s full name');
-        }
-        if (firstEstateRelationship && !firstEstateRelationship.value.trim()) {
-            errors.push('Please enter the first alternate guardian of estate\'s relationship to you');
-        }
-        if (firstEstateAddress && !firstEstateAddress.value.trim()) {
-            errors.push('Please enter the first alternate guardian of estate\'s address');
+        // Validate alternates if selected
+        const wantAlternates = document.querySelector('input[name="wantAlternatesDiff"]:checked');
+        if (wantAlternates && wantAlternates.value === 'yes') {
+            const alternatesStructure = document.querySelector('input[name="alternatesStructure"]:checked');
+            if (!alternatesStructure) {
+                errors.push('Please select how you want to structure alternate guardians');
+            } else if (alternatesStructure.value === 'same') {
+                const firstAlternateName = document.getElementById('alternateDiff1Name');
+                const firstAlternateRelationship = document.getElementById('alternateDiff1Relationship');
+                const firstAlternateAddress = document.getElementById('alternateDiff1Address');
+                
+                if (firstAlternateName && !firstAlternateName.value.trim()) {
+                    errors.push('Please enter the first alternate guardian\'s full name');
+                }
+                if (firstAlternateRelationship && !firstAlternateRelationship.value.trim()) {
+                    errors.push('Please enter the first alternate guardian\'s relationship to you');
+                }
+                if (firstAlternateAddress && !firstAlternateAddress.value.trim()) {
+                    errors.push('Please enter the first alternate guardian\'s address');
+                }
+            } else if (alternatesStructure.value === 'different') {
+                // Validate person alternates
+                const firstPersonName = document.getElementById('alternatePersonDiff1Name');
+                const firstPersonRelationship = document.getElementById('alternatePersonDiff1Relationship');
+                const firstPersonAddress = document.getElementById('alternatePersonDiff1Address');
+                
+                if (firstPersonName && !firstPersonName.value.trim()) {
+                    errors.push('Please enter the first alternate guardian of person\'s full name');
+                }
+                if (firstPersonRelationship && !firstPersonRelationship.value.trim()) {
+                    errors.push('Please enter the first alternate guardian of person\'s relationship to you');
+                }
+                if (firstPersonAddress && !firstPersonAddress.value.trim()) {
+                    errors.push('Please enter the first alternate guardian of person\'s address');
+                }
+                
+                // Validate estate alternates
+                const firstEstateName = document.getElementById('alternateEstateDiff1Name');
+                const firstEstateRelationship = document.getElementById('alternateEstateDiff1Relationship');
+                const firstEstateAddress = document.getElementById('alternateEstateDiff1Address');
+                
+                if (firstEstateName && !firstEstateName.value.trim()) {
+                    errors.push('Please enter the first alternate guardian of estate\'s full name');
+                }
+                if (firstEstateRelationship && !firstEstateRelationship.value.trim()) {
+                    errors.push('Please enter the first alternate guardian of estate\'s relationship to you');
+                }
+                if (firstEstateAddress && !firstEstateAddress.value.trim()) {
+                    errors.push('Please enter the first alternate guardian of estate\'s address');
+                }
+            }
         }
     }
-}
- 
+    
     return { isValid: errors.length === 0, errors };
 }
-  // Form submission handler
+
+// Form submission handler
 async function handleFormSubmission(event) {
     event.preventDefault();
     
@@ -201,7 +169,10 @@ async function handleFormSubmission(event) {
     // Validate form
     const validation = validateForm();
     if (!validation.isValid) {
-        alert('Please correct the following errors:\n\n' + validation.errors.join('\n'));
+        const errorP = errorMessage.querySelector('p');
+        errorP.textContent = 'Please fix the following issues:\n' + validation.errors.join('\n');
+        errorMessage.style.display = 'block';
+        errorMessage.scrollIntoView({ behavior: 'smooth' });
         return;
     }
     
@@ -251,7 +222,9 @@ async function handleFormSubmission(event) {
         errorMessage.scrollIntoView({ behavior: 'smooth' });
     }
 }
-  document.addEventListener('DOMContentLoaded', function() {
+
+// Initialize form
+document.addEventListener('DOMContentLoaded', function() {
     // Auto-populate data from previous sections
     const urlParams = new URLSearchParams(window.location.search);
     const testatorName = urlParams.get('testatorName');
@@ -263,22 +236,20 @@ async function handleFormSubmission(event) {
     // Set up form submission
     const form = document.getElementById('guardiansForm');
     form.addEventListener('submit', handleFormSubmission);
-});  
-// Toggle alternates for same guardians
-function toggleAlternatesSame() {
-    const wantAlternates = document.querySelector('input[name="wantAlternatesSame"]:checked')?.value;
-    const alternatesGroup = document.getElementById('alternatesSameGroup');
     
-    if (wantAlternates === 'yes') {
-        alternatesGroup.style.display = 'block';
-    } else {
-        alternatesGroup.style.display = 'none';
-        // Clear alternate fields
-        clearAlternateFields();
-    }
+    // Add event listeners for summary updates
+    document.addEventListener('change', updateSummary);
     
-    updateSummary();
-}
+    // Prevent Enter key submission
+    document.querySelectorAll('input[type="text"], textarea').forEach(input => {
+        input.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+            }
+        });
+    });
+});
+
 // Toggle guardian structure (same vs different)
 function toggleGuardianStructure() {
     const structure = document.querySelector('input[name="guardianStructure"]:checked')?.value;
@@ -288,12 +259,10 @@ function toggleGuardianStructure() {
     if (structure === 'same') {
         sameSection.style.display = 'block';
         diffSection.style.display = 'none';
-        // Clear different section data
         clearDifferentSectionData();
     } else if (structure === 'different') {
         sameSection.style.display = 'none';
         diffSection.style.display = 'block';
-        // Clear same section data
         clearSameSectionData();
     } else {
         sameSection.style.display = 'none';
@@ -312,7 +281,6 @@ function toggleGuardianTypeSame() {
     if (type === 'single') {
         primaryGroup.style.display = 'block';
         coGroup.style.display = 'none';
-        // Clear co-guardian fields
         document.getElementById('coGuardianSameName').value = '';
         document.getElementById('coGuardianSameRelationship').value = '';
     } else if (type === 'co') {
@@ -335,7 +303,6 @@ function toggleGuardianTypePerson() {
     if (type === 'single') {
         primaryGroup.style.display = 'block';
         coGroup.style.display = 'none';
-        // Clear co-guardian fields
         document.getElementById('coGuardianPersonName').value = '';
         document.getElementById('coGuardianPersonRelationship').value = '';
     } else if (type === 'co') {
@@ -358,7 +325,6 @@ function toggleGuardianTypeEstate() {
     if (type === 'single') {
         primaryGroup.style.display = 'block';
         coGroup.style.display = 'none';
-        // Clear co-guardian fields
         document.getElementById('coGuardianEstateName').value = '';
         document.getElementById('coGuardianEstateRelationship').value = '';
     } else if (type === 'co') {
@@ -367,6 +333,21 @@ function toggleGuardianTypeEstate() {
     } else {
         primaryGroup.style.display = 'none';
         coGroup.style.display = 'none';
+    }
+    
+    updateSummary();
+}
+
+// Toggle alternates for same guardians
+function toggleAlternatesSame() {
+    const wantAlternates = document.querySelector('input[name="wantAlternatesSame"]:checked')?.value;
+    const alternatesGroup = document.getElementById('alternatesSameGroup');
+    
+    if (wantAlternates === 'yes') {
+        alternatesGroup.style.display = 'block';
+    } else {
+        alternatesGroup.style.display = 'none';
+        clearAlternateFields();
     }
     
     updateSummary();
@@ -381,8 +362,30 @@ function toggleAlternatesDiff() {
         alternatesGroup.style.display = 'block';
     } else {
         alternatesGroup.style.display = 'none';
-        // Clear alternate fields
         clearAlternateFieldsDiff();
+    }
+    
+    updateSummary();
+}
+
+// Toggle alternates structure for different guardians
+function toggleAlternatesStructure() {
+    const structure = document.querySelector('input[name="alternatesStructure"]:checked')?.value;
+    const sameStructureGroup = document.getElementById('alternatesSameStructureGroup');
+    const diffStructureGroup = document.getElementById('alternatesDiffStructureGroup');
+    
+    if (structure === 'same') {
+        if (sameStructureGroup) sameStructureGroup.style.display = 'block';
+        if (diffStructureGroup) diffStructureGroup.style.display = 'none';
+        clearAlternatePersonFields();
+        clearAlternateEstateFields();
+    } else if (structure === 'different') {
+        if (sameStructureGroup) sameStructureGroup.style.display = 'none';
+        if (diffStructureGroup) diffStructureGroup.style.display = 'block';
+        clearAlternateFieldsDiff();
+    } else {
+        if (sameStructureGroup) sameStructureGroup.style.display = 'none';
+        if (diffStructureGroup) diffStructureGroup.style.display = 'none';
     }
     
     updateSummary();
@@ -418,7 +421,7 @@ function addAlternateGuardian() {
     updateSummary();
 }
 
-// Add alternate guardian (different section)
+// Add alternate guardian (different section - same structure)
 function addAlternateGuardianDiff() {
     alternateCountDiff++;
     const alternatesList = document.getElementById('alternatesListDiff');
@@ -448,216 +451,7 @@ function addAlternateGuardianDiff() {
     updateSummary();
 }
 
-// Remove alternate guardian (same section)
-function removeAlternateGuardian(id) {
-    const alternate = document.getElementById(`alternate${id}`);
-    if (alternate) {
-        alternate.remove();
-        updateSummary();
-    }
-}
-
-// Remove alternate guardian (different section)
-function removeAlternateGuardianDiff(id) {
-    const alternate = document.getElementById(`alternateDiff${id}`);
-    if (alternate) {
-        alternate.remove();
-        updateSummary();
-    }
-}
-
-// Clear data functions
-function clearSameSectionData() {
-    // Clear radio buttons
-    document.querySelectorAll('input[name="guardianTypeSame"]').forEach(radio => radio.checked = false);
-    document.querySelectorAll('input[name="wantAlternatesSame"]').forEach(radio => radio.checked = false);
-    
-    // Clear text fields
-    document.getElementById('guardianSameName').value = '';
-    document.getElementById('guardianSameRelationship').value = '';
-    document.getElementById('guardianSameAddress').value = '';
-    document.getElementById('coGuardianSameName').value = '';
-    document.getElementById('coGuardianSameRelationship').value = '';
-    
-    // Clear alternates
-    clearAlternateFields();
-    
-    // Hide sections
-    document.getElementById('primaryGuardianSameGroup').style.display = 'none';
-    document.getElementById('coGuardianSameGroup').style.display = 'none';
-    document.getElementById('alternatesSameGroup').style.display = 'none';
-}
-
-function clearDifferentSectionData() {
-    // Clear radio buttons
-    document.querySelectorAll('input[name="guardianTypePerson"]').forEach(radio => radio.checked = false);
-    document.querySelectorAll('input[name="guardianTypeEstate"]').forEach(radio => radio.checked = false);
-    document.querySelectorAll('input[name="wantAlternatesDiff"]').forEach(radio => radio.checked = false);
-    
-    // Clear person guardian fields
-    document.getElementById('guardianPersonName').value = '';
-    document.getElementById('guardianPersonRelationship').value = '';
-    document.getElementById('guardianPersonAddress').value = '';
-    document.getElementById('coGuardianPersonName').value = '';
-    document.getElementById('coGuardianPersonRelationship').value = '';
-    
-    // Clear estate guardian fields
-    document.getElementById('guardianEstateName').value = '';
-    document.getElementById('guardianEstateRelationship').value = '';
-    document.getElementById('guardianEstateAddress').value = '';
-    document.getElementById('coGuardianEstateName').value = '';
-    document.getElementById('coGuardianEstateRelationship').value = '';
-    
-    // Clear alternates
-    clearAlternateFieldsDiff();
-    
-    // Hide sections
-    document.getElementById('primaryGuardianPersonGroup').style.display = 'none';
-    document.getElementById('coGuardianPersonGroup').style.display = 'none';
-    document.getElementById('primaryGuardianEstateGroup').style.display = 'none';
-    document.getElementById('coGuardianEstateGroup').style.display = 'none';
-    document.getElementById('alternatesDiffGroup').style.display = 'none';
-}
-
-function clearAlternateFields() {
-    const alternatesList = document.getElementById('alternatesList');
-    // Keep first alternate, clear additional ones
-    const additionalAlternates = alternatesList.querySelectorAll('.alternate-guardian:not(#alternate1)');
-    additionalAlternates.forEach(alt => alt.remove());
-    
-    // Clear first alternate fields
-    document.getElementById('alternate1Name').value = '';
-    document.getElementById('alternate1Relationship').value = '';
-    document.getElementById('alternate1Address').value = '';
-    
-    alternateCount = 1;
-}
-
-function clearAlternateFieldsDiff() {
-    const alternatesList = document.getElementById('alternatesListDiff');
-    // Keep first alternate, clear additional ones
-    const additionalAlternates = alternatesList.querySelectorAll('.alternate-guardian:not(#alternateDiff1)');
-    additionalAlternates.forEach(alt => alt.remove());
-    
-    // Clear first alternate fields
-    document.getElementById('alternateDiff1Name').value = '';
-    document.getElementById('alternateDiff1Relationship').value = '';
-    document.getElementById('alternateDiff1Address').value = '';
-    
-    alternateCountDiff = 1;
-}
-
-// Update summary
-function updateSummary() {
-    const summaryDiv = document.getElementById('guardianSummary');
-    const structure = document.querySelector('input[name="guardianStructure"]:checked')?.value;
-    
-    if (!structure) {
-        summaryDiv.style.display = 'none';
-        return;
-    }
-    
-    let summaryHTML = '<h4>Guardian Nominations Summary</h4>';
-    
-    if (structure === 'same') {
-        const guardianType = document.querySelector('input[name="guardianTypeSame"]:checked')?.value;
-        const guardianName = document.getElementById('guardianSameName').value;
-        const coGuardianName = document.getElementById('coGuardianSameName').value;
-        
-        if (guardianType === 'single' && guardianName) {
-            summaryHTML += `<p><strong>Guardian of Person and Estate:</strong> ${guardianName}</p>`;
-        } else if (guardianType === 'co' && guardianName && coGuardianName) {
-            summaryHTML += `<p><strong>Co-Guardians of Person and Estate:</strong> ${guardianName} and ${coGuardianName}</p>`;
-        }
-        
-        // Add alternates summary
-        const wantAlternates = document.querySelector('input[name="wantAlternatesSame"]:checked')?.value;
-        if (wantAlternates === 'yes') {
-            const alternates = document.querySelectorAll('#alternatesList .alternate-guardian');
-            const alternateNames = [];
-            alternates.forEach(alt => {
-                const nameInput = alt.querySelector('input[name*="Name"]');
-                if (nameInput && nameInput.value) {
-                    alternateNames.push(nameInput.value);
-                }
-            });
-            if (alternateNames.length > 0) {
-                summaryHTML += `<p><strong>Alternate Guardians:</strong> ${alternateNames.join(', ')}</p>`;
-            }
-        }
-    } else if (structure === 'different') {
-        // Person guardian summary
-        const personType = document.querySelector('input[name="guardianTypePerson"]:checked')?.value;
-        const personName = document.getElementById('guardianPersonName').value;
-        const coPersonName = document.getElementById('coGuardianPersonName').value;
-        
-        if (personType === 'single' && personName) {
-            summaryHTML += `<p><strong>Guardian of Person:</strong> ${personName}</p>`;
-        } else if (personType === 'co' && personName && coPersonName) {
-            summaryHTML += `<p><strong>Co-Guardians of Person:</strong> ${personName} and ${coPersonName}</p>`;
-        }
-        
-        // Estate guardian summary
-        const estateType = document.querySelector('input[name="guardianTypeEstate"]:checked')?.value;
-        const estateName = document.getElementById('guardianEstateName').value;
-        const coEstateName = document.getElementById('coGuardianEstateName').value;
-        
-        if (estateType === 'single' && estateName) {
-            summaryHTML += `<p><strong>Guardian of Estate:</strong> ${estateName}</p>`;
-        } else if (estateType === 'co' && estateName && coEstateName) {
-            summaryHTML += `<p><strong>Co-Guardians of Estate:</strong> ${estateName} and ${coEstateName}</p>`;
-        }
-        
-       // Add alternates summary for different guardians
-const wantAlternates = document.querySelector('input[name="wantAlternatesDiff"]:checked')?.value;
-if (wantAlternates === 'yes') {
-    const alternatesStructure = document.querySelector('input[name="alternatesStructure"]:checked')?.value;
-    
-    if (alternatesStructure === 'same') {
-        // Same alternates for both person and estate
-        const alternates = document.querySelectorAll('#alternatesListDiff .alternate-guardian');
-        const alternateNames = [];
-        alternates.forEach(alt => {
-            const nameInput = alt.querySelector('input[name*="Name"]');
-            if (nameInput && nameInput.value) {
-                alternateNames.push(nameInput.value);
-            }
-        });
-        if (alternateNames.length > 0) {
-            summaryHTML += `<p><strong>Alternate Guardians (Person & Estate):</strong> ${alternateNames.join(', ')}</p>`;
-        }
-    } else if (alternatesStructure === 'different') {
-        // Different alternates for person and estate
-        const personAlternates = document.querySelectorAll('#alternatesPersonList .alternate-guardian');
-        const personNames = [];
-        personAlternates.forEach(alt => {
-            const nameInput = alt.querySelector('input[name*="Name"]');
-            if (nameInput && nameInput.value) {
-                personNames.push(nameInput.value);
-            }
-        });
-        if (personNames.length > 0) {
-            summaryHTML += `<p><strong>Alternate Guardians of Person:</strong> ${personNames.join(', ')}</p>`;
-        }
-        
-        const estateAlternates = document.querySelectorAll('#alternatesEstateList .alternate-guardian');
-        const estateNames = [];
-        estateAlternates.forEach(alt => {
-            const nameInput = alt.querySelector('input[name*="Name"]');
-            if (nameInput && nameInput.value) {
-                estateNames.push(nameInput.value);
-            }
-        });
-        if (estateNames.length > 0) {
-            summaryHTML += `<p><strong>Alternate Guardians of Estate:</strong> ${estateNames.join(', ')}</p>`;
-        }
-    }
-}
-    summaryDiv.innerHTML = summaryHTML;
-    summaryDiv.style.display = 'block';
-}
-
-  // Add alternate guardian for person
+// Add alternate guardian for person
 function addAlternateGuardianPerson() {
     const alternatesPersonList = document.getElementById('alternatesPersonList');
     const existingAlternates = alternatesPersonList.querySelectorAll('.alternate-guardian');
@@ -719,7 +513,23 @@ function addAlternateGuardianEstate() {
     updateSummary();
 }
 
-// Remove alternate guardian functions
+// Remove functions
+function removeAlternateGuardian(id) {
+    const alternate = document.getElementById(`alternate${id}`);
+    if (alternate) {
+        alternate.remove();
+        updateSummary();
+    }
+}
+
+function removeAlternateGuardianDiff(id) {
+    const alternate = document.getElementById(`alternateDiff${id}`);
+    if (alternate) {
+        alternate.remove();
+        updateSummary();
+    }
+}
+
 function removeAlternateGuardianPerson(id) {
     const alternate = document.getElementById(`alternatePersonDiff${id}`);
     if (alternate) {
@@ -736,14 +546,86 @@ function removeAlternateGuardianEstate(id) {
     }
 }
 
-// Clear functions for new structure
+// Clear data functions
+function clearSameSectionData() {
+    document.querySelectorAll('input[name="guardianTypeSame"]').forEach(radio => radio.checked = false);
+    document.querySelectorAll('input[name="wantAlternatesSame"]').forEach(radio => radio.checked = false);
+    
+    document.getElementById('guardianSameName').value = '';
+    document.getElementById('guardianSameRelationship').value = '';
+    document.getElementById('guardianSameAddress').value = '';
+    document.getElementById('coGuardianSameName').value = '';
+    document.getElementById('coGuardianSameRelationship').value = '';
+    
+    clearAlternateFields();
+    
+    document.getElementById('primaryGuardianSameGroup').style.display = 'none';
+    document.getElementById('coGuardianSameGroup').style.display = 'none';
+    document.getElementById('alternatesSameGroup').style.display = 'none';
+}
+
+function clearDifferentSectionData() {
+    document.querySelectorAll('input[name="guardianTypePerson"]').forEach(radio => radio.checked = false);
+    document.querySelectorAll('input[name="guardianTypeEstate"]').forEach(radio => radio.checked = false);
+    document.querySelectorAll('input[name="wantAlternatesDiff"]').forEach(radio => radio.checked = false);
+    
+    document.getElementById('guardianPersonName').value = '';
+    document.getElementById('guardianPersonRelationship').value = '';
+    document.getElementById('guardianPersonAddress').value = '';
+    document.getElementById('coGuardianPersonName').value = '';
+    document.getElementById('coGuardianPersonRelationship').value = '';
+    
+    document.getElementById('guardianEstateName').value = '';
+    document.getElementById('guardianEstateRelationship').value = '';
+    document.getElementById('guardianEstateAddress').value = '';
+    document.getElementById('coGuardianEstateName').value = '';
+    document.getElementById('coGuardianEstateRelationship').value = '';
+    
+    clearAlternateFieldsDiff();
+    
+    document.getElementById('primaryGuardianPersonGroup').style.display = 'none';
+    document.getElementById('coGuardianPersonGroup').style.display = 'none';
+    document.getElementById('primaryGuardianEstateGroup').style.display = 'none';
+    document.getElementById('coGuardianEstateGroup').style.display = 'none';
+    document.getElementById('alternatesDiffGroup').style.display = 'none';
+}
+
+function clearAlternateFields() {
+    const alternatesList = document.getElementById('alternatesList');
+    const additionalAlternates = alternatesList.querySelectorAll('.alternate-guardian:not(#alternate1)');
+    additionalAlternates.forEach(alt => alt.remove());
+    
+    document.getElementById('alternate1Name').value = '';
+    document.getElementById('alternate1Relationship').value = '';
+    document.getElementById('alternate1Address').value = '';
+    
+    alternateCount = 1;
+}
+
+function clearAlternateFieldsDiff() {
+    const alternatesList = document.getElementById('alternatesListDiff');
+    if (alternatesList) {
+        const additionalAlternates = alternatesList.querySelectorAll('.alternate-guardian:not(#alternateDiff1)');
+        additionalAlternates.forEach(alt => alt.remove());
+        
+        const nameField = document.getElementById('alternateDiff1Name');
+        const relationshipField = document.getElementById('alternateDiff1Relationship');
+        const addressField = document.getElementById('alternateDiff1Address');
+        
+        if (nameField) nameField.value = '';
+        if (relationshipField) relationshipField.value = '';
+        if (addressField) addressField.value = '';
+    }
+    
+    alternateCountDiff = 1;
+}
+
 function clearAlternatePersonFields() {
     const alternatesPersonList = document.getElementById('alternatesPersonList');
     if (alternatesPersonList) {
         const additionalAlternates = alternatesPersonList.querySelectorAll('.alternate-guardian:not(#alternatePersonDiff1)');
         additionalAlternates.forEach(alt => alt.remove());
         
-        // Clear first alternate fields
         const nameField = document.getElementById('alternatePersonDiff1Name');
         const relationshipField = document.getElementById('alternatePersonDiff1Relationship');
         const addressField = document.getElementById('alternatePersonDiff1Address');
@@ -760,7 +642,6 @@ function clearAlternateEstateFields() {
         const additionalAlternates = alternatesEstateList.querySelectorAll('.alternate-guardian:not(#alternateEstateDiff1)');
         additionalAlternates.forEach(alt => alt.remove());
         
-        // Clear first alternate fields
         const nameField = document.getElementById('alternateEstateDiff1Name');
         const relationshipField = document.getElementById('alternateEstateDiff1Relationship');
         const addressField = document.getElementById('alternateEstateDiff1Address');
@@ -770,36 +651,114 @@ function clearAlternateEstateFields() {
         if (addressField) addressField.value = '';
     }
 }
-// Toggle alternates structure for different guardians
-function toggleAlternatesStructure() {
-    const structure = document.querySelector('input[name="alternatesStructure"]:checked')?.value;
-    const sameStructureGroup = document.getElementById('alternatesSameStructureGroup');
-    const diffStructureGroup = document.getElementById('alternatesDiffStructureGroup');
+
+// Update summary
+function updateSummary() {
+    const summaryDiv = document.getElementById('guardianSummary');
+    const structure = document.querySelector('input[name="guardianStructure"]:checked')?.value;
     
-    if (structure === 'same') {
-        if (sameStructureGroup) sameStructureGroup.style.display = 'block';
-        if (diffStructureGroup) diffStructureGroup.style.display = 'none';
-        clearAlternatePersonFields();
-        clearAlternateEstateFields();
-    } else if (structure === 'different') {
-        if (sameStructureGroup) sameStructureGroup.style.display = 'none';
-        if (diffStructureGroup) diffStructureGroup.style.display = 'block';
-        clearAlternateFieldsDiff();
-    } else {
-        if (sameStructureGroup) sameStructureGroup.style.display = 'none';
-        if (diffStructureGroup) diffStructureGroup.style.display = 'none';
+    if (!structure) {
+        summaryDiv.style.display = 'none';
+        return;
     }
     
-    updateSummary();
+    let summaryHTML = '<h4>Guardian Nominations Summary</h4>';
+    
+    if (structure === 'same') {
+        const guardianType = document.querySelector('input[name="guardianTypeSame"]:checked')?.value;
+        const guardianName = document.getElementById('guardianSameName').value;
+        const coGuardianName = document.getElementById('coGuardianSameName').value;
+        
+        if (guardianType === 'single' && guardianName) {
+            summaryHTML += `<p><strong>Guardian of Person and Estate:</strong> ${guardianName}</p>`;
+        } else if (guardianType === 'co'RetryDHContinueEdit&& guardianName && coGuardianName) {
+summaryHTML += <p><strong>Co-Guardians of Person and Estate:</strong> ${guardianName} and ${coGuardianName}</p>;
 }
-// Continue to next section
-function continueToReview() {
-    const urlParams = new URLSearchParams(window.location.search);
-    window.location.href = `final-review.html?${urlParams.toString()}`;
+    // Add alternates summary
+    const wantAlternates = document.querySelector('input[name="wantAlternatesSame"]:checked')?.value;
+    if (wantAlternates === 'yes') {
+        const alternates = document.querySelectorAll('#alternatesList .alternate-guardian');
+        const alternateNames = [];
+        alternates.forEach(alt => {
+            const nameInput = alt.querySelector('input[name*="Name"]');
+            if (nameInput && nameInput.value) {
+                alternateNames.push(nameInput.value);
+            }
+        });
+        if (alternateNames.length > 0) {
+            summaryHTML += `<p><strong>Alternate Guardians:</strong> ${alternateNames.join(', ')}</p>`;
+        }
+    }
+} else if (structure === 'different') {
+    // Person guardian summary
+    const personType = document.querySelector('input[name="guardianTypePerson"]:checked')?.value;
+    const personName = document.getElementById('guardianPersonName').value;
+    const coPersonName = document.getElementById('coGuardianPersonName').value;
+    
+    if (personType === 'single' && personName) {
+        summaryHTML += `<p><strong>Guardian of Person:</strong> ${personName}</p>`;
+    } else if (personType === 'co' && personName && coPersonName) {
+        summaryHTML += `<p><strong>Co-Guardians of Person:</strong> ${personName} and ${coPersonName}</p>`;
+    }
+    
+    // Estate guardian summary
+    const estateType = document.querySelector('input[name="guardianTypeEstate"]:checked')?.value;
+    const estateName = document.getElementById('guardianEstateName').value;
+    const coEstateName = document.getElementById('coGuardianEstateName').value;
+    
+    if (estateType === 'single' && estateName) {
+        summaryHTML += `<p><strong>Guardian of Estate:</strong> ${estateName}</p>`;
+    } else if (estateType === 'co' && estateName && coEstateName) {
+        summaryHTML += `<p><strong>Co-Guardians of Estate:</strong> ${estateName} and ${coEstateName}</p>`;
+    }
+    
+    // Add alternates summary for different guardians
+    const wantAlternates = document.querySelector('input[name="wantAlternatesDiff"]:checked')?.value;
+    if (wantAlternates === 'yes') {
+        const alternatesStructure = document.querySelector('input[name="alternatesStructure"]:checked')?.value;
+        
+        if (alternatesStructure === 'same') {
+            // Same alternates for both person and estate
+            const alternates = document.querySelectorAll('#alternatesListDiff .alternate-guardian');
+            const alternateNames = [];
+            alternates.forEach(alt => {
+                const nameInput = alt.querySelector('input[name*="Name"]');
+                if (nameInput && nameInput.value) {
+                    alternateNames.push(nameInput.value);
+                }
+            });
+            if (alternateNames.length > 0) {
+                summaryHTML += `<p><strong>Alternate Guardians (Person & Estate):</strong> ${alternateNames.join(', ')}</p>`;
+            }
+        } else if (alternatesStructure === 'different') {
+            // Different alternates for person and estate
+            const personAlternates = document.querySelectorAll('#alternatesPersonList .alternate-guardian');
+            const personNames = [];
+            personAlternates.forEach(alt => {
+                const nameInput = alt.querySelector('input[name*="Name"]');
+                if (nameInput && nameInput.value) {
+                    personNames.push(nameInput.value);
+                }
+            });
+            if (personNames.length > 0) {
+                summaryHTML += `<p><strong>Alternate Guardians of Person:</strong> ${personNames.join(', ')}</p>`;
+            }
+            
+            const estateAlternates = document.querySelectorAll('#alternatesEstateList .alternate-guardian');
+            const estateNames = [];
+            estateAlternates.forEach(alt => {
+                const nameInput = alt.querySelector('input[name*="Name"]');
+                if (nameInput && nameInput.value) {
+                    estateNames.push(nameInput.value);
+                }
+            });
+            if (estateNames.length > 0) {
+                summaryHTML += `<p><strong>Alternate Guardians of Estate:</strong> ${estateNames.join(', ')}</p>`;
+            }
+        }
+    }
 }
 
-// Add event listeners for summary updates
-document.addEventListener('input', updateSummary);
-document.addEventListener('change', updateSummary);
-}
+summaryDiv.innerHTML = summaryHTML;
+summaryDiv.style.display = 'block';
 }
