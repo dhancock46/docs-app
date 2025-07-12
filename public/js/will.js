@@ -64,12 +64,22 @@ function toggleMaritalSections() {
 function toggleChildrenSection() {
     const hasChildren = document.querySelector('input[name="hasChildren"]:checked').value;
     const childrenSection = document.getElementById('childrenSection');
+    const maritalStatus = document.querySelector('input[name="maritalStatus"]:checked')?.value;
     
     if (hasChildren === 'yes') {
         childrenSection.classList.remove('hidden');
     } else {
         childrenSection.classList.add('hidden');
         resetChildrenSections();
+        
+        // For married users who have no children, still show the spouse section
+        // so they can answer about spouse's prior children
+        if (maritalStatus === 'married') {
+            const spouseSection = document.getElementById('spouseSection');
+            if (spouseSection) {
+                spouseSection.classList.remove('hidden');
+            }
+        }
     }
 }
 
