@@ -816,12 +816,13 @@ function showAlternativeChildrenDetails() {
     if (altCharityGroup) altCharityGroup.style.display = 'none';
     if (altOtherPersonsGroup) altOtherPersonsGroup.style.display = 'none';
     
-    // Show children details section (reuse the existing one or create a new one)
-    // For now, we can reuse the primary children details or create a simplified version
-    console.log('Alternative children option selected - trust/outright options should be shown here');
+    // Show alternative children details section
+    const altChildrenGroup = document.getElementById('alternativeChildrenDetailsGroup');
+    if (altChildrenGroup) {
+        altChildrenGroup.style.display = 'block';
+    }
     
-    // You may need to create a separate alternative children details section in the HTML
-    // or reuse an existing one depending on your HTML structure
+    console.log('Alternative children option selected - showing trust/outright options');
 }
 // Summary functions
 function updateDistributionSummary() {
