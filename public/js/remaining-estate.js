@@ -1085,7 +1085,9 @@ if (!validation.isValid) {
        errorMessage.scrollIntoView({ behavior: 'smooth' });
    }
 });
-
+function showAltTrustDetails() {
+    document.getElementById('altChildrenTrustDetails').style.display = 'block';
+}
 function continueToExecutors() {
     const urlParams = new URLSearchParams(window.location.search);
     window.location.href = `per-rep.html?${urlParams.toString()}`;
