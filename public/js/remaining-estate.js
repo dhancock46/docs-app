@@ -611,7 +611,7 @@ function updateAlternativeOptions() {
         const hasSpouseChildren = urlParams.get('hasSpousePriorChildren') === 'yes';
         const blendedFamily = urlParams.get('blendedFamily') === 'yes';
         
-        // Combined children option
+   // Combined children option
         if (hasCurrentChildren && hasSpouseChildren && blendedFamily && primarySelection !== 'combinedChildren') {
             const combinedChildrenOption = document.createElement('div');
             combinedChildrenOption.className = 'radio-item dynamic-alt-option';
@@ -625,8 +625,17 @@ function updateAlternativeOptions() {
             } else {
                 altSiblings.insertAdjacentElement('afterend', combinedChildrenOption);
             }
+            
+            // Add event listener for combined children option
+            const altCombinedChildrenRadio = document.getElementById('altCombinedChildren');
+            if (altCombinedChildrenRadio) {
+                altCombinedChildrenRadio.addEventListener('change', function() {
+                    if (this.checked) {
+                        showAlternativeChildrenDetails();
+                    }
+                });
+            }
         }
-        
         // Spouse's children option
         if (!hasCurrentChildren && hasSpouseChildren && primarySelection !== 'spouseChildren') {
             const spouseChildrenOption = document.createElement('div');
