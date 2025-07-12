@@ -386,8 +386,11 @@ if (data.priorChildren) allChildren.push(...data.priorChildren);
 if (data.spousePriorChildren) allChildren.push(...data.spousePriorChildren);
 
 const childrenData = encodeURIComponent(JSON.stringify(allChildren));
+const hasCurrentMarriageChildren = encodeURIComponent(data.hasCurrentMarriageChildren || 'no');
+const hasSpousePriorChildren = encodeURIComponent(data.hasSpousePriorChildren || 'no');
+const blendedFamily = encodeURIComponent(data.blendedFamily || 'no');
 
-window.location.href = `gifts.html?testatorName=${testatorName}&email=${email}&maritalStatus=${maritalStatus}&hasChildren=${hasChildren}&hasPriorChildren=${hasPriorChildren}&priorChildrenNames=${priorChildrenNames}&childrenData=${childrenData}`;
+window.location.href = `gifts.html?testatorName=${testatorName}&email=${email}&maritalStatus=${maritalStatus}&hasChildren=${hasChildren}&hasPriorChildren=${hasPriorChildren}&priorChildrenNames=${priorChildrenNames}&childrenData=${childrenData}&hasCurrentMarriageChildren=${hasCurrentMarriageChildren}&hasSpousePriorChildren=${hasSpousePriorChildren}&blendedFamily=${blendedFamily}`;
 } else {
     errorMessage.style.display = 'block';
     errorMessage.scrollIntoView({ behavior: 'smooth' });
