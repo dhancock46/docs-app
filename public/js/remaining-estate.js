@@ -664,6 +664,7 @@ function updateAlternativeOptions() {
                 });
             }
         }
+        } 
     // Add "no alternate" option at the end
     const noAlternateOption = document.createElement('div');
     noAlternateOption.className = 'radio-item dynamic-alt-option';
