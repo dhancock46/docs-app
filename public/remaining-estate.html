@@ -352,7 +352,34 @@
                         <button type="button" onclick="addAlternativeOtherPerson()" class="add-btn">Add Another Person</button>
                         <small>Percentages must add up to 100%</small>
                     </div>
-                </div>
+                
+               <!-- Alternative Children Details -->
+                    <div class="form-group" id="alternativeChildrenDetailsGroup" style="display: none;">
+                        <h4>Alternative Children Distribution</h4>
+                        <div class="form-group">
+                            <label>How should your children receive their inheritance as alternatives? *</label>
+                            <div class="radio-group">
+                                <div class="radio-item">
+                                    <input type="radio" id="altChildrenOutright" name="alternativeChildrenDistributionType" value="outright">
+                                    <label for="altChildrenOutright">Outright distribution (no trust)</label>
+                                </div>
+                                <div class="radio-item">
+                                    <input type="radio" id="altChildrenTrust" name="alternativeChildrenDistributionType" value="trust" onchange="showAltTrustDetails()">
+                                    <label for="altChildrenTrust">In trust</label>
+                                </div>
+                            </div>
+                            
+                            <div id="altChildrenTrustDetails" style="display: none; margin-top: 10px;">
+                                <div class="form-group">
+                                    <label for="altTrustAge">At what age should the trust end? *</label>
+                                    <input type="number" id="altTrustAge" name="altTrustAge" min="18" max="50" placeholder="25">
+                                    <small>Enter age between 18 and 50</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+               </div>
+                
  <!-- Disinheritance Section -->
                                 <div class="form-section">
                                     <h3>Disinheritance Provisions</h3>
