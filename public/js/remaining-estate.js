@@ -117,7 +117,33 @@ function initializePrimaryBeneficiariesSection() {
             onchange: 'selectChildren()'
         });
     }
-    
+    // ADD THIS SECTION - Combined children option for blended families
+    if (currentUserData.maritalStatus === 'married') {
+        const urlParams = new URLSearchParams(window.location.search);
+        const hasCurrentChildren = urlParams.get('hasCurrentMarriageChildren') === 'yes';
+        const hasSpouseChildren = urlParams.get('hasSpousePriorChildren') === 'yes';
+        const blendedFamily = urlParams.get('blendedFamily') === 'yes';
+        
+        if (hasCurrentChildren && hasSpouseChildren && blendedFamily) {
+            options.push({
+                id: 'primaryCombinedChildren',
+                value: 'combinedChildren',
+                label: 'All to the combined children of Testator and Spouse',
+                onchange: 'selectCombinedChildren()'
+            });
+        }
+        
+        // Spouse's children only option
+        if (!hasCurrentChildren && hasSpouseChildren) {
+            options.push({
+                id: 'primarySpouseChildren',
+                value: 'spouseChildren',
+                label: 'All to my Spouse\'s children',
+                onchange: 'selectSpouseChildren()'
+            });
+        }
+    }
+}
     // Add standard options for all users
     options.push({
         id: 'primaryCharity',
@@ -200,7 +226,25 @@ function selectOtherPersons() {
     document.getElementById('otherPersonsDetailsGroup').style.display = 'block';
     updateAlternativeOptions();
 }
+function selectCombinedChildren() {
+    console.log('Selected combined children');
+    hideSpousePercentageGroup();
+    hideRemainingDistribution();
+    showStandardPrimaryOptions();
+    hideAllDetailGroups();
+    document.getElementById('childrenDetailsGroup').style.display = 'block';
+    updateAlternativeOptions();
+}
 
+function selectSpouseChildren() {
+    console.log('Selected spouse children');
+    hideSpousePercentageGroup();
+    hideRemainingDistribution();
+    showStandardPrimaryOptions();
+    hideAllDetailGroups();
+    document.getElementById('childrenDetailsGroup').style.display = 'block';
+    updateAlternativeOptions();
+}
 function hideAllDetailGroups() {
     const detailGroups = [
         'childrenDetailsGroup',
@@ -539,25 +583,81 @@ function updateAlternativeOptions() {
     const altCharity = document.getElementById('altCharityOption');
     const altOtherPersons = document.getElementById('altOtherPersonsOption');
     
-    // Show all options first
+    // Clear existing dynamic options first
+    const dynamicOptions = document.querySelectorAll('.dynamic-alt-option');
+    dynamicOptions.forEach(option => option.remove());
+    
+    // Show standard options first
     if (altParents) altParents.style.display = 'block';
     if (altSiblings) altSiblings.style.display = 'block';
     if (altCharity) altCharity.style.display = 'block';
     if (altOtherPersons) altOtherPersons.style.display = 'block';
     
-    // Show children option only if user has children
+    // Show children option only if user has children and it wasn't selected as primary
     if (altChildren) {
-        if (currentUserData.hasChildren === 'yes') {
+        if (currentUserData.hasChildren === 'yes' && primarySelection !== 'children') {
             altChildren.style.display = 'block';
         } else {
             altChildren.style.display = 'none';
         }
     }
     
+    // Add dynamic options based on user situation
+    const alternativeOptionsGroup = document.getElementById('alternativeOptionsGroup');
+    
+    if (currentUserData.maritalStatus === 'married') {
+        const urlParams = new URLSearchParams(window.location.search);
+        const hasCurrentChildren = urlParams.get('hasCurrentMarriageChildren') === 'yes';
+        const hasSpouseChildren = urlParams.get('hasSpousePriorChildren') === 'yes';
+        const blendedFamily = urlParams.get('blendedFamily') === 'yes';
+        
+        // Combined children option
+        if (hasCurrentChildren && hasSpouseChildren && blendedFamily && primarySelection !== 'combinedChildren') {
+            const combinedChildrenOption = document.createElement('div');
+            combinedChildrenOption.className = 'radio-item dynamic-alt-option';
+            combinedChildrenOption.innerHTML = `
+                <input type="radio" id="altCombinedChildren" name="alternativeBeneficiaries" value="combinedChildren">
+                <label for="altCombinedChildren">All to the combined children of Testator and Spouse</label>
+            `;
+            // Insert after children option
+            if (altChildren) {
+                altChildren.insertAdjacentElement('afterend', combinedChildrenOption);
+            } else {
+                altSiblings.insertAdjacentElement('afterend', combinedChildrenOption);
+            }
+        }
+        
+        // Spouse's children option
+        if (!hasCurrentChildren && hasSpouseChildren && primarySelection !== 'spouseChildren') {
+            const spouseChildrenOption = document.createElement('div');
+            spouseChildrenOption.className = 'radio-item dynamic-alt-option';
+            spouseChildrenOption.innerHTML = `
+                <input type="radio" id="altSpouseChildren" name="alternativeBeneficiaries" value="spouseChildren">
+                <label for="altSpouseChildren">All to my Spouse's children</label>
+            `;
+            // Find the last dynamic option or children option
+            const lastDynamic = document.querySelector('.dynamic-alt-option:last-of-type');
+            if (lastDynamic) {
+                lastDynamic.insertAdjacentElement('afterend', spouseChildrenOption);
+            } else if (altChildren && altChildren.style.display !== 'none') {
+                altChildren.insertAdjacentElement('afterend', spouseChildrenOption);
+            } else {
+                altSiblings.insertAdjacentElement('afterend', spouseChildrenOption);
+            }
+        }
+    }
+    
+    // Add "no alternate" option at the end
+    const noAlternateOption = document.createElement('div');
+    noAlternateOption.className = 'radio-item dynamic-alt-option';
+    noAlternateOption.innerHTML = `
+        <input type="radio" id="altNone" name="alternativeBeneficiaries" value="none">
+        <label for="altNone">I do not want to name an alternate beneficiary</label>
+    `;
+    alternativeOptionsGroup.appendChild(noAlternateOption);
+    
     // Hide the option that was selected as primary
-    if (primarySelection === 'children' && altChildren) {
-        altChildren.style.display = 'none';
-    } else if (primarySelection === 'charity' && altCharity) {
+    if (primarySelection === 'charity' && altCharity) {
         altCharity.style.display = 'none';
     } else if (primarySelection === 'otherPersons' && altOtherPersons) {
         altOtherPersons.style.display = 'none';
@@ -801,10 +901,13 @@ function validateForm() {
     }
     
     // Check alternative beneficiaries
-    const alternativeSelection = document.querySelector('input[name="alternativeBeneficiaries"]:checked');
-    if (!alternativeSelection) {
-        errors.push('Please select alternative beneficiaries');
-    }
+const alternativeSelection = document.querySelector('input[name="alternativeBeneficiaries"]:checked');
+if (!alternativeSelection) {
+    errors.push('Please select alternative beneficiaries');
+} else if (alternativeSelection.value === 'none') {
+    // No validation needed for "none" option
+    console.log('User chose no alternate beneficiary');
+}
     
     return { isValid: errors.length === 0, errors };
 }
