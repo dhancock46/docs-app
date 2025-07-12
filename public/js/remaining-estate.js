@@ -120,7 +120,7 @@ function initializePrimaryBeneficiariesSection() {
     // ADD THIS SECTION - Combined children option for blended families
     if (currentUserData.maritalStatus === 'married') {
         const urlParams = new URLSearchParams(window.location.search);
-        const hasCurrentChildren = urlParams.get('hasCurrentMarriageChildren') === 'yes';
+        const hasCurrentChildren = urlParams.get('hasChildren') === 'yes';
         const hasSpouseChildren = urlParams.get('hasSpousePriorChildren') === 'yes';
         const blendedFamily = urlParams.get('blendedFamily') === 'yes';
         
@@ -607,7 +607,7 @@ function updateAlternativeOptions() {
     
     if (currentUserData.maritalStatus === 'married') {
         const urlParams = new URLSearchParams(window.location.search);
-        const hasCurrentChildren = urlParams.get('hasCurrentMarriageChildren') === 'yes';
+        const hasCurrentChildren = urlParams.get('hasChildren') === 'yes';
         const hasSpouseChildren = urlParams.get('hasSpousePriorChildren') === 'yes';
         const blendedFamily = urlParams.get('blendedFamily') === 'yes';
         
