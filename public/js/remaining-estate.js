@@ -143,7 +143,7 @@ function initializePrimaryBeneficiariesSection() {
             });
         }
     }
-}
+
     // Add standard options for all users
     options.push({
         id: 'primaryCharity',
