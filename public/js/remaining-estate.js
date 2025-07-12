@@ -636,7 +636,7 @@ function updateAlternativeOptions() {
                 });
             }
         }
-        // Spouse's children option
+       // Spouse's children option
         if (!hasCurrentChildren && hasSpouseChildren && primarySelection !== 'spouseChildren') {
             const spouseChildrenOption = document.createElement('div');
             spouseChildrenOption.className = 'radio-item dynamic-alt-option';
@@ -653,9 +653,17 @@ function updateAlternativeOptions() {
             } else {
                 altSiblings.insertAdjacentElement('afterend', spouseChildrenOption);
             }
+            
+            // Add event listener for spouse children option
+            const altSpouseChildrenRadio = document.getElementById('altSpouseChildren');
+            if (altSpouseChildrenRadio) {
+                altSpouseChildrenRadio.addEventListener('change', function() {
+                    if (this.checked) {
+                        showAlternativeChildrenDetails();
+                    }
+                });
+            }
         }
-    }
-    
     // Add "no alternate" option at the end
     const noAlternateOption = document.createElement('div');
     noAlternateOption.className = 'radio-item dynamic-alt-option';
