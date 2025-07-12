@@ -807,7 +807,21 @@ function addAlternativeOtherPerson() {
 function removeAlternativeOtherPerson(button) {
     button.parentElement.remove();
 }
-
+function showAlternativeChildrenDetails() {
+    // Hide other alternative detail sections if they exist
+    const altCharityGroup = document.getElementById('alternativeCharityDetailsGroup');
+    const altOtherPersonsGroup = document.getElementById('alternativeOtherPersonsDetailsGroup');
+    
+    if (altCharityGroup) altCharityGroup.style.display = 'none';
+    if (altOtherPersonsGroup) altOtherPersonsGroup.style.display = 'none';
+    
+    // Show children details section (reuse the existing one or create a new one)
+    // For now, we can reuse the primary children details or create a simplified version
+    console.log('Alternative children option selected - trust/outright options should be shown here');
+    
+    // You may need to create a separate alternative children details section in the HTML
+    // or reuse an existing one depending on your HTML structure
+}
 // Summary functions
 function updateDistributionSummary() {
     const summarySection = document.getElementById('distributionSummary');
