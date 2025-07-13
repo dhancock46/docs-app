@@ -63,7 +63,7 @@
                     </div>
                 </div>
 
-                <!-- Marital Status Section -->
+               <!-- Marital Status Section -->
                 <div class="form-section">
                     <h3>Marital Status</h3>
                     <div class="form-group">
@@ -108,29 +108,9 @@
                                 </div>
                             </div>
                         </div>
-                        
+                    </div>
+                </div>
 
-<!-- Spouse Information (shown only if married) -->
-<div class="form-group hidden" id="spouseSection">
-    <div class="form-group">
-        <label for="spouseName">Spouse's Full Legal Name *</label>
-        <input type="text" id="spouseName" name="spouseName">
-    </div>
-    
-    <div class="form-group">
-        <label>Spouse's Gender *</label>
-        <div class="radio-group">
-            <div class="radio-item">
-                <input type="radio" id="spouseGenderMale" name="spouseGender" value="male">
-                <label for="spouseGenderMale">Male</label>
-            </div>
-            <div class="radio-item">
-                <input type="radio" id="spouseGenderFemale" name="spouseGender" value="female">
-                <label for="spouseGenderFemale">Female</label>
-            </div>
-        </div>
-    </div>
-    
                 <!-- Children Section -->
                 <div class="form-section">
                     <h3>Children Information</h3>
@@ -254,7 +234,8 @@
                         </div>
                     </div>
                 </div>
- <!-- Spouse's Prior Children Section (for married users only) -->
+
+                <!-- Spouse's Prior Children Section (for married users only) -->
                 <div class="form-section hidden" id="spousePriorChildrenSection">
                     <h3>Spouse's Children</h3>
                     
@@ -289,6 +270,7 @@
                         <button type="button" class="add-child-btn" onclick="addSpousePriorChild()">+ Add Another Child</button>
                     </div>
                 </div>
+
                 <button type="submit" class="submit-btn">Continue to Next Section</button>
 
                 <div class="loading-message" id="loadingMessage">
