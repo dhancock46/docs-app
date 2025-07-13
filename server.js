@@ -77,7 +77,9 @@ app.use('/submit', remainingEstateRoutes);
 app.use('/submit', perRepRoutes);
 app.use('/submit', guardiansRoutes);
 
-// Test route for will generation
+You're right! The primary beneficiary section is missing. Looking at the test data, the issue is that primaryDistributee: 'combinedChildren' requires additional data that we didn't provide.
+Let's fix the test data. Replace your test route with this corrected version:
+javascript// Test route for will generation
 app.get('/test-will', async (req, res) => {
     try {
         const { generateGiftsSection } = require('./generators/gifts-generator');
@@ -88,6 +90,20 @@ app.get('/test-will', async (req, res) => {
             maritalStatus: 'married',
             spouseName: 'Jane Smith',
             spouseGender: 'female',
+            hasChildren: 'yes',
+            hasMultipleChildren: true,
+            hasMinorChildren: true,
+            blendedFamily: 'yes',
+            
+            // Add the required children data for combinedChildren
+            currentMarriageChildren: [
+                { name: 'Michael Smith', birthday: 'January 15, 2015' },
+                { name: 'Sarah Smith', birthday: 'March 22, 2018' }
+            ],
+            spousePriorChildren: [
+                { name: 'Emma Wilson', birthday: 'August 5, 2014' }
+            ],
+            
             primaryDistributee: 'combinedChildren',
             alternativeDistributee: 'parents',
             selectedGiftTypes: ['specificPersonGifts'],
@@ -109,7 +125,6 @@ app.get('/test-will', async (req, res) => {
                     obj.forEach(item => searchForText(item));
                 } else if (obj && typeof obj === 'object') {
                     if (obj.rootKey === 'w:t' && obj.root && Array.isArray(obj.root)) {
-                        // Found a text element, extract the text
                         obj.root.forEach(item => {
                             if (typeof item === 'string') {
                                 text += item;
@@ -147,9 +162,17 @@ app.get('/test-will', async (req, res) => {
 
         res.send(`
             <html>
-            <head><title>Will Generation Test - SUCCESS!</title></head>
+            <head><title>Will Generation Test - Updated</title></head>
             <body style="font-family: Arial; margin: 20px; line-height: 1.6;">
-                <h1>✅ Will Generation Test - SUCCESS!</h1>
+                <h1>✅ Will Generation Test - Updated Data</h1>
+                
+                <h2>Test Data Used:</h2>
+                <div style="border: 1px solid #ddd; padding: 10px; background: #f5f5f5; font-size: 12px;">
+                    Primary Distributee: ${testData.primaryDistributee}<br>
+                    Marital Status: ${testData.maritalStatus}<br>
+                    Blended Family: ${testData.blendedFamily}<br>
+                    Has Children: ${testData.hasChildren}
+                </div>
                 
                 <h2>GIFTS SECTION:</h2>
                 <div style="border: 1px solid #ccc; padding: 15px; background: #f9f9f9; white-space: pre-wrap; font-family: 'Times New Roman', serif;">
@@ -160,8 +183,6 @@ ${giftsText}
                 <div style="border: 1px solid #ccc; padding: 15px; background: #f9f9f9; white-space: pre-wrap; font-family: 'Times New Roman', serif;">
 ${estateText}
                 </div>
-                
-                <p><strong>Status:</strong> ✅ Generators are working correctly!</p>
             </body>
             </html>
         `);
