@@ -27,11 +27,13 @@ function toggleMaritalSections() {
     const spouseSection = document.getElementById('spouseSection');
     const marriedChildrenSection = document.getElementById('marriedChildrenSection');
     const singleChildrenSection = document.getElementById('singleChildrenSection');
+    const spousePriorChildrenSection = document.getElementById('spousePriorChildrenSection');
     
     if (maritalStatus === 'married') {
         spouseSection.classList.remove('hidden');
         marriedChildrenSection.classList.remove('hidden');
         singleChildrenSection.classList.add('hidden');
+        spousePriorChildrenSection.classList.remove('hidden');
         
         // Make spouse fields required
         document.getElementById('spouseName').required = true;
@@ -42,6 +44,7 @@ function toggleMaritalSections() {
         spouseSection.classList.add('hidden');
         marriedChildrenSection.classList.add('hidden');
         singleChildrenSection.classList.remove('hidden');
+        spousePriorChildrenSection.classList.add('hidden');
         
         // Remove required from spouse fields
         document.getElementById('spouseName').required = false;
