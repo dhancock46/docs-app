@@ -77,9 +77,7 @@ app.use('/submit', remainingEstateRoutes);
 app.use('/submit', perRepRoutes);
 app.use('/submit', guardiansRoutes);
 
-You're right! The primary beneficiary section is missing. Looking at the test data, the issue is that primaryDistributee: 'combinedChildren' requires additional data that we didn't provide.
-Let's fix the test data. Replace your test route with this corrected version:
-javascript// Test route for will generation
+// Test route for will generation
 app.get('/test-will', async (req, res) => {
     try {
         const { generateGiftsSection } = require('./generators/gifts-generator');
