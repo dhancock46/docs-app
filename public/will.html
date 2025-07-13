@@ -131,39 +131,6 @@
         </div>
     </div>
     
-    <!-- Spouse's children from prior relationship -->
-    <div class="form-group">
-        <label>Does your spouse have children from a prior relationship? *</label>
-        <div class="radio-group">
-            <div class="radio-item">
-                <input type="radio" id="hasSpousePriorChildrenYes" name="hasSpousePriorChildren" value="yes" onchange="toggleSpousePriorChildren()">
-                <label for="hasSpousePriorChildrenYes">Yes</label>
-            </div>
-            <div class="radio-item">
-                <input type="radio" id="hasSpousePriorChildrenNo" name="hasSpousePriorChildren" value="no" onchange="toggleSpousePriorChildren()">
-                <label for="hasSpousePriorChildrenNo">No</label>
-            </div>
-        </div>
-    </div>
-
-    <div class="form-group hidden" id="spousePriorChildrenDetails">
-        <h4>Spouse's Children from Prior Relationship</h4>
-        <div id="spousePriorChildrenList">
-            <div class="child-entry">
-                <div class="form-group">
-                    <label for="spousePriorChild1Name">Child's Full Name</label>
-                    <input type="text" id="spousePriorChild1Name" name="spousePriorChildName[]" class="child-name">
-                </div>
-                <div class="form-group">
-                    <label for="spousePriorChild1Birthday">Date of Birth</label>
-                    <input type="text" id="spousePriorChild1Birthday" name="spousePriorChildBirthday[]" placeholder="Month Day, Year">
-                </div>
-            </div>
-        </div>
-        <button type="button" class="add-child-btn" onclick="addSpousePriorChild()">+ Add Another Child</button>
-    </div>
-</div>
-
                 <!-- Children Section -->
                 <div class="form-section">
                     <h3>Children Information</h3>
@@ -287,7 +254,41 @@
                         </div>
                     </div>
                 </div>
+ <!-- Spouse's Prior Children Section (for married users only) -->
+                <div class="form-section hidden" id="spousePriorChildrenSection">
+                    <h3>Spouse's Children</h3>
+                    
+                    <div class="form-group">
+                        <label>Does your spouse have children from a prior relationship? *</label>
+                        <div class="radio-group">
+                            <div class="radio-item">
+                                <input type="radio" id="hasSpousePriorChildrenYes2" name="hasSpousePriorChildren" value="yes" onchange="toggleSpousePriorChildren()">
+                                <label for="hasSpousePriorChildrenYes2">Yes</label>
+                            </div>
+                            <div class="radio-item">
+                                <input type="radio" id="hasSpousePriorChildrenNo2" name="hasSpousePriorChildren" value="no" onchange="toggleSpousePriorChildren()">
+                                <label for="hasSpousePriorChildrenNo2">No</label>
+                            </div>
+                        </div>
+                    </div>
 
+                    <div class="form-group hidden" id="spousePriorChildrenDetails2">
+                        <h4>Spouse's Children from Prior Relationship</h4>
+                        <div id="spousePriorChildrenList2">
+                            <div class="child-entry">
+                                <div class="form-group">
+                                    <label for="spousePriorChild1Name2">Child's Full Name</label>
+                                    <input type="text" id="spousePriorChild1Name2" name="spousePriorChildName[]" class="child-name">
+                                </div>
+                                <div class="form-group">
+                                    <label for="spousePriorChild1Birthday2">Date of Birth</label>
+                                    <input type="text" id="spousePriorChild1Birthday2" name="spousePriorChildBirthday[]" placeholder="Month Day, Year">
+                                </div>
+                            </div>
+                        </div>
+                        <button type="button" class="add-child-btn" onclick="addSpousePriorChild()">+ Add Another Child</button>
+                    </div>
+                </div>
                 <button type="submit" class="submit-btn">Continue to Next Section</button>
 
                 <div class="loading-message" id="loadingMessage">
