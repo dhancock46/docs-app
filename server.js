@@ -79,64 +79,84 @@ app.use('/submit', guardiansRoutes);
 
 // Test route for will generation
 app.get('/test-will', async (req, res) => {
+    let debugLog = [];
+    
     try {
+        debugLog.push('Starting will generation test...');
+        
         const { generateGiftsSection } = require('./generators/gifts-generator');
+        debugLog.push('✅ Gifts generator loaded');
+        
         const { generateRemainingEstateSection } = require('./generators/remaining-estate-generator');
+        debugLog.push('✅ Remaining estate generator loaded');
         
         const testData = {
             testatorName: 'John Smith',
-            email: 'john@email.com',
             maritalStatus: 'married',
             spouseName: 'Jane Smith',
             spouseGender: 'female',
-            hasChildren: 'yes',
-            hasMultipleChildren: true,
-            hasMinorChildren: true,
-            blendedFamily: 'yes',
-            currentMarriageChildren: [
-                { name: 'Michael Smith', birthday: 'January 15, 2015' },
-                { name: 'Sarah Smith', birthday: 'March 22, 2018' }
-            ],
-            spousePriorChildren: [
-                { name: 'Emma Wilson', birthday: 'August 5, 2014' }
-            ],
-            createTrust: true,
-            trustType: 'common',
-            trustEndAge: 25,
-            selectedGiftTypes: ['specificPersonGifts', 'charitableGifts'],
+            primaryDistributee: 'combinedChildren',
+            alternativeDistributee: 'parents',
+            selectedGiftTypes: ['specificPersonGifts'],
             specificGifts: [{
                 description: '$10,000',
                 recipient: 'Robert Smith',
-                relationship: 'my brother',
-                survivalCondition: 'no'
-            }],
-            charitableGifts: [{
-                description: '$5,000',
-                recipient: 'American Red Cross',
-                survivalCondition: 'no'
-            }],
-            primaryDistributee: 'combinedChildren',
-            alternativeDistributee: 'parents'
+                relationship: 'my brother'
+            }]
         };
-
-        console.log('Testing will generation...');
+        debugLog.push('✅ Test data created');
         
+        // Test gifts section
+        debugLog.push('Testing gifts section...');
         const gifts = generateGiftsSection(testData);
+        debugLog.push(`Gifts result type: ${typeof gifts}`);
+        debugLog.push(`Gifts is array: ${Array.isArray(gifts)}`);
+        debugLog.push(`Gifts length: ${gifts ? gifts.length : 'undefined'}`);
+        
+        // Test remaining estate section
+        debugLog.push('Testing remaining estate section...');
         const estate = generateRemainingEstateSection(testData);
+        debugLog.push(`Estate result type: ${typeof estate}`);
+        debugLog.push(`Estate is array: ${Array.isArray(estate)}`);
+        debugLog.push(`Estate length: ${estate ? estate.length : 'undefined'}`);
         
-        const giftsText = gifts.map(p => 
-            p.children.map(c => c.text || '').join('')
-        ).join('\n\n');
+        let giftsText = 'No gifts generated';
+        let estateText = 'No estate generated';
         
-        const estateText = estate.map(p => 
-            p.children.map(c => c.text || '').join('')
-        ).join('\n\n');
+        if (Array.isArray(gifts) && gifts.length > 0) {
+            debugLog.push('Processing gifts paragraphs...');
+            giftsText = gifts.map((p, i) => {
+                debugLog.push(`Gift paragraph ${i}: ${p ? 'exists' : 'null'}`);
+                if (p && p.children) {
+                    debugLog.push(`Gift paragraph ${i} has ${p.children.length} children`);
+                    return p.children.map(c => c.text || '').join('');
+                }
+                return 'Invalid paragraph';
+            }).join('\n\n');
+        }
+        
+        if (Array.isArray(estate) && estate.length > 0) {
+            debugLog.push('Processing estate paragraphs...');
+            estateText = estate.map((p, i) => {
+                debugLog.push(`Estate paragraph ${i}: ${p ? 'exists' : 'null'}`);
+                if (p && p.children) {
+                    debugLog.push(`Estate paragraph ${i} has ${p.children.length} children`);
+                    return p.children.map(c => c.text || '').join('');
+                }
+                return 'Invalid paragraph';
+            }).join('\n\n');
+        }
 
         res.send(`
             <html>
             <head><title>Will Generation Test</title></head>
             <body style="font-family: Arial; margin: 20px; line-height: 1.6;">
                 <h1>Will Generation Test Results</h1>
+                
+                <h2>DEBUG LOG:</h2>
+                <div style="border: 1px solid #333; padding: 15px; background: #000; color: #0f0; font-family: monospace; white-space: pre-wrap;">
+${debugLog.join('\n')}
+                </div>
                 
                 <h2>GIFTS SECTION:</h2>
                 <div style="border: 1px solid #ccc; padding: 15px; background: #f9f9f9; white-space: pre-wrap;">
@@ -147,20 +167,21 @@ ${giftsText}
                 <div style="border: 1px solid #ccc; padding: 15px; background: #f9f9f9; white-space: pre-wrap;">
 ${estateText}
                 </div>
-                
-                <p><strong>Status:</strong> ✅ Test completed successfully!</p>
             </body>
             </html>
         `);
         
     } catch (error) {
-        console.error('Test error:', error);
+        debugLog.push(`❌ ERROR: ${error.message}`);
+        debugLog.push(`Stack: ${error.stack}`);
+        
         res.status(500).send(`
             <html>
             <body style="font-family: Arial; margin: 20px;">
                 <h1>❌ Test Error</h1>
-                <p style="color: red;"><strong>Error:</strong> ${error.message}</p>
-                <pre style="background: #f0f0f0; padding: 10px;">${error.stack}</pre>
+                <div style="border: 1px solid #333; padding: 15px; background: #000; color: #f00; font-family: monospace; white-space: pre-wrap;">
+${debugLog.join('\n')}
+                </div>
             </body>
             </html>
         `);
