@@ -1093,3 +1093,110 @@ function continueToExecutors() {
     const urlParams = new URLSearchParams(window.location.search);
     window.location.href = `per-rep.html?${urlParams.toString()}`;
 }
+// Show alternate trust options when children are selected as alternate beneficiaries
+function showAlternateTrustOptions() {
+    let altTrustOptionsGroup = document.getElementById('alternateTrustOptionsGroup');
+    
+    // Create trust options if they don't exist
+    if (!altTrustOptionsGroup) {
+        const alternativeSection = document.getElementById('alternativeBeneficiariesSection');
+        const altTrustOptionsHTML = `
+            <div class="form-group" id="alternateTrustOptionsGroup">
+                <label>How should your children receive the inheritance as alternate beneficiaries? *</label>
+                <div class="radio-group">
+                    <div class="radio-item">
+                        <input type="radio" id="altDistributionOutright" name="altDistributionType" value="outright" onchange="hideAlternateTrustDetails()">
+                        <label for="altDistributionOutright">Outright distribution (no trust)</label>
+                    </div>
+                    <div class="radio-item">
+                        <input type="radio" id="altDistributionTrust" name="altDistributionType" value="trust" onchange="showAlternateTrustDetails()">
+                        <label for="altDistributionTrust">In trust</label>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="form-group" id="alternateTrustDetailsGroup" style="display: none;">
+                ${window.childCount === 1 ? 
+                    `<div class="form-group">
+                        <label for="altSingleTrustAge">At what age should the trust end? *</label>
+                        <input type="number" id="altSingleTrustAge" name="altSingleTrustAge" min="18" max="50" placeholder="25">
+                        <small>Enter age between 18 and 50</small>
+                    </div>` 
+                    : 
+                    `<div class="form-group">
+                        <label>Trust structure for multiple children as alternates *</label>
+                        <div class="radio-group">
+                            <div class="radio-item">
+                                <input type="radio" id="altSeparateTrusts" name="altTrustStructure" value="separate" onchange="showAltSeparateTrustAge()">
+                                <label for="altSeparateTrusts">Separate trust for each child</label>
+                            </div>
+                            <div class="radio-item">
+                                <input type="radio" id="altCommonTrust" name="altTrustStructure" value="common" onchange="showAltCommonTrustAge()">
+                                <label for="altCommonTrust">One common trust for all children</label>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group" id="altSeparateTrustAgeGroup" style="display: none;">
+                        <label for="altSeparateTrustAge">At what age should each child's trust end? *</label>
+                        <input type="number" id="altSeparateTrustAge" name="altSeparateTrustAge" min="18" max="50" placeholder="25">
+                        <small>Enter age between 18 and 50</small>
+                    </div>
+                    
+                    <div class="form-group" id="altCommonTrustAgeGroup" style="display: none;">
+                        <label for="altCommonTrustAge">At what age of the youngest child should the common trust end? *</label>
+                        <input type="number" id="altCommonTrustAge" name="altCommonTrustAge" min="18" max="50" placeholder="25">
+                        <small>Enter age between 18 and 50</small>
+                    </div>`
+                }
+            </div>
+        `;
+        
+        alternativeSection.insertAdjacentHTML('beforeend', altTrustOptionsHTML);
+    } else {
+        altTrustOptionsGroup.style.display = 'block';
+    }
+}
+
+// Hide alternate trust options
+function hideAlternateTrustOptions() {
+    const altTrustOptionsGroup = document.getElementById('alternateTrustOptionsGroup');
+    if (altTrustOptionsGroup) {
+        altTrustOptionsGroup.style.display = 'none';
+    }
+    hideAlternateTrustDetails();
+}
+
+// Show alternate trust details
+function showAlternateTrustDetails() {
+    const altTrustDetailsGroup = document.getElementById('alternateTrustDetailsGroup');
+    if (altTrustDetailsGroup) {
+        altTrustDetailsGroup.style.display = 'block';
+    }
+}
+
+// Hide alternate trust details
+function hideAlternateTrustDetails() {
+    const altTrustDetailsGroup = document.getElementById('alternateTrustDetailsGroup');
+    if (altTrustDetailsGroup) {
+        altTrustDetailsGroup.style.display = 'none';
+    }
+    
+    // Also hide specific trust age groups
+    const altSeparateTrustAgeGroup = document.getElementById('altSeparateTrustAgeGroup');
+    const altCommonTrustAgeGroup = document.getElementById('altCommonTrustAgeGroup');
+    if (altSeparateTrustAgeGroup) altSeparateTrustAgeGroup.style.display = 'none';
+    if (altCommonTrustAgeGroup) altCommonTrustAgeGroup.style.display = 'none';
+}
+
+// Show alternate separate trust age input
+function showAltSeparateTrustAge() {
+    document.getElementById('altSeparateTrustAgeGroup').style.display = 'block';
+    document.getElementById('altCommonTrustAgeGroup').style.display = 'none';
+}
+
+// Show alternate common trust age input
+function showAltCommonTrustAge() {
+    document.getElementById('altCommonTrustAgeGroup').style.display = 'block';
+    document.getElementById('altSeparateTrustAgeGroup').style.display = 'none';
+}
