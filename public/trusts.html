@@ -1,1 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trust Provisions - Estate Planning</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <div class="container">
+        <div class="form-container">
+            <h1>Trust Provisions</h1>
+            <p>Configure trust arrangements for minor children and beneficiaries.</p>
 
+            <form id="trustsForm">
+                <!-- Trust Creation Section -->
+                <div class="form-section">
+                    <h3>Trust Creation</h3>
+                    <div class="form-group">
+                        <label>Do you want to create trusts for minor children? *</label>
+                        <div class="radio-group">
+                            <div class="radio-item">
+                                <input type="radio" id="createTrustYes" name="createTrust" value="yes" onchange="toggleTrustSections()" required>
+                                <label for="createTrustYes">Yes, create trusts</label>
+                            </div>
+                            <div class="radio-item">
+                                <input type="radio" id="createTrustNo" name="createTrust" value="no" onchange="toggleTrustSections()" required>
+                                <label for="createTrustNo">No trusts needed</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Trust Configuration (hidden until createTrust = yes) -->
+                <div class="form-section hidden" id="trustConfigSection">
+                    <!-- Trust Type Selection -->
+                    <div class="form-group">
+                        <h4>Trust Type</h4>
+                        <div class="form-group">
+                            <label>What type of trust arrangement do you prefer? *</label>
+                            <div class="radio-group">
+                                <div class="radio-item">
+                                    <input type="radio" id="trustTypeCommon" name="trustType" value="common" onchange="toggleTrustTypeDetails()">
+                                    <label for="trustTypeCommon">Common Trust (all children share one trust) 💡</label>
+                                </div>
+                                <div class="radio-item">
+                                    <input type="radio" id="trustTypeSeparate" name="trustType" value="separate" onchange="toggleTrustTypeDetails()">
+                                    <label for="trustTypeSeparate">Separate Trusts (each child gets their own trust) 💡</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Trust End Age -->
+                    <div class="form-group">
+                        <label for="trustEndAge">At what age should the trust(s) end? *</label>
+                        <input type="number" id="trustEndAge" name="trustEndAge" min="18" max="50" value="25" placeholder="25">
+                        <small>Enter age between 18 and 50. Most people choose 25-30.</small>
+                    </div>
+
+                    <!-- Trustee Selection -->
+                    <div class="form-group">
+                        <h4>Trustee Selection</h4>
+                        <div class="form-group">
+                            <label>How do you want to structure trustee appointments? *</label>
+                            <div class="radio-group">
+                                <div class="radio-item">
+                                    <input type="radio" id="trusteeStructureSingle" name="trusteeStructure" value="single" onchange="toggleTrusteeStructure()">
+                                    <label for="trusteeStructureSingle">Single Trustee</label>
+                                </div>
+                                <div class="radio-item">
+                                    <input type="radio" id="trusteeStructureCo" name="trusteeStructure" value="co-trustees" onchange="toggleTrusteeStructure()">
+                                    <label for="trusteeStructureCo">Co-Trustees</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Single Trustee Section -->
+                    <div class="form-group hidden" id="singleTrusteeSection">
+                        <div class="form-group">
+                            <label for="primaryTrustee">Primary Trustee Name *</label>
+                            <input type="text" id="primaryTrustee" name="primaryTrustee" placeholder="Full legal name">
+                        </div>
+                        <div class="form-group">
+                            <label for="primaryTrusteeRelationship">Relationship to you</label>
+                            <input type="text" id="primaryTrusteeRelationship" name="primaryTrusteeRelationship" placeholder="e.g., my brother, my friend">
+                        </div>
+                    </div>
+
+                    <!-- Co-Trustees Section -->
+                    <div class="form-group hidden" id="coTrusteesSection">
+                        <div class="trustee-entry">
+                            <h5>First Co-Trustee</h5>
+                            <div class="form-group">
+                                <label for="coTrustee1Name">Full Name *</label>
+                                <input type="text" id="coTrustee1Name" name="coTrustee1Name" placeholder="Full legal name">
+                            </div>
+                            <div class="form-group">
+                                <label for="coTrustee1Relationship">Relationship to you</label>
+                                <input type="text" id="coTrustee1Relationship" name="coTrustee1Relationship" placeholder="e.g., my sister">
+                            </div>
+                        </div>
+                        <div class="trustee-entry">
+                            <h5>Second Co-Trustee</h5>
+                            <div class="form-group">
+                                <label for="coTrustee2Name">Full Name *</label>
+                                <input type="text" id="coTrustee2Name" name="coTrustee2Name" placeholder="Full legal name">
+                            </div>
+                            <div class="form-group">
+                                <label for="coTrustee2Relationship">Relationship to you</label>
+                                <input type="text" id="coTrustee2Relationship" name="coTrustee2Relationship" placeholder="e.g., my friend">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Alternate Trustees -->
+                    <div class="form-group">
+                        <h5>Alternate Trustees</h5>
+                        <div id="alternateTrusteesList">
+                            <div class="trustee-entry">
+                                <h6>Alternate Trustee #1</h6>
+                                <div class="form-group">
+                                    <label for="alternateTrustee1Name">Full Name</label>
+                                    <input type="text" id="alternateTrustee1Name" name="alternateTrusteeName[]" placeholder="Full legal name (optional)">
+                                </div>
+                                <div class="form-group">
+                                    <label for="alternateTrustee1Relationship">Relationship to you</label>
+                                    <input type="text" id="alternateTrustee1Relationship" name="alternateTrusteeRelationship[]" placeholder="e.g., my cousin">
+                                </div>
+                            </div>
+                        </div>
+                        <button type="button" onclick="addAlternateTrustee()" class="add-btn">Add Another Alternate Trustee</button>
+                    </div>
+                </div>
+
+                <!-- Prior Children Trust Section (for married with prior children) -->
+                <div class="form-section hidden" id="priorChildrenTrustSection">
+                    <h3>Trust for Children from Prior Relationship</h3>
+                    <div class="form-group">
+                        <label>Do you want to create a separate trust for your children from a prior relationship? *</label>
+                        <div class="radio-group">
+                            <div class="radio-item">
+                                <input type="radio" id="priorChildrenTrustYes" name="priorChildrenTrust" value="yes" onchange="togglePriorChildrenTrustDetails()">
+                                <label for="priorChildrenTrustYes">Yes, create separate trust</label>
+                            </div>
+                            <div class="radio-item">
+                                <input type="radio" id="priorChildrenTrustNo" name="priorChildrenTrust" value="no" onchange="togglePriorChildrenTrustDetails()">
+                                <label for="priorChildrenTrustNo">No, include in main trust provisions</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Prior Children Trust Details -->
+                    <div class="form-group hidden" id="priorChildrenTrustDetails">
+                        <div class="form-group">
+                            <label for="priorChildrenTrustEndAge">At what age should this trust end?</label>
+                            <input type="number" id="priorChildrenTrustEndAge" name="priorChildrenTrustEndAge" min="18" max="50" value="25" placeholder="25">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="priorChildrenTrustPrimaryTrustee">Primary Trustee for Prior Children Trust *</label>
+                            <input type="text" id="priorChildrenTrustPrimaryTrustee" name="priorChildrenTrustPrimaryTrustee" placeholder="Full legal name">
+                        </div>
+
+                        <div class="form-group">
+                            <h5>Alternate Trustees for Prior Children Trust</h5>
+                            <div id="priorChildrenAlternateTrusteesList">
+                                <div class="trustee-entry">
+                                    <div class="form-group">
+                                        <label for="priorChildrenAlternateTrustee1">Alternate Trustee #1</label>
+                                        <input type="text" id="priorChildrenAlternateTrustee1" name="priorChildrenAlternateTrusteeName[]" placeholder="Full legal name (optional)">
+                                    </div>
+                                </div>
+                            </div>
+                            <button type="button" onclick="addPriorChildrenAlternateTrustee()" class="add-btn">Add Another Alternate Trustee</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Summary Section -->
+                <div class="form-section">
+                    <h3>Summary</h3>
+                    <div id="trustsSummary" style="display: none;">
+                        <!-- Summary will be populated by JavaScript -->
+                    </div>
+                </div>
+
+                <button type="submit" class="submit-btn">Continue to Next Section</button>
+
+                <div class="loading-message" id="loadingMessage">
+                    <h4>Processing...</h4>
+                    <p>Please wait while we process your trust information.</p>
+                </div>
+
+                <div class="success-message" id="successMessage">
+                    <h4>✅ Success!</h4>
+                    <p>Your trust information has been saved. Continue to the next section.</p>
+                </div>
+
+                <div class="error-message" id="errorMessage">
+                    <h4>❌ Error</h4>
+                    <p>There was an error processing your information. Please check your entries and try again.</p>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="js/trusts.js"></script>
+
+    <!-- Help Popups -->
+    <div class="help-overlay" id="helpOverlay" onclick="closeHelp()"></div>
+    <div class="help-popup" id="commonTrustHelp">
+        <h4>Common Trust</h4>
+        <p>This trust is designed to manage money for younger children born or adopted of the current marriage. It holds assets until the youngest child reaches a specified age, usually early to mid-20s, at which time the trust terminates and the trust assets are distributed to the children for whom the trust was established.</p>
+        <p><strong>Pros:</strong> Keeps money in one pool that can go where most needed among your children.</p>
+        <p><strong>Cons:</strong> No child can access their inheritance until the youngest reaches the specified age.</p>
+        <button class="help-close" onclick="closeHelp()">Close</button>
+    </div>
+    <div class="help-popup" id="separateTrustHelp">
+        <h4>Separate Trusts for Children</h4>
+        <p>This option splits your remaining estate equally among the children, with each child getting their own separate trust.</p>
+        <p><strong>How it works:</strong> Each child gets their own trust that ends when they reach a certain age which you specify, at which point they receive all the money from their trust.</p>
+        <p><strong>Pros:</strong> Each child can access their inheritance when they reach the age you specify.</p>
+        <p><strong>Cons:</strong> Your estate gets divided immediately when you die. If one child later has a major expense, they can only use their portion.</p>
+        <button class="help-close" onclick="closeHelp()">Close</button>
+    </div>
+</body>
+</html>
