@@ -27,13 +27,11 @@ function toggleMaritalSections() {
     const spouseSection = document.getElementById('spouseSection');
     const marriedChildrenSection = document.getElementById('marriedChildrenSection');
     const singleChildrenSection = document.getElementById('singleChildrenSection');
-    const spousePriorChildrenSection = document.getElementById('spousePriorChildrenSection');
     
     if (maritalStatus === 'married') {
         spouseSection.classList.remove('hidden');
         marriedChildrenSection.classList.remove('hidden');
         singleChildrenSection.classList.add('hidden');
-        spousePriorChildrenSection.classList.remove('hidden');
         
         // Make spouse fields required
         document.getElementById('spouseName').required = true;
@@ -44,7 +42,6 @@ function toggleMaritalSections() {
         spouseSection.classList.add('hidden');
         marriedChildrenSection.classList.add('hidden');
         singleChildrenSection.classList.remove('hidden');
-        spousePriorChildrenSection.classList.add('hidden');
         
         // Remove required from spouse fields
         document.getElementById('spouseName').required = false;
@@ -68,20 +65,21 @@ function toggleChildrenSection() {
     const hasChildren = document.querySelector('input[name="hasChildren"]:checked').value;
     const childrenSection = document.getElementById('childrenSection');
     const maritalStatus = document.querySelector('input[name="maritalStatus"]:checked')?.value;
+    const spousePriorChildrenSection = document.getElementById('spousePriorChildrenSection');
     
     if (hasChildren === 'yes') {
         childrenSection.classList.remove('hidden');
+        // Show spouse's prior children section for married users after they answer about their own children
+        if (maritalStatus === 'married' && spousePriorChildrenSection) {
+            spousePriorChildrenSection.classList.remove('hidden');
+        }
     } else {
         childrenSection.classList.add('hidden');
         resetChildrenSections();
         
-        // For married users who have no children, still show the spouse section
-        // so they can answer about spouse's prior children
-        if (maritalStatus === 'married') {
-            const spouseSection = document.getElementById('spouseSection');
-            if (spouseSection) {
-                spouseSection.classList.remove('hidden');
-            }
+        // Show spouse's prior children section for married users even if they have no children
+        if (maritalStatus === 'married' && spousePriorChildrenSection) {
+            spousePriorChildrenSection.classList.remove('hidden');
         }
     }
 }
