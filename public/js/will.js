@@ -252,10 +252,17 @@ function resetChildrenSections() {
     const maritalStatus = document.querySelector('input[name="maritalStatus"]:checked')?.value;
     
     // Hide all married children sections
-    document.getElementById('currentMarriageChildrenDetails').classList.add('hidden');
-    document.getElementById('priorChildrenDetails').classList.add('hidden');
-    document.getElementById('spousePriorChildrenDetails').classList.add('hidden');
-    document.getElementById('blendedFamilySection').style.display = 'none';
+    const currentMarriageDetails = document.getElementById('currentMarriageChildrenDetails');
+    const priorChildrenDetails = document.getElementById('priorChildrenDetails');
+    const spousePriorChildrenDetails = document.getElementById('spousePriorChildrenDetails');
+    const spousePriorChildrenDetails2 = document.getElementById('spousePriorChildrenDetails2');
+    const blendedFamilySection = document.getElementById('blendedFamilySection');
+    
+    if (currentMarriageDetails) currentMarriageDetails.classList.add('hidden');
+    if (priorChildrenDetails) priorChildrenDetails.classList.add('hidden');
+    if (spousePriorChildrenDetails) spousePriorChildrenDetails.classList.add('hidden');
+    if (spousePriorChildrenDetails2) spousePriorChildrenDetails2.classList.add('hidden');
+    if (blendedFamilySection) blendedFamilySection.style.display = 'none';
     
     // Clear all radio selections
     document.querySelectorAll('input[name="hasCurrentMarriageChildren"]').forEach(radio => {
