@@ -77,6 +77,96 @@ app.use('/submit', remainingEstateRoutes);
 app.use('/submit', perRepRoutes);
 app.use('/submit', guardiansRoutes);
 
+// Test route for will generation
+app.get('/test-will', async (req, res) => {
+    try {
+        const { generateGiftsSection } = require('./generators/gifts-generator');
+        const { generateRemainingEstateSection } = require('./generators/remaining-estate-generator');
+        
+        const testData = {
+            testatorName: 'John Smith',
+            email: 'john@email.com',
+            maritalStatus: 'married',
+            spouseName: 'Jane Smith',
+            spouseGender: 'female',
+            hasChildren: 'yes',
+            hasMultipleChildren: true,
+            hasMinorChildren: true,
+            blendedFamily: 'yes',
+            currentMarriageChildren: [
+                { name: 'Michael Smith', birthday: 'January 15, 2015' },
+                { name: 'Sarah Smith', birthday: 'March 22, 2018' }
+            ],
+            spousePriorChildren: [
+                { name: 'Emma Wilson', birthday: 'August 5, 2014' }
+            ],
+            createTrust: true,
+            trustType: 'common',
+            trustEndAge: 25,
+            selectedGiftTypes: ['specificPersonGifts', 'charitableGifts'],
+            specificGifts: [{
+                description: '$10,000',
+                recipient: 'Robert Smith',
+                relationship: 'my brother',
+                survivalCondition: 'no'
+            }],
+            charitableGifts: [{
+                description: '$5,000',
+                recipient: 'American Red Cross',
+                survivalCondition: 'no'
+            }],
+            primaryDistributee: 'combinedChildren',
+            alternativeDistributee: 'parents'
+        };
+
+        console.log('Testing will generation...');
+        
+        const gifts = generateGiftsSection(testData);
+        const estate = generateRemainingEstateSection(testData);
+        
+        const giftsText = gifts.map(p => 
+            p.children.map(c => c.text || '').join('')
+        ).join('\n\n');
+        
+        const estateText = estate.map(p => 
+            p.children.map(c => c.text || '').join('')
+        ).join('\n\n');
+
+        res.send(`
+            <html>
+            <head><title>Will Generation Test</title></head>
+            <body style="font-family: Arial; margin: 20px; line-height: 1.6;">
+                <h1>Will Generation Test Results</h1>
+                
+                <h2>GIFTS SECTION:</h2>
+                <div style="border: 1px solid #ccc; padding: 15px; background: #f9f9f9; white-space: pre-wrap;">
+${giftsText}
+                </div>
+                
+                <h2>REMAINING ESTATE SECTION:</h2>
+                <div style="border: 1px solid #ccc; padding: 15px; background: #f9f9f9; white-space: pre-wrap;">
+${estateText}
+                </div>
+                
+                <p><strong>Status:</strong> ✅ Test completed successfully!</p>
+            </body>
+            </html>
+        `);
+        
+    } catch (error) {
+        console.error('Test error:', error);
+        res.status(500).send(`
+            <html>
+            <body style="font-family: Arial; margin: 20px;">
+                <h1>❌ Test Error</h1>
+                <p style="color: red;"><strong>Error:</strong> ${error.message}</p>
+                <pre style="background: #f0f0f0; padding: 10px;">${error.stack}</pre>
+            </body>
+            </html>
+        `);
+    }
+});
+
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
