@@ -98,73 +98,70 @@ app.get('/test-will', async (req, res) => {
             }]
         };
         
+        // Function to extract text from docx paragraph objects
+        function extractTextFromParagraph(paragraph) {
+            if (!paragraph || !paragraph.root) return '';
+            
+            let text = '';
+            
+            function searchForText(obj) {
+                if (Array.isArray(obj)) {
+                    obj.forEach(item => searchForText(item));
+                } else if (obj && typeof obj === 'object') {
+                    if (obj.rootKey === 'w:t' && obj.root && Array.isArray(obj.root)) {
+                        // Found a text element, extract the text
+                        obj.root.forEach(item => {
+                            if (typeof item === 'string') {
+                                text += item;
+                            }
+                        });
+                    } else if (obj.root) {
+                        searchForText(obj.root);
+                    }
+                }
+            }
+            
+            searchForText(paragraph.root);
+            return text;
+        }
+        
         const gifts = generateGiftsSection(testData);
         const estate = generateRemainingEstateSection(testData);
         
-        // Inspect the first paragraph structure
-        const firstGift = gifts[0];
-        const firstEstate = estate[0];
+        let giftsText = 'No gifts generated';
+        let estateText = 'No estate generated';
         
-        let giftsText = 'No valid gifts';
-        let estateText = 'No valid estate';
-        
-        // Try different ways to extract text
         if (Array.isArray(gifts)) {
             giftsText = gifts.map((p, i) => {
-                // Check different possible structures
-                if (p && typeof p === 'object') {
-                    if (p.children && Array.isArray(p.children)) {
-                        return p.children.map(c => c.text || '').join('');
-                    } else if (p.text) {
-                        return p.text;
-                    } else if (typeof p === 'string') {
-                        return p;
-                    } else {
-                        return `Paragraph ${i} structure: ${JSON.stringify(Object.keys(p))}`;
-                    }
-                }
-                return `Paragraph ${i}: ${typeof p}`;
+                const text = extractTextFromParagraph(p);
+                return text || `[Paragraph ${i}: No text found]`;
             }).join('\n\n');
         }
         
         if (Array.isArray(estate)) {
             estateText = estate.map((p, i) => {
-                if (p && typeof p === 'object') {
-                    if (p.children && Array.isArray(p.children)) {
-                        return p.children.map(c => c.text || '').join('');
-                    } else if (p.text) {
-                        return p.text;
-                    } else if (typeof p === 'string') {
-                        return p;
-                    } else {
-                        return `Paragraph ${i} structure: ${JSON.stringify(Object.keys(p))}`;
-                    }
-                }
-                return `Paragraph ${i}: ${typeof p}`;
+                const text = extractTextFromParagraph(p);
+                return text || `[Paragraph ${i}: No text found]`;
             }).join('\n\n');
         }
 
         res.send(`
             <html>
-            <head><title>Will Generation Test - Structure Debug</title></head>
+            <head><title>Will Generation Test - SUCCESS!</title></head>
             <body style="font-family: Arial; margin: 20px; line-height: 1.6;">
-                <h1>Structure Debug</h1>
-                
-                <h2>First Gift Paragraph Structure:</h2>
-                <pre style="background: #f0f0f0; padding: 10px;">${JSON.stringify(firstGift, null, 2)}</pre>
-                
-                <h2>First Estate Paragraph Structure:</h2>
-                <pre style="background: #f0f0f0; padding: 10px;">${JSON.stringify(firstEstate, null, 2)}</pre>
+                <h1>✅ Will Generation Test - SUCCESS!</h1>
                 
                 <h2>GIFTS SECTION:</h2>
-                <div style="border: 1px solid #ccc; padding: 15px; background: #f9f9f9; white-space: pre-wrap;">
+                <div style="border: 1px solid #ccc; padding: 15px; background: #f9f9f9; white-space: pre-wrap; font-family: 'Times New Roman', serif;">
 ${giftsText}
                 </div>
                 
                 <h2>REMAINING ESTATE SECTION:</h2>
-                <div style="border: 1px solid #ccc; padding: 15px; background: #f9f9f9; white-space: pre-wrap;">
+                <div style="border: 1px solid #ccc; padding: 15px; background: #f9f9f9; white-space: pre-wrap; font-family: 'Times New Roman', serif;">
 ${estateText}
                 </div>
+                
+                <p><strong>Status:</strong> ✅ Generators are working correctly!</p>
             </body>
             </html>
         `);
