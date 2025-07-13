@@ -246,6 +246,8 @@ function clearChildrenInputs(inputName) {
 
 // Reset all children sections
 function resetChildrenSections() {
+    const maritalStatus = document.querySelector('input[name="maritalStatus"]:checked')?.value;
+    
     // Hide all married children sections
     document.getElementById('currentMarriageChildrenDetails').classList.add('hidden');
     document.getElementById('priorChildrenDetails').classList.add('hidden');
@@ -275,6 +277,9 @@ function resetChildrenSections() {
     clearChildrenInputs('priorChildBirthday[]');
     clearChildrenInputs('spousePriorChildName[]');
     clearChildrenInputs('spousePriorChildBirthday[]');
+    
+    // DON'T hide spouse section for married users - they still need to answer spouse questions
+    // The spouse section should remain visible for married users even if they have no children
 }
 
 // Help system functions
