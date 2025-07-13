@@ -293,7 +293,7 @@
             <label for="altSiblings">My siblings equally</label>
         </div>
         <div class="radio-item" id="altChildrenOption" style="display: none;">
-            <input type="radio" id="altChildren" name="alternativeBeneficiaries" value="children">
+            <input type="radio" id="altChildren" name="alternativeBeneficiaries" value="children" onchange="showAlternateTrustOptions(); updateDistributionSummary()">
             <label for="altChildren">My children equally</label>
         </div>
         <div class="radio-item" id="altCharityOption">
