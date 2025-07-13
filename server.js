@@ -76,6 +76,7 @@ app.use('/submit', giftsRoutes);
 app.use('/submit', remainingEstateRoutes);
 app.use('/submit', perRepRoutes);
 app.use('/submit', guardiansRoutes);
+app.use('/submit', require('./routes/trusts'));
 
 
 
