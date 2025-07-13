@@ -119,7 +119,7 @@ function togglePriorChildren() {
 // Toggle spouse prior children
 function toggleSpousePriorChildren() {
     const hasSpousePriorChildren = document.querySelector('input[name="hasSpousePriorChildren"]:checked');
-    const spousePriorChildrenDetails = document.getElementById('spousePriorChildrenDetails');
+    const spousePriorChildrenDetails = document.getElementById('spousePriorChildrenDetails2'); // CHANGED TO spousePriorChildrenDetails2
     
     if (hasSpousePriorChildren && hasSpousePriorChildren.value === 'yes') {
         spousePriorChildrenDetails.classList.remove('hidden');
@@ -131,7 +131,6 @@ function toggleSpousePriorChildren() {
     
     checkBlendedFamilyVisibility();
 }
-
 // Check if blended family question should be visible
 function checkBlendedFamilyVisibility() {
     const hasPriorChildren = document.querySelector('input[name="hasPriorChildren"]:checked');
