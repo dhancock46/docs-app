@@ -79,16 +79,9 @@ app.use('/submit', guardiansRoutes);
 
 // Test route for will generation
 app.get('/test-will', async (req, res) => {
-    let debugLog = [];
-    
     try {
-        debugLog.push('Starting will generation test...');
-        
         const { generateGiftsSection } = require('./generators/gifts-generator');
-        debugLog.push('✅ Gifts generator loaded');
-        
         const { generateRemainingEstateSection } = require('./generators/remaining-estate-generator');
-        debugLog.push('✅ Remaining estate generator loaded');
         
         const testData = {
             testatorName: 'John Smith',
@@ -104,59 +97,64 @@ app.get('/test-will', async (req, res) => {
                 relationship: 'my brother'
             }]
         };
-        debugLog.push('✅ Test data created');
         
-        // Test gifts section
-        debugLog.push('Testing gifts section...');
         const gifts = generateGiftsSection(testData);
-        debugLog.push(`Gifts result type: ${typeof gifts}`);
-        debugLog.push(`Gifts is array: ${Array.isArray(gifts)}`);
-        debugLog.push(`Gifts length: ${gifts ? gifts.length : 'undefined'}`);
-        
-        // Test remaining estate section
-        debugLog.push('Testing remaining estate section...');
         const estate = generateRemainingEstateSection(testData);
-        debugLog.push(`Estate result type: ${typeof estate}`);
-        debugLog.push(`Estate is array: ${Array.isArray(estate)}`);
-        debugLog.push(`Estate length: ${estate ? estate.length : 'undefined'}`);
         
-        let giftsText = 'No gifts generated';
-        let estateText = 'No estate generated';
+        // Inspect the first paragraph structure
+        const firstGift = gifts[0];
+        const firstEstate = estate[0];
         
-        if (Array.isArray(gifts) && gifts.length > 0) {
-            debugLog.push('Processing gifts paragraphs...');
+        let giftsText = 'No valid gifts';
+        let estateText = 'No valid estate';
+        
+        // Try different ways to extract text
+        if (Array.isArray(gifts)) {
             giftsText = gifts.map((p, i) => {
-                debugLog.push(`Gift paragraph ${i}: ${p ? 'exists' : 'null'}`);
-                if (p && p.children) {
-                    debugLog.push(`Gift paragraph ${i} has ${p.children.length} children`);
-                    return p.children.map(c => c.text || '').join('');
+                // Check different possible structures
+                if (p && typeof p === 'object') {
+                    if (p.children && Array.isArray(p.children)) {
+                        return p.children.map(c => c.text || '').join('');
+                    } else if (p.text) {
+                        return p.text;
+                    } else if (typeof p === 'string') {
+                        return p;
+                    } else {
+                        return `Paragraph ${i} structure: ${JSON.stringify(Object.keys(p))}`;
+                    }
                 }
-                return 'Invalid paragraph';
+                return `Paragraph ${i}: ${typeof p}`;
             }).join('\n\n');
         }
         
-        if (Array.isArray(estate) && estate.length > 0) {
-            debugLog.push('Processing estate paragraphs...');
+        if (Array.isArray(estate)) {
             estateText = estate.map((p, i) => {
-                debugLog.push(`Estate paragraph ${i}: ${p ? 'exists' : 'null'}`);
-                if (p && p.children) {
-                    debugLog.push(`Estate paragraph ${i} has ${p.children.length} children`);
-                    return p.children.map(c => c.text || '').join('');
+                if (p && typeof p === 'object') {
+                    if (p.children && Array.isArray(p.children)) {
+                        return p.children.map(c => c.text || '').join('');
+                    } else if (p.text) {
+                        return p.text;
+                    } else if (typeof p === 'string') {
+                        return p;
+                    } else {
+                        return `Paragraph ${i} structure: ${JSON.stringify(Object.keys(p))}`;
+                    }
                 }
-                return 'Invalid paragraph';
+                return `Paragraph ${i}: ${typeof p}`;
             }).join('\n\n');
         }
 
         res.send(`
             <html>
-            <head><title>Will Generation Test</title></head>
+            <head><title>Will Generation Test - Structure Debug</title></head>
             <body style="font-family: Arial; margin: 20px; line-height: 1.6;">
-                <h1>Will Generation Test Results</h1>
+                <h1>Structure Debug</h1>
                 
-                <h2>DEBUG LOG:</h2>
-                <div style="border: 1px solid #333; padding: 15px; background: #000; color: #0f0; font-family: monospace; white-space: pre-wrap;">
-${debugLog.join('\n')}
-                </div>
+                <h2>First Gift Paragraph Structure:</h2>
+                <pre style="background: #f0f0f0; padding: 10px;">${JSON.stringify(firstGift, null, 2)}</pre>
+                
+                <h2>First Estate Paragraph Structure:</h2>
+                <pre style="background: #f0f0f0; padding: 10px;">${JSON.stringify(firstEstate, null, 2)}</pre>
                 
                 <h2>GIFTS SECTION:</h2>
                 <div style="border: 1px solid #ccc; padding: 15px; background: #f9f9f9; white-space: pre-wrap;">
@@ -172,19 +170,7 @@ ${estateText}
         `);
         
     } catch (error) {
-        debugLog.push(`❌ ERROR: ${error.message}`);
-        debugLog.push(`Stack: ${error.stack}`);
-        
-        res.status(500).send(`
-            <html>
-            <body style="font-family: Arial; margin: 20px;">
-                <h1>❌ Test Error</h1>
-                <div style="border: 1px solid #333; padding: 15px; background: #000; color: #f00; font-family: monospace; white-space: pre-wrap;">
-${debugLog.join('\n')}
-                </div>
-            </body>
-            </html>
-        `);
+        res.status(500).send(`Error: ${error.message}<br><pre>${error.stack}</pre>`);
     }
 });
 
