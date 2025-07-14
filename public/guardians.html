@@ -338,23 +338,25 @@
             </div>
 
             <!-- Submit Section -->
-            
+            <div class="form-section">
+                <button type="submit" class="btn-primary">Save Guardian Nominations</button>
+            </div>
 
             <!-- Messages -->
             <div id="loadingMessage" class="message loading" style="display: none;">
                 <p>Saving guardian nominations...</p>
             </div>
 
-            <div id="errorMessage" class="message error" style="display: none;">
+           <div id="errorMessage" class="message error" style="display: none;">
                 <p>There was an error saving your guardian nominations. Please try again.</p>
             </div>
 
-        <div class="form-section">
-    <div style="display: block !important; visibility: visible !important; opacity: 1 !important; background-color: #d4edda; border: 1px solid #c3e6cb; padding: 15px; margin: 20px 0; border-radius: 5px;">
-        <p style="color: #155724; margin-bottom: 10px;">Click continue when you've completed the guardian nominations.</p>
-        <button type="button" onclick="continueToReview()" style="display: block !important; visibility: visible !important; opacity: 1 !important; background-color: #28a745; color: white; padding: 10px 20px; border: none; border-radius: 4px; cursor: pointer;">Continue to Trust Configuration →</button>
+            <div id="successMessage" class="message success" style="display: none;">
+                <p>Guardian nominations saved successfully!</p>
+                <button type="button" class="continue-btn" onclick="continueToReview()">Continue to Trust Configuration →</button>
+            </div>
+        </form>
     </div>
-</div>
 
     <script src="js/guardians.js"></script>
 </body>
