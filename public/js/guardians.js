@@ -208,9 +208,30 @@ async function handleFormSubmission(event) {
         const result = await response.json();
         loadingMessage.style.display = 'none';
         
-  if (result.success) {
+ if (result.success) {
     successMessage.style.display = 'block';
     successMessage.scrollIntoView({ behavior: 'smooth' });
+    
+    // Add continue button to success message if it doesn't exist
+    if (!successMessage.querySelector('.continue-btn')) {
+        const continueButton = document.createElement('button');
+        continueButton.type = 'button';
+        continueButton.className = 'continue-btn';
+        continueButton.textContent = 'Continue to Next Section →';
+        continueButton.onclick = function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            // Add current form data to URL parameters
+            const formData = new FormData(document.getElementById('guardiansForm'));
+            const data = Object.fromEntries(formData.entries());
+            Object.keys(data).forEach(key => {
+                if (typeof data[key] === 'string' || typeof data[key] === 'number') {
+                    urlParams.set(key, data[key]);
+                }
+            });
+            window.location.href = `trusts.html?${urlParams.toString()}`;
+        };
+        successMessage.appendChild(continueButton);
+    }
 } else {
     errorMessage.style.display = 'block';
     errorMessage.scrollIntoView({ behavior: 'smooth' });
