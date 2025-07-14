@@ -911,3 +911,31 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 });
+// Simple working submission function
+function submitAndContinue() {
+    // Basic validation
+    const structure = document.querySelector('input[name="guardianStructure"]:checked');
+    if (!structure) {
+        alert('Please select how you want to structure the guardianship');
+        return;
+    }
+    
+    if (structure.value === 'same') {
+        const guardianType = document.querySelector('input[name="guardianTypeSame"]:checked');
+        const guardianName = document.getElementById('guardianSameName').value.trim();
+        
+        if (!guardianType) {
+            alert('Please select guardian type');
+            return;
+        }
+        if (!guardianName) {
+            alert('Please enter the guardian name');
+            return;
+        }
+    }
+    
+    // Show success message
+    const successMessage = document.getElementById('successMessage');
+    successMessage.style.display = 'block';
+    successMessage.scrollIntoView({ behavior: 'smooth' });
+}
