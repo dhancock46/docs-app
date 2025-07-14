@@ -884,4 +884,4 @@ function displayGuardianshipProvisions() {
 function continueToReview() {
     const urlParams = new URLSearchParams(window.location.search);
     window.location.href = `final-review.html?${urlParams.toString()}`;
-}
+
