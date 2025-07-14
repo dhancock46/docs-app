@@ -883,5 +883,17 @@ function displayGuardianshipProvisions() {
 // Continue to next section
 function continueToReview() {
     const urlParams = new URLSearchParams(window.location.search);
-    window.location.href = `final-review.html?${urlParams.toString()}`;
-
+    
+    // Collect current form data
+    const formData = new FormData(document.getElementById('guardiansForm'));
+    const currentData = Object.fromEntries(formData.entries());
+    
+    // Add current form data to URL parameters
+    Object.keys(currentData).forEach(key => {
+        if (typeof currentData[key] === 'string' || typeof currentData[key] === 'number') {
+            urlParams.set(key, currentData[key]);
+        }
+    });
+    
+    window.location.href = `trusts.html?${urlParams.toString()}`;
+} 
