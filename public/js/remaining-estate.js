@@ -1107,7 +1107,25 @@ function showAltTrustDetails() {
     document.getElementById('altChildrenTrustDetails').style.display = 'block';
 }
 function continueToExecutors() {
+    // Collect current form data
+    const formData = new FormData(document.getElementById('remainingEstateForm'));
+    const currentData = Object.fromEntries(formData.entries());
+    
+    // Add arrays for multiple values
+    currentData.childShares = Array.from(document.querySelectorAll('input[name="childShare[]"]')).map(input => input.value);
+    currentData.childNames = Array.from(document.querySelectorAll('input[name="childName[]"]')).map(input => input.value);
+    
     const urlParams = new URLSearchParams(window.location.search);
+    
+    // Add current form data to URL parameters
+    Object.keys(currentData).forEach(key => {
+        if (typeof currentData[key] === 'string' || typeof currentData[key] === 'number') {
+            urlParams.set(key, currentData[key]);
+        } else if (Array.isArray(currentData[key])) {
+            urlParams.set(key, JSON.stringify(currentData[key]));
+        }
+    });
+    
     window.location.href = `per-rep.html?${urlParams.toString()}`;
 }
 // Show alternate trust options when children are selected as alternate beneficiaries
