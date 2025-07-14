@@ -153,47 +153,39 @@ function validateForm() {
     return { isValid: errors.length === 0, errors };
 }
 
-// Form submission handler
-async function handleFormSubmission(event) {
-    event.preventDefault();
+// Form submission - WORKING PATTERN FROM GIFTS
+document.getElementById('guardiansForm').addEventListener('submit', async function(e) {
+    e.preventDefault();
     
     const loadingMessage = document.getElementById('loadingMessage');
-    const errorMessage = document.getElementById('errorMessage');
     const successMessage = document.getElementById('successMessage');
+    const errorMessage = document.getElementById('errorMessage');
     
-    // Hide all messages
+    // Hide all messages initially
     loadingMessage.style.display = 'none';
-    errorMessage.style.display = 'none';
     successMessage.style.display = 'none';
+    errorMessage.style.display = 'none';
     
-   // Validate form
-const validation = validateForm();
-if (!validation.isValid) {
-    alert('Please correct the following errors:\n\n' + validation.errors.join('\n'));
-    return;
-}
-    
-    // Show loading
+    // Show loading message
     loadingMessage.style.display = 'block';
-    loadingMessage.scrollIntoView({ behavior: 'smooth' });
+    
+    // Collect form data
+    const formData = new FormData(this);
+    const data = Object.fromEntries(formData.entries());
+    
+    // Add document type and section
+    data.documentType = 'will';
+    data.section = 'guardians';
+    
+    // Add URL parameters
+    const urlParams = new URLSearchParams(window.location.search);
+    for (const [key, value] of urlParams) {
+        if (!data[key]) {
+            data[key] = value;
+        }
+    }
     
     try {
-        // Collect form data
-        const formData = new FormData(this);
-        const data = Object.fromEntries(formData.entries());
-        
-        // Add document type and section
-        data.documentType = 'will';
-        data.section = 'guardians';
-        
-        // Add current URL parameters to preserve data flow
-        const urlParams = new URLSearchParams(window.location.search);
-        for (const [key, value] of urlParams) {
-            if (!data[key]) {
-                data[key] = value;
-            }
-        }
-        
         const response = await fetch('/submit/guardians', {
             method: 'POST',
             headers: {
@@ -203,69 +195,22 @@ if (!validation.isValid) {
         });
         
         const result = await response.json();
+        
         loadingMessage.style.display = 'none';
         
- if (result.success) {
-    successMessage.style.display = 'block';
-    successMessage.scrollIntoView({ behavior: 'smooth' });
-    
-    // Add continue button to success message if it doesn't exist
-    if (!successMessage.querySelector('.continue-btn')) {
-        const continueButton = document.createElement('button');
-        continueButton.type = 'button';
-        continueButton.className = 'continue-btn';
-        continueButton.textContent = 'Continue to Next Section →';
-        continueButton.onclick = function() {
-            const urlParams = new URLSearchParams(window.location.search);
-            // Add current form data to URL parameters
-            const formData = new FormData(document.getElementById('guardiansForm'));
-            const data = Object.fromEntries(formData.entries());
-            Object.keys(data).forEach(key => {
-                if (typeof data[key] === 'string' || typeof data[key] === 'number') {
-                    urlParams.set(key, data[key]);
-                }
-            });
-            window.location.href = `trusts.html?${urlParams.toString()}`;
-        };
-        successMessage.appendChild(continueButton);
+        if (result.success) {
+            successMessage.style.display = 'block';
+            successMessage.scrollIntoView({ behavior: 'smooth' });
+        } else {
+            errorMessage.style.display = 'block';
+            errorMessage.scrollIntoView({ behavior: 'smooth' });
+        }
+    } catch (error) {
+        console.error('Guardians submission error:', error);
+        loadingMessage.style.display = 'none';
+        errorMessage.style.display = 'block';
+        errorMessage.scrollIntoView({ behavior: 'smooth' });
     }
-} else {
-    errorMessage.style.display = 'block';
-    errorMessage.scrollIntoView({ behavior: 'smooth' });
-}
-} catch (error) {
-    console.error('Guardian submission error:', error);
-    loadingMessage.style.display = 'none';
-    errorMessage.style.display = 'block';
-    errorMessage.scrollIntoView({ behavior: 'smooth' });
-}
-}
-
-// Initialize form
-document.addEventListener('DOMContentLoaded', function() {
-    // Auto-populate data from previous sections
-    const urlParams = new URLSearchParams(window.location.search);
-    const testatorName = urlParams.get('testatorName');
-    
-    if (testatorName) {
-        console.log('Testator name:', testatorName);
-    }
-    
-    // Set up form submission
-    const form = document.getElementById('guardiansForm');
-    form.addEventListener('submit', handleFormSubmission);
-    
-    // Add event listeners for summary updates
-    document.addEventListener('change', updateSummary);
-    
-    // Prevent Enter key submission
-    document.querySelectorAll('input[type="text"], textarea').forEach(input => {
-        input.addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') {
-                e.preventDefault();
-            }
-        });
-    });
 });
 
 // Toggle guardian structure (same vs different)
