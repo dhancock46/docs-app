@@ -839,3 +839,76 @@ function continueToTrusts() {
     
     window.location.href = `trusts.html?${urlParams.toString()}`;
 }
+// Working form submission - add this to the end of the file
+document.addEventListener('DOMContentLoaded', function() {
+    const form = document.getElementById('guardiansForm');
+    
+    // Remove any existing event listeners and add new one
+    form.removeEventListener('submit', handleFormSubmission);
+    
+    form.addEventListener('submit', async function(e) {
+        e.preventDefault();
+        
+        const loadingMessage = document.getElementById('loadingMessage');
+        const successMessage = document.getElementById('successMessage');
+        const errorMessage = document.getElementById('errorMessage');
+        
+        // Hide all messages
+        loadingMessage.style.display = 'none';
+        successMessage.style.display = 'none';
+        errorMessage.style.display = 'none';
+        
+        // Validate form
+        const validation = validateForm();
+        if (!validation.isValid) {
+            alert('Please correct the following errors:\n\n' + validation.errors.join('\n'));
+            return;
+        }
+        
+        // Show loading
+        loadingMessage.style.display = 'block';
+        loadingMessage.scrollIntoView({ behavior: 'smooth' });
+        
+        try {
+            // Collect form data
+            const formData = new FormData(this);
+            const data = Object.fromEntries(formData.entries());
+            
+            // Add document type and section
+            data.documentType = 'will';
+            data.section = 'guardians';
+            
+            // Add URL parameters
+            const urlParams = new URLSearchParams(window.location.search);
+            for (const [key, value] of urlParams) {
+                if (!data[key]) {
+                    data[key] = value;
+                }
+            }
+            
+            const response = await fetch('/submit/guardians', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data)
+            });
+            
+            const result = await response.json();
+            loadingMessage.style.display = 'none';
+            
+            if (result.success) {
+                successMessage.style.display = 'block';
+                successMessage.scrollIntoView({ behavior: 'smooth' });
+            } else {
+                errorMessage.style.display = 'block';
+                errorMessage.scrollIntoView({ behavior: 'smooth' });
+            }
+        } catch (error) {
+            console.error('Guardian submission error:', error);
+            loadingMessage.style.display = 'none';
+            errorMessage.style.display = 'block';
+            errorMessage.scrollIntoView({ behavior: 'smooth' });
+        }
+    });
+});
