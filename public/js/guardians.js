@@ -844,7 +844,6 @@ document.addEventListener('DOMContentLoaded', function() {
     const form = document.getElementById('guardiansForm');
     
     // Remove any existing event listeners and add new one
-    form.removeEventListener('submit', handleFormSubmission);
     
     form.addEventListener('submit', async function(e) {
         e.preventDefault();
