@@ -208,32 +208,18 @@ async function handleFormSubmission(event) {
         const result = await response.json();
         loadingMessage.style.display = 'none';
         
-        if (result.success) {
+  if (result.success) {
     successMessage.style.display = 'block';
     successMessage.scrollIntoView({ behavior: 'smooth' });
-    
-    // Auto-advance to next section after 2 seconds
-    setTimeout(() => {
-        const urlParams = new URLSearchParams(window.location.search);
-        // Add current form data to URL parameters
-        Object.keys(data).forEach(key => {
-            if (typeof data[key] === 'string' || typeof data[key] === 'number') {
-                urlParams.set(key, data[key]);
-            }
-        });
-        
-        window.location.href = `trusts.html?${urlParams.toString()}`;
-    }, 2000);
 } else {
-            errorMessage.style.display = 'block';
-            errorMessage.scrollIntoView({ behavior: 'smooth' });
-        }
-    } catch (error) {
-        console.error('Guardian submission error:', error);
-        loadingMessage.style.display = 'none';
-        errorMessage.style.display = 'block';
-        errorMessage.scrollIntoView({ behavior: 'smooth' });
-    }
+    errorMessage.style.display = 'block';
+    errorMessage.scrollIntoView({ behavior: 'smooth' });
+}
+} catch (error) {
+    console.error('Guardian submission error:', error);
+    loadingMessage.style.display = 'none';
+    errorMessage.style.display = 'block';
+    errorMessage.scrollIntoView({ behavior: 'smooth' });
 }
 
 // Initialize form
