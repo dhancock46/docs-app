@@ -881,7 +881,7 @@ function displayGuardianshipProvisions() {
     provisionsContainer.style.display = 'block';
 }
 // Continue to next section
-function continueToReview() {
+function continueToTrusts() {
     const urlParams = new URLSearchParams(window.location.search);
     
     // Collect current form data
@@ -896,4 +896,4 @@ function continueToReview() {
     });
     
     window.location.href = `trusts.html?${urlParams.toString()}`;
-} 
+}
