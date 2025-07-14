@@ -166,15 +166,12 @@ async function handleFormSubmission(event) {
     errorMessage.style.display = 'none';
     successMessage.style.display = 'none';
     
-    // Validate form
-    const validation = validateForm();
-    if (!validation.isValid) {
-        const errorP = errorMessage.querySelector('p');
-        errorP.textContent = 'Please fix the following issues:\n' + validation.errors.join('\n');
-        errorMessage.style.display = 'block';
-        errorMessage.scrollIntoView({ behavior: 'smooth' });
-        return;
-    }
+   // Validate form
+const validation = validateForm();
+if (!validation.isValid) {
+    alert('Please correct the following errors:\n\n' + validation.errors.join('\n'));
+    return;
+}
     
     // Show loading
     loadingMessage.style.display = 'block';
