@@ -1072,13 +1072,30 @@ if (!validation.isValid) {
        
        loadingMessage.style.display = 'none';
        
-       if (result.success) {
-           successMessage.style.display = 'block';
-           successMessage.scrollIntoView({ behavior: 'smooth' });
-       } else {
-           errorMessage.style.display = 'block';
-           errorMessage.scrollIntoView({ behavior: 'smooth' });
-       }
+      if (result.success) {
+    successMessage.style.display = 'block';
+    successMessage.scrollIntoView({ behavior: 'smooth' });
+    
+    // Auto-advance to next section after 2 seconds with all form data
+    setTimeout(() => {
+        const urlParams = new URLSearchParams(window.location.search);
+        
+        // Add all current form data to URL parameters
+        Object.keys(data).forEach(key => {
+            if (typeof data[key] === 'string' || typeof data[key] === 'number') {
+                urlParams.set(key, data[key]);
+            } else if (Array.isArray(data[key])) {
+                urlParams.set(key, JSON.stringify(data[key]));
+            }
+        });
+        
+        // Navigate to next section with all data preserved
+        window.location.href = `per-rep.html?${urlParams.toString()}`;
+    }, 2000);
+} else {
+    errorMessage.style.display = 'block';
+    errorMessage.scrollIntoView({ behavior: 'smooth' });
+}
    } catch (error) {
        console.error('Remaining estate submission error:', error);
        loadingMessage.style.display = 'none';
