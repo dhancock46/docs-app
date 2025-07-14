@@ -153,39 +153,50 @@ function validateForm() {
     return { isValid: errors.length === 0, errors };
 }
 
-// Form submission - WORKING PATTERN FROM GIFTS
-document.getElementById('guardiansForm').addEventListener('submit', async function(e) {
-    e.preventDefault();
+// Form submission handler
+async function handleFormSubmission(event) {
+    event.preventDefault();
     
     const loadingMessage = document.getElementById('loadingMessage');
-    const successMessage = document.getElementById('successMessage');
     const errorMessage = document.getElementById('errorMessage');
+    const successMessage = document.getElementById('successMessage');
     
-    // Hide all messages initially
+    // Hide all messages
     loadingMessage.style.display = 'none';
-    successMessage.style.display = 'none';
     errorMessage.style.display = 'none';
+    successMessage.style.display = 'none';
     
-    // Show loading message
-    loadingMessage.style.display = 'block';
-    
-    // Collect form data
-    const formData = new FormData(this);
-    const data = Object.fromEntries(formData.entries());
-    
-    // Add document type and section
-    data.documentType = 'will';
-    data.section = 'guardians';
-    
-    // Add URL parameters
-    const urlParams = new URLSearchParams(window.location.search);
-    for (const [key, value] of urlParams) {
-        if (!data[key]) {
-            data[key] = value;
-        }
+    // Validate form
+    const validation = validateForm();
+    if (!validation.isValid) {
+        const errorP = errorMessage.querySelector('p');
+        errorP.textContent = 'Please fix the following issues:\n' + validation.errors.join('\n');
+        errorMessage.style.display = 'block';
+        errorMessage.scrollIntoView({ behavior: 'smooth' });
+        return;
     }
     
+    // Show loading
+    loadingMessage.style.display = 'block';
+    loadingMessage.scrollIntoView({ behavior: 'smooth' });
+    
     try {
+        // Collect form data
+        const formData = new FormData(this);
+        const data = Object.fromEntries(formData.entries());
+        
+        // Add document type and section
+        data.documentType = 'will';
+        data.section = 'guardians';
+        
+        // Add current URL parameters to preserve data flow
+        const urlParams = new URLSearchParams(window.location.search);
+        for (const [key, value] of urlParams) {
+            if (!data[key]) {
+                data[key] = value;
+            }
+        }
+        
         const response = await fetch('/submit/guardians', {
             method: 'POST',
             headers: {
@@ -195,7 +206,6 @@ document.getElementById('guardiansForm').addEventListener('submit', async functi
         });
         
         const result = await response.json();
-        
         loadingMessage.style.display = 'none';
         
         if (result.success) {
@@ -206,11 +216,38 @@ document.getElementById('guardiansForm').addEventListener('submit', async functi
             errorMessage.scrollIntoView({ behavior: 'smooth' });
         }
     } catch (error) {
-        console.error('Guardians submission error:', error);
+        console.error('Guardian submission error:', error);
         loadingMessage.style.display = 'none';
         errorMessage.style.display = 'block';
         errorMessage.scrollIntoView({ behavior: 'smooth' });
     }
+}
+
+// Initialize form
+document.addEventListener('DOMContentLoaded', function() {
+    // Auto-populate data from previous sections
+    const urlParams = new URLSearchParams(window.location.search);
+    const testatorName = urlParams.get('testatorName');
+    
+    if (testatorName) {
+        console.log('Testator name:', testatorName);
+    }
+    
+    // Set up form submission
+    const form = document.getElementById('guardiansForm');
+    form.addEventListener('submit', handleFormSubmission);
+    
+    // Add event listeners for summary updates
+    document.addEventListener('change', updateSummary);
+    
+    // Prevent Enter key submission
+    document.querySelectorAll('input[type="text"], textarea').forEach(input => {
+        input.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+            }
+        });
+    });
 });
 
 // Toggle guardian structure (same vs different)
@@ -741,89 +778,9 @@ function updateSummary() {
 
 summaryDiv.innerHTML = summaryHTML;
 summaryDiv.style.display = 'block';
-displayGuardianshipProvisions();
 }
-// Function to get minor children count and determine singular/plural
-function getMinorChildrenInfo() {
-    const urlParams = new URLSearchParams(window.location.search);
-    const childrenData = urlParams.get('childrenData');
-    
-    if (!childrenData) return { count: 1, isPlural: false }; // Default to singular if no data
-    
-    try {
-        const children = JSON.parse(decodeURIComponent(childrenData));
-        const currentDate = new Date();
-        let minorChildrenCount = 0;
-        
-        for (let child of children) {
-            if (child.birthday) {
-                const birthDate = new Date(child.birthday);
-                const age = Math.floor((currentDate - birthDate) / (365.25 * 24 * 60 * 60 * 1000));
-                if (age < 18) {
-                    minorChildrenCount++;
-                }
-            }
-        }
-        
-        return {
-            count: minorChildrenCount,
-            isPlural: minorChildrenCount !== 1
-        };
-    } catch (error) {
-        console.error('Error parsing children data:', error);
-        return { count: 1, isPlural: false }; // Default to singular if error
-    }
-}
-
-// Function to generate and display guardianship provisions
-function displayGuardianshipProvisions() {
-    const childrenInfo = getMinorChildrenInfo();
-    const isPlural = childrenInfo.isPlural;
-    
-    const childText = isPlural ? 'children' : 'child';
-    const introText = isPlural 
-        ? 'I have given careful attention to the selection of guardians for my minor children. I believe the person or persons I have nominated will provide loving and thoughtful care to my children.'
-        : 'I have given careful attention to the selection of a guardian for my minor child. I believe the person or persons I have nominated will provide loving and thoughtful care to my child.';
-    
-    const ifText = isPlural
-        ? 'If the guardian I have nominated is appointed as guardian, in any capacity, of my minor children:'
-        : 'If the guardian I have nominated is appointed as guardian, in any capacity, of my minor child:';
-    
-    const discretionText = isPlural
-        ? '(a) I want the guardian to have as much discretion in dealing with the person and estate of my minor children as is permissible under applicable law; and'
-        : '(a) I want the guardian to have as much discretion in dealing with the person and estate of my minor child as is permissible under applicable law; and';
-    
-    let provisionsContainer = document.getElementById('guardianshipProvisions');
-    
-    if (!provisionsContainer) {
-        // Create the container after the summary section
-        const summarySection = document.getElementById('guardianSummary').parentElement;
-        const provisionsDiv = document.createElement('div');
-        provisionsDiv.id = 'guardianshipProvisions';
-        provisionsDiv.className = 'form-section';
-        summarySection.appendChild(provisionsDiv);
-        provisionsContainer = provisionsDiv;
-    }
-    
-    provisionsContainer.innerHTML = `
-        <h3>GUARDIANSHIP PROVISIONS</h3>
-        <div class="guardianship-text">
-            <p>${introText} I have made this choice based upon my belief of what is best for my ${childText} and I ask my family to honor my decision.</p>
-            
-            <p>${ifText}</p>
-            
-            <p>${discretionText}</p>
-            
-            <p>(b) Unless required by applicable law, no bond shall be required of such person.</p>
-            
-            <p>(c) Co-guardians must both agree prior to taking any action, if they are both serving. If one co-guardian is unable or unwilling to serve or continue to serve, the other co-guardian shall serve or continue to serve as the sole guardian.</p>
-        </div>
-    `;
-    
-    provisionsContainer.style.display = 'block';
-}
-// Continue to next section
-function continueToTrusts() {
+// Continue to next section  
+function continueToReview() {
     const urlParams = new URLSearchParams(window.location.search);
     
     // Collect current form data
@@ -838,104 +795,4 @@ function continueToTrusts() {
     });
     
     window.location.href = `trusts.html?${urlParams.toString()}`;
-}
-// Working form submission - add this to the end of the file
-document.addEventListener('DOMContentLoaded', function() {
-    const form = document.getElementById('guardiansForm');
-    
-    // Remove any existing event listeners and add new one
-    
-    form.addEventListener('submit', async function(e) {
-        e.preventDefault();
-        
-        const loadingMessage = document.getElementById('loadingMessage');
-        const successMessage = document.getElementById('successMessage');
-        const errorMessage = document.getElementById('errorMessage');
-        
-        // Hide all messages
-        loadingMessage.style.display = 'none';
-        successMessage.style.display = 'none';
-        errorMessage.style.display = 'none';
-        
-        // Validate form
-        const validation = validateForm();
-        if (!validation.isValid) {
-            alert('Please correct the following errors:\n\n' + validation.errors.join('\n'));
-            return;
-        }
-        
-        // Show loading
-        loadingMessage.style.display = 'block';
-        loadingMessage.scrollIntoView({ behavior: 'smooth' });
-        
-        try {
-            // Collect form data
-            const formData = new FormData(this);
-            const data = Object.fromEntries(formData.entries());
-            
-            // Add document type and section
-            data.documentType = 'will';
-            data.section = 'guardians';
-            
-            // Add URL parameters
-            const urlParams = new URLSearchParams(window.location.search);
-            for (const [key, value] of urlParams) {
-                if (!data[key]) {
-                    data[key] = value;
-                }
-            }
-            
-            const response = await fetch('/submit/guardians', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(data)
-            });
-            
-            const result = await response.json();
-            loadingMessage.style.display = 'none';
-            
-            if (result.success) {
-                successMessage.style.display = 'block';
-                successMessage.scrollIntoView({ behavior: 'smooth' });
-            } else {
-                errorMessage.style.display = 'block';
-                errorMessage.scrollIntoView({ behavior: 'smooth' });
-            }
-        } catch (error) {
-            console.error('Guardian submission error:', error);
-            loadingMessage.style.display = 'none';
-            errorMessage.style.display = 'block';
-            errorMessage.scrollIntoView({ behavior: 'smooth' });
-        }
-    });
-});
-// Simple working submission function
-function submitAndContinue() {
-    // Basic validation
-    const structure = document.querySelector('input[name="guardianStructure"]:checked');
-    if (!structure) {
-        alert('Please select how you want to structure the guardianship');
-        return;
-    }
-    
-    if (structure.value === 'same') {
-        const guardianType = document.querySelector('input[name="guardianTypeSame"]:checked');
-        const guardianName = document.getElementById('guardianSameName').value.trim();
-        
-        if (!guardianType) {
-            alert('Please select guardian type');
-            return;
-        }
-        if (!guardianName) {
-            alert('Please enter the guardian name');
-            return;
-        }
-    }
-    
-    // Show success message
-    const successMessage = document.getElementById('successMessage');
-    successMessage.style.display = 'block';
-    successMessage.scrollIntoView({ behavior: 'smooth' });
 }
