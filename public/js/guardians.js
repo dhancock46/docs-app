@@ -221,6 +221,7 @@ async function handleFormSubmission(event) {
     errorMessage.style.display = 'block';
     errorMessage.scrollIntoView({ behavior: 'smooth' });
 }
+}
 
 // Initialize form
 document.addEventListener('DOMContentLoaded', function() {
